@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>sgt-sdk demo</title>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<style type="text/css">
+#infos {
+	color: #6C0;
+	line-height: 24px;
+	font-size: 18px;
+}
+#error {
+	font-size: 14px;
+	color: #F00;
+	line-height: 24px;
+	text-decoration: underline;
+}
+</style>
+	<script src="sgtcloud-html5-sdk.min.js"></script>
+	<!--<script src="sgtcloud-html5-sdk.min.js"></script>-->
+    <script src="demo.js"></script>
+</head>
+<body>
+<h1>sgt-sdk-demo</h1>
+<label style="color: red">注：使用sdk一定要按照步骤来，所有接口都要先完成第一步，第二步看情况，有些接口需要角色信息和id的需要第二步</label>
+
+<br>
+<br>
+<label id="infos">获取的数据和信息:</label>
+<br>
+<label id="error">错误信息:</label>
+<h3>第一步 配置</h3>
+请先输入appid、channelId，然后点击配置<br>
+<input id="appid" name="appid" type="text" value="html5_demo2015" placeholder="请输入appid">
+<input id="channelId" name="channelId" type="text" value="" placeholder="请输入channelId">
+<input type="button" name="设置" id="configbtn" value="设置" onClick="setconfig()">
+<h3>第二步 登陆/注册——获取userdata、playServerData</h3>
+<input id="regname" name="regname" type="text" value="" placeholder="请输入name（用户名）">
+<input id="regpassword" name="regpassword" type="text" value="" placeholder="请输入password（密码）">
+<br><br>
+<input name="reg" type="button" value="注册" onClick="register()">
+<input name="log" type="button" value="登陆" onClick="login()">
+<input name="reg" type="button" value="一键登录" onClick="quicklogin()">
+<h3>第三步 获取角色信息/创建角色</h3>
+<input id="playname" name="playname" type="text" value="" placeholder="请输入角色名称">
+<input id="playlevel" name="playlevel" type="text" value="" placeholder="请输入角色初始等级">
+<input id="playgender" name="playgender" type="text" value="" placeholder="请输入角色性别（0/1）">
+<input id="playmoney" name="playmoney" type="text" value="" placeholder="请输入角色初始金币">
+<input name="createplayer" type="button" value="创建角色" onClick="createplayer()">
+<br><br>
+<input name="getplayer" type="button" value="获取角色" onClick="getplayer()">
+<h3>第四步 获取其他接口信息和应用</h3>
+<input name="qiandao" type="button" value="获取签到数据" onClick="checkin()">
+<input name="datatask" type="button" value="日常任务" onClick="listDailyTasks()">
+<br>
+<br>
+<input name="getemail" type="button" value="邮件信息" onClick="getMails()">
+<input name="shops" type="button" value="商城业务" onClick="shops()">
+<br>
+<br>
+<input id="playmsgid" name="playmsgid" type="text" value="" placeholder="请输入通道key">
+<input id="playmsgtype" name="playmsgtype" type="text" value="" placeholder="请输入消息类型">
+<input id="playmsgtxt" name="playmsgtxt" type="text" value="" placeholder="请输入消息内容">
+<input name="sendmsg" type="button" value="发送消息" onClick="sendmsg()">
+<br>
+<br>
+<input id="rplaymsgid" name="rplaymsgid" type="text" value="" placeholder="请输入通道key">
+<input name="getmsg" type="button" value="获取消息" onClick="getmsg()">
+<br>
+<br>
+<input id="playdatakey" name="playdatakey" type="text" value="" placeholder="请输入 数据key">
+<input id="playdatavalue" name="playdatavalue" type="text" value="" placeholder="请输入 数据value">
+<input name="setdateValue" type="button" value="向服务器存储一个数据" onClick="setdataValue()">
+<br>
+<input id="rplaydatakey" name="rplaydatakey" type="text" value="" placeholder="请输入 数据key">
+<input name="getvalue" type="button" value="向服务器取一个数据" onClick="getvalue()">
+<br>
+<br>
+<input id="feedbackTitle" name="feedbackTitle" type="text" value="" placeholder="输入标题">
+<input id="feedbackContent" name="feedbackContent" type="text" value="" placeholder="输入内容">
+<input name="sendFeedback" type="button" value="发送表单" onClick="sendFeedback()">
+<input name="listFeedback" type="button" value="枚举表单" onClick="listFeedback()">
+
+</body>
+</html>
