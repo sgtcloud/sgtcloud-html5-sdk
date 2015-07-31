@@ -1,5 +1,5 @@
 # sgtcloud-html5-sdk
-A html5 out-of-box sdk for damn cool mbaas www.sgtloud.cn
+A html5 out-of-box sdk for damn cool mbaas www.sgtcloud.cn
 
 You can download the full sdks and docs from http://pan.baidu.com/s/19tXYV#dir/path=%2FSGT .
 
