@@ -34,6 +34,7 @@
  * 开发者 by rasen
  *@module SgtApi
  */
+ bug
 (function () {
     var MyQuery = (function () {
         var MyQuery = function () {
