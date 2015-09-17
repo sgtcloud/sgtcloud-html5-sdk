@@ -341,6 +341,10 @@ SgtApi.extend(SgtApi["AccountService"], {
      * @return callback
      */
     "login": function (callback) {
+        console.log(this);
+        console.log(SgtApi.AccountService);
+        console.log(SgtApi.AccountService == this);
+        console.log(SgtApi.AccountService === this);
         var that = this;
         var backClient = new $JsonRpc({ajaxUrl: SgtApi["config"]["Appgateway"] + '/user'});// this.appRouteData.address+'/'+sgt.AppId+
         backClient.call(
