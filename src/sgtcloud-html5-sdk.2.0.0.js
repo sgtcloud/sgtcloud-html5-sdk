@@ -397,6 +397,7 @@ SgtApi.entity = {
          * @default null
          */
         this.content = null,
+
         /**
          * 提交时间
          * @property createTime
@@ -404,6 +405,7 @@ SgtApi.entity = {
          * @default null
          */
             this.createTime = (new Date()).getTime(),
+
         /**
          * 处理完返回给提交者的信息
          * @property feedbackInfo
@@ -411,6 +413,7 @@ SgtApi.entity = {
          * @default null
          */
             this.feedbackInfo = null,
+
         /**
          * 主键
          * @property id
@@ -418,6 +421,7 @@ SgtApi.entity = {
          * @default null
          */
             this.id = 0,
+
         /**
          * 提交者ID
          * @property senderPlayerId
@@ -425,6 +429,7 @@ SgtApi.entity = {
          * @default null
          */
             this.senderPlayerId = null,
+
         /**
          * 状态
          * @property status
@@ -432,6 +437,7 @@ SgtApi.entity = {
          * @default null
          */
             this.status = 1,
+
         /**
          * 目标角色ID
          * @property targetPlayerId
@@ -439,6 +445,7 @@ SgtApi.entity = {
          * @default null
          */
             this.targetPlayerId = null,
+
         /**
          * 标题
          * @property title
@@ -446,6 +453,7 @@ SgtApi.entity = {
          * @default null
          */
             this.title = null,
+
         /**
          * 类型
          * @property type
@@ -454,8 +462,9 @@ SgtApi.entity = {
          */
             this.type = 1;
     },
+
     /**
-     * Achievement对象
+     * 成就
      * @constructor
      */
     Achievement: function () {
@@ -464,80 +473,562 @@ SgtApi.entity = {
          * @type {number}
          */
         this.currentProgress = 0;
+
         /**
          * 自定义条件，客户端使用
          * @type {null}
          */
         this.customCondition = null;
+
         /**
          * 成就描述
          * @type {null}
          */
         this.description = null;
+
         /**
          * 完成成就的进度数
          * @type {number}
          */
         this.goal = 0;
+
         /**
          * 主键id
          * @type {number}
          */
         this.id = 0;
+
         /**
          * 开启成就的等级
          * @type {number}
          */
         this.level = 0;
+
         /**
          * 名称
          * @type {null}
          */
         this.name = null;
+
         /**
          * 是否允许当前进度超越最大进度，默认不允许
          * @type {boolean}
          */
         this.overMaxProgress = false;
+
         /**
          * 前置成就ID
          * @type {null}
          */
         this.preAchievementId = null;
+
         /**
          * 奖励
          * @type {null}
          */
         this.reward = null;
+
         /**
          * 是否允许成就完成后仍然显示在列表,默认显示，0为不显示，1为显示
          * @type {number}
          */
         this.showDone = 0;
+
         /**
          * 状态（禁用0，启用1）
          * @type {number}
          */
         this.status = 0;
+
         /**
          * 成就类型
          * @type {null}
          */
         this.type = null;
+
         /**
          * 是否在前置成就没完成之前同时更新后置任务，默认不允许
          * @type {boolean}
          */
         this.updateUnfinished = false;
+
         /**
          * 成就的可见性 [0 不可见，1 可见]
          * @type {number}
          */
         this.visibility = 0;
+    },
 
+    /**
+     * 公告
+     * @constructor
+     */
+    Announcement: function () {
+        /**
+         * 公告内容
+         * @type {null}
+         */
+        this.content = null;
+
+        /**
+         * 结束时间
+         * @type {number}
+         */
+        this.endTime = 0;
+
+        /**
+         * 开始时间
+         * @type {number}
+         */
+        this.startTime = 0;
+
+        /**
+         * 状态 1 启用 0 禁用 默认索引，不能为空
+         * @type {number}
+         */
+        this.state = 0;
+
+        /**
+         * 公告标题
+         * @type {null}
+         */
+        this.title = null;
+
+        /**
+         * 公告类型 默认索引，不能为空
+         * @type {number}
+         */
+        this.type = 0;
+
+        /**
+         * 主键,UUID类型，由应用自动生成
+         * @type {null}
+         */
+        this.uuid = null;
+
+        /**
+         * 公告版本 默认索引，不能为空
+         * @type {number}
+         */
+        this.version = 0;
+    },
+
+    /**
+     * 黑名单
+     * @constructor
+     */
+    Blacklist: function () {
+
+        /**
+         * 自定义黑名单ID
+         * @type {null}
+         */
+        this.blacklistId = null;
+
+        /**
+         * 渠道ID
+         * @type {null}
+         */
+        this.channelId = null;
+
+        /**
+         * 描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 类型
+         * @type {number}
+         */
+        this.type = 0;
+    },
+
+    /**
+     * BOSS
+     * @constructor
+     */
+    Boss: function () {
+
+        /**
+         * 血量
+         * @type {number}
+         */
+        this.hp = 0;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 强度
+         * @type {null}
+         */
+        this.intensity = null;
+
+        /**
+         * 名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 奖励
+         * @type {null}
+         */
+        this.rewards = null;
+
+        /**
+         * 类型
+         * @type {number}
+         */
+        this.type = 0;
+    },
+
+    /**
+     * 活动
+     * @constructor
+     */
+    Campaign: function () {
+
+        /**
+         * 关联的boss
+         * @type {null}
+         */
+        this.bossIds = null;
+
+        /**
+         * 活动简介
+         * @type {null}
+         */
+        this.brief = null;
+
+        /**
+         * 结束时间
+         * @type {number}
+         */
+        this.endTime = 0;
+
+        /**
+         * 图标
+         * @type {null}
+         */
+        this.icon = null;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 关联的排行榜
+         * @type {null}
+         */
+        this.leaderboardIds = null;
+
+        /**
+         * 活动进度
+         * @type {number}
+         */
+        this.progress = 0;
+
+        /**
+         * 奖励内容数组
+         * @type {null}
+         */
+        this.rewardContent = null;
+
+        /**
+         * 关联的奖励主键，多个使用逗号分开
+         * @type {null}
+         */
+        this.rewards = null;
+
+        /**
+         * 开始时间
+         * @type {number}
+         */
+        this.startTime = 0;
+
+        /**
+         * 标题
+         * @type {null}
+         */
+        this.title = null;
+
+        /**
+         * 活动类型
+         * @type {null}
+         */
+        this.type = null;
+    },
+
+    /**
+     * 活动详情
+     * @constructor
+     */
+    CampaignDetail: function () {
+
+        /**
+         * 关联的活动
+         * @type {null}
+         */
+        this.campaign = null;
+
+        /**
+         * 关联的活动ID
+         * @type {number}
+         */
+        this.campaignId = 0;
+
+        /**
+         * 活动描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 活动台本
+         * @type {null}
+         */
+        this.script = null;
+    },
+
+    /**
+     * 公共通道
+     * @constructor
+     */
+    Channel: function () {
+
+        /**
+         * 通道ID
+         * @type {null}
+         */
+        this.channelId = null;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 通道名称
+         * @type {null}
+         */
+        this.name = null;
+    },
+
+    /**
+     * 充值记录
+     * @constructor
+     */
+    ChargeLog: function () {
+
+        /**
+         * 充值金额
+         * @type {number}
+         */
+        this.chargeCost = 0;
+
+        /**
+         * 充值计费点ID
+         * @type {null}
+         */
+        this.chargePointId = null;
+
+        /**
+         * 充值说明
+         * @type {null}
+         */
+        this.chargeText = null;
+
+        /**
+         * 充值时间
+         * @type {number}
+         */
+        this.chargeTime = 0;
+
+        /**
+         * 是否首冲
+         * @type {number}
+         */
+        this.firstCharge = 0;
+
+        /**
+         * id
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 备注信息
+         * @type {null}
+         */
+        this.notes = null;
+
+        /**
+         * 充值订单ID
+         * @type {null}
+         */
+        this.orderId = null;
+
+        /**
+         * 角色ID
+         * @type {null}
+         */
+        this.playerId = null;
+
+        /**
+         * 购买请求token，google play验证充值时需要使用到
+         * @type {null}
+         */
+        this.purchaseToken = null;
+
+        /**
+         * 充值结果
+         * @type {number}
+         */
+        this.result = 0;
+
+        /**
+         * 充值渠道
+         * @type {null}
+         */
+        this.storeName = null;
+
+        /**
+         * 累计充值金额
+         * @type {number}
+         */
+        this.totalChargeCost = 0;
+    },
+
+    /**
+     * 计费点
+     * @constructor
+     */
+    ChargePoint: function () {
+
+        /**
+         * 充值获得的物品数量
+         * @type {number}
+         */
+        this.amount = 0;
+
+        /**
+         * 计费代码
+         * @type {null}
+         */
+        this.billingCode = null;
+
+        /**
+         * 自定义ID
+         * @type {null}
+         */
+        this.customId = null;
+
+        /**
+         * 描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 充值额外获得的奖励物品数量
+         * @type {number}
+         */
+        this.extraAmount = 0;
+
+        /**
+         * 首次充值获得的奖励物品数量
+         * @type {number}
+         */
+        this.firstChargeRewardAmount = 0;
+
+        /**
+         * id
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 充值金额（RMB：单位是分）
+         * @type {number}
+         */
+        this.money = 0;
+
+        /**
+         * 名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 其他自定义参数
+         * @type {null}
+         */
+        this.other = null;
+
+        /**
+         * 当前用户已经购买此计费点的次数，仅用于VO，不需要持久化到mysql
+         * @type {number}
+         */
+        this.purchanseTimes = 0;
+
+        /**
+         * 是否推荐
+         * @type {number}
+         */
+        this.recommendation = 0;
+
+        /**
+         * 是否可见或启用
+         * @type {number}
+         */
+        this.status = 0;
+
+        /**
+         * 充值次数限制，没有次数限制时可约定为-1
+         * @type {number}
+         */
+        this.timesLimit = 0;
+
+        /**
+         * 类型，充值获取的物品类型，如元宝、道具、月卡等
+         * @type {null}
+         */
+        this.type = null;
+
+        /**
+         * VIP积分增长值
+         * @type {number}
+         */
+        this.vipScore = 0;
     }
 
-}
+};
 
 
 /**
@@ -577,7 +1068,7 @@ SgtApi.doRPC = function (name, data, url, callback) {
             return callback(false, error.error.message);
         }
     });
-}
+};
 
 
 /**
@@ -921,7 +1412,7 @@ SgtApi.AccountService = {
             }
         );
     }
-}
+};
 
 /**
  * 角色处理逻辑业务接口
@@ -6487,6 +6978,185 @@ SgtApi.SgpPlayerService = {
     'uploadSave': function (save, callback) {
         var name = 'uploadSave';
         var data = [save];
+        SgtApi.doRPC(name, data, this.url, callback);
+    }
+}
+
+
+/**
+ * 时间戳业务接口
+ * @module  TimestampService
+ * @type {{}|*}
+ */
+SgtApi.TimestampService = {
+    url: null,
+    /**
+     * 初始化接口
+     * @method init
+     * @param playid{string} 角色id
+     * @return {boolean}
+     */
+    "init": function () {
+        if (SgtApi.AccountService.playServerData == null) {
+            console.log('There was an error:', '没获取角色服务器信息！');
+            return false;
+        }
+        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/timestamp.do';
+        return true;
+    },
+
+    /**
+     * 获取当前节点服务器的时间戳
+     * @param callback
+     */
+    'getCurrentTimestamp': function (callback) {
+        var name = 'getCurrentTimestamp';
+        var data = [];
+        SgtApi.doRPC(name, data, this.url, callback);
+    },
+
+    /**
+     * 获取一个时间戳 返回key对应的时间戳
+     * @param sgpPlayerId
+     * @param key
+     * @param callback
+     */
+    'getTimestamp': function (sgpPlayerId, key, callback) {
+        var name = 'getTimestamp';
+        var data = [sgpPlayerId, key];
+        SgtApi.doRPC(name, data, this.url, callback);
+    },
+
+    /**
+     * 获取用户的所有时间戳 返回所有的时间戳
+     * @param sgpPlayerId
+     * @param callback
+     */
+    'getTimestamps': function (sgpPlayerId, callback) {
+        var name = 'getTimestamps';
+        var data = [sgpPlayerId];
+        SgtApi.doRPC(name, data, this.url, callback);
+    },
+
+    /**
+     * 移除一个时间戳
+     * @param sgpPlayerId
+     * @param key
+     * @param callback
+     */
+    'removeTimestamp': function (sgpPlayerId, key, callback) {
+        var name = 'removeTimestamp';
+        var data = [sgpPlayerId, key];
+        SgtApi.doRPC(name, data, this.url, callback);
+    },
+
+    /**
+     * 批量移除时间戳
+     * @param sgpPlayerId
+     * @param keys
+     * @param callback
+     */
+    'removeTimestamps': function (sgpPlayerId, keys, callback) {
+        var name = 'removeTimestamps';
+        var data = [sgpPlayerId, keys];
+        SgtApi.doRPC(name, data, this.url, callback);
+    },
+
+    /**
+     * 添加时间戳
+     * @param sgpPlayerId
+     * @param key
+     * @param timestamp
+     * @param callback
+     */
+    'saveTimestamp': function (sgpPlayerId, key, timestamp, callback) {
+        var name = 'saveTimestamp';
+        var data = [sgpPlayerId, key, timestamp];
+        SgtApi.doRPC(name, data, this.url, callback);
+    },
+
+    /**
+     * 创建/更新一个带偏移的时间戳 创建/更新成功则返回时间戳，失败则抛出异常
+     * @param sgpPlayerId
+     * @param key
+     * @param offset
+     * @param callback
+     */
+    'updateTimestamp': function (sgpPlayerId, key, offset, callback) {
+        var name = 'updateTimestamp';
+        var data;
+        if (arguments.length == 3) {
+            data = [sgpPlayerId, key];
+            SgtApi.doRPC(name, data, this.url, offset);
+        } else {
+            data = [sgpPlayerId, key, offset]
+            SgtApi.doRPC(name, data, this.url, callback);
+        }
+    },
+
+    /**
+     * 批量创建/更新带偏移的时间戳 创建/更新成功则返回时间戳，失败则抛出异常
+     * @param sgpPlayerId
+     * @param keys
+     * @param offset
+     * @param callback
+     */
+    'updateTimestamps': function (sgpPlayerId, keys, offset, callback) {
+        var name = 'updateTimestamps';
+        var data;
+        if (arguments.length == 3) {
+            data = [sgpPlayerId, keys];
+            SgtApi.doRPC(name, data, this.url, offset);
+        } else {
+            data = [sgpPlayerId, key, offset]
+            SgtApi.doRPC(name, data, this.url, callback);
+        }
+    }
+};
+
+/**
+ *
+ * @module  VersionDetailService
+ * @type {{}|*}
+ */
+SgtApi.VersionDetailService = {
+    url: null,
+    /**
+     * 初始化接口
+     * @method init
+     * @param playid{string} 角色id
+     * @return {boolean}
+     */
+    "init": function () {
+        if (SgtApi.AccountService.playServerData == null) {
+            console.log('There was an error:', '没获取角色服务器信息！');
+            return false;
+        }
+        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/versiondetail.do';
+        return true;
+    },
+
+
+    /**
+     * 根据appid和当前版本信息获取升级信息
+     * @param appid
+     * @param currentVersion
+     * @param callback
+     */
+    'checkUpdate': function (appid, currentVersion, callback) {
+        var name = 'checkUpdate';
+        var data = [appid, currentVersion];
+        SgtApi.doRPC(name, data, this.url, callback);
+    },
+
+    /**
+     * 获取某个appid所有的版本信息
+     * @param appid
+     * @param callback
+     */
+    'getAllVersions': function (appid, callback) {
+        var name = 'getAllVersions';
+        var data = [appid];
         SgtApi.doRPC(name, data, this.url, callback);
     }
 }
