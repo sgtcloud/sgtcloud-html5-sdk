@@ -147,6 +147,25 @@ SgtApi.entity = {
          * @default null
          */
         this.updateTime = null;
+
+        /**
+         * 系统自动匹配注册（根据IMEI，ICCID，mac）
+         * @type {number}
+         */
+        User.prototype.AUTO = 0;
+
+        /**
+         * 注册类型，普通注册，使用用户名和密码注册
+         * @type {number}
+         */
+        User.prototype.MANUAL = 0;
+
+        /**
+         * 使用手机号码注册
+         * @type {number}
+         */
+        User.prototype.PHONENUMBER = 0;
+
     }
     ,
 
@@ -294,6 +313,19 @@ SgtApi.entity = {
          * @default null
          */
         this.playerId = null;
+
+        /**
+         * 允许下载
+         * @type {number}
+         */
+        Save.prototype.ALLOW_DOWN = 0;
+
+        /**
+         * 不允许下载
+         * @type {number}
+         */
+        Save.prototype.DENY_DOWN = 0;
+
     }
     ,
 
@@ -309,77 +341,148 @@ SgtApi.entity = {
          * @type {string}
          * @default null
          */
-        this.attachment = null,
+        this.attachment = null;
+
+
+        /**
+         * 附件状态 0为未领取，1为领取，默认为0
+         * @type {number}
+         */
+        this.attachStatus = 0;
+
         /**
          * 内容
          * @property content
          * @type {string}
          * @default null
          */
-            this.content = null,
+        this.content = null;
+
         /**
          * 发送者ID
          * @property fromId
          * @type {string}
          * @default null
          */
-            this.fromId = null,
+        this.fromId = null;
+
         /**
          * 发送者名称
          * @property fromName
          * @type {string}
          * @default null
          */
-            this.fromName = null,
+        this.fromName = null;
+
         /**
          * 主键
          * @property id
          * @type {string}
          * @default null
          */
-            this.id = null,
+        this.id = null;
+
         /**
          * 发送时间
          * @property sendTime
          * @type {string}
          * @default null
          */
-            this.sendTime = (new Date()).getTime(),
+        this.sendTime = (new Date()).getTime();
+
         /**
          * 状态
          * @property status
          * @type {string}
          * @default null
          */
-            this.status = SgtApi.config.Mail_TYPE_NOREAD,
+        this.status = SgtApi.config.Mail_TYPE_NOREAD;
+
         /**
          * 标题
          * @property title
          * @type {string}
          * @default null
          */
-            this.title = null,
+        this.title = null;
+
         /**
          * 接收者ID
          * @property toId
          * @type {string}
          * @default null
          */
-            this.toId = null,
+        this.toId = null;
+
         /**
          * 接收者名称
          * @property toName
          * @type {string}
          * @default null
          */
-            this.toName = null,
+        this.toName = null;
+
         /**
          * 类型
          * @property type
          * @type {string}
          * @default null
          */
-            this.type = 0;
+        this.type = 0;
+
+        /**
+         * 删除状态 已经删除 -1
+         * @type {number}
+         */
+        Mail.prototype.DELETED = 0;
+
+        /**
+         * 已读状态 值为1
+         * @type {number}
+         */
+        Mail.prototype.READ = 0;
+
+        /**
+         * 附件未领取
+         * @type {number}
+         */
+        Mail.prototype.STATUS_ATTACH_NO_PICK = 0;
+
+        /**
+         * 附件已经领取
+         * @type {number}
+         */
+        Mail.prototype.STATUS_ATTACH_PICKED = 0;
+
+        /**
+         * 邮件类型：好友邀请邮件 职位3
+         * @type {number}
+         */
+        Mail.prototype.TYPE_INVITATE_FRIENDSHIP = 0;
+
+        /**
+         * 邮件类型：普通邮件 值为 0
+         * @type {number}
+         */
+        Mail.prototype.TYPE_NORMAL = 0;
+
+        /**
+         * 邮件类型：系统通知邮件 值为1
+         * @type {number}
+         */
+        Mail.prototype.TYPE_SYSTEM = 0;
+
+        /**
+         * 邮件类型：系统奖励邮件 值为2
+         * @type {number}
+         */
+        Mail.prototype.TYPE_SYSTEM_REWARD = 0;
+
+        /**
+         * 未读状态 值为0
+         * @type {number}
+         */
+        Mail.prototype.UNREAD = 0;
     }
     ,
 
@@ -396,7 +499,7 @@ SgtApi.entity = {
          * @type {string}
          * @default null
          */
-        this.content = null,
+        this.content = null;
 
         /**
          * 提交时间
@@ -404,7 +507,7 @@ SgtApi.entity = {
          * @type {long}
          * @default null
          */
-            this.createTime = (new Date()).getTime(),
+        this.createTime = (new Date()).getTime();
 
         /**
          * 处理完返回给提交者的信息
@@ -412,7 +515,7 @@ SgtApi.entity = {
          * @type {string}
          * @default null
          */
-            this.feedbackInfo = null,
+        this.feedbackInfo = null;
 
         /**
          * 主键
@@ -420,7 +523,7 @@ SgtApi.entity = {
          * @type {int}
          * @default null
          */
-            this.id = 0,
+        this.id = 0;
 
         /**
          * 提交者ID
@@ -428,7 +531,7 @@ SgtApi.entity = {
          * @type {string}
          * @default null
          */
-            this.senderPlayerId = null,
+        this.senderPlayerId = null;
 
         /**
          * 状态
@@ -436,7 +539,7 @@ SgtApi.entity = {
          * @type {int}
          * @default null
          */
-            this.status = 1,
+        this.status = 1;
 
         /**
          * 目标角色ID
@@ -444,7 +547,7 @@ SgtApi.entity = {
          * @type {string}
          * @default null
          */
-            this.targetPlayerId = null,
+        this.targetPlayerId = null;
 
         /**
          * 标题
@@ -452,7 +555,7 @@ SgtApi.entity = {
          * @type {string}
          * @default null
          */
-            this.title = null,
+        this.title = null;
 
         /**
          * 类型
@@ -460,7 +563,25 @@ SgtApi.entity = {
          * @type {int}
          * @default null
          */
-            this.type = 1;
+        this.type = 1;
+
+        /**
+         * 待处理
+         * @type {number}
+         */
+        Ticket.prototype.STATUS_OF_PENDING = 0;
+
+        /**
+         * 已处理
+         * @type {number}
+         */
+        Ticket.prototype.STATUS_OF_PROCESSED = 0;
+
+        /**
+         * 一般类型
+         * @type {number}
+         */
+        Ticket.prototype.TYPE_OF_NORMAL = 0;
     },
 
     /**
@@ -557,6 +678,49 @@ SgtApi.entity = {
          * @type {number}
          */
         this.visibility = 0;
+
+        /**
+         * 已达成
+         * @type {number}
+         */
+        Achievement.prototype.PROGRESS_DONE = 0;
+
+        /**
+         * 已经领取奖励
+         * @type {number}
+         */
+        Achievement.prototype.PROGRESS_GOT_REWARD = 0;
+
+        /**
+         * 未达成
+         * @type {number}
+         */
+        Achievement.prototype.PROGRESS_NOT_ACHIEVED = 0;
+
+        /**
+         * 不可用
+         * @type {number}
+         */
+        Achievement.prototype.STATUS_DISABLE = 0;
+
+        /**
+         * 可用，开启状态
+         * @type {number}
+         */
+        Achievement.prototype.STATUS_ENABLE = 0;
+
+        /**
+         * 成就不可见
+         * @type {number}
+         */
+        Achievement.prototype.VISIBILITY_INVISIBLE = 0;
+
+        /**
+         * 成就可见
+         * @type {number}
+         */
+        Achievement.prototyep.VISIBILITY_VISIBLE = 0;
+
     },
 
     /**
@@ -611,6 +775,24 @@ SgtApi.entity = {
          * @type {number}
          */
         this.version = 0;
+
+        /**
+         * 公告类型 活动公告（1）
+         * @type {number}
+         */
+        Announcement.prototype.ACTIVITY = 0;
+
+        /**
+         * 公告类型 商城公告（2）
+         * @type {number}
+         */
+        Announcement.prototype.BULLETIN = 0;
+
+        /**
+         * 公告类型 维护公告（3）
+         * @type {number}
+         */
+        Announcement.prototype.MAINTAIN = 0;
     },
 
     /**
@@ -654,6 +836,18 @@ SgtApi.entity = {
          * @type {number}
          */
         this.type = 0;
+
+        /**
+         * 正常
+         * @type {number}
+         */
+        Blacklist.prototype.TYPE_OF_NORMAL = 0;
+
+        /**
+         * 路由黑名单
+         * @type {number}
+         */
+        Blacklist.prototype.TYPE_OF_ROUTE = 0;
     },
 
     /**
@@ -697,6 +891,18 @@ SgtApi.entity = {
          * @type {number}
          */
         this.type = 0;
+
+        /**
+         * 私有boss，只能自己打
+         * @type {number}
+         */
+        Boss.prototype.PRIVATE = 0;
+
+        /**
+         * 公共 、世界boss
+         * @type {number}
+         */
+        Boss.prototype.PUBLIC = 0;
     },
 
     /**
@@ -1026,7 +1232,757 @@ SgtApi.entity = {
          * @type {number}
          */
         this.vipScore = 0;
+    },
+
+    /**
+     * 签到板
+     * @constructor
+     */
+    CheckinBoard: function () {
+
+        /**
+         * 自定义签到板ID
+         * @type {null}
+         */
+        this.checkinBoardId = null;
+
+        /**
+         * 有效结束时间
+         * @type {number}
+         */
+        this.endTime = 0;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 最大签到次数
+         * @type {number}
+         */
+        this.maxCheckinTimes = 0;
+
+        /**
+         * 名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 签到状态重置时间，默认为0点整
+         * @type {number}
+         */
+        this.resetTime = 0;
+
+        /**
+         * 奖励
+         * @type {null}
+         */
+        this.reward = null;
+
+        /**
+         * 有效开始时间
+         * @type {number}
+         */
+        this.startTime = 0;
+
+        /**
+         * tag
+         * @type {null}
+         */
+        this.tag = null;
+
+        /**
+         * 类型
+         * @type {number}
+         */
+        this.type = 0;
+
+        /**
+         * 日历签到
+         * @type {number}
+         */
+        CheckinBoard.prototype.CHECKIN_TYPE_CALENDAR = 0;
+
+        /**
+         * 每日签到
+         * @type {number}
+         */
+        CheckinBoard.prototype.CHECKIN_TYPE_DAILY = 0;
+
+        /**
+         * 月签到，每月一次
+         * @type {number}
+         */
+        CheckinBoard.prototype.CHECKIN_TYPE_MONTH = 0;
+
+        /**
+         * 一般签到
+         * @type {number}
+         */
+        CheckinBoard.prototype.CHECKIN_TYPE_NORMAL = 0;
+
+        /**
+         * 周签到，每周一次
+         * @type {number}
+         */
+        CheckinBoard.prototype.CHECKIN_TYPE_WEEKS = 0;
+
+        /**
+         * 同 CHECKIN_TYPE_DAILY 每日签到
+         * @type {number}
+         */
+        CheckinBoard.protptype.DAILY = 0;
+
+        /**
+         * 同 CHECKIN_TYPE_NORMAL 一般签到
+         * @type {number}
+         */
+        CheckinBoard.prototype.NOMARL = 0;
+    },
+
+    /**
+     * 签到返回VO
+     * @constructor
+     */
+    CheckinResult: function () {
+
+        /**
+         * 最大累计次数
+         * @type {number}
+         */
+        this.accumlateCount = 0;
+
+        /**
+         * 签到板ID
+         * @type {null}
+         */
+        this.checkinBoardId = null;
+
+        /**
+         * 连续签到次数
+         * @type {number}
+         */
+        this.countinuousCount = 0;
+
+        /**
+         * 上一次签到时间
+         * @type {number}
+         */
+        this.lastCheckinTime = 0;
+
+        /**
+         * 奖励
+         * @type {null}
+         */
+        this.rewards = null;
+    },
+
+    /**
+     * 日常任务
+     * @constructor
+     */
+    DailyTask: function () {
+
+        /**
+         * 任务可用状态，1为可用，0为不可用，默认为1
+         * @type {number}
+         */
+        this.available = 1;
+
+        /**
+         * 关联活动ID（预留）
+         * @type {number}
+         */
+        this.campaignId = 0;
+
+        /**
+         * 当前任务进度
+         * @type {number}
+         */
+        this.currentProgress = 0;
+
+        /**
+         * 任务描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 任务结束时间
+         * @type {number}
+         */
+        this.endTime = 0;
+
+        /**
+         * 任务总进度
+         * @type {number}
+         */
+        this.goal = 0;
+
+        /**
+         * id
+         * @type {null}
+         */
+        this.id = null;
+
+        /**
+         * 限制等级，最低可做该任务的等级
+         * @type {number}
+         */
+        this.minLevel = 0;
+
+        /**
+         * 任务名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 后置任务ID
+         * @type {null}
+         */
+        this.nextTaskId = null;
+
+        /**
+         * 是否允许当前进度超越最大进度，默认不允许
+         * @type {boolean}
+         */
+        this.overMaxProgress = false;
+
+        /**
+         * 前置任务ID
+         * @type {null}
+         */
+        this.preTaskId = null;
+
+        /**
+         * 任务奖励
+         * @type {null}
+         */
+        this.reward = null;
+
+        /**
+         * 是否允许任务完成后仍然显示在列表,默认显示，false为不显示，true为显示
+         * @type {boolean}
+         */
+        this.showDone = true;
+
+        /**
+         * 任务开始时间
+         * @type {number}
+         */
+        this.startTime = 0;
+
+        /**
+         * 当前任务状态
+         * @type {number}
+         */
+        this.status = 0;
+
+        /**
+         * 任务类型
+         * @type {null}
+         */
+        this.type = null;
+
+        /**
+         * 是否在前置任务没完成之前同时更新后置任务，默认不允许
+         * @type {boolean}
+         */
+        this.updateUnfinished = false;
+
+        /**
+         * 任务进度状态，已经完成，还未领取奖励的状态
+         * @type {number}
+         */
+        DailyTask.prototype.STATUS_PROGRESS_COMPLETED = 0;
+
+        /**
+         * 任务进度状态，已经完成，并且已经领取奖励的状态
+         * @type {number}
+         */
+        DailyTask.prototype.STATUS_PROGRESS_GOT_REWARD = 0;
+
+        /**
+         * 任务进度状态，未完成，在任务进行中的状态
+         * @type {number}
+         */
+        DailyTask.prototype.STATUS_PROGRESS_UNFINISHED = 0;
+
+        /**
+         * 任务状态，可用的
+         * @type {number}
+         */
+        DailyTask.prototype.STATUS_TASK_AVAILABLE = 0;
+
+        /**
+         * 任务状态，不可用的
+         * @type {number}
+         */
+        DailyTask.prototype.STATUS_TASK_UNAVAILABLE = 0;
+    },
+
+    /**
+     * 第三方回调封装bean
+     * @constructor
+     */
+    ExternalCallbackBean: function () {
+
+        /**
+         * APPID
+         * @type {null}
+         */
+        this.appId = null;
+
+        /**
+         * 订单内容
+         * @type {null}
+         */
+        this.content = null;
+
+        /**
+         * 创建时间
+         * @type {number}
+         */
+        this.createTime = 0;
+
+        /**
+         * did
+         * @type {null}
+         */
+        this.did = null;
+
+        /**
+         * 第三方请求的header
+         * @type {null}
+         */
+        this.header = null;
+
+        /**
+         * 第三方请求的http状态
+         * @type {number}
+         */
+        this.httpCode = 0;
+
+        /**
+         * id
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 角色ID
+         * @type {null}
+         */
+        this.playerId = null;
+
+        /**
+         * 服务器ID
+         * @type {null}
+         */
+        this.serverId = null;
+
+        /**
+         * 物品类型
+         * @type {null}
+         */
+        this.type = null;
+
+        /**
+         * 订单更新时间
+         * @type {number}
+         */
+        this.updateTime = 0;
+
+        /**
+         * 用户ID
+         * @type {null}
+         */
+        this.userId = null;
+    },
+
+    /**
+     * 文件的基本属性
+     * @constructor
+     */
+    FileItem: function () {
+
+        /**
+         * 文件名
+         * @type {null}
+         */
+        this.fileName = null;
+
+        /**
+         * 图片属性 帧数
+         * @type {number}
+         */
+        this.frames = 0;
+
+        /**
+         * 图片属性 高度
+         * @type {number}
+         */
+        this.height = 0;
+
+        /**
+         * 最后上传时间戳
+         * @type {number}
+         */
+        this.lastUploadTime = 0;
+
+        /**
+         * 相对于根路径的path
+         * @type {null}
+         */
+        this.path = null;
+
+        /**
+         * 图片属性 图片类型（JPG/PNG/JPEG/GIF）
+         * @type {null}
+         */
+        this.picType = null;
+
+        /**
+         * 文件大小
+         * @type {number}
+         */
+        this.size = 0;
+
+        /**
+         * 文件类型，文件or文件夹
+         * @type {null}
+         */
+        this.type = null;
+
+        /**
+         * 图片属性 宽度
+         * @type {number}
+         */
+        this.width = 0;
+    },
+
+    /**
+     * 好友
+     * @constructor
+     */
+    Friendship: function () {
+
+        /**
+         * 主键
+         * @type {null}
+         */
+        this.id = null;
+
+        /**
+         * 好友接受方ID
+         * @type {null}
+         */
+        this.receiveId = null;
+
+        /**
+         * 好友申请方ID
+         * @type {null}
+         */
+        this.sendId = null;
+
+        /**
+         * 好友关系状态
+         * @type {number}
+         */
+        this.status = 0;
+
+        /**
+         * 好友关系状态 好友(1)
+         * @type {number}
+         */
+        Friendship.prototype.FRIEND = 0;
+
+        /**
+         * 拒绝添加好友的状态(2)
+         * @type {number}
+         */
+        Friendship.prototype.REFUSE = 0;
+
+        /**
+         * STATE_DELETE
+         * @type {number}
+         */
+        Friendship.prototype.STATE_DELETE = 0;
+
+        /**
+         * 好友关系状态 未确认(0)
+         * @type {number}
+         */
+        Friendship.prototype.UN_CONFIRM = 0;
+    },
+
+    /**
+     * 好友关系扩展
+     * @constructor
+     */
+    FriendshipExtra: function () {
+
+        /**
+         * 扩展数据
+         * @type {null}
+         */
+        this.extra = null;
+
+        /**
+         * 好友关系
+         * @type {null}
+         */
+        this.friendship = null;
+
+        /**
+         * 角色信息
+         * @type {null}
+         */
+        this.sgpPlayer = null;
+    },
+
+    /**
+     * 抽奖
+     * @constructor
+     */
+    GachaBox: function () {
+
+        /**
+         * 连抽价格
+         * @type {number}
+         */
+        this.continuousPrice = 0;
+
+        /**
+         * 描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 有效期，从yyyyMMddHHMM到yyyyMMddHHMM 精确到分钟
+         * @type {number}
+         */
+        this.endValidTime = 0;
+
+        /**
+         * 主键 自增
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 图片
+         * @type {null}
+         */
+        this.img = null;
+
+        /**
+         * 初始品质，默认0
+         * @type {number}
+         */
+        this.initQuality = 0;
+
+        /**
+         * 瞬时属性，保存该GachaBox下所有奖励
+         * @type {number}
+         */
+        this.lotteries = null;
+
+        /**
+         * 最大限制品质，默认0不限制
+         * @type {number}
+         */
+        this.maxQuality = 0;
+
+        /**
+         * 名称（同一服务器不能重复）
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 价格
+         * @type {number}
+         */
+        this.price = 0;
+
+        /**
+         * 有效期，从yyyyMMddHHMM到yyyyMMddHHMM 精确到分钟
+         * @type {number}
+         */
+        this.startValidTime = 0;
+
+        /**
+         * 时间/人限制，为每个角色SgpPlayerId创建一个时间戳，在指定的时间区间内只能抽一次奖， 否则抛出异常，并且包含timeLimitErrorMsg
+         * @type {number}
+         */
+        this.timeLimit = 0;
+
+        /**
+         * 当用户满足时间/人限制时，抛出的异常中指定的信息
+         * @type {null}
+         */
+        this.timeLimitErrorMsg = null;
+
+        /**
+         * 次数/人限制，为每个角色创建一个计数器，累计用户的总gacha次数，当小于该次数时不受影响， 否则抛出异常，并且包含totalLimitErrorMsg
+         * @type {number}
+         */
+        this.totalLimit = 0;
+
+        /**
+         * 当用户满足次数/人限制时，抛出的异常中指定的信息
+         * @type {null}
+         */
+        this.totalLimitErrorMsg = null;
+
+        /**
+         * 类型
+         * @type {null}
+         */
+        this.type = null;
+    },
+
+    /**
+     *
+     * @constructor
+     */
+    GachaBoxResult: function () {
+
+        /**
+         *
+         * @type {null}
+         */
+        this.prizes = null;
+
+        /**
+         *
+         * @type {number}
+         */
+        this.quality = 0;
+    },
+
+    /**
+     * 礼包、兑换码
+     * @constructor
+     */
+    Gift: function () {
+
+        /**
+         * 兑换码集合key，可以是redis中的key
+         * @type {null}
+         */
+        this.codeId = null;
+
+        /**
+         * 生成的兑换码的前缀
+         * @type {null}
+         */
+        this.codePrefix = null;
+
+        /**
+         * 礼包描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 兑换结束时间
+         * @type {number}
+         */
+        this.endTime = 0;
+
+        /**
+         * 限制兑换级别
+         * @type {number}
+         */
+        this.level = 0;
+
+        /**
+         * 邮件模板自定义ID
+         * @type {null}
+         */
+        this.mailTemplateCustomId = null;
+
+        /**
+         * 礼包名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 人均兑奖次数限制
+         * @type {number}
+         */
+        this.redeemLimit = 0;
+
+        /**
+         * 奖品
+         * @type {null}
+         */
+        this.reward = null;
+
+        /**
+         * 兑换开始时间
+         * @type {number}
+         */
+        this.startTime = 0;
+
+        /**
+         * 主键 gift ID
+         * @type {null}
+         */
+        this.uuid = null;
+
+        /**
+         * VIP等级限制
+         * @type {number}
+         */
+        this.vip = 0;
+    },
+
+    /**
+     * 礼包/兑换码 兑换记录
+     * @constructor
+     */
+    GiftRecord: function () {
+
+        /**
+         * 兑换码
+         * @type {null}
+         */
+        this.code = null;
+
+        /**
+         * 礼包ID
+         * @type {null}
+         */
+        this.giftId = null;
+
+        /**
+         * 角色ID
+         * @type {null}
+         */
+        this.playerId = null;
+
+        /**
+         * 兑奖时间
+         * @type {number}
+         */
+        this.ticketTime = 0;
+
+        /**
+         * 主键UUID
+         * @type {null}
+         */
+        this.uuid = null;
     }
+
 
 };
 
@@ -1072,6 +2028,17 @@ SgtApi.doRPC = function (name, data, url, callback) {
 
 
 /**
+ * Sgt  上下文
+ * @type {{userData: null, playerServerData: null, playerData: null}}
+ */
+SgtApi.context = {
+    userData: null,
+    playServerData: null, //当前角色服务器信息
+    playerData: null    //当前角色信息
+};
+
+
+/**
  * SGT SDK 配置文件
  */
 SgtApi.config = {
@@ -1110,41 +2077,6 @@ SgtApi.config = {
     // * @default "yoedge2014"
     // */
     "UserPassword": "",
-    ///**
-    // * 签到板ID
-    // * @property CheckInBoardId
-    // * @type {string}
-    // * @default "checkin"
-    // */
-    "CheckInBoardId": "",
-    ///**
-    // * 已读邮件
-    // * @property Mail_TYPE_NOREAD
-    // * @type {int}
-    // * @default 0
-    // */
-    "Mail_TYPE_NOREAD": 0,
-    ///**
-    // * 已读邮件
-    // * @property Appgateway
-    // * @type {int}
-    // * @default 1
-    // */
-    "Mail_TYPE_READ": 1,
-    ///**
-    // * 活动公告
-    // * @property Announce_TYPE_ACT
-    // * @type {int}
-    // * @default 1
-    // */
-    "Announce_TYPE_ACT": 1,
-    ///**
-    // * 商城公告
-    // * @property Announce_TYPE_MAL
-    // * @type {int}
-    // * @default 2
-    // */
-    "Announce_TYPE_MAL": 2
 };
 
 /**
@@ -1177,8 +2109,6 @@ SgtApi.init = function (json) {
  * @type {{}|*}
  */
 SgtApi.AccountService = {
-    userData: null,
-    playServerData: null,
     /**
      * 快速注册登录
      * @method quickLogin
@@ -1229,7 +2159,7 @@ SgtApi.AccountService = {
             'login',
             [username, password],
             function (result) {
-                that.userData = result['result'];
+                SgtApi.context.userData = result['result'];
                 that.getPlayServer(callback);
                 console.log('success');
             },
@@ -1257,7 +2187,7 @@ SgtApi.AccountService = {
             'register',
             [user],
             function (result) {
-                that.userData = result.result;
+                SgtApi.context.userData = result.result;
                 that.getPlayServer(callback);
             },
             function (error) {
@@ -1393,18 +2323,17 @@ SgtApi.AccountService = {
         if (SgtApi.config.ChannelId == null) {
             return callback(false, 'channelId未设置！');
         }
-        var that = this;
         var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + "/route"});
         backClient.call(
             'route',
             [SgtApi.config.AppId, {
-                'userId': this.userData.userid,
-                'createTime': this.userData.createTime,
+                'userId': SgtApi.context.userData.userid,
+                'createTime': SgtApi.context.userData.createTime,
                 'channelId': SgtApi.config.ChannelId
             }],
             function (result) {
-                that.playServerData = result.result;
-                return callback(true, that.userData);
+                SgtApi.context.playServerData = result.result;
+                return callback(true, SgtApi.context.userData);
             },
             function (error) {
                 console.log('There was an error.error[route]:', error.error);
@@ -1414,6 +2343,7 @@ SgtApi.AccountService = {
     }
 };
 
+
 /**
  * 角色处理逻辑业务接口
  *
@@ -1422,26 +2352,21 @@ SgtApi.AccountService = {
  */
 SgtApi.PlayerService = {
     url: null,
-    userData: null,
-    playServerData: null,//当前角色服务器信息
-    playerData: null,//当前角色信息
     /**
      * 初始化接口
      * @method init
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.userData == null) {
+        if (SgtApi.context.userData == null) {
             console.log('There was an error:', '没有取得用户数据！');
             return false;
         }
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.userData = SgtApi.AccountService.userData;
-        this.playServerData = SgtApi.AccountService.playServerData;
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
         return true;
     },
     /**
@@ -1452,9 +2377,9 @@ SgtApi.PlayerService = {
      * @return callback
      */
     "create": function (playerinfo, callback) {
-        playerinfo.lastLoginTime = this.userData.lastLoginTime;
-        playerinfo.serverId = this.playServerData.id;
-        playerinfo.userId = this.userData.userid;
+        playerinfo.lastLoginTime = SgtApi.context.userData.lastLoginTime;
+        playerinfo.serverId = SgtApi.context.playServerData.id;
+        playerinfo.userId = SgtApi.context.userData.userid;
 
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
@@ -1788,7 +2713,7 @@ SgtApi.PlayerExtraService = {
      * @return {boolean}
      */
     init: function (playerId) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -1797,9 +2722,7 @@ SgtApi.PlayerExtraService = {
             return false;
         }
         this.playerId = playerId;
-
-        this.userData = SgtApi.AccountService.userData;
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
         return true;
     },
     /**
@@ -1987,11 +2910,11 @@ SgtApi.Achievement = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
         return true;
     },
     /**
@@ -2270,12 +3193,12 @@ SgtApi.AnnouncementService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.userData = SgtApi.AccountService.userData;
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/announcement.do';
+        this.userData = SgtApi.context.userData;
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/announcement.do';
         return true;
     },
     /**
@@ -2310,18 +3233,17 @@ SgtApi.AnnouncementService = {
  */
 SgtApi.CampaignService = {
     url: null,
-    playerData: null,
     /**
      * 初始化接口
      * @method init
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
         return true;
     },
     /**
@@ -2491,7 +3413,7 @@ SgtApi.CheckinService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -2501,7 +3423,7 @@ SgtApi.CheckinService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/checkinboard.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/checkinboard.do';
         return true;
     },
     /**
@@ -2743,7 +3665,7 @@ SgtApi.DailyTaskService = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -2753,7 +3675,7 @@ SgtApi.DailyTaskService = {
             console.log('There was an error:playid is null');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
         return true;
     },
     /**
@@ -2943,7 +3865,7 @@ SgtApi.Task = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -2953,7 +3875,7 @@ SgtApi.Task = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
         return true;
     },
     /**
@@ -3463,7 +4385,7 @@ SgtApi.FriendshipService = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -3472,7 +4394,7 @@ SgtApi.FriendshipService = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
         return true;
     },
     /**
@@ -3803,7 +4725,7 @@ SgtApi.FriendshipExtra = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -3812,7 +4734,7 @@ SgtApi.FriendshipExtra = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
         return true;
     },
     /**
@@ -3941,11 +4863,11 @@ SgtApi.BlackListService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/blacklist.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/blacklist.do';
         return true;
     },
     /**
@@ -4009,7 +4931,7 @@ SgtApi.GachaBoxService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -4018,7 +4940,7 @@ SgtApi.GachaBoxService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
         return true;
     },
     /**
@@ -4203,7 +5125,7 @@ SgtApi.LeaderboardService = {
      * @return {boolean}
      */
     "init": function (playerData) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -4212,7 +5134,7 @@ SgtApi.LeaderboardService = {
         }
         this.playerData = playerData;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
         return true;
     },
     /**
@@ -4391,7 +5313,7 @@ SgtApi.MailService = {
      * @return {boolean}
      */
     "init": function (playerData) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -4400,7 +5322,7 @@ SgtApi.MailService = {
         }
         this.playerData = playerData;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/mail.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/mail.do';
         return true;
     },
     /**
@@ -4625,7 +5547,7 @@ SgtApi.Notification = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -4635,7 +5557,7 @@ SgtApi.Notification = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/notification.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/notification.do';
         return true;
     },
     /**
@@ -4690,7 +5612,7 @@ SgtApi.Purchase = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -4700,7 +5622,7 @@ SgtApi.Purchase = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/purchase.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/purchase.do';
         return true;
     },
     /**
@@ -4844,7 +5766,7 @@ SgtApi.StoreService = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -4853,7 +5775,7 @@ SgtApi.StoreService = {
             return false;
         }
         this.playid = playid;
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/store.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/store.do';
         return true;
     },
     /**
@@ -5045,11 +5967,11 @@ SgtApi.ChargePoint = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/chargepoint.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/chargepoint.do';
         return true;
     },
     /**
@@ -5102,7 +6024,7 @@ SgtApi.ChargePoint = {
  */
 SgtApi.BossService = {
     url: null,
-    playerData: null,
+    playerid: null,
     /**
      * 初始化接口
      * @method init
@@ -5110,16 +6032,16 @@ SgtApi.BossService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        if (playerData == null) {
+        if (playerid == null) {
             return false;
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/boss.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/boss.do';
         return true;
     },
     /**
@@ -5264,11 +6186,11 @@ SgtApi.FileStorage = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/filestorage.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/filestorage.do';
         return true;
     },
     /**
@@ -5330,7 +6252,7 @@ SgtApi.GiftCode = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -5340,7 +6262,7 @@ SgtApi.GiftCode = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/giftcode.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/giftcode.do';
         return true;
     },
     /**
@@ -5489,7 +6411,7 @@ SgtApi.PrivateChannel = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -5500,7 +6422,7 @@ SgtApi.PrivateChannel = {
             return false;
         }
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/privatechannel.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/privatechannel.do';
         return true;
     },
     /**
@@ -5628,11 +6550,11 @@ SgtApi.PublicChannelService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/publicchannel.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/publicchannel.do';
         return true;
     },
     /**
@@ -5850,11 +6772,11 @@ SgtApi.DelegateDid = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.AccountService.userData == null) {
+        if (SgtApi.context.userData == null) {
             console.log('There was an error:', '没获取用户信息！');
             return false;
         }
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -5864,7 +6786,7 @@ SgtApi.DelegateDid = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/delegatedid.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/delegatedid.do';
         return true;
     },
     /**
@@ -5879,7 +6801,7 @@ SgtApi.DelegateDid = {
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
             'createDid',
-            [SgtApi.AccountService.playServerData.id, SgtApi.userData.userid, this.playid],
+            [SgtApi.context.playServerData.id, SgtApi.context.userData.userid, this.playid],
             function (result) {
                 return callback(true, result.result);
             },
@@ -5920,7 +6842,7 @@ SgtApi.DelegateDid = {
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
             'queryByCondition',
-            [SgtApi.AccountService.playServerData.id, this.playid],
+            [SgtApi.context.playServerData.id, this.playid],
             function (result) {
                 return callback(true, result.result);
             },
@@ -5945,11 +6867,11 @@ SgtApi.StructuredDataService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/structureddata.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/structureddata.do';
         return true;
     },
     /**
@@ -6477,7 +7399,7 @@ SgtApi.TicketService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6486,7 +7408,7 @@ SgtApi.TicketService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/ticket.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/ticket.do';
         return true;
     },
     /**
@@ -6555,7 +7477,7 @@ SgtApi.ErrorReportService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6564,7 +7486,7 @@ SgtApi.ErrorReportService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/errorreport.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/errorreport.do';
         return true;
     },
 
@@ -6598,7 +7520,7 @@ SgtApi.InvitationCodeService = {
      * @return {boolean}
      */
     "init": function (playerId) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6607,7 +7529,7 @@ SgtApi.InvitationCodeService = {
         }
         this.playerId = playerId;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/invitationcode.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/invitationcode.do';
         return true;
     },
 
@@ -6704,16 +7626,17 @@ SgtApi.PaymentCallbackService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/paymentcallback.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/paymentcallback.do';
         return true;
     },
 
     /**
      * 充值业务回调
+     * @method doCallback
      * @param transaction
      * @param callback
      */
@@ -6737,15 +7660,16 @@ SgtApi.RouterService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/router.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/router.do';
         return true;
     },
     /**
      * 获取当前服务器时间戳
+     * @method getCurrentTimestamp
      * @param callback
      */
     'getCurrentTimestamp': function (callback) {
@@ -6756,6 +7680,7 @@ SgtApi.RouterService = {
 
     /**
      * 获取注册或登录的服务器 （随机返回）
+     * @method getRegisterServer
      * @param appId
      * @param callback
      */
@@ -6767,6 +7692,7 @@ SgtApi.RouterService = {
 
     /**
      * 批量获取服务器信息
+     * @method getServerList
      * @param appId
      * @param callback
      */
@@ -6778,6 +7704,7 @@ SgtApi.RouterService = {
 
     /**
      * 默认获取服务器信息方法（由策略决定）
+     * @method route
      * @param appId
      * @param map
      */
@@ -6804,7 +7731,7 @@ SgtApi.SgpPlayerService = {
      * @return {boolean}
      */
     "init": function (playerId) {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6813,12 +7740,13 @@ SgtApi.SgpPlayerService = {
         }
         this.playerId = playerId;
 
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
         return true;
     },
 
     /**
      * 创建一个角色
+     * @Method create
      * @param player
      * @param callback
      */
@@ -6830,6 +7758,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 通过playerId删除角色及相关信息 包括签到、活动、boss、排行榜、好友、抽奖
+     * @Method deleteSgpPlayerByPlayerId
      * @param callback
      */
     'deleteSgpPlayerByPlayerId': function (callback) {
@@ -6840,6 +7769,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 下载存档
+     * @Method downloadSave
      * @param callback
      */
     'downloadSave': function (callback) {
@@ -6850,6 +7780,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 根据最后登陆时间查找角色
+     * @Method getByLastLoginTime
      * @param lastLoginTime
      * @param start
      * @param limit
@@ -6862,6 +7793,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 根据角色名查找角色
+     * @Method getByName
      * @param _name
      * @param start
      * @param limit
@@ -6875,6 +7807,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 根据用户ID查找角色
+     * @Method getByUserId
      * @param userId
      * @param callback
      */
@@ -6886,6 +7819,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 获取指定角色的好友上限
+     * @Method getFriendsMaxNumber
      * @param sgpPlayerId
      * @param callback
      */
@@ -6897,6 +7831,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 通过用户ID查找其中的一个角色
+     * @Method getOneByUserId
      * @param userId
      */
     'getOneByUserId': function (userId, callback) {
@@ -6907,6 +7842,9 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 通过自定义ID获取SgpPlayer
+     * @Method getSgpPlayerByCustomId
+     * @param customId
+     * @param callback
      */
     'getSgpPlayerByCustomId': function (customId, callback) {
         var name = 'getSgpPlayerByCustomId';
@@ -6916,6 +7854,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 通过ID获取SgpPlayer
+     * @Method getSgpPlayerById
      * @param callback
      */
     'getSgpPlayerById': function (callback) {
@@ -6925,7 +7864,8 @@ SgtApi.SgpPlayerService = {
     },
 
     /**
-     *随机返回若干个最近登录的sgpplayer
+     * 随机返回若干个最近登录的sgpplayer
+     * @Method searchPlayersByLastLogin
      * @param limit
      * @param callback
      */
@@ -6937,6 +7877,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 根据条件过滤并随机查询若干个最近登录的sgpplayer
+     * @Method searchPlayersByLastLogin
      * @param lastLoginTime
      * @param limit
      * @param excludePlayerIds
@@ -6950,6 +7891,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 设置指定角色的好友上限
+     * @Method setFriendsMaxNumber
      * @param sgpPlayerId
      * @param number
      */
@@ -6961,6 +7903,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 更新角色信息
+     * @Method update
      * @param player
      * @param callback
      */
@@ -6972,6 +7915,7 @@ SgtApi.SgpPlayerService = {
 
     /**
      * 上传存档
+     * @Method uploadSave
      * @param save
      * @param callback
      */
@@ -6993,20 +7937,20 @@ SgtApi.TimestampService = {
     /**
      * 初始化接口
      * @method init
-     * @param playid{string} 角色id
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/timestamp.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/timestamp.do';
         return true;
     },
 
     /**
      * 获取当前节点服务器的时间戳
+     * @Method getCurrentTimestamp
      * @param callback
      */
     'getCurrentTimestamp': function (callback) {
@@ -7017,6 +7961,7 @@ SgtApi.TimestampService = {
 
     /**
      * 获取一个时间戳 返回key对应的时间戳
+     * @Method getTimestamp
      * @param sgpPlayerId
      * @param key
      * @param callback
@@ -7029,6 +7974,7 @@ SgtApi.TimestampService = {
 
     /**
      * 获取用户的所有时间戳 返回所有的时间戳
+     * @Method getTimestamps
      * @param sgpPlayerId
      * @param callback
      */
@@ -7040,6 +7986,7 @@ SgtApi.TimestampService = {
 
     /**
      * 移除一个时间戳
+     * @Method removeTimestamp
      * @param sgpPlayerId
      * @param key
      * @param callback
@@ -7052,6 +7999,7 @@ SgtApi.TimestampService = {
 
     /**
      * 批量移除时间戳
+     * @Method removeTimestamps
      * @param sgpPlayerId
      * @param keys
      * @param callback
@@ -7064,6 +8012,7 @@ SgtApi.TimestampService = {
 
     /**
      * 添加时间戳
+     * @Method saveTimestamp
      * @param sgpPlayerId
      * @param key
      * @param timestamp
@@ -7077,6 +8026,7 @@ SgtApi.TimestampService = {
 
     /**
      * 创建/更新一个带偏移的时间戳 创建/更新成功则返回时间戳，失败则抛出异常
+     * @Method updateTimestamp
      * @param sgpPlayerId
      * @param key
      * @param offset
@@ -7096,6 +8046,7 @@ SgtApi.TimestampService = {
 
     /**
      * 批量创建/更新带偏移的时间戳 创建/更新成功则返回时间戳，失败则抛出异常
+     * @Method updateTimestamps
      * @param sgpPlayerId
      * @param keys
      * @param offset
@@ -7124,21 +8075,21 @@ SgtApi.VersionDetailService = {
     /**
      * 初始化接口
      * @method init
-     * @param playid{string} 角色id
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.AccountService.playServerData == null) {
+        if (SgtApi.context.playServerData == null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.AccountService.playServerData.address + '/' + SgtApi.config.AppId + '/versiondetail.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/versiondetail.do';
         return true;
     },
 
 
     /**
      * 根据appid和当前版本信息获取升级信息
+     * @Method checkUpdate
      * @param appid
      * @param currentVersion
      * @param callback
@@ -7151,6 +8102,7 @@ SgtApi.VersionDetailService = {
 
     /**
      * 获取某个appid所有的版本信息
+     * @Method getAllVersions
      * @param appid
      * @param callback
      */
