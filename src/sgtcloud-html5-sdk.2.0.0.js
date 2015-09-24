@@ -3294,23 +3294,38 @@ SgtApi.AccountService = {
      * @param callback
      * @return callback
      */
-    "register": function (user, callback) {
+    "register": function (user, captcha, callback) {
         SgtApi.config.UserName = user.userName;
         SgtApi.config.UserPassword = user.password;
         var that = this;
         var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + '/user'});
-        backClient.call(
-            'register',
-            [user],
-            function (result) {
-                SgtApi.context.userData = result.result;
-                that.getPlayServer(callback);
-            },
-            function (error) {
-                console.log('There was an error[register]:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+        if (arguments.length === 2) {
+            backClient.call(
+                'register',
+                [user],
+                function (result) {
+                    SgtApi.context.userData = result.result;
+                    that.getPlayServer(callback);
+                },
+                function (error) {
+                    console.log('There was an error[register]:', error.error);
+                    return callback(false, error.error.message);
+                }
+            );
+        } else if (arguments.length === 3) {
+            backClient.call(
+                'register',
+                [user, captcha],
+                function (result) {
+                    SgtApi.context.userData = result.result;
+                    that.getPlayServer(callback);
+                },
+                function (error) {
+                    console.log('There was an error[register]:', error.error);
+                    return callback(false, error.error.message);
+                }
+            );
+        }
     }
     ,
     /**
@@ -3456,7 +3471,21 @@ SgtApi.AccountService = {
                 return callback(false, error.error.message);
             }
         );
+    },
+
+    /**
+     * 发送手机验证码短信
+     * @param smobile
+     * @param appName
+     * @param callback
+     * @constructor
+     */
+    SendMessage: function (smobile, appName, callback) {
+        var name = 'SendMessage';
+        var data = [smobile, appName];
+        SgtApi.doRPC(name, data, this.url, callback);
     }
+
 };
 
 
