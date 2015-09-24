@@ -1981,6 +1981,1108 @@ SgtApi.entity = {
          * @type {null}
          */
         this.uuid = null;
+    },
+
+    /**
+     * 商城物品
+     * @constructor
+     */
+    Item: function () {
+
+
+        /**
+         * 物品数量
+         * @type {number}
+         */
+        this.amount = 0;
+
+        /**
+         * 自定义物品ID
+         * @type {null}
+         */
+        this.customId = null;
+
+        /**
+         * 物品描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 物品ID
+         * @type {null}
+         */
+        this.itemId = null;
+
+        /**
+         * 购买物品冷却时间(单位：秒)，默认为0，表示可以连续购买
+         * @type {number}
+         */
+        this.itemPurchaseCd = 0;
+
+        /**
+         * 最大购买次数
+         * @type {number}
+         */
+        this.maxPurchanseTimes = 0;
+
+        /**
+         * 名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 其他，可以放一个json字符串
+         * @type {null}
+         */
+        this.other = null;
+
+        /**
+         * 角色购买冷却时间(单位：秒)
+         * @type {number}
+         */
+        this.playerPurchaseCd = 0;
+
+        /**
+         * 价格
+         * @type {number}
+         */
+        this.price = 0;
+
+        /**
+         * 价格单位
+         * @type {null}
+         */
+        this.priceUnit = null;
+
+        /**
+         * 品质
+         * @type {number}
+         */
+        this.quality = 0;
+
+        /**
+         * 状态 [禁用 0 启用 1]
+         * @type {number}
+         */
+        this.status = 0;
+
+        /**
+         * 商城ID，即商城的storeId字段值
+         * @type {null}
+         */
+        this.storeId = null;
+
+        /**
+         * 物品类型
+         */
+        this.type = nul;
+
+        /**
+         * 权重
+         * @type {number}
+         */
+        this.weight = 0;
+
+        /**
+         * 状态：禁用
+         * @type {number}
+         */
+        Item.prototype.DISABLED = 0;
+
+        /**
+         * 状态：启用
+         * @type {number}
+         */
+        Item.prototype.ENABLED = 0;
+
+        /**
+         * 物品类型：充值
+         * @type {null}
+         */
+        Item.prototype.TYPE_OF_CHARGE = null;
+
+        /**
+         * 物品类型：内容关卡
+         * @type {null}
+         */
+        Item.prototype.TYPE_OF_LEVEL = null;
+
+        /**
+         * 物品类型：默认货币
+         * @type {null}
+         */
+        Item.prototype.TYPE_OF_MONEY = null;
+
+        /**
+         * 物品类型：道具
+         * @type {null}
+         */
+        Item.prototype.TYPE_OF_PROPS = null;
+
+        /**
+         * 物品类型：复活
+         * @type {null}
+         */
+        Item.prototype.TYPE_OF_RESURRECTION = null;
+
+        /**
+         * 物品类型：VIP资格
+         * @type {null}
+         */
+        Item.prototype.TYPE_OF_VIP = null;
+
+        /**
+         * 价格单位：人民币
+         * @type {null}
+         */
+        Item.prototype.UNIT_OF_CN_YUAN = null;
+
+        /**
+         * 价格单位：钻石
+         * @type {null}
+         */
+        Item.prototype.UNIT_OF_DIAMOND = null;
+
+        /**
+         * 价格单位：金币
+         * @type {null}
+         */
+        Item.prototype.UNIT_OF_GOLDENCOIN = null;
+
+        /**
+         * 价格单位：日元
+         * @type {null}
+         */
+        Item.prototype.UNIT_OF_JP_YUAN = null;
+
+        /**
+         * 价格单位：默认货币
+         * @type {null}
+         */
+        Item.prototype.UNIT_OF_MONEY = null;
+
+        /**
+         * 价格单位：美元
+         * @type {null}
+         */
+        Item.prototype.UNIT_OF_US_DOLLAR = null;
+    },
+
+    /**
+     * 排行榜
+     * @constructor
+     */
+    LeaderBoard: function () {
+
+        /**
+         * 活动ID
+         * @type {null}
+         */
+        this.activityId = null;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 自定义排行榜ID
+         * @type {null}
+         */
+        this.leaderId = null;
+
+        /**
+         * 名称
+         * @type {null}
+         */
+        this.name = null;
+    },
+
+    /**
+     * 排行榜详情
+     * @constructor
+     */
+    LeaderBoardScore: function () {
+
+        /**
+         * 排位
+         * @type {number}
+         */
+        this.index = 0;
+
+        /**
+         * 角色信息
+         * @type {null}
+         */
+        this.player = null;
+
+        /**
+         * 分数
+         * @type {number}
+         */
+        this.score = 0;
+    },
+
+    /**
+     * 奖品
+     * @constructor
+     */
+    Lottery: function () {
+
+        /**
+         * 修正值
+         * @type {number}
+         */
+        this.balance = 0;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 奖品名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 奖品内容
+         * @type {null}
+         */
+        this.prize = null;
+
+        /**
+         * 品质
+         * @type {number}
+         */
+        this.quality = 0;
+
+        /**
+         * 关联的GachaBox id
+         * @type {number}
+         */
+        this.relatedGachaBox = 0;
+
+        /**
+         * 权值
+         * @type {number}
+         */
+        this.weight = 0;
+    },
+
+    /**
+     *
+     * @constructor
+     */
+    MailsCollection: function () {
+
+        /**
+         * 已读邮件集合
+         * @type {null}
+         */
+        this.readedMails = null;
+
+        /**
+         * 未读邮件集合
+         * @type {null}
+         */
+        this.unreadMails = null;
+    },
+
+    /**
+     * 邮件模板
+     * @constructor
+     */
+    MailTemplate: function () {
+
+        /**
+         * 附件
+         * @type {null}
+         */
+        this.attachment = null;
+
+        /**
+         * 内容
+         * @type {null}
+         */
+        this.content = null;
+
+        /**
+         * 自定义ID，用于关联
+         * @type {null}
+         */
+        this.customId = null;
+
+        /**
+         * 模板说明
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * id
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 标题
+         * @type {null}
+         */
+        this.title = null;
+    },
+
+    /**
+     * 公共消息
+     * @constructor
+     */
+    Message: function () {
+
+        /**
+         * 所属通道ID
+         * @type {null}
+         */
+        this.channelId = null;
+
+        /**
+         * 消息内容
+         * @type {null}
+         */
+        this.content = null;
+
+        /**
+         * 消息创建时间
+         * @type {number}
+         */
+        this.createTime = 0;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 消息标题
+         * @type {null}
+         */
+        this.title = null;
+
+        /**
+         * 消息类型
+         * @type {null}
+         */
+        this.type = null;
+    },
+
+    /**
+     * 用户商城购买记录
+     * @constructor
+     */
+    Order: function () {
+
+        /**
+         * 订单总金额
+         * @type {number}
+         */
+        this.aggregateAmount = 0;
+
+        /**
+         * 数量，默认为1
+         * @type {number}
+         */
+        this.amounts = 1;
+
+        /**
+         * 应用ID
+         * @type {null}
+         */
+        this.appId = null;
+
+        /**
+         * 订单回调信息
+         * @type {null}
+         */
+        this.callbackMessage = null;
+
+        /**
+         * customItemId
+         * @type {null}
+         */
+        this.customItemId = null;
+
+        /**
+         * 回调ID
+         * @type {null}
+         */
+        this.did = null;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 物品ID
+         * @type {number}
+         */
+        this.itemId = 0;
+
+        /**
+         * 角色ID
+         * @type {null}
+         */
+        this.playerId = null;
+
+        /**
+         * 购买时间
+         * @type {number}
+         */
+        this.purchaseTime = 0;
+
+        /**
+         * 服务器ID
+         * @type {null}
+         */
+        this.serverId = null;
+
+        /**
+         * 结果
+         * @type {number}
+         */
+        this.status = 0;
+
+        /**
+         * 商店ID
+         * @type {null}
+         */
+        this.storeId = null;
+
+        /**
+         * 交易中，如调用第三方计费接口还没有返回成功提示之前的状态
+         * @type {number}
+         */
+        Order.prototype.STATUS_OF_DEALING = 0;
+
+        /**
+         * 购买结果：异常
+         * @type {number}
+         */
+        Order.prototype.STATUS_OF_EXCEPTION = 0;
+
+        /**
+         * 购买结果：失败
+         * @type {number}
+         */
+        Order.prototype.STATUS_OF_FAILURE = 0;
+
+        /**
+         * 购买结果：成功
+         * @type {number}
+         */
+        Order.prototype.STATUS_OF_SUCESS = 0;
+    },
+
+    /**
+     * 角色扩展信息公共父类，所有开发者扩展的角色信息要么继承这个类，要么在自己的扩展类中添加playerId字段
+     * @constructor
+     */
+    PlayerExtra: function () {
+        /**
+         * 角色ID，即sgpPlayerId
+         * @type {null}
+         */
+        this.playerId = null;
+    },
+
+    /**
+     *
+     * @constructor
+     */
+    Reward: function () {
+
+        /**
+         * 奖励内容
+         * @type {null}
+         */
+        this.content = null;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+    },
+
+    /**\
+     * 服务器信息
+     * @constructor
+     */
+    Server: function () {
+
+        /**
+         * address
+         * @type {null}
+         */
+        this.address = null;
+
+        /**
+         * id
+         * @type {null}
+         */
+        this.id = null;
+
+        /**
+         * isNew
+         * @type {boolean}
+         */
+        this.isNew = false;
+
+        /**
+         * isRecommend
+         * @type {boolean}
+         */
+        this.isRecommend = false;
+
+        /**
+         * name
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * state
+         * @type {number}
+         */
+        this.state = 0;
+
+        /**
+         * 良好
+         * @type {number}
+         */
+        Server.prototype.GOOD = 0;
+
+        /**
+         * 满载
+         * @type {number}
+         */
+        Server.prototype.HEAVY = 0;
+
+        /**
+         * 顺畅
+         * @type {number}
+         */
+        Server.prototype.LIGHT = 0;
+
+        /**
+         * 维护
+         * @type {number}
+         */
+        Server.prototype.MAINTAIN = 0;
+
+        /**
+         * 一般
+         * @type {number}
+         */
+        Server.prototype.ORDINARY = 0;
+    },
+
+    /**
+     * 商城
+     * @constructor
+     */
+    Store: function () {
+
+        /**
+         * 商城描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 商城折扣，如8折则值为80
+         * @type {number}
+         */
+        this.discount = 0;
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * items
+         * @type {null}
+         */
+        this.items = null;
+
+        /**
+         * 状态 [禁用 0 启用 1]
+         * @type {number}
+         */
+        this.status = 0;
+
+        /**
+         * 商城ID
+         * @type {null}
+         */
+        this.storeId = null;
+
+        /**
+         * 更新标志 [关闭 0 打开 1]
+         * @type {number}
+         */
+        this.updateFlag = 0;
+
+        /**
+         * 商城版本号，在商城物品变更后可变更此版本号
+         * @type {number}
+         */
+        this.version = 0;
+
+        /**
+         * 默认折扣
+         * @type {number}
+         */
+        Store.prototype.DEFAULT_DISCOUNT = 0;
+
+        /**
+         * 状态：禁用
+         * @type {number}
+         */
+        Store.prototype.DISABLED = 0;
+
+        /**
+         * 状态：启用
+         * @type {number}
+         */
+        Store.prototype.ENABLED = 0;
+
+        /**
+         * 更新标志：关闭
+         * @type {number}
+         */
+        Store.prototype.UPDATE_FLAG_CLOSE = 0;
+
+        /**
+         * 更新标志：打开
+         * @type {number}
+         */
+        Store.prototype.UPDATE_FLAG_OPEN = 0;
+    },
+
+    /**
+     * 自定义数据结构
+     * @constructor
+     */
+    StructuredData: function () {
+
+        /**
+         * 主键
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**\
+         * redis的key值
+         * @type {null}
+         */
+        this.key = null;
+
+        /**
+         * 名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 类型
+         * @type {null}
+         */
+        this.type = null;
+
+        /**
+         * 表示值为list的数据结构
+         * @type {null}
+         */
+        StructuredData.prototype.TYPE_OF_LIST = null;
+
+        /**
+         * 表示职位map键值对的数据结构
+         * @type {null}
+         */
+        StructuredData.prototype.TYPE_OF_MAP = null;
+
+        /**
+         * 表示值为set的数据结构
+         * @type {null}
+         */
+        StructuredData.prototype.TYPE_OF_SET = null;
+
+        /**
+         * 表示值为value的数据结构
+         * @type {null}
+         */
+        StructuredData.prototype.TYPE_OF_VALUE = null;
+
+        /**
+         * 表示值为zset的数据结构
+         * @type {null}
+         */
+        StructuredData.prototype.TYPE_OF_ZSET = null;
+
+    },
+
+    /**
+     * 通用任务
+     * @constructor
+     */
+    Task: function () {
+
+        /**
+         * Task的actiontype类型-与计数器中的type相关联
+         * @type {null}
+         */
+        this.actiontype = null;
+
+        /**
+         * 任务可用状态，1为可用，0为不可用，默认为1
+         * @type {number}
+         */
+        this.available = 1;
+
+        /**
+         * 关联活动ID（预留）
+         * @type {number}
+         */
+        this.campaignId = 0;
+
+        /**
+         * 当前任务进度 当任务是成就时，返回的进度，将是相关Actiontype的总进度 其余将是当日进度
+         * @type {number}
+         */
+        this.currentProgress = 0;
+
+        /**
+         * 自定义条件，客户端使用
+         * @type {null}
+         */
+        this.customCondition = null;
+
+        /**
+         * Task描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 任务结束时间
+         * @type {number}
+         */
+        this.endTime = 0;
+
+        /**
+         * 完成Task的进度数
+         * @type {number}
+         */
+        this.goal = 0;
+
+        /**
+         * 主键 非自增，不能为空
+         * @type {null}
+         */
+        this.id = null;
+
+        /**
+         * 开启Task的等级 同日常任务中-限制等级，最低可做该任务的等级
+         * @type {number}
+         */
+        this.level = 0;
+
+        /**
+         * Task名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 后置task-ID 等同于任务旧模型字段
+         * @type {null}
+         */
+        this.nextTaskId = null;
+
+        /**
+         * 是否允许当前进度超越最大进度，默认不允许
+         * @type {boolean}
+         */
+        this.overMaxProgress = false;
+
+        /**
+         * 前置task-ID
+         * @type {null}
+         */
+        this.preTaskId = null;
+
+        /**
+         * 奖励
+         * @type {null}
+         */
+        this.reward = null;
+
+        /**
+         * 是否允许任务完成后仍然显示在列表,默认显示，false为不显示，true为显示
+         * @type {boolean}
+         */
+        this.showDone = true;
+
+        /**
+         * 任务开始时间
+         * @type {number}
+         */
+        this.startTime = 0;
+
+        /**
+         * 当前任务状态
+         * @type {number}
+         */
+        this.status = 0;
+
+        /**
+         * Task的类型[achievement-成就,dailytask-日常任务]
+         * @type {null}
+         */
+        this.taskType = null;
+
+        /**
+         * 是否在前置任务没完成之前同时更新后置任务，默认不允许
+         * @type {boolean}
+         */
+        this.updateUnfinished = false;
+
+        /**
+         * Task可见性 [0 不可见，1 可见]
+         * @type {number}
+         */
+        this.visibility = 0;
+
+        /**
+         * Task状态(available)：不可用，禁用状态
+         * @type {number}
+         */
+        Task.prototype.AVAILABLE_DISABLE = 0;
+
+        /**
+         * Task状态(available)：可用，开启状态
+         * @type {number}
+         */
+        Task.prototype.AVAILABLE_ENABLE = 0;
+
+        /**
+         * Task进度状态(Status):已经完成，还未领取奖励的状态
+         * @type {number}
+         */
+        Task.prototype.STATUS_PROGRESS_COMPLETED = 0;
+
+        /**
+         * Task进度状态(Status):已经完成，并且已经领取奖励的状态
+         * @type {number}
+         */
+        Task.prototype.STATUS_PROGRESS_GOT_REWARD = 0;
+
+        /**
+         * Task进度状态(Status):未完成，在任务进行中的状态
+         * @type {number}
+         */
+        Task.prototype.STATUS_PROGRESS_UNFINISHED = 0;
+
+        /**
+         * taskType:成就
+         * @type {number}
+         */
+        Task.prototype.TASKTYPE_ACHIEVEMENT = null;
+
+        /**
+         * taskType:日常任务
+         * @type {null}
+         */
+        Task.prototype.TASKTYPE_DAILYTASK = null;
+
+        /**
+         * Task可见性：不可见
+         * @type {number}
+         */
+        Task.prototype.VISIBILITY_INVISIBLE = 0;
+
+        /**
+         * Task可见性：可见
+         * @type {number}
+         */
+        Task.prototype.VISIBILITY_VISIBLE = 0;
+    },
+
+    /**
+     * 定时器任务
+     * @constructor
+     */
+    TimerTask: function () {
+
+        /**
+         * className
+         * @type {null}
+         */
+        this.className = null;
+
+        /**
+         * 定时任务创建时间
+         * @type {number}
+         */
+        this.createTime = 0;
+
+        /**
+         * 重复执行的时间间隔，repeat为不为0时生效
+         * @type {number}
+         */
+        this.delay = 0;
+
+        /**
+         * 描述该定时任务做什么事情
+         * @type {null}
+         */
+        this.desc = null;
+
+        /**
+         * 第一次执行定时器的时间点
+         * @type {number}
+         */
+        this.executeTime = 0;
+
+        /**
+         * 主键，自增
+         * @type {number}
+         */
+        this.id = 0;
+
+        /**
+         * 自定义的定时器名字
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 过期时间/为0为不失效
+         * @type {number}
+         */
+        this.overdueTime = 0;
+
+        /**
+         * 定时器需要的参数，为json字符串，可选
+         * @type {null}
+         */
+        this.params = null;
+
+        /**
+         * 是否重复执行，0为单次执行，1为多次执行，2为不限次数执行，默认为0
+         * @type {number}
+         */
+        this.repeat = 0;
+
+        /**
+         * 执行的次数，repeat为1时生效
+         * @type {number}
+         */
+        this.step = 0;
+
+        /**
+         * 关联到定时器的ID
+         * @type {number}
+         */
+        this.timerId = 0;
+    },
+
+    /**
+     * 版本详情
+     * @constructor
+     */
+    VersionDetail: function () {
+
+        /**
+         * 应用标识
+         * @type {null}
+         */
+        this.appId = null;
+
+        /**
+         * 渠道
+         * @type {null}
+         */
+        this.channel = null;
+
+        /**
+         * 版本描述
+         * @type {null}
+         */
+        this.description = null;
+
+        /**
+         * 是否强制升级，true强制，false不强制
+         * @type {boolean}
+         */
+        this.forceUpdate = false;
+
+        /**
+         * 主键
+         * @type {null}
+         */
+        this.id = null;
+
+        /**
+         * 应用名称
+         * @type {null}
+         */
+        this.name = null;
+
+        /**
+         * 应用类型，目前分为：android,ios,html5三种
+         * @type {null}
+         */
+        this.type = null;
+
+        /**
+         * 升级类型，1 完整升级 ，2部分升级
+         * @type {number}
+         */
+        this.updateType = 0;
+
+        /**
+         * 升级地址
+         * @type {null}
+         */
+        this.updateUrl = null;
+
+        /**
+         * 具体版本号
+         * @type {number}
+         */
+        this.version = 0;
+
+        /**
+         * 版本名称
+         * @type {null}
+         */
+        this.versionName = null;
     }
 
 
@@ -2003,6 +3105,20 @@ function $JsonRpc(obj) {
     }
 };
 
+
+/**
+ * 实体类工厂
+ * @param entity_name 需要生成实体的类名
+ * @param fn 创建实体对象后执行的函数,不传入则没有
+ * @returns {Object} 工厂创建的实体对象
+ */
+SgtApi.entityFactory = function (entity_name, fn) {
+    var entity = eval('new SgtApi.entity.' + entity_name + '();');
+    if (fn && fn != '') {
+        fn();
+    }
+    return entity;
+}
 
 /**
  *
