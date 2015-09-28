@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <script src='sgtcloud-html5-sdk.2.0.0.js'></script>
+    <script src='test-PlayerServer-chrome.js'></script>
+
+</head>
+
+
+<body>
+    <h2>测试PlayerService</h2>
+    <hr>
+    <button onclick="test_create()">测试创建一个角色</button>
+    <button onclick="test_update()">测试更新角色信息</button>
+    <button onclick="test_getByUserId()">测试根据用户ID查找角色</button>
+    <button onclick="test_getOneByUserId()">测试通过用户ID查找其中的一个角色</button>
+    <button onclick="test_uploadSave()">测试上传存档</button>
+    <button onclick="test_downloadSave()">测试下载存档</button>
+    <button onclick="test_getByName()">测试根据角色名查找角色</button>
+    <button onclick="test_getByLastLoginTime()">测试根据最后登陆时间查找角色</button>
+    <button onclick="test_getPlayerByCustomId()">测试通过自定义ID获取角色信息</button>
+    <button onclick="test_deletePlayerByPlayerId()">测试通过playerId删除角色及相关信息</button>
+    <button onclick="test_getPlayerById()">测试通过ID获取Player</button>
+    <button onclick="test_searchPlayersByLastLogin()">测试随机返回若干个最近登录的player</button>
+    <button onclick="test_setFriendsMaxNumber()">测试设置指定角色的好友上限</button>
+    <button onclick="test_getFriendsMaxNumber()">测试获取指定角色的好友上限</button>
+</body>
+</html>
