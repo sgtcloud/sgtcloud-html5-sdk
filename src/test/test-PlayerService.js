@@ -1,12 +1,11 @@
 console.log('----------------------PlayerService----------------------------');
 
-
 module('test-PlayerService');
 
 var userId = '';
-var playerId = '';
-var customPlayerId = '00000051327';
-SgtApi.UserService.login('llo014', 'qqqqqqqq', function (result, data) {
+var playerId = '8a20a23010889';
+var test_playerId = '';
+SgtApi.UserService.login('ppoo001', 'ppoo001', function (result, data) {
     if (result) {
         userId = data.userid;
     }
@@ -17,7 +16,7 @@ test('test PlayerService create', function () {
     SgtApi.PlayerService.create({}, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
-            playerId = data.id;
+            test_playerId = data.id;
         } else {
             ok(false, data);
         }
@@ -26,7 +25,7 @@ test('test PlayerService create', function () {
 
 
 test('test PlayerService update', function () {
-    SgtApi.PlayerService.update({id: customPlayerId}, function (result, data) {
+    SgtApi.PlayerService.update({id: playerId}, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -37,7 +36,7 @@ test('test PlayerService update', function () {
 
 
 test('test PlayerService getByUserId', function () {
-    SgtApi.PlayerService.getByUserId(customPlayerId, function (result, data) {
+    SgtApi.PlayerService.getByUserId(playerId, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -48,7 +47,7 @@ test('test PlayerService getByUserId', function () {
 
 
 test('test PlayerService getOneByUserId', function () {
-    SgtApi.PlayerService.getOneByUserId(customPlayerId, function (result, data) {
+    SgtApi.PlayerService.getOneByUserId(playerId, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -139,7 +138,7 @@ test('test PlayerService setFriendsMaxNumber', function () {
 });
 
 test('test PlayerService getFriendsMaxNumber', function () {
-    SgtApi.PlayerService.getFriendsMaxNumber(customPlayerId, function (result, data) {
+    SgtApi.PlayerService.getFriendsMaxNumber(playerId, function (result, data) {
         if (result) {
             deepEqual('number', typeof data, data);
         } else {
@@ -149,7 +148,7 @@ test('test PlayerService getFriendsMaxNumber', function () {
 });
 
 test('test PlayerService deletePlayerByPlayerId', function () {
-    SgtApi.PlayerService.deletePlayerByPlayerId(playerId, function (result, data) {
+    SgtApi.PlayerService.deletePlayerByPlayerId(test_playerId, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {

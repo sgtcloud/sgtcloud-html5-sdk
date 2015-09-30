@@ -23,7 +23,7 @@ test('test AchievementService getAchievementById', function () {
 });
 
 test('test AchievementService getAvailableAchievements', function () {
-    SgtApi.AchievementService.getAvailableAchievements(customPlayerId, function (result, data) {
+    SgtApi.AchievementService.getAvailableAchievements(playerId, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -33,7 +33,7 @@ test('test AchievementService getAvailableAchievements', function () {
 });
 
 test('test AchievementService getDoneAchievements', function () {
-    SgtApi.AchievementService.getDoneAchievements(customPlayerId, function (result, data) {
+    SgtApi.AchievementService.getDoneAchievements(playerId, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -43,7 +43,7 @@ test('test AchievementService getDoneAchievements', function () {
 });
 
 test('test AchievementService getCompleteAchievements', function () {
-    SgtApi.AchievementService.getCompleteAchievements(customPlayerId, function (result, data) {
+    SgtApi.AchievementService.getCompleteAchievements(playerId, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -73,7 +73,7 @@ test('test AchievementService achieve', function () {
 });
 
 test('test AchievementService excuteAchievementsByType', function () {
-    SgtApi.AchievementService.excuteAchievementsByType('', customPlayerId, function (result, data) {
+    SgtApi.AchievementService.excuteAchievementsByType('a', playerId, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -83,7 +83,7 @@ test('test AchievementService excuteAchievementsByType', function () {
 });
 
 test('test AchievementService customAchievementsByType', function () {
-    SgtApi.AchievementService.customAchievementsByType('', customPlayerId, 0, function (result, data) {
+    SgtApi.AchievementService.customAchievementsByType('a', playerId, 0, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -93,7 +93,7 @@ test('test AchievementService customAchievementsByType', function () {
 });
 
 test('test AchievementService getAchievementsByType', function () {
-    SgtApi.AchievementService.getAchievementsByType(customPlayerId, '', function (result, data) {
+    SgtApi.AchievementService.getAchievementsByType(playerId, 'a', function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -103,7 +103,7 @@ test('test AchievementService getAchievementsByType', function () {
 });
 
 test('test AchievementService setAchievementProgress', function () {
-    SgtApi.AchievementService.setAchievementProgress(customPlayerId, '123456789', 0, function (result, data) {
+    SgtApi.AchievementService.setAchievementProgress(playerId, '123456789', 0, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -113,8 +113,7 @@ test('test AchievementService setAchievementProgress', function () {
 });
 
 test('test AchievementService setAchievementsProgressByType', function () {
-    SgtApi.AchievementService.setAchievementsProgressByType('', customPlayerId, 0, function (result, data) {
-        console.log(playerId);
+    SgtApi.AchievementService.setAchievementsProgressByType('a', playerId, 0, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {

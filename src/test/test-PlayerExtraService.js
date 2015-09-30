@@ -4,7 +4,7 @@ module('test-PlayerExtraService');
 
 
 test('test PlayerExtraService getPlayerById', function () {
-    SgtApi.PlayerExtraService.getPlayerById(customPlayerId, function (result, data) {
+    SgtApi.PlayerExtraService.getPlayerById(playerId, function (result, data) {
         if (result) {
             deepEqual('object', typeof data, data);
         } else {
@@ -54,7 +54,7 @@ test('test PlayerExtraService addPlayer', function () {
 });
 
 test('test PlayerExtraService updatePlayer', function () {
-    SgtApi.PlayerExtraService.updatePlayer(customPlayerId, {}, function (result, data) {
+    SgtApi.PlayerExtraService.updatePlayer(playerId, {}, function (result, data) {
         if (result) {
             deepEqual(null, data, data);
         } else {
@@ -74,7 +74,7 @@ test('test PlayerExtraService updatePlayerMap', function () {
 });
 
 test('test PlayerExtraService deletePlayerById', function () {
-    SgtApi.PlayerExtraService.deletePlayerById(customPlayerId, function (result, data) {
+    SgtApi.PlayerExtraService.deletePlayerById(playerId, function (result, data) {
         if (result) {
             deepEqual(null, data, data);
         } else {
