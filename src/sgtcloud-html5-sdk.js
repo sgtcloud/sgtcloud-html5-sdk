@@ -34,7 +34,11 @@
  * 开发者 by rasen
  *@module SgtApi
  */
+<<<<<<< HEAD
 
+=======
+ bug
+>>>>>>> 0b0213609993611590114b8a899fdc4084a1582e
 (function () {
     var MyQuery = (function () {
         var MyQuery = function () {
