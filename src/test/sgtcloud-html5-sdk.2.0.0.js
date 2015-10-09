@@ -316,7 +316,7 @@ SgtApi.entity = {
          * @type {String}
          * @default null
          */
-        this.equip = null;pi.UserService.
+        this.equip = null;
         /**
          * 主键id
          * @property id
