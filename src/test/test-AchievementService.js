@@ -2,6 +2,7 @@ console.log('----------------------AchievementService---------------------------
 
 module('test-AchievementService');
 
+
 test('test AchievementService getAllAchievements', function () {
     SgtApi.AchievementService.getAllAchievements(function (result, data) {
         if (result) {
