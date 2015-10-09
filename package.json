@@ -1,0 +1,26 @@
+{
+  "name": "sgtcloud-html5-sdk",
+  "version": "2.0.0",
+  "description": "A html5 out-of-box sdk for damn cool mbaas",
+  "main": "gulpfile.js",
+  "directories": {
+    "doc": "doc",
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgtcloud/sgtcloud-html5-sdk.git"
+  },
+  "author": "sgtclout-team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgtcloud/sgtcloud-html5-sdk/issues"
+  },
+  "homepage": "https://github.com/sgtcloud/sgtcloud-html5-sdk#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
+}
