@@ -7,6 +7,8 @@ test('test GachaBoxService autobalanceDraw', function() {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		}else {
+			console.log(111111);
+			console.log(typeof data);
 			ok(false, data);
 		}
 	});

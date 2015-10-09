@@ -12,8 +12,8 @@ test('test LeaderBoardService addUpLeaderBoardScore', function() {
 	});
 });
 
-test('test LeaderBoard getLeaderBoardByLeaderId', function() {
-	SgtApi.LeaderBoard.getLeaderBoardByLeaderId('', function(result, data) {
+test('test LeaderBoardService getLeaderBoardByLeaderId', function() {
+	SgtApi.LeaderBoardService.getLeaderBoardByLeaderId('', function(result, data) {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		} else {
@@ -22,8 +22,8 @@ test('test LeaderBoard getLeaderBoardByLeaderId', function() {
 	});
 });
 
-test('test LeaderBoard getLeaderBoardScoreByExample', function() {
-	SgtApi.LeaderBoard.getLeaderBoardScoreByExample('', null, function(result, data) {
+test('test LeaderBoardService getLeaderBoardScoreByExample', function() {
+	SgtApi.LeaderBoardService.getLeaderBoardScoreByExample('', null, function(result, data) {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		} else {
@@ -32,8 +32,8 @@ test('test LeaderBoard getLeaderBoardScoreByExample', function() {
 	});
 });
 
-test('test LeaderBoard getLeaderBoardScoreByLeaderIdAndPlayerId', function() {
-	SgtApi.LeaderBoard.getLeaderBoardScoreByLeaderIdAndPlayerId('', playerId, function(result, data) {
+test('test LeaderBoardService getLeaderBoardScoreByLeaderIdAndPlayerId', function() {
+	SgtApi.LeaderBoardService.getLeaderBoardScoreByLeaderIdAndPlayerId('', playerId, function(result, data) {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		} else {
@@ -42,8 +42,8 @@ test('test LeaderBoard getLeaderBoardScoreByLeaderIdAndPlayerId', function() {
 	});
 });
 
-test('test LeaderBoard getLeaderBoardScoresByLeaderIdAndPlayerId', function() {
-	SgtApi.LeaderBoard.getLeaderBoardScoresByLeaderIdAndPlayerId('', playerId, function(reuslt, data) {
+test('test LeaderBoardService getLeaderBoardScoresByLeaderIdAndPlayerId', function() {
+	SgtApi.LeaderBoardService.getLeaderBoardScoresByLeaderIdAndPlayerId('', playerId, function(result, data) {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		} else {
@@ -52,8 +52,8 @@ test('test LeaderBoard getLeaderBoardScoresByLeaderIdAndPlayerId', function() {
 	});
 });
 
-test('test LeaderBoard getTopLeaderBoardScoreByLeaderId', function() {
-	SgtApi.LeaderBoard.getTopLeaderBoardScoreByLeaderId('', 0, 0, function(result, data) {
+test('test LeaderBoardService getTopLeaderBoardScoreByLeaderId', function() {
+	SgtApi.LeaderBoardService.getTopLeaderBoardScoreByLeaderId('', 0, 0, function(result, data) {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		} else {
@@ -62,10 +62,10 @@ test('test LeaderBoard getTopLeaderBoardScoreByLeaderId', function() {
 	});
 });
 
-test('test LeaderBoard submitLeaderBoardScore', function() {
-	SgtApi.LeaderBoard.submitLBoardScore('', playerId, 0, function(result, data) {
-		if(reslt) {
-			deepEqual('object', typeof data, data);
+test('test LeaderBoardService submitLeaderBoardScore', function() {
+	SgtApi.LeaderBoardService.submitLeaderBoardScore('', playerId, 0, function(result, data) {
+		if(result) {
+			deepEqual('boolean', typeof data, data);
 		} else {
 			ok(false, data);
 		}

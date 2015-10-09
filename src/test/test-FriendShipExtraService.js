@@ -3,7 +3,7 @@ console.log('----------------------FriendShipExtraService-----------------------
 module('test-FriendShipExtraService');
 
 test('test FriendshipExtraService getAllMyFriendsAndExt', function() {
-	SgtApi.FriendshipExtraService.getAllMyFriendsAndExt(playerId,'',0,0,function(result, data) {
+	SgtApi.FriendshipExtraService.getAllMyFriendsAndExt(playerId,'',1,1,function(result, data) {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		}else {
@@ -23,7 +23,7 @@ test('test FriendshipExtraService getMyFriendAndExt', function() {
 });
 
 test('test FriendshipExtraService updateAllMyFriendExt', function() {
-	SgtApi.FriendshipExtraService.updateAllMyFriendExt(playerId, '', '', function(result,data) {
+	SgtApi.FriendshipExtraService.updateAllMyFriendExt(playerId, 'a', 'a', function(result,data) {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		}else {
@@ -32,8 +32,8 @@ test('test FriendshipExtraService updateAllMyFriendExt', function() {
 	});
 });
 
-test('test FriedshipExtraService updateMyFriendExt', function() {
-	SgtApi.FriendShipExtraService.updateMyFriendExt(playerId, '', null, function(result, data) {
+test('test FriedshipExtraService updateMyFriendAllExt', function() {
+	SgtApi.FriendshipExtraService.updateMyFriendAllExt(playerId, '', null, function(result, data) {
 		if(result) {
 			deepEqual('object', typeof data, data);
 		}else {

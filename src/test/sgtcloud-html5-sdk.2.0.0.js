@@ -3378,7 +3378,7 @@ SgtApi.UserService = {
         SgtApi.doRPC(name, data, url, function(result,data) {
             if(result) {
                 SgtApi.context.userData = data;
-                callback(true, data);
+                SgtApi.UserService.getPlayServer(callback);
             } else {
                 callback(false, data);
             }
@@ -3459,6 +3459,7 @@ SgtApi.UserService = {
 
     /**
      * 发送手机验证码短信
+     * @method sendCaptchaMessage
      * @param smobile{string} 用户手机号
      * @param appName{string} 当前产品名称
      * @param callback{function} 回调函数
@@ -4196,7 +4197,7 @@ SgtApi.CampaignService = {
     /**
      * 获取当前已经激活的活动
      * @method getAvailableCampaigns
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return campaign[]
      */
     "getAvailableCampaigns": function (callback) {
@@ -4212,7 +4213,7 @@ SgtApi.CampaignService = {
      * @method getByTimeZone
      * @param startTime{number} 开始时间
      * @param endTime{number} 结束时间
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return campaign[]
      */
     "getByTimeZone": function (startTime, endTime, callback) {
@@ -4225,7 +4226,7 @@ SgtApi.CampaignService = {
      * 通过活动ID获取活动
      * @method getCampaignById
      * @param id{int} 活动ID
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return campaign
      */
     "getCampaignById": function (campaignId, callback) {
@@ -4239,7 +4240,7 @@ SgtApi.CampaignService = {
      * 通过活动ID获取活动详情数据
      * @method getCampaignDetaiByCId
      * @param id{int} 活动id
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return callback
      */
     "getCampaignDetaiByCId": function (campaignId, callback) {
@@ -4253,7 +4254,7 @@ SgtApi.CampaignService = {
      * 通过活动详情ID获取活动详情数据
      * @method getCampaignDetaiById
      * @param id{int} 活动详情ID
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return campaignDetail
      */
     "getCampaignDetaiById": function (campaignId, callback) {
@@ -4268,7 +4269,7 @@ SgtApi.CampaignService = {
      * @method getCampaignProgress
      * @param campaignId{int} 活动id
      * @param playerId{string}
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return number
      */
     "getCampaignProgress": function (campaignId, playerId, callback) {
@@ -4285,7 +4286,7 @@ SgtApi.CampaignService = {
      * @param campaignId{int} 活动id
      * @param playerId{string}
      * @param progress{int} 进度
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return number
      */
     "updateProgress": function (campaignId, playerId, progress, callback) {
@@ -4562,7 +4563,7 @@ SgtApi.DailyTaskService = {
      * @method excuteTask
      * @param taskId{string} 任务ID
      * @param playerId{string}
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return dailyTask
      */
     "excuteTask": function (taskId, playerId, callback) {
@@ -4577,7 +4578,7 @@ SgtApi.DailyTaskService = {
      * @method excuteTaskByType
      * @param type{string} 任务的type类型
      * @param playerId{String}
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return dailyTask[]
      */
     "excuteTasksByType": function (type, playerId, callback) {
@@ -4593,7 +4594,7 @@ SgtApi.DailyTaskService = {
      * @param type{string} 任务类型
      * @param playerId{String}
      * @param progress{int} 任务进度
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return dailyTask[]
      */
     "addexcuteTasksByType": function (type, playerId, progress, callback) {
@@ -4607,7 +4608,7 @@ SgtApi.DailyTaskService = {
      * 获取每天的日常任务
      * @method getDailyTasks
      * @param playerId{string}
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return dailyTask[]
      */
     "getDailyTasks": function (playerId, callback) {
@@ -4621,7 +4622,7 @@ SgtApi.DailyTaskService = {
      * 通过类型获取指定角色可以进行的任务
      * @method getDailyTasksByType
      * @param type{string} 任务类型
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return dailyTask[]
      */
     "getDailyTasksByType": function (playerId, type, callback) {
@@ -4637,7 +4638,7 @@ SgtApi.DailyTaskService = {
      * @method getReward
      * @param taskId{string} 任务ID
      * @param playerId{string}
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return string
      */
     "getReward": function (taskId, playerId, callback) {
@@ -4654,7 +4655,7 @@ SgtApi.DailyTaskService = {
      * @param playerId{string}
      * @param taskId{string} 任务ID
      * @param progress{number} 进度
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return dailyTask
      */
     "setTaskProgress": function (playerId, taskId, progress, callback) {
@@ -4670,7 +4671,7 @@ SgtApi.DailyTaskService = {
      * @param type{string} 任务类型
      * @param playerId{string}
      * @param progress{number} 任务进度
-     * @param callback{回调函数}
+     * @param callback 回调函数
      * @return dailyTask
      */
     "setTasksProgressByType": function (type, playerId, progress, callback) {
@@ -5306,7 +5307,7 @@ SgtApi.FriendshipExtraService = {
         var name = 'updateMyFriendExt';
         var data = [myPlayerId, friendId, key, value];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
-        SgtApi.doRPC(name,data,url,callback);
+        SgtApi.doRPC(name, data, url, callback);
     }
 };
 
