@@ -215,7 +215,7 @@ SgtApi.entity = {
          * 邮件
          * @property email
          * @type {string}
-         * @default null
+         * @defaunilt null
          */
         this.email = null;
         /**
@@ -1655,7 +1655,7 @@ SgtApi.entity = {
     ExternalCallbackBean: function () {
 
         /**
-         * APPID
+         * appId
          * @type {null}
          */
         this.appId = null;
@@ -3283,39 +3283,39 @@ SgtApi.context = {
 SgtApi.config = {
     ///**
     // * 网关
-    // * @property Appgateway
+    // * @property appGateway
     // * @type {string}
     // * @default http://sgp.gallme.com.cn/gateway
     // */
-    Appgateway: 'http://gw.sgtcloud.cn/gateway',
+    appGateway: 'http://gw.sgtcloud.cn/gateway',
     ///**
     // * 应用标识
-    // * @property AppId
+    // * @property appId
     // * @type {string}
     // * @default ""
     // */
-    AppId: 'html5_demo2015',
+    appId: 'html5_demo2015',
     ///**
     // * 渠道标识
-    // * @property ChannelId
+    // * @property channelId
     // * @type {string}
     // * @default "zstfYB"
     // */
-    ChannelId: '',
+    channelId: '',
     ///**
     // * 用户name
-    // * @property UserName
+    // * @property userName
     // * @type {string}
     // * @default null
     // */
-    UserName: null,
+    userName: null,
     ///**
     // * 用户密码
-    // * @property UserPassword
+    // * @property userPassword
     // * @type {string}
     // * @default "yoedge2014"
     // */
-    UserPassword: '',
+    userPassword: '',
 };
 
 /**
@@ -3326,19 +3326,17 @@ SgtApi.config = {
  */
 SgtApi.init = function (json) {
     "use strict";
-    if (json.Appgateway !== "" && json.Appgateway) {
-        SgtApi.config.Appgateway = json.Appgateway;
+    if (json.appGateway !== "" && json.appGateway) {
+        SgtApi.config.appGateway = json.appGateway;
     }
-    if (json.AppId !== "" && json.AppId) {
-        SgtApi.config.AppId = json.AppId;
+    if (json.appId !== "" && json.appId) {
+        SgtApi.config.appId = json.appId;
     }
-    if (json.ChannelId !== "" +
-        "" && json.ChannelId) {
-        SgtApi.config.ChannelId = json.ChannelId;
+    if (json.channelId !== "" +
+        "" && json.channelId) {
+        SgtApi.config.channelId = json.channelId;
     }
-    if (json.CheckInBoardId !== "" && json.CheckInBoardId) {
-        SgtApi.config.CheckInBoardId = json.CheckInBoardId;
-    }
+
 };
 
 /**
@@ -3359,7 +3357,7 @@ SgtApi.UserService = {
     isMatcher: function (smobile, captcha, callback) {
         var name = 'isMatcher';
         var data = [smobile, captcha];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3374,7 +3372,7 @@ SgtApi.UserService = {
     login: function (username, password, callback) {
         var name = 'login';
         var data = [username, password];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, function(result,data) {
             if(result) {
                 SgtApi.context.userData = data;
@@ -3395,7 +3393,7 @@ SgtApi.UserService = {
     register: function(user, callback) {
         var name = 'register';
         var data = [user];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, function(result, data){
             if(result) {
                 SgtApi.context.userData = data;
@@ -3418,7 +3416,7 @@ SgtApi.UserService = {
     registerByPhone: function(imei, iccid, mac, callback) {
         var name = 'register';
         var data = [imei, iccid, mac];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, function(result, data){
             if(result) {
                 SgtApi.context.userData = data;
@@ -3439,7 +3437,7 @@ SgtApi.UserService = {
     resetPassword: function (userName, callback) {
         var name = 'resetPassword';
         var data = [userName];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3453,7 +3451,7 @@ SgtApi.UserService = {
     saveLeaveInfo: function(userLeaveInfo, callback) {
         var name = 'saveLeaveInfo';
         var data = [userLeaveInfo];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3469,7 +3467,24 @@ SgtApi.UserService = {
     sendCaptchaMessage: function (smobile, appName, callback) {
         var name = 'SendMessage';
         var data = [smobile, appName];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 发送手机验证码短信
+     * @method sendCaptchaMessage
+     * @param smobile{string} 用户手机号
+     * @param appName{string} 当前产品名称
+     * @param appId{string} 当前appId
+     * @param callback{function} 回调函数
+     * @return data{boolean} true发送成功 false发送失败
+     * @constructor
+     */
+    sendCaptchaMessageByAppId: function (smobile, appName, appId, callback) {
+        var name = 'SendMessage';
+        var data = [smobile, appName, appId];
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3484,7 +3499,7 @@ SgtApi.UserService = {
     updatePasswordByUserName: function (userName, password, callback) {
         var name = 'updatePasswordByUserName';
         var data=[userName, password];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3498,7 +3513,7 @@ SgtApi.UserService = {
     updateUser: function (user, callback) {
         var name = 'updateUser';
         var data = [user];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3515,7 +3530,7 @@ SgtApi.UserService = {
     "updateUserByUserId": function (userId, userName, password, email, callback) {
         var name = 'updateUserByUserId';
         var data = [userId, userName, password, email];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);  
     },
     
@@ -3531,7 +3546,7 @@ SgtApi.UserService = {
     "updateUserNameAndPassword": function (userId, userName, password, callback) {
         var name = 'updateUserNameAndPassword';
         var data = [userId, userName, password];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);  
     },
 
@@ -3545,7 +3560,7 @@ SgtApi.UserService = {
     validationToken: function(userName, token, callback) {
         var name = 'validationToken';
         var data = [userName, token];
-        var url = SgtApi.config.Appgateway + '/user';
+        var url = SgtApi.config.appGateway + '/user';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3560,11 +3575,11 @@ SgtApi.UserService = {
      */
     quickLogin: function (callback) {
 
-        var username = localStorage.getItem("sgt-" + SgtApi.config.AppId + "-username");
+        var username = localStorage.getItem("sgt-" + SgtApi.config.appId + "-username");
         if (username) {
-            var password = localStorage.getItem("sgt-" + SgtApi.config.AppId + "-password");
-            SgtApi.config.UserName = username;
-            SgtApi.config.UserPassword = password;
+            var password = localStorage.getItem("sgt-" + SgtApi.config.appId + "-password");
+            SgtApi.config.userName = username;
+            SgtApi.config.userPassword = password;
             this.login(username, password, callback);
         } else {
             var num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -3584,8 +3599,8 @@ SgtApi.UserService = {
             var newuser = new SgtApi.entity.User();
             newuser.userName = name;
             newuser.password = 'yoedge2014';
-            localStorage.setItem("sgt-" + SgtApi.config.AppId + "-username", newuser.userName);
-            localStorage.setItem("sgt-" + SgtApi.config.AppId + "-password", newuser.password);
+            localStorage.setItem("sgt-" + SgtApi.config.appId + "-username", newuser.userName);
+            localStorage.setItem("sgt-" + SgtApi.config.appId + "-password", newuser.password);
             this.register(newuser, callback);
         }
     },
@@ -3597,16 +3612,16 @@ SgtApi.UserService = {
      * @return callback
      */
     getPlayServer: function (callback) {
-        if (SgtApi.config.ChannelId === null) {
+        if (SgtApi.config.channelId === null) {
             return callback(false, 'channelId未设置！');
         }
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + "/route"});
+        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.appGateway + "/route"});
         backClient.call(
             'route',
-            [SgtApi.config.AppId, {
+            [SgtApi.config.appId, {
                 'userId': SgtApi.context.userData.userid,
                 'createTime': SgtApi.context.userData.createTime,
-                'channelId': SgtApi.config.ChannelId
+                'channelId': SgtApi.config.channelId
             }],
             function (result) {
                 console.log('success ' + result.result);
@@ -3631,7 +3646,7 @@ SgtApi.UserService = {
  */
 SgtApi.PlayerService = {
 
-    //url: SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do',
+    //url: SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do',
 
 
     /**
@@ -3648,7 +3663,7 @@ SgtApi.PlayerService = {
 
         var name = 'create';
         var data = [player];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3662,7 +3677,7 @@ SgtApi.PlayerService = {
     deletePlayerByPlayerId: function (playerId, callback) {
         var name = 'deleteSgpPlayerByPlayerId';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3676,7 +3691,7 @@ SgtApi.PlayerService = {
     downloadSave: function (playerId, callback) {
         var name = 'downloadSave';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3692,7 +3707,7 @@ SgtApi.PlayerService = {
     getByLastLoginTime: function (lastLoginTime, start, limit, callback) {
         var name = 'getByLastLoginTime';
         var data = [lastLoginTime, start, limit];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3708,7 +3723,7 @@ SgtApi.PlayerService = {
     getByName: function (playerName, start, limit, callback) {
         var name = 'getByName';
         var data = [name, start, limit];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     }, 
 
@@ -3722,7 +3737,7 @@ SgtApi.PlayerService = {
     getByUserId: function (userId, callback) {
         var name = 'getByUserId';
         var data = [userId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3736,7 +3751,7 @@ SgtApi.PlayerService = {
     getFriendsMaxNumber: function (playerId, callback) {
         var name = 'getFriendsMaxNumber';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3750,7 +3765,7 @@ SgtApi.PlayerService = {
     getOneByUserId: function (userId, callback) {
         var name = 'getOneByUserId';
         var data = [userId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3764,7 +3779,7 @@ SgtApi.PlayerService = {
     getPlayerByCustomId: function (customId, callback) {
         var name = 'getSgpPlayerByCustomId';
         var data = [customId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3778,7 +3793,7 @@ SgtApi.PlayerService = {
     getPlayerById: function (playerId, callback) {
         var name = 'getSgpPlayerById';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3792,7 +3807,7 @@ SgtApi.PlayerService = {
     searchPlayersByLastLogin: function (limit, callback) {
         var name = 'searchPlayersByLastLogin';
         var data = [limit];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3807,7 +3822,7 @@ SgtApi.PlayerService = {
     searchPlayersByLastLoginCondition: function (lastLoginTime, limit, excludePlayerIds, callback) {
         var name = 'searchPlayersByLastLogin';
         var data = [lastLoginTime, limit, excludePlayerIds];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3822,7 +3837,7 @@ SgtApi.PlayerService = {
     setFriendsMaxNumber: function (playerId, number, callback) {
         var name = 'setFriendsMaxNumber';
         var data = [playerId, number];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3836,7 +3851,7 @@ SgtApi.PlayerService = {
     update: function (player, callback) {
         var name = 'update';
         var data = [player];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3851,7 +3866,7 @@ SgtApi.PlayerService = {
     uploadSave: function (save, callback) {
         var name = 'uploadSave';
         var data = [save];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 };
@@ -3874,7 +3889,7 @@ SgtApi.PlayerExtraService = {
     addPlayer: function (player, callback) {
         var name = 'addPlayer';
         var data = [player];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3887,7 +3902,7 @@ SgtApi.PlayerExtraService = {
     deletePlayerById: function (playerId, callback) {
         var name = 'deletePlayerById';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3902,7 +3917,7 @@ SgtApi.PlayerExtraService = {
     findAll: function (pageNumber, pageSize, callback) {
         var name = 'findAll';
         var data = [pageNumber, pageSize];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3918,7 +3933,7 @@ SgtApi.PlayerExtraService = {
     findAllByCondition: function (condition, pageNumber, pageSize, callback) {
         var name = 'findAll';
         var data = [condition, pageNumber, pageSize];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
         SgtApi.doRPC(name, data, url, callback);
     },
     /**
@@ -3930,7 +3945,7 @@ SgtApi.PlayerExtraService = {
     getPlayerById: function (playerId, callback) {
         var name = 'getPlayerById';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
         SgtApi.doRPC(name, data, url, callback);
     },
     /**
@@ -3943,7 +3958,7 @@ SgtApi.PlayerExtraService = {
     getPlayerList: function (condition, callback) {
         var name = 'getPlayerList';
         var data = [condition];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3958,7 +3973,7 @@ SgtApi.PlayerExtraService = {
     updatePlayerMap: function (player, callback) {
         var name = 'updatePlayer';
         var data = [player];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -3972,7 +3987,7 @@ SgtApi.PlayerExtraService = {
     updatePlayer: function (playerId, player, callback) {
         var name = 'updatePlayer';
         var data = [playerId, player];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 };
@@ -3997,7 +4012,7 @@ SgtApi.AchievementService = {
     achieve: function (playerId, achievmentId, callback) {
         var name = 'achieve';
         var data = [playerId, achievmentId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4012,7 +4027,7 @@ SgtApi.AchievementService = {
     complete: function (playerId, achievmentId, callback) {
         var name = 'complete';
         var data = [playerId, achievmentId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4027,7 +4042,7 @@ SgtApi.AchievementService = {
     excuteAchievementsByType: function (type, playerId, callback) {
         var name = 'excuteAchievementsByType';
         var data = [type, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4042,7 +4057,7 @@ SgtApi.AchievementService = {
     customAchievementsByType: function (type, playerId, progress, callback) {
         var name = 'excuteAchievementsByType';
         var data = [type, playerId, progress];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4056,7 +4071,7 @@ SgtApi.AchievementService = {
     "getAchievementById": function (achievementId, callback) {
         var name = 'getAchievementById';
         var data = [achievementId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4071,7 +4086,7 @@ SgtApi.AchievementService = {
     "getAchievementsByType": function (playerId, type, callback) {
         var name = 'getAchievementsByType';
         var data = [playerId, type];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4084,7 +4099,7 @@ SgtApi.AchievementService = {
     "getAllAchievements": function (callback) {
         var name = 'getAllAchievements';
         var data = [];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4098,7 +4113,7 @@ SgtApi.AchievementService = {
     "getAvailableAchievements": function (playerId, callback) {
         var name = 'getAvailableAchievements';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4112,7 +4127,7 @@ SgtApi.AchievementService = {
     "getCompleteAchievements": function (playerId, callback) {
         var name = 'getCompleteAchievements';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4126,7 +4141,7 @@ SgtApi.AchievementService = {
     "getDoneAchievements": function (playerId, callback) {
         var name = 'getDoneAchievements';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4142,7 +4157,7 @@ SgtApi.AchievementService = {
     "setAchievementProgress": function (playerId, chievementId, progress, callback) {
         var name = 'setAchievementProgress';
         var data = [playerId, chievementId, progress];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
     /**
@@ -4157,7 +4172,7 @@ SgtApi.AchievementService = {
     "setAchievementsProgressByType": function (type, playerId, progress, callback) {
         var name = 'setAchievementsProgressByType';
         var data = [type, playerId, progress];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 };
@@ -4180,7 +4195,7 @@ SgtApi.AnnouncementService = {
     "getAnnounceByType": function (type, callback) {
         var name = 'getAnnounceByType';
         var data = [type];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/announcement.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/announcement.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 };
@@ -4203,7 +4218,7 @@ SgtApi.CampaignService = {
     "getAvailableCampaigns": function (callback) {
         var name = 'getAvailableCampaigns';
         var data = [];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4219,7 +4234,7 @@ SgtApi.CampaignService = {
     "getByTimeZone": function (startTime, endTime, callback) {
         var name = 'getByTimeZone';
         var data = [startTime, endTime];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
         SgtApi.doRPC(name, data, url, callback);
     },
     /**
@@ -4232,7 +4247,7 @@ SgtApi.CampaignService = {
     "getCampaignById": function (campaignId, callback) {
         var name = 'getCampaignById';
         var data = [campaignId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4246,7 +4261,7 @@ SgtApi.CampaignService = {
     "getCampaignDetaiByCId": function (campaignId, callback) {
         var name = 'getCampaignDetaiByCId';
         var data = [campaignId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4260,7 +4275,7 @@ SgtApi.CampaignService = {
     "getCampaignDetaiById": function (campaignId, callback) {
         var name = 'getCampaignDetaiById';
         var data = [campaignId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4275,7 +4290,7 @@ SgtApi.CampaignService = {
     "getCampaignProgress": function (campaignId, playerId, callback) {
         var name = 'getCampaignProgress';
         var data = [campaignId, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4290,9 +4305,9 @@ SgtApi.CampaignService = {
      * @return number
      */
     "updateProgress": function (campaignId, playerId, progress, callback) {
-        var name = 'updateProgress';
+        var nae = 'updateProgress';
         var data = [campaignId, playerId, progress];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 
@@ -4301,10 +4316,10 @@ SgtApi.CampaignService = {
 
 /**
  * 签到接口(已启用,请参考最新的CheckinBoardService)
- * @module  CheckinService
+ * @module  CheckinBoardService
  * @type {{}|*}
  */
-SgtApi.CheckinService = {
+SgtApi.CheckinBoardService = {
     url: null,
     playerid: null,
     /**
@@ -4324,7 +4339,7 @@ SgtApi.CheckinService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/checkinboard.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/checkinboard.do';
         return true;
     },
     /**
@@ -4569,7 +4584,7 @@ SgtApi.DailyTaskService = {
     "excuteTask": function (taskId, playerId, callback) {
         var name = 'excuteTask';
         var data = [taskId, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4584,7 +4599,7 @@ SgtApi.DailyTaskService = {
     "excuteTasksByType": function (type, playerId, callback) {
         var name = 'excuteTasksByType';
         var data = [type, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4600,7 +4615,7 @@ SgtApi.DailyTaskService = {
     "addexcuteTasksByType": function (type, playerId, progress, callback) {
         var name = 'excuteTasksByType';
         var data = [type, playerId, progress];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4614,7 +4629,7 @@ SgtApi.DailyTaskService = {
     "getDailyTasks": function (playerId, callback) {
         var name = 'getDailyTasks';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4628,7 +4643,7 @@ SgtApi.DailyTaskService = {
     "getDailyTasksByType": function (playerId, type, callback) {
         var name = 'getDailyTasksByType';
         var data = [playerId, type];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4644,7 +4659,7 @@ SgtApi.DailyTaskService = {
     "getReward": function (taskId, playerId, callback) {
         var name = 'getReward';
         var data = [taskId, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4661,7 +4676,7 @@ SgtApi.DailyTaskService = {
     "setTaskProgress": function (playerId, taskId, progress, callback) {
         var name = 'setTaskProgress';
         var data = [playerId, taskId, progress];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4677,7 +4692,7 @@ SgtApi.DailyTaskService = {
     "setTasksProgressByType": function (type, playerId, progress, callback) {
         var name = 'setTasksProgressByType';
         var data = [type, playerId, progress];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 
@@ -4701,7 +4716,7 @@ SgtApi.TaskService = {
     addActionCount: function (playerId, actionType, callback) {
         var name = 'addActionCount';
         var data = [playerId, actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4716,7 +4731,7 @@ SgtApi.TaskService = {
     addActionCountTime: function (playerId, actionType, addtodayTimes, callback) {
         var name = 'addActionCount';
         var data = [playerId, actionType, addtodayTimes];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4731,7 +4746,7 @@ SgtApi.TaskService = {
     complete: function (playerId, taskId, callback) {
         var name = 'complete';
         var data = [playerId, taskId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4745,7 +4760,7 @@ SgtApi.TaskService = {
     getAchievementById: function (achievementId, callback) {
         var name = 'getAchievementById';
         var data = [achievementId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4760,7 +4775,7 @@ SgtApi.TaskService = {
     getAchievements: function (playerId, actionType, callback) {
         var name = 'getAchievements';
         var data = [playerId, actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4774,7 +4789,7 @@ SgtApi.TaskService = {
     getAchievementsByType: function (actionType, callback) {
         var name = 'getAchievementsByType';
         var data = [actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4789,7 +4804,7 @@ SgtApi.TaskService = {
     "getActionCount": function (playerId, actiontype, callback) {
         var name = 'getActionCount';
         var data = [playerId, actiontype];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4802,7 +4817,7 @@ SgtApi.TaskService = {
     getAllAchievements: function (callback) {
         var name = 'getAllAchievements';
         var data = [];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4815,7 +4830,7 @@ SgtApi.TaskService = {
     getAllDailyTasks: function (callback) {
         var name = 'getAllDailyTasks';
         var data = [];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4829,7 +4844,7 @@ SgtApi.TaskService = {
     getAllTasks: function (taskType, callback) {
         var name = 'getAllTasks';
         var data = [taskType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4843,7 +4858,7 @@ SgtApi.TaskService = {
     getCompleteAchievements: function (playerId, actionType, callback) {
         var name = 'getCompleteAchievements';
         var data = [playerId, actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4858,7 +4873,7 @@ SgtApi.TaskService = {
     getCompleteDailyTasks: function (playerId, actionType, callback) {
         var name = 'getCompleteDailyTasks';
         var data = [playerId, actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4874,7 +4889,7 @@ SgtApi.TaskService = {
     getCompleteTasks: function (taskType, playerId, actiontype, callback) {
         var name = 'getCompleteTasks';
         var data = [taskType, playerId, actiontype];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4888,7 +4903,7 @@ SgtApi.TaskService = {
     getDailyTaskById: function (dailyTaskId, callback) {
         var name = 'getDailyTaskById';
         var data = [dailyTaskId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4903,7 +4918,7 @@ SgtApi.TaskService = {
     getDailyTasks: function (playerId, actionType, callback) {
         var name = 'getDailyTasks';
         var data = [playerId, actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4917,7 +4932,7 @@ SgtApi.TaskService = {
     getDailyTasksByType: function (actionType, callback) {
         var name = 'getDailyTasksByType';
         var data = [actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4932,7 +4947,7 @@ SgtApi.TaskService = {
     getDoneAchievements: function (playerId, actionType, callback) {
         var name = 'getDoneAchievements';
         var data = [playerId, actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4947,7 +4962,7 @@ SgtApi.TaskService = {
     getDoneDailyTasks: function (playerId, actionType, callback) {
         var name = 'getDoneDailyTasks';
         var data = [playerId, actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4963,7 +4978,7 @@ SgtApi.TaskService = {
     getDoneTasks: function (taskType, playerId, actionType, callback) {
         var name = 'getDoneTasks';
         var data = [taskType, playerId, actionType];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4978,7 +4993,7 @@ SgtApi.TaskService = {
     getReward: function (playerId, taskId, callback) {
         var name = 'getReward';
         var data = [playerId, taskId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -4992,7 +5007,7 @@ SgtApi.TaskService = {
     getTaskById: function (taskId, callback) {
         var name = 'getTaskById';
         var data = [taskId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5006,7 +5021,7 @@ SgtApi.TaskService = {
     getTasks: function (taskType, playerId, actiontype, callback) {
         var name = 'getTasks';
         var data = [taskType, playerId, actiontype];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5022,7 +5037,7 @@ SgtApi.TaskService = {
     getTasksStatus: function (taskType, playerId, actiontype, status, callback) {
         var name = 'getTasks';
         var data = [taskType, playerId, actiontype, status];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5037,7 +5052,7 @@ SgtApi.TaskService = {
     getTasksByType: function (taskType, actiontype, callback) {
         var name = 'getTasksByType';
         var data = [taskType, actiontype];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 };
@@ -5059,7 +5074,7 @@ SgtApi.FriendshipService = {
     acceptInvite: function (sendIds, receiveId, callback) {
         var name = 'acceptInvite';
         var data = [sendIds, receiveId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5073,7 +5088,7 @@ SgtApi.FriendshipService = {
     acceptInviteByMail: function (sendIds, receiveId, mail) {
         var name = 'acceptInvite';
         var data = [sendIds, receiveId, mail];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5089,7 +5104,7 @@ SgtApi.FriendshipService = {
     getDenied: function (page, limit, myId, callback) {
         var name = 'getDenied';
         var data = [page, limit, myId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5103,7 +5118,7 @@ SgtApi.FriendshipService = {
     getFrindsCount: function (playerId, callback) {
         var name = 'getFrindsCount';
         var data = [playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5117,7 +5132,7 @@ SgtApi.FriendshipService = {
     getInvite: function (receiveId, callback) {
         var name = 'getInvite';
         var data = [receiveId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5133,7 +5148,7 @@ SgtApi.FriendshipService = {
     getMyFriends: function (page, limit, playerId, callback) {
         var name = 'getMyFriends';
         var data = [page, limit, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5147,7 +5162,7 @@ SgtApi.FriendshipService = {
     getNotConfirm: function (sendId, callback) {
         var name = 'getNotConfirm';
         var data = [sendId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5161,7 +5176,7 @@ SgtApi.FriendshipService = {
     invite: function (sendId, receiveId, callback) {
         var name = 'invite';
         var data = [sendId, receiveId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5175,7 +5190,7 @@ SgtApi.FriendshipService = {
     inviteByMails: function (sendId, receiveId, mails, callback) {
         var name = 'invite';
         var data = [sendId, receiveId, mails];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5190,7 +5205,7 @@ SgtApi.FriendshipService = {
     isMyfriend: function (myId, otherId, callback) {
         var name = 'isMyfriend';
         var data = [myId, otherId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5205,7 +5220,7 @@ SgtApi.FriendshipService = {
     refuse: function (sendId, receiveId, callback) {
         var name = 'refuse';
         var data = [myId, otherId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5220,7 +5235,7 @@ SgtApi.FriendshipService = {
     unfriend: function (playerId, unfriendId, callback) {
         var name = 'unfriend';
         var data = [playerId, unfriendId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 
@@ -5246,7 +5261,7 @@ SgtApi.FriendshipExtraService = {
     getAllMyFriendsAndExt: function (myPlayerId, key, start, limit, callback) {
        var name = 'getAllMyFriendsAndExt';
        var data = [myPlayerId, key, start, limit];
-       var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
+       var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
        SgtApi.doRPC(name, data, url, callback);
     },
     /**
@@ -5260,7 +5275,7 @@ SgtApi.FriendshipExtraService = {
     getMyFriendAndExt: function (myPlayerId, friendId, callback) {
         var name = 'getMyFriendAndExt';
         var data = [myPlayerId, friendId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
         SgtApi.doRPC(name,data,url,callback);
     },
     /**
@@ -5275,7 +5290,7 @@ SgtApi.FriendshipExtraService = {
     updateAllMyFriendExt: function (myPlayerId, key, value, callback) {
         var name = 'getMyFriendAndExt';
         var data = [myPlayerId, key, value];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
         SgtApi.doRPC(name,data,url,callback);
     },
     /**
@@ -5290,7 +5305,7 @@ SgtApi.FriendshipExtraService = {
     updateMyFriendAllExt: function (myPlayerId, friendId, newExt, callback) {
         var name = 'updateMyFriendAllExt';
         var data = [myPlayerId, friendId, newExt];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
         SgtApi.doRPC(name,data,url,callback);
     },
     /**
@@ -5306,7 +5321,7 @@ SgtApi.FriendshipExtraService = {
     updateMyFriendExt: function (myPlayerId, friendId, key, value, callback) {
         var name = 'updateMyFriendExt';
         var data = [myPlayerId, friendId, key, value];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 };
@@ -5329,7 +5344,7 @@ SgtApi.BlackListService = {
     addPlayerIntoBlackList: function (blacklistId, playerId, callback) {
         var name = 'addPlayerIntoBlackList';
         var data = [blacklistId, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/blacklist.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/blacklist.do';
         SgtApi.doRPC(name,data,url,callback);
     },
     /**
@@ -5343,7 +5358,7 @@ SgtApi.BlackListService = {
     isInBlackList: function (blacklistId, playerId, callback) {
         var name = 'isInBlackList';
         var data = [blacklistId, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/blacklist.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/blacklist.do';
         SgtApi.doRPC(name,data,url,callback);
     }
 };
@@ -5369,7 +5384,7 @@ SgtApi.GachaBoxService = {
     autobalanceDraw: function (playerId, gachaBoxId, num, callback) {
         var name = 'autobalanceDraw';
         var data = [playerId, gachaBoxId, num];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5386,7 +5401,7 @@ SgtApi.GachaBoxService = {
     autobalanceDrawQuality: function (playerId, gachaBoxId, num, quality, callback) {
         var name = 'autobalanceDraw';
         var data = [playerId, gachaBoxId, num];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5404,7 +5419,7 @@ SgtApi.GachaBoxService = {
     autobalanceDrawMaxQuality: function (playerId, gachaBoxId, num, quality, maxQuality, callback) {
         var name = 'autobalanceDraw';
         var data = [playerId, gachaBoxId, maxQuality, num];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5421,7 +5436,7 @@ SgtApi.GachaBoxService = {
     draw: function (playerId, gachaBoxId, quality, callback) {
         var name = 'draw';
         var data = [playerId, gachaBoxId, quality];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5434,7 +5449,7 @@ SgtApi.GachaBoxService = {
     getAvailableGachaBox: function (callback) {
         var name = 'getAvailableGachaBox';
         var data = [];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5447,7 +5462,7 @@ SgtApi.GachaBoxService = {
     getGachaBoxByName: function (gachaBoxname, callback) {
         var name = 'getGachaBoxByName';
         var data = [gachaBoxname];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
         SgtApi.doRPC(name, data, url, callback);
     },
    
@@ -5461,7 +5476,7 @@ SgtApi.GachaBoxService = {
     getLotteriesByGachaBoxId: function (gachaBoxId, callback) {
         var name = 'getLotteriesByGachaBoxId';
         var data = [gachaBoxId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
         SgtApi.doRPC(name, data, url, callback);
     },
     
@@ -5476,7 +5491,7 @@ SgtApi.GachaBoxService = {
     limitDraw: function (playerId, gachaBoxId, limitQuality, callback) {
         var name = 'limitDraw';
         var data = [playerId, gachaBoxId, limitQuality];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
         SgtApi.doRPC(name, data, url, callback);
     }
 };
@@ -5500,12 +5515,12 @@ SgtApi.LeaderBoardService = {
     addUpLeaderBoardScore: function (leaderId, plyaerId, score, callback) {
         var name = 'addUpLeaderBoardScore';
         var data = [leaderId, plyaerId, score];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
      /**
-     * 通过排行榜的LeaderBoardID获取LeaderBoard信息
+     * 通过排行榜的leaderBoardID获取leaderBoard信息
      * @method getLeaderBoardByLeaderId
      * @param leaderId{String} 排行榜LeaderBoardId
      * @param callback
@@ -5514,7 +5529,7 @@ SgtApi.LeaderBoardService = {
     getLeaderBoardByLeaderId: function (leaderId, callback) {
         var name = 'getLeaderBoardByLeaderId';
         var data = [leaderId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5529,7 +5544,7 @@ SgtApi.LeaderBoardService = {
     getLeaderBoardScoreByExample: function (leaderId, player, callback) {
        var name = 'getLeaderBoardScoreByExample';
        var data = [leaderId, player];
-       var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
+       var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
        SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5544,7 +5559,7 @@ SgtApi.LeaderBoardService = {
     getLeaderBoardScoreByLeaderIdAndPlayerId: function (leaderId, playerId, callback) {
         var name = 'getLeaderBoardScoreByLeaderIdAndPlayerId';
         var data = [leaderId, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5559,7 +5574,7 @@ SgtApi.LeaderBoardService = {
     getLeaderBoardScoresByLeaderIdAndPlayerId : function (leaderId, playerId, callback) {
         var name = 'getLeaderBoardScoresByLeaderIdAndPlayerId';
         var data = [leaderId, playerId];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
         SgtApi.doRPC(name, data, url, callback);
     },
 
@@ -5575,7 +5590,7 @@ SgtApi.LeaderBoardService = {
     getTopLeaderBoardScoreByLeaderId : function (leaderId, start, limit, callback) {
         var name = 'getTopLeaderBoardScoreByLeaderId';
         var data = [leaderId, start, limit];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
         SgtApi.doRPC(name, data, url, callback);
     },
     
@@ -5591,7 +5606,7 @@ SgtApi.LeaderBoardService = {
     submitLeaderBoardScore: function (leaderId, playerId, score, callback) {
         var name = 'submitLeaderBoardScore';
         var data = [leaderId, playerId, score];
-        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
         SgtApi.doRPC(name, data, url, callback);
      }
    
@@ -5621,7 +5636,7 @@ SgtApi.MailService = {
         }
         this.playerData = playerData;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/mail.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/mail.do';
         return true;
     },
     /**
@@ -5856,7 +5871,7 @@ SgtApi.Notification = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/notification.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/notification.do';
         return true;
     },
     /**
@@ -5921,7 +5936,7 @@ SgtApi.Purchase = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/purchase.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/purchase.do';
         return true;
     },
     /**
@@ -6074,7 +6089,7 @@ SgtApi.StoreService = {
             return false;
         }
         this.playid = playid;
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/store.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/store.do';
         return true;
     },
     /**
@@ -6270,7 +6285,7 @@ SgtApi.ChargePoint = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/chargepoint.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/chargepoint.do';
         return true;
     },
     /**
@@ -6340,7 +6355,7 @@ SgtApi.BossService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/boss.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/boss.do';
         return true;
     },
     /**
@@ -6489,7 +6504,7 @@ SgtApi.FileStorage = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/filestorage.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/filestorage.do';
         return true;
     },
     /**
@@ -6561,7 +6576,7 @@ SgtApi.GiftCode = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/giftcode.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
         return true;
     },
     /**
@@ -6721,7 +6736,7 @@ SgtApi.PrivateChannel = {
             return false;
         }
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/privatechannel.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/privatechannel.do';
         return true;
     },
     /**
@@ -6853,7 +6868,7 @@ SgtApi.PublicChannelService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/publicchannel.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/publicchannel.do';
         return true;
     },
     /**
@@ -7085,13 +7100,13 @@ SgtApi.DelegateDid = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/delegatedid.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/delegatedid.do';
         return true;
     },
     /**
      * 创建代理id（did）
      * @method createDid
-     * @param appId{string} APPID
+     * @param appId{string} appId
      * @param serverId{string} 服务器ID
      * @param callback
      * @return callback
@@ -7170,7 +7185,7 @@ SgtApi.StructuredDataService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/structureddata.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/structureddata.do';
         return true;
     },
     /**
@@ -7707,7 +7722,7 @@ SgtApi.TicketService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/ticket.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/ticket.do';
         return true;
     },
     /**
@@ -7785,7 +7800,7 @@ SgtApi.ErrorReportService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/errorreport.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/errorreport.do';
         return true;
     },
 
@@ -7828,7 +7843,7 @@ SgtApi.InvitationCodeService = {
         }
         this.playerId = playerId;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/invitationcode.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/invitationcode.do';
         return true;
     },
 
@@ -7929,7 +7944,7 @@ SgtApi.PaymentCallbackService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/paymentcallback.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/paymentcallback.do';
         return true;
     },
 
@@ -7963,7 +7978,7 @@ SgtApi.RouterService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/router.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/router.do';
         return true;
     },
     /**
@@ -8032,7 +8047,7 @@ SgtApi.TimestampService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/timestamp.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/timestamp.do';
         return true;
     },
 
@@ -8170,33 +8185,33 @@ SgtApi.VersionDetailService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/versiondetail.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/versiondetail.do';
         return true;
     },
 
 
     /**
-     * 根据appid和当前版本信息获取升级信息
+     * 根据appId和当前版本信息获取升级信息
      * @Method checkUpdate
-     * @param appid
+     * @param appId
      * @param currentVersion
      * @param callback
      */
-    'checkUpdate': function (appid, currentVersion, callback) {
+    'checkUpdate': function (appId, currentVersion, callback) {
         var name = 'checkUpdate';
-        var data = [appid, currentVersion];
+        var data = [appId, currentVersion];
         SgtApi.doRPC(name, data, this.url, callback);
     },
 
     /**
-     * 获取某个appid所有的版本信息
+     * 获取某个appId所有的版本信息
      * @Method getAllVersions
-     * @param appid
+     * @param appId
      * @param callback
      */
-    'getAllVersions': function (appid, callback) {
+    'getAllVersions': function (appId, callback) {
         var name = 'getAllVersions';
-        var data = [appid];
+        var data = [appId];
         SgtApi.doRPC(name, data, this.url, callback);
     }
 }
