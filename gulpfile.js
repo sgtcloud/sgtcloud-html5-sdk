@@ -15,7 +15,9 @@ gulp.task('compile', function() {
 
 gulp.task('development', function() {
 	gulp.watch('./src/*.js', function(event) {
-		gulp.start('compile');
+		if('changed' === event.type){
+			gulp.start('compile');
+		}
 	});
 });
 
