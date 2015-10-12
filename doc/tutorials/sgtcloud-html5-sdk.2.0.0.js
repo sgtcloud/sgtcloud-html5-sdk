@@ -59,7 +59,7 @@ jsonRPC =new Object({
                 }
             }
         };
-        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), true);
+        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), false);
 
         var headers=[
             {"name":"Accept","type":"application/json, text/javascript, */*;"},
@@ -3236,7 +3236,7 @@ function $JsonRpc(obj) {
  * @returns {Object} 工厂创建的实体对象
  */
 SgtApi.entityFactory = function (entity_name, fn) {
-    var entity = eval('new SgtApi.entity.' + entity_name + '();');
+    var entity = eval('new SgtApi.entity.' + entity_name.upperCase + '();');
     if (fn && fn !== '') {
         fn();
     }
