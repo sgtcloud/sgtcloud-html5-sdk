@@ -3236,7 +3236,7 @@ function $JsonRpc(obj) {
  * @returns {Object} 工厂创建的实体对象
  */
 SgtApi.entityFactory = function (entity_name, fn) {
-    var entity = eval('new SgtApi.entity.' + entity_name + '();');
+    var entity = eval('new SgtApi.entity.' + entity_name.upperCase + '();');
     if (fn && fn !== '') {
         fn();
     }
@@ -3588,11 +3588,12 @@ SgtApi.UserService = {
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
             var name = "";
             for (var i = 0; i < 8; i++) {
+                var id = 0;
                 if (i > 5) {
-                    var id = Math.ceil(Math.random() * 9);
+                    id = Math.ceil(Math.random() * 9);
                     name += num[id];
                 } else {
-                    var id = Math.ceil(Math.random() * 61);
+                    id = Math.ceil(Math.random() * 61);
                     name += chars[id];
                 }
             }
@@ -4329,7 +4330,7 @@ SgtApi.CheckinBoardService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -4408,7 +4409,7 @@ SgtApi.CheckinBoardService = {
      * @param callback
      * @return callback
      */
-    "getByChekinboardId": function (callback) {
+    "getCheckinboardByChekinboardId": function (callback) {
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
             'getCheckinboardByChekinboardId',
@@ -4422,6 +4423,7 @@ SgtApi.CheckinBoardService = {
             }
         );
     },
+
     /**
      * 获取最后签到时间
      * @method getLastCheckinTime
@@ -4442,13 +4444,14 @@ SgtApi.CheckinBoardService = {
             }
         );
     },
+
     /**
      * 获取奖励
      * @method getRewardByChekinboardId
      * @param callback
      * @return callback
      */
-    "getRewardByChekinboardId": function (callback) {
+    "getRewardByChekinBoardId": function (callback) {
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
             'getRewardByChekinboardId',
@@ -4508,7 +4511,7 @@ SgtApi.CheckinBoardService = {
      * @param callback
      * @return callback
      */
-    "getAvailableChekinboards": function (callback) {
+    "getAvailableCheckinBoards": function (callback) {
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
             'getAvailableChekinboards',
@@ -4528,7 +4531,7 @@ SgtApi.CheckinBoardService = {
      * @param tag{string} 自定义标签
      * @param callback
      */
-    "getAvailableChekinboardsByTag": function (tag, callback) {
+    "getAvailableCheckinBoardsByTag": function (tag, callback) {
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
             'getAvailableChekinboardsByTag',
@@ -4549,7 +4552,7 @@ SgtApi.CheckinBoardService = {
      * @param callback
      * @return callback
      */
-    "getAvailableChekinboardsByType": function (type, callback) {
+    "getAvailableCheckinBoardsByType": function (type, callback) {
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
             'getAvailableChekinboardsByType',
@@ -5627,11 +5630,11 @@ SgtApi.MailService = {
      * @return {boolean}
      */
     "init": function (playerData) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        if (playerData == null || typeof (playerData) == "undefined") {
+        if (playerData === null || typeof (playerData) == "undefined") {
             return false;
         }
         this.playerData = playerData;
@@ -5647,13 +5650,13 @@ SgtApi.MailService = {
      * @return callback
      */
     "sendMail": function (mail, callback) {
-        if (mail.title == '' || mail.title == null) {
+        if (mail.title === '' || mail.title === null) {
             return callback(false, '邮件标题不能为空！');
         }
-        if (mail.toId == '' || mail.toId == null) {
+        if (mail.toId === '' || mail.toId === null) {
             return callback(false, '收邮件人ID不能为空！');
         }
-        if (mail.toName == '' || mail.toName == null) {
+        if (mail.toName === '' || mail.toName === null) {
             return callback(false, '收邮件人名字不能为空！');
         }
         mail.fromId = this.playerData.id;//String 发送者ID
@@ -5682,10 +5685,10 @@ SgtApi.MailService = {
      * @return callback
      */
     "receive": function (start, limit, status, callback) {
-        if (start < 0 || start == null) {
+        if (start < 0 || start === null) {
             start = 1;
         }
-        if (limit < 0 || limit == null) {
+        if (limit < 0 || limit === null) {
             limit = 5;
         }
 
@@ -5717,7 +5720,7 @@ SgtApi.MailService = {
             localS = window.localStorage;
         }
         var otimestamp = localS.getItem("receiveUnread");
-        if (typeof(otimestamp) != "undefined" && otimestamp && otimestamp != "") {
+        if (typeof(otimestamp) != "undefined" && otimestamp && otimestamp !== "") {
             timestamp = parseInt(otimestamp);
         }
         var backClient = new $JsonRpc({ajaxUrl: this.url});
@@ -5742,7 +5745,7 @@ SgtApi.MailService = {
      * @return callback
      */
     "readMail": function (id, callback) {
-        if (id == null) {
+        if (id === null) {
             return callback(false, 'ID为空！');
         }
         var backClient = new $JsonRpc({ajaxUrl: this.url});
@@ -5787,7 +5790,7 @@ SgtApi.MailService = {
      * @return callback
      */
     "deleteMail": function (id, callback) {
-        if (id == null) {
+        if (id === null) {
             return callback(false, 'ID为空！');
         }
         var backClient = new $JsonRpc({ajaxUrl: this.url});
@@ -5844,7 +5847,7 @@ SgtApi.MailService = {
         );
     }
 
-}
+};
 
 /**
  * 通知模块业务
@@ -5861,7 +5864,7 @@ SgtApi.Notification = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -5909,7 +5912,7 @@ SgtApi.Notification = {
             );
         }
     }
-}
+};
 
 /**
  * 充值业务逻辑
@@ -5926,7 +5929,7 @@ SgtApi.Purchase = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6063,7 +6066,7 @@ SgtApi.Purchase = {
             }
         );
     }
-}
+};
 
 /**
  * 商城业务接口
@@ -6080,7 +6083,7 @@ SgtApi.StoreService = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6266,7 +6269,7 @@ SgtApi.StoreService = {
             }
         );
     }
-}
+};
 
 /**
  * 计费点业务
@@ -6281,7 +6284,7 @@ SgtApi.ChargePoint = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6328,8 +6331,7 @@ SgtApi.ChargePoint = {
             }
         );
     }
-
-}
+};
 
 /**
  * BOSS业务接口
@@ -6346,11 +6348,11 @@ SgtApi.BossService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        if (playerid == null) {
+        if (playerid === null) {
             return false;
         }
         this.playerid = playerid;
@@ -6485,7 +6487,7 @@ SgtApi.BossService = {
             }
         );
     }
-}
+};
 
 /**
  * 文件分发存储业务
@@ -6500,7 +6502,7 @@ SgtApi.FileStorage = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6549,7 +6551,7 @@ SgtApi.FileStorage = {
             }
         );
     }
-}
+};
 
 /**
  * 礼包/兑换码业务接口
@@ -6566,7 +6568,7 @@ SgtApi.GiftCode = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6708,7 +6710,7 @@ SgtApi.GiftCode = {
             }
         );
     }
-}
+};
 
 /**
  * 个人通道业务接口
@@ -6725,7 +6727,7 @@ SgtApi.PrivateChannel = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -6849,7 +6851,7 @@ SgtApi.PrivateChannel = {
             }
         );
     }
-}
+};
 
 /**
  * 公共通道业务接口
@@ -6864,7 +6866,7 @@ SgtApi.PublicChannelService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -7069,7 +7071,7 @@ SgtApi.PublicChannelService = {
             }
         );
     }
-}
+};
 
 /**
  * 第三方回调接口
@@ -7086,11 +7088,11 @@ SgtApi.DelegateDid = {
      * @return {boolean}
      */
     "init": function (playid) {
-        if (SgtApi.context.userData == null) {
+        if (SgtApi.context.userData === null) {
             console.log('There was an error:', '没获取用户信息！');
             return false;
         }
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -7166,7 +7168,7 @@ SgtApi.DelegateDid = {
             }
         );
     }
-}
+};
 
 /**
  * 结构化数据业务接口
@@ -7181,7 +7183,7 @@ SgtApi.StructuredDataService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -7326,7 +7328,7 @@ SgtApi.StructuredDataService = {
      * @param callback
      * @return callback
      */
-    "getMapValue": function (key, hashKey, callback) {
+    getMapValueByHashKey: function (key, hashKey, callback) {
         var backClient = new $JsonRpc({ajaxUrl: this.url});
         backClient.call(
             'getHashValue',
@@ -7695,7 +7697,7 @@ SgtApi.StructuredDataService = {
             }
         );
     }
-}
+};
 
 
 /**
@@ -7713,11 +7715,11 @@ SgtApi.TicketService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        if (playerid == null) {
+        if (playerid === null) {
             return false;
         }
         this.playerid = playerid;
@@ -7772,7 +7774,7 @@ SgtApi.TicketService = {
         );
     }
 
-}
+};
 
 
 /**
@@ -7791,11 +7793,11 @@ SgtApi.ErrorReportService = {
      * @return {boolean}
      */
     "init": function (playerid) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        if (playerid == null) {
+        if (playerid === null) {
             return false;
         }
         this.playerid = playerid;
@@ -7817,7 +7819,7 @@ SgtApi.ErrorReportService = {
         var data = [this.playerid, type, customId, content];
         SgtApi.doRPC(name, data, this.url, callback);
     }
-}
+};
 
 /**
  * @module InvitationCodeService
@@ -7834,11 +7836,11 @@ SgtApi.InvitationCodeService = {
      * @return {boolean}
      */
     "init": function (playerId) {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        if (playerId == null) {
+        if (playerId === null) {
             return false;
         }
         this.playerId = playerId;
@@ -7924,8 +7926,7 @@ SgtApi.InvitationCodeService = {
         var data = [inviteePlayerId];
         SgtApi.doRPC(name, data, this.url, callback);
     }
-}
-
+};
 
 /**
  * @module PaymentCallbackService
@@ -7940,7 +7941,7 @@ SgtApi.PaymentCallbackService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -7974,7 +7975,7 @@ SgtApi.RouterService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -8043,7 +8044,7 @@ SgtApi.TimestampService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -8142,7 +8143,7 @@ SgtApi.TimestampService = {
             data = [sgpPlayerId, key];
             SgtApi.doRPC(name, data, this.url, offset);
         } else {
-            data = [sgpPlayerId, key, offset]
+            data = [sgpPlayerId, key, offset];
             SgtApi.doRPC(name, data, this.url, callback);
         }
     },
@@ -8162,7 +8163,7 @@ SgtApi.TimestampService = {
             data = [sgpPlayerId, keys];
             SgtApi.doRPC(name, data, this.url, offset);
         } else {
-            data = [sgpPlayerId, key, offset]
+            data = [sgpPlayerId, key, offset];
             SgtApi.doRPC(name, data, this.url, callback);
         }
     }
@@ -8181,7 +8182,7 @@ SgtApi.VersionDetailService = {
      * @return {boolean}
      */
     "init": function () {
-        if (SgtApi.context.playServerData == null) {
+        if (SgtApi.context.playServerData === null) {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
@@ -8214,4 +8215,4 @@ SgtApi.VersionDetailService = {
         var data = [appId];
         SgtApi.doRPC(name, data, this.url, callback);
     }
-}
+};

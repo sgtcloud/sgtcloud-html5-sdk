@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>5分钟创建一个排行榜</title>
+		<link rel="stylesheet" href="./jquery.fullpage.min.css">
+		<link rel="stylesheet" href="./bootstrap.min.css">
+		<script src="jquery.1.11.1.min.js"></script>
+		<script src="./jquery.fullpage.min.js"></script>
+		<script src="./sgtcloud-html5-sdk.2.0.0.js"></script>
+		<style>
+			*{
+				text-align: center
+			}
+
+			body{
+				margin: 0;
+				padding: 0;
+				background: #4682b4;
+			}
+
+			section{
+				margin: 0;
+				padding: 0;
+			}
+
+			#section1{
+				background: #5c5c5c;
+			}
+
+			p{
+				font-size: 22px;
+			}
+
+			#step1 ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			#step1 ul li {
+				width: 225px;
+				height: 45px;
+				color: white;
+				background: #5c5c5c ;
+			}
+
+			#step1 ul li:hover{
+
+				background: red ;
+			}
+
+			#step2{
+				backgound:white;
+			}
+			
+
+		</style>
+	</head>
+	<body>
+		<div id="fullpage">
+		    <div class="section" id="section1">
+		    	<h1>Step 1:</h1>
+		    	<div>
+			    	<p>
+			    		首先进入开发者后台 http://console.sgtcloud.cn/
+			    		<br>
+			    		登录成功后进入主页面
+			    		<br>
+			    		点击数据管理
+			    	</p>
+			    	
+			    	<img src="./step1.png">
+		    	</div>
+		    </div>
+
+		    <div class="section">
+			    <h1>Step 2:</h1>
+			    <div>
+		    		<p>
+		    			然后会是这个样子
+		    			<br>
+		    			点击添加按钮
+		    		</p>
+		    		<img id="step2" src="./step2.png">
+		    	</div>
+		    </div>
+
+		    <div class="section">
+				<h1>Step 3:</h1>
+		    	<div>
+		    		<p>阿斯达斯的</p>
+				   	<img src="./step4.png" >
+			   	</div>
+		    </div>
+
+		    <div class="section">
+			   	<h1>Step 4:</h1>
+		    	<div>
+			   		<img src="./step5.png">
+			   	</div>
+		    </div>
+
+		    <div class="section">
+				<h1>Step 5:</h1>
+				<div>
+			    	<img src="./step6.png">
+			    	<p>这样就完成了一个排行榜的创建,是不是很简单呢,快去试试吧</p>
+			    </div>
+		    </div>
+
+		    <div class="section">
+		    	<h1>提交排行榜分数</h1>
+		    	<input id="playerName" placeholder="角色名">
+		    	<input id="leaderBoardScore" placeholder="分数">
+		    	<button id="commitButton" class="btn btn-default">提交分数</button>
+		    </div>
+
+		    <div class="section">
+		    	<h1>显示排行榜</h1>
+		    	<div id="leaderBoard">
+		    		<ul class="list-group">
+
+					</ul>
+		    	</div>
+		    </div>
+		</div>
+
+		<script>
+
+			$(function() {
+
+				$('#fullpage').fullpage({
+					verticalCentered: true,
+					sectionsColor: ['#9c9c9c','#9c9c9c','#add8e6','#add8e6','#add8e6'],
+					navigation: true,
+					navigationTooltips: ['step1', 'step2', 'step3', 'step4', 'step5'],
+				
+
+				});
+
+
+				var userId = 0;
+				var playerId = 0;
+				var playerName = '';
+
+				var leaderId = 'longhubang';
+				var leaderBoardName = '';
+				var leaderBoardScore = 0;
+
+				//登录
+				SgtApi.UserService.login('ppoo001', 'ppoo001', function (result, data) {
+				    if (result) {
+				        userId = data.userid;
+				    }
+				});
+				
+				$('#commitButton').on('click',commitLeaderBoardScore);
+
+
+				function commitLeaderBoardScore() {
+					//创建角色实体
+					var player = new SgtApi.entity.Player();
+					player.name = $('#playerName').val();
+
+
+					//创建角色
+					SgtApi.PlayerService.create(player, function(result, data) {
+						if(result) {
+							playerId = data.id;
+						}
+					});
+
+					//提交排行榜分数
+					SgtApi.LeaderBoardService.submitLeaderBoardScore(leaderId, playerId, $('#leaderBoardScore').val(), function(result, data) {
+						if(result) {
+							console.log(data);
+						}
+					});
+				}
+				
+
+			showLeaderBoard();
+			//显示排行榜
+			function showLeaderBoard() {
+
+				var playerNames = [];
+				var leaderBoardScores = [];
+
+				//得到排行榜信息
+				SgtApi.LeaderBoardService.getTopLeaderBoardScoreByLeaderId(leaderId, 0, 10, function(result, data) {
+					if(result) {
+						var players = data;
+						players.forEach(function(item) {
+							playerNames.push(item.player.name);
+							leaderBoardScores.push(item.score);
+						});
+					}
+				});
+
+
+				//<li class="list-group-item">Cras justo odio</li>
+				//创建DOM
+				playerNames.forEach(function(item) {
+					var html = $('<li class="list-group-item">'+ item +'</li>');
+					$('#leaderBoard ul').append(html);
+					
+				});
+
+
+				/*
+				//得到排行榜分数信息
+				SgtApi.LeaderBoardService.getLeaderBoardScoreByLeaderIdAndPlayerId(leaderId, playerId, function(result, data) {
+					console.log(data);
+				});
+				*/	
+			}
+		});
+
+		</script>
+	</body>
+</html>
