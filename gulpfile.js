@@ -13,6 +13,12 @@ gulp.task('compile', function() {
 	pipe(gulp.dest('./dist/'));
 });
 
+gulp.task('development', function() {
+	gulp.watch('./src/*.js', function(event) {
+		gulp.start('compile');
+	});
+});
+
 
 gulp.task('default', ['compile']);
 
