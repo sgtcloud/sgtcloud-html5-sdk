@@ -1,4 +1,3 @@
-
 /**
  * Created by Administrator on 2015/9/17.
  */
@@ -89,7 +88,7 @@ SgtApi.entity = {
          * 邮件
          * @property email
          * @type {string}
-         * @default null
+         * @defaunilt null
          */
         this.email = null;
         /**
@@ -167,8 +166,7 @@ SgtApi.entity = {
          */
         SgtApi.entity.User.prototype.PHONENUMBER = 0;
 
-    }
-    ,
+    },
 
 
     /**
@@ -269,8 +267,7 @@ SgtApi.entity = {
          * @default 0
          */
         this.money = 0;
-    }
-    ,
+    },
 
     /**
      * 存档实例
@@ -327,8 +324,7 @@ SgtApi.entity = {
          */
         SgtApi.entity.Save.prototype.DENY_DOWN = 0;
 
-    }
-    ,
+    },
 
     /**
      * mail 对象
@@ -484,8 +480,7 @@ SgtApi.entity = {
          * @type {number}
          */
         SgtApi.entity.Mail.prototype.UNREAD = 0;
-    }
-    ,
+    },
 
 
     /**
@@ -1533,7 +1528,7 @@ SgtApi.entity = {
     ExternalCallbackBean: function () {
 
         /**
-         * APPID
+         * appId
          * @type {null}
          */
         this.appId = null;
@@ -3103,8 +3098,8 @@ function $JsonRpc(obj) {
             "success": succ,
             "error": error
         });
-    }
-};
+    };
+}
 
 
 /**
@@ -3115,11 +3110,11 @@ function $JsonRpc(obj) {
  */
 SgtApi.entityFactory = function (entity_name, fn) {
     var entity = eval('new SgtApi.entity.' + entity_name + '();');
-    if (fn && fn != '') {
+    if (fn && fn !== '') {
         fn();
     }
     return entity;
-}
+};
 
 /**
  *
@@ -3149,9 +3144,9 @@ SgtApi.doRPC = function (name, data, url, callback) {
  * @type {{userData: null, playerServerData: null, playerData: null}}
  */
 SgtApi.context = {
-    userData: null,
-    playServerData: null, //当前角色服务器信息
-    playerData: null    //当前角色信息
+    userData: {},
+    playServerData: {}, //当前角色服务器信息
+    playerData: {}    //当前角色信息
 };
 
 
@@ -3161,39 +3156,39 @@ SgtApi.context = {
 SgtApi.config = {
     ///**
     // * 网关
-    // * @property Appgateway
+    // * @property appGateway
     // * @type {string}
     // * @default http://sgp.gallme.com.cn/gateway
     // */
-    "Appgateway": 'http://test.sgtcloud.cn/gateway',
+    appGateway: 'http://gw.sgtcloud.cn/gateway',
     ///**
     // * 应用标识
-    // * @property AppId
+    // * @property appId
     // * @type {string}
     // * @default ""
     // */
-    "AppId": "sgttest",
+    appId: 'html5_demo2015',
     ///**
     // * 渠道标识
-    // * @property ChannelId
+    // * @property channelId
     // * @type {string}
     // * @default "zstfYB"
     // */
-    "ChannelId": "",
+    channelId: '',
     ///**
     // * 用户name
-    // * @property UserName
+    // * @property userName
     // * @type {string}
     // * @default null
     // */
-    "UserName": null,
+    userName: null,
     ///**
     // * 用户密码
-    // * @property UserPassword
+    // * @property userPassword
     // * @type {string}
     // * @default "yoedge2014"
     // */
-    "UserPassword": "",
+    userPassword: '',
 };
 
 /**
@@ -3204,19 +3199,17 @@ SgtApi.config = {
  */
 SgtApi.init = function (json) {
     "use strict";
-    if (json.Appgateway != "" && json.Appgateway) {
-        SgtApi.config.Appgateway = json.Appgateway;
+    if (json.appGateway !== "" && json.appGateway) {
+        SgtApi.config.appGateway = json.appGateway;
     }
-    if (json.AppId != "" && json.AppId) {
-        SgtApi.config.AppId = json.AppId;
+    if (json.appId !== "" && json.appId) {
+        SgtApi.config.appId = json.appId;
     }
-    if (json.ChannelId != "" +
-        "" && json.ChannelId) {
-        SgtApi.config.ChannelId = json.ChannelId;
+    if (json.channelId !== "" +
+        "" && json.channelId) {
+        SgtApi.config.channelId = json.channelId;
     }
-    if (json.CheckInBoardId != "" && json.CheckInBoardId) {
-        SgtApi.config.CheckInBoardId = json.CheckInBoardId;
-    }
+
 };
 
 /**
@@ -3226,19 +3219,240 @@ SgtApi.init = function (json) {
  * @type {{}|*}
  */
 SgtApi.UserService = {
+
+    /**
+     * 验证手机号和验证码是否匹配
+     * @param smobile{string} 用户手机号
+     * @param captcha{string} 用户输入验证码
+     * @param callback
+     * @result string
+     */
+    isMatcher: function (smobile, captcha, callback) {
+        var name = 'isMatcher';
+        var data = [smobile, captcha];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 登陆
+     * @method login
+     * @param username{string} 用户名
+     * @param password{string} 密码
+     * @param callback{function} 此回调函数中可以有两个参数,第一个参数的值为true/false代表成功与否, 第二参数分别代表User对象和错误信息
+     * @return user
+     */
+    login: function (username, password, callback) {
+        var name = 'login';
+        var data = [username, password];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, function(result,data) {
+            if(result) {
+                SgtApi.context.userData = data;
+                SgtApi.UserService.getPlayServer(callback);
+            } else {
+                callback(false, data);
+            }
+        });
+    },
+
+    /**
+     * 客户端通过提交user对象完成注册
+     * @method register
+     * @param user{user}
+     * @param callback{function} 回调函数
+     * @return user
+     */
+    register: function(user, callback) {
+        var name = 'register';
+        var data = [user];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, function(result, data){
+            if(result) {
+                SgtApi.context.userData = data;
+                callback(true,data);
+            } else {
+                callback(false,data);
+            }
+        });
+    },
+
+    /**
+     * 自动注册 或者自动登录
+     * @method registerByPhone
+     * @param imei{string} 手机IMEI号
+     * @param iccid{string} 手机ICCID号
+     * @param mac{string} 手机MAC地址
+     * @param callback{function} 回调函数
+     * @return user
+     */
+    registerByPhone: function(imei, iccid, mac, callback) {
+        var name = 'register';
+        var data = [imei, iccid, mac];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, function(result, data){
+            if(result) {
+                SgtApi.context.userData = data;
+                callback(true,data);
+            } else {
+                callback(false,data);
+            }
+        });
+    },
+
+    /**
+     * 重置密码发送邮件
+     * @method resetPassword
+     * @param userName{string} 用户名
+     * @param callback{function} 回调函数
+     * @return null
+     */
+    resetPassword: function (userName, callback) {
+        var name = 'resetPassword';
+        var data = [userName];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 保存用户留资方法
+     * @method saveLeaveInfo
+     * @param userName{string} 用户留资对象
+     * @param callback{function} 回调函数
+     * @return userLeaveInfo
+     */
+    saveLeaveInfo: function(userLeaveInfo, callback) {
+        var name = 'saveLeaveInfo';
+        var data = [userLeaveInfo];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 发送手机验证码短信
+     * @method sendCaptchaMessage
+     * @param smobile{string} 用户手机号
+     * @param appName{string} 当前产品名称
+     * @param callback{function} 回调函数
+     * @return data{boolean} true发送成功 false发送失败
+     * @constructor
+     */
+    sendCaptchaMessage: function (smobile, appName, callback) {
+        var name = 'SendMessage';
+        var data = [smobile, appName];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 发送手机验证码短信
+     * @method sendCaptchaMessage
+     * @param smobile{string} 用户手机号
+     * @param appName{string} 当前产品名称
+     * @param appId{string} 当前appId
+     * @param callback{function} 回调函数
+     * @return data{boolean} true发送成功 false发送失败
+     * @constructor
+     */
+    sendCaptchaMessageByAppId: function (smobile, appName, appId, callback) {
+        var name = 'SendMessage';
+        var data = [smobile, appName, appId];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+     /**
+     * 通过用户名更改密码
+     * @method updatePasswordByUserName
+     * @param userName{string} 用户名
+     * @param password{string} 密码
+     * @param callback
+     * @return null
+     */
+    updatePasswordByUserName: function (userName, password, callback) {
+        var name = 'updatePasswordByUserName';
+        var data=[userName, password];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+     /**
+     * 更新用户信息
+     * @method updateUser
+     * @param user{user} 对象
+     * @param callback 
+     * @return user 更新之后的User
+     */
+    updateUser: function (user, callback) {
+        var name = 'updateUser';
+        var data = [user];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 更新用户名，密码，邮箱
+     * @method updateUserByUserId
+     * @param userId{string} 用户ID
+     * @param userName{string} 用户名
+     * @param password{string} 密码
+     * @param email{string} 邮箱
+     * @param callback
+     * @return boolean
+     */
+    "updateUserByUserId": function (userId, userName, password, email, callback) {
+        var name = 'updateUserByUserId';
+        var data = [userId, userName, password, email];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);  
+    },
+    
+     /**
+     * 更新用户名，密码
+     * @method updateUserByuserId
+     * @param userId{string} 用户ID
+     * @param userName{string} 用户名
+     * @param password{string} 密码
+     * @param callback
+     * @return boolean
+     */
+    "updateUserNameAndPassword": function (userId, userName, password, callback) {
+        var name = 'updateUserNameAndPassword';
+        var data = [userId, userName, password];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);  
+    },
+
+    /**
+     * 检测token有效性
+     * @method validationToken
+     * @param userName{string}  用户名
+     * @param token{string} token令牌
+     * @return boolean 
+     */
+    validationToken: function(userName, token, callback) {
+        var name = 'validationToken';
+        var data = [userName, token];
+        var url = SgtApi.config.appGateway + '/user';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    
+    
+
     /**
      * 快速注册登录
      * @method quickLogin
      * @param callback
      * @return callback
      */
-    "quickLogin": function (callback) {
+    quickLogin: function (callback) {
 
-        var username = localStorage.getItem("sgt-" + SgtApi.config.AppId + "-username");
+        var username = localStorage.getItem("sgt-" + SgtApi.config.appId + "-username");
         if (username) {
-            var password = localStorage.getItem("sgt-" + SgtApi.config.AppId + "-password");
-            SgtApi.config.UserName = username;
-            SgtApi.config.UserPassword = password;
+            var password = localStorage.getItem("sgt-" + SgtApi.config.appId + "-password");
+            SgtApi.config.userName = username;
+            SgtApi.config.userPassword = password;
             this.login(username, password, callback);
         } else {
             var num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -3258,213 +3472,32 @@ SgtApi.UserService = {
             var newuser = new SgtApi.entity.User();
             newuser.userName = name;
             newuser.password = 'yoedge2014';
-            localStorage.setItem("sgt-" + SgtApi.config.AppId + "-username", newuser.userName);
-            localStorage.setItem("sgt-" + SgtApi.config.AppId + "-password", newuser.password);
+            localStorage.setItem("sgt-" + SgtApi.config.appId + "-username", newuser.userName);
+            localStorage.setItem("sgt-" + SgtApi.config.appId + "-password", newuser.password);
             this.register(newuser, callback);
         }
     },
-    /**
-     * 登陆
-     * @method login
-     * @param username{string} 用户名
-     * @param password{string} 密码
-     * @param callback{function} 此回调函数中可以有两个参数,第一个参数的值为true/false代表成功与否, 第二参数分别代表User对象和错误信息
-     */
-    "login": function (username, password, callback) {
-        var that = this;
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + '/user'});// this.appRouteData.address+'/'+sgt.AppId+
-        backClient.call(
-            'login',
-            [username, password],
-            function (result) {
-                SgtApi.context.userData = result['result'];
-                that.getPlayServer(callback);
-            },
-            function (error) {
-                console.log('There was an error[AccountService.login]:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    }
-    ,
-    /**
-     * 通过提交user对象完成注册
-     * 参数为user和callback时为普通注册器
-     * 参数为user, captcha和callback时为手机短信注册器
-     * @method register
-     * @param user{User} 对象
-     * @param capcha{string} 验证码
-     * @param callback
-     * @return callback
-     */
-    "register": function (user, captcha, callback) {
-        SgtApi.config.UserName = user.userName;
-        SgtApi.config.UserPassword = user.password;
-        var that = this;
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + '/user'});
-        if (arguments.length === 2) {
-            backClient.call(
-                'register',
-                [user],
-                function (result) {
-                    SgtApi.context.userData = result.result;
-                    that.getPlayServer(captcha);
-                },
-                function (error) {
-                    console.log('There was an error[register]:', error.error);
-                    return captcha(false, error.error.message);
-                }
-            );
-        } else if (arguments.length === 3) {
-            backClient.call(
-                'register',
-                [user, captcha],
-                function (result) {
-                    SgtApi.context.userData = result.result;
-                    that.getPlayServer(callback);
-                },
-                function (error) {
-                    console.log('There was an error[register]:', error.error);
-                    return callback(false, error.error.message);
-                }
-            );
-        }
-    }
-    ,
-    /**
-     * 重置密码发送邮件
-     * @method resetPassword
-     * @param userName{string} 用户名
-     * @param callback{function} 回调函数
-     */
-    "resetPassword": function (userName, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + '/user'});
-        backClient.call(
-            'resetPassword',
-            [userName],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error[register]:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    }
-    ,
-    /**
-     * 通过用户名更改密码
-     * @method updatePasswordByUserName
-     * @param username{string} 用户名
-     * @param password{string} 密码
-     * @param callback
-     * @return callback
-     */
-    "updatePasswordByUserName": function (username, password, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + '/user'});
-        backClient.call(
-            'updatePasswordByUserName',
-            [username, password],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error[register]:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    }
-    ,
-    /**
-     *更新用户信息
-     * @method updateUser
-     * @param user{User} 对象
-     * @param callback
-     * @return callback
-     */
-    "updateUser": function (user, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + '/user'});
-        backClient.call(
-            'updateUser',
-            [user],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error[register]:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    }
-    ,
-    /**
-     * 更新用户名，密码，邮箱
-     * @method updateUserByUserId
-     * @param userId{string} 用户ID
-     * @param userName{string} 用户名
-     * @param password{string} 密码
-     * @param email{string} 邮箱
-     * @param callback
-     * @return callback
-     */
-    "updateUserByuserId": function (userId, userName, password, email, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + '/user'});
-        backClient.call(
-            'updateUserByuserId',
-            [userId, userName, password, email],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error[register]:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    }
-    ,
-    /**
-     * 更新用户名，密码
-     * @method updateUserByuserId
-     * @param userId{string} 用户ID
-     * @param userName{string} 用户名
-     * @param password{string} 密码
-     * @param callback
-     * @return callback
-     */
-    "updateUserNameAndPassword": function (userId, userName, password, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + '/user'});
-        backClient.call(
-            'updateUserNameAndPassword',
-            [userId, userName, password],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error[register]:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    }
-    ,
+    
     /**
      * 获取用户服务器信息
      * @method getPlayServer
      * @param callback
      * @return callback
      */
-    "getPlayServer": function (callback) {
-        if (SgtApi.config.ChannelId == null) {
+    getPlayServer: function (callback) {
+        if (SgtApi.config.channelId === null) {
             return callback(false, 'channelId未设置！');
         }
-        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.Appgateway + "/route"});
+        var backClient = new $JsonRpc({ajaxUrl: SgtApi.config.appGateway + "/route"});
         backClient.call(
             'route',
-            [SgtApi.config.AppId, {
+            [SgtApi.config.appId, {
                 'userId': SgtApi.context.userData.userid,
                 'createTime': SgtApi.context.userData.createTime,
-                'channelId': SgtApi.config.ChannelId
+                'channelId': SgtApi.config.channelId
             }],
             function (result) {
+                console.log('success ' + result.result);
                 SgtApi.context.playServerData = result.result;
                 return callback(true, SgtApi.context.userData);
             },
@@ -3473,36 +3506,8 @@ SgtApi.UserService = {
                 return callback(false, error.error.message);
             }
         );
-    },
-
-    /**
-     * 发送手机验证码短信
-     * @param smobile{string} 用户手机号
-     * @param appName{string} 当前产品名称
-     * @param callback{function} 回调函数
-     * @return data{boolean} true发送成功 false发送失败
-     * @constructor
-     */
-    sendCaptchaMessage: function (smobile, appName, callback) {
-        var name = 'SendMessage';
-        var data = [smobile, appName];
-        SgtApi.doRPC(name, data, SgtApi.config.Appgateway + '/user', callback);
-    },
-
-
-    /**
-     * 使用手机号注册
-     * @param smobile 封装的User实体
-     * @param captcha 用户输入验证码
-     * @param callback
-     */
-    isMatcher: function (smobile, captcha, callback) {
-        var name = 'isMatcher';
-        var data = [smobile, captcha];
-        SgtApi.doRPC(name, data, SgtApi.config.Appgateway + '/user', callback);
     }
-
-
+    
 };
 
 
@@ -3513,91 +3518,116 @@ SgtApi.UserService = {
  * @type {{}|*}
  */
 SgtApi.PlayerService = {
-    url: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @return boolean
-     */
-    "init": function () {
-        if (SgtApi.context.userData == null) {
-            console.log('There was an error:', '没有取得用户数据！');
-            return false;
-        }
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
-        return true;
-    },
+
+    //url: SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do',
+
+
     /**
      * 创建一个角色
      * @method create
-     * @param playerinfo{Player} 角色对象
-     * @param callback{Function}
-     * @return Player
+     * @param player{player} 角色对象
+     * @param callback{function}
+     * @return player
      */
-    "create": function (playerinfo, callback) {
-        playerinfo.lastLoginTime = SgtApi.context.userData.lastLoginTime;
-        playerinfo.serverId = SgtApi.context.playServerData.id;
-        playerinfo.userId = SgtApi.context.userData.userid;
+    create: function (player, callback) {
+        player.lastLoginTime = SgtApi.context.userData.lastLoginTime;
+        player.serverId = SgtApi.context.playServerData.id;
+        player.userId = SgtApi.context.userData.userid;
 
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'create',
-            [playerinfo],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+        var name = 'create';
+        var data = [player];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
-     * 更新角色信息
-     * @method update
-     * @param playerinfo{Player} 角色对象
+     * 通过playerId删除角色及相关信息
+     * @method deleteSgpPlayerByPlayerId
+     * @param playerId{string} 角色id
      * @param callback{Function} 回调函数
-     * @return Player
+     * @return null
      */
-    "update": function (playerinfo, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'update',
-            [playerinfo],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    deletePlayerByPlayerId: function (playerId, callback) {
+        var name = 'deleteSgpPlayerByPlayerId';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 下载存档
+     * @method downloadSave
+     * @param playerId{string} 角色ID
+     * @param callback{function} 回调函数
+     * @return Save 存档
+     */
+    downloadSave: function (playerId, callback) {
+        var name = 'downloadSave';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据最后登陆时间查找角色
+     * @method getByLastLoginTime
+     * @param lastLoginTime{number} 最后登陆时间
+     * @param start{int} 开始页
+     * @param limit{int} 每页数量
+     * @param callback{Function} 回调函数
+     * @return Player[] 角色列表
+     */
+    getByLastLoginTime: function (lastLoginTime, start, limit, callback) {
+        var name = 'getByLastLoginTime';
+        var data = [lastLoginTime, start, limit];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     *根据角色名查找角色
+     * @method getByName
+     * @param playerName{string} 角色名
+     * @param start{int} 开始页
+     * @param limit{int} 每页数量
+     * @param callback{Function} 回调函数
+     * @return Player[] 角色列表
+     */
+    getByName: function (playerName, start, limit, callback) {
+        var name = 'getByName';
+        var data = [name, start, limit];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
+    }, 
+
     /**
      * 根据用户ID查找角色
-     * @method getByuserId
+     * @method getByUserId
      * @param userId{String} 用户ID
      * @param callback{Function} 回调函数
      * @return Player[] 角色列表
      */
-    "getByUserId": function (userId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getByUserId',
-            [userId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getByUserId: function (userId, callback) {
+        var name = 'getByUserId';
+        var data = [userId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 获取指定角色的好友上限
+     * @method getFriendsMaxNumber
+     * @param playerId{string} 角色ID
+     * @param callback{Function} 回调函数
+     * @return number 返回好友上限，0表示无上限
+     */
+    getFriendsMaxNumber: function (playerId, callback) {
+        var name = 'getFriendsMaxNumber';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 通过用户ID查找其中的一个角色
      * @method getOneByuserId
@@ -3605,108 +3635,13 @@ SgtApi.PlayerService = {
      * @param callback{Function} 回调函数
      * @return Player 单一角色
      */
-    "getOneByUserId": function (userId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getOneByUserId',
-            [userId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getOneByUserId: function (userId, callback) {
+        var name = 'getOneByUserId';
+        var data = [userId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
-    /**
-     * 上传存档
-     * @method uploadSave
-     * @param saveinfo{save} 存档实例
-     * @param callback{Function} 回调函数
-     * @return Save 保存后的存档
-     */
-    "uploadSave": function (saveinfo, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'uploadSave',
-            [saveinfo],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 下载存档
-     * @method downloadSave
-     * @param playerId{string} 角色ID
-     * @param callback{Function} 回调函数
-     * @return Save 存档
-     */
-    "downloadSave": function (playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'downloadSave',
-            [playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     *根据角色名查找角色
-     * @method getByName
-     * @param name{string} 角色名
-     * @param start{int} 开始页
-     * @param limit{int} 每页数量
-     * @param callback{Function} 回调函数
-     * @return Player[] 角色列表
-     */
-    "getByName": function (name, start, limit, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getByName',
-            [name, start, limit],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据最后登陆时间查找角色
-     * @method getByLastLoginTime
-     * @param lastLoginTime{long} 最后登陆时间
-     * @param start{int} 开始页
-     * @param limit{int} 每页数量
-     * @param callback{Function} 回调函数
-     * @return Player[] 角色列表
-     */
-    "getByLastLoginTime": function (lastLoginTime, start, limit, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getByLastLoginTime',
-            [lastLoginTime, start, limit],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
+
     /**
      * 通过自定义ID获取角色信息
      * @method getSgpPlayerByCustomId
@@ -3714,127 +3649,100 @@ SgtApi.PlayerService = {
      * @param callback{Function} 回调函数
      * @return Player
      */
-    "getPlayerByCustomId": function (customId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getSgpPlayerByCustomId',
-            [customId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getPlayerByCustomId: function (customId, callback) {
+        var name = 'getSgpPlayerByCustomId';
+        var data = [customId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
-    /**
-     * 通过playerId删除角色及相关信息
-     * @method deleteSgpPlayerByPlayerId
-     * @param playerId{string} 角色id
-     * @param callback{Function} 回调函数
-     * @return void
-     */
-    "deletePlayerByPlayerId": function (playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'deleteSgpPlayerByPlayerId',
-            [playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
+
     /**
      * 通过ID获取Player
      * @method getSgpPlayerById
      * @param playerId{string} 主键ID
      * @param callback{Function} 回调函数
-     * @return Player
+     * @return player
      */
-    "getPlayerById": function (playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getSgpPlayerById',
-            [playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getPlayerById: function (playerId, callback) {
+        var name = 'getSgpPlayerById';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
      * 随机返回若干个最近登录的player
      * @method searchPlayersByLastLogin
      * @param limit{int} 限制数量
      * @param callback{Function} 回调函数
-     * @return Player[]
+     * @return player[]
      */
-    "searchPlayersByLastLogin": function (limit, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'searchPlayersByLastLogin',
-            [limit],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    searchPlayersByLastLogin: function (limit, callback) {
+        var name = 'searchPlayersByLastLogin';
+        var data = [limit];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+
+    /**
+     *根据条件过滤并随机查询若干个最近登录的player
+     * @param lastLoginTime{number}
+     * @param limit{number}
+     * @param excludePlayerIds{string[]}
+     * @param player[]
+     */
+    searchPlayersByLastLoginCondition: function (lastLoginTime, limit, excludePlayerIds, callback) {
+        var name = 'searchPlayersByLastLogin';
+        var data = [lastLoginTime, limit, excludePlayerIds];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 设置指定角色的好友上限
      * @method setFriendsMaxNumber
      * @param sgpPlayerId{string} 角色ID
      * @param number{int} 好友上限
      * @param callback{Function} 回调函数
-     * @return void
+     * @return null
      */
-    "setFriendsMaxNumber": function (sgpPlayerId, number, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'setFriendsMaxNumber',
-            [sgpPlayerId, number],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    setFriendsMaxNumber: function (playerId, number, callback) {
+        var name = 'setFriendsMaxNumber';
+        var data = [playerId, number];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
-     * 获取指定角色的好友上限
-     * @method getFriendsMaxNumber
-     * @param sgpPlayerId{string} 角色ID
+     * 更新角色信息
+     * @method update
+     * @param playerinfo{Player} 角色对象
      * @param callback{Function} 回调函数
-     * @return int 返回好友上限，0表示无上限
+     * @return player
      */
-    "getFriendsMaxNumber": function (sgpPlayerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getFriendsMaxNumber',
-            [sgpPlayerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    }
-}
+    update: function (player, callback) {
+        var name = 'update';
+        var data = [player];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+
+    /**
+     * 上传存档
+     * @method uploadSave
+     * @param saveinfo{save} 存档实例
+     * @param callback{Function} 回调函数
+     * @return Save 保存后的存档
+     */
+    uploadSave: function (save, callback) {
+        var name = 'uploadSave';
+        var data = [save];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+};
 
 /**
  * 角色扩展业务接口
@@ -3843,456 +3751,287 @@ SgtApi.PlayerService = {
  * @type {{}|*}
  */
 SgtApi.PlayerExtraService = {
-    url: null,
-    playerId: null,
+
     /**
-     * 初始化接口
-     * @method init
-     * @param playerId{string} 角色id
-     * @return {boolean}
+     * 添加角色扩展信息
+     * @method addPlayer
+     * @param player{Object} 色扩展信息
+     * @param callback{Function}
+     * @return null
      */
-    init: function (playerId) {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        if (playerId == null) {
-            console.log('There was an error:playerId is null');
-            return false;
-        }
-        this.playerId = playerId;
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/playerExtraService.do';
-        return true;
+    addPlayer: function (player, callback) {
+        var name = 'addPlayer';
+        var data = [player];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
-     * 根据角色ID查找角色扩展信息
-     * @method getPlayerById
-     * @param callback
-     * @return callback
+     * 根据角色ID删除角色扩展信息
+     * @method deletePlayerById
+     * @param callback{Function} 回调函数
+     * @return null
      */
-    "getPlayerById": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getPlayerById',
-            [this.playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    deletePlayerById: function (playerId, callback) {
+        var name = 'deletePlayerById';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
-    /**
-     * 根据条件查询角色列表
-     * @method getPlayerList
-     * @param condition{map} 查询条件 key 字段名称 value 字段值
-     * @param callback
-     * @return callback
-     */
-    "getPlayerList": function (condition, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getPlayerList',
-            [condition],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
+
     /**
      * 分页查询所有角色扩展信息列表
      * @method findAll
      * @param pageNumber{int} 页码
      * @param pageSize{int} 每页返回的数据条数
-     * @param callback
-     * @return callback
+     * @param callback{Function} 回调函数
+     * @return Object
      */
-    "findAll": function (pageNumber, pageSize, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'findAll',
-            [pageNumber, pageSize],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    findAll: function (pageNumber, pageSize, callback) {
+        var name = 'findAll';
+        var data = [pageNumber, pageSize];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
      * 根据条件查询角色扩展信息列表，支持分页
-     * @method findAllBycon
+     * @method findAllByCondition
      * @param condition{map} 条件列表 key 字段名称 value 字段值
      * @param pageNumber{int} 页码
      * @param pageSize{int} 每页返回的数据条数
-     * @param callback
-     * @return callback
+     * @param callback{Function} 回调函数
+     * @return Object
      */
-    "findAllBycon": function (condition, pageNumber, pageSize, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'findAll',
-            [condition, pageNumber, pageSize],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    findAllByCondition: function (condition, pageNumber, pageSize, callback) {
+        var name = 'findAll';
+        var data = [condition, pageNumber, pageSize];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
     /**
-     * 添加角色扩展信息
-     * @method addPlayer
-     * @param player{map} 色扩展信息
-     * @param callback
-     * @return callback
+     * 根据角色ID查找角色扩展信息
+     * @method getPlayerById
+     * @param callback{Function} 回调函数
+     * @return Object
      */
-    "addPlayer": function (player, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'addPlayer',
-            [player],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getPlayerById: function (playerId, callback) {
+        var name = 'getPlayerById';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
     /**
-     * 根据角色ID修改角色扩展信息
-     * @method updatePlayer
-     * @param player{map} 角色扩展信息
-     * @param callback
-     * @return callback
+     * 根据条件查询角色列表
+     * @method getPlayerList
+     * @param condition{Map<String,String>} 查询条件 key 字段名称 value 字段值
+     * @param callback 回调函数
+     * @return Object 角色列表
      */
-    "updatePlayer": function (player, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'updatePlayer',
-            [this.playerId, player],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getPlayerList: function (condition, callback) {
+        var name = 'getPlayerList';
+        var data = [condition];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+
     /**
      * 修改角色扩展信息
      * @method updatePlayerMap
-     * @param player{map} 角色扩展信息
-     * @param callback
-     * @return callback
+     * @param player{Map<String,Object>} 角色扩展信息
+     * @param callback{Function} 回调函数
+     * @return null
      */
-    "updatePlayerMap": function (player, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'updatePlayer',
-            [player],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    updatePlayerMap: function (player, callback) {
+        var name = 'updatePlayer';
+        var data = [player];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
-     * 根据角色ID删除角色扩展信息
-     * @method deletePlayerById
-     * @param callback
-     * @return callback
+     * 根据角色ID修改角色扩展信息
+     * @method updatePlayer
+     * @param player{Object} 角色扩展信息
+     * @param callback{Function} 回调函数
+     * @return null
      */
-    "deletePlayerById": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'deletePlayerById',
-            [this.playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    updatePlayer: function (playerId, player, callback) {
+        var name = 'updatePlayer';
+        var data = [playerId, player];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/playerExtraService.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+};
 
 /**
  * 成就系统业务
  *
- * @module Achievement
+ * @module AchievementService
  * @type {{}|*}
  */
-SgtApi.Achievement = {
-    url: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @return {boolean}
-     */
-    "init": function () {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/achievement.do';
-        return true;
-    },
-    /**
-     * 获取可用的成就
-     * @method getAllAchievements
-     * @param callback
-     * @return callback
-     */
-    "getAllAchievements": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAllAchievements',
-            [],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据成就ID获取成就信息
-     * @method getAchievementById
-     * @param achievementId{string} 成就ID
-     * @param callback
-     * @return callback
-     */
-    "getAchievementById": function (achievementId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAchievementById',
-            [achievementId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取指定角色未达成的成就
-     * @method getAvailableAchievements
-     * @param playerId{string} 角色ID
-     * @param callback
-     * @return callback
-     */
-    "getAvailableAchievements": function (playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAvailableAchievements',
-            [playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取指定角色已经达成的成就
-     * @method getDoneAchievements
-     * @param playerId 角色ID
-     * @param callback
-     * @return callback
-     */
-    "getDoneAchievements": function (playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDoneAchievements',
-            [playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取指定角色已领取奖励的成就
-     * @method getCompleteAchievements
-     * @param playerId{string} 角色ID
-     * @param callback
-     * @return callback
-     */
-    "getCompleteAchievements": function (playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getCompleteAchievements',
-            [playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 领取成就奖励
-     * @method complete
-     * @param playerId{string} 角色ID
-     * @param achievmentId{string} 成就ID
-     * @param callback
-     * @return callback
-     */
-    "complete": function (playerId, achievmentId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'complete',
-            [playerId, achievmentId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
+SgtApi.AchievementService = {
+
+
     /**
      * 达成成就
      * @method achieve
      * @param playerId{string} 角色ID
      * @param achievmentId{string} 成就ID
-     * @param callback
-     * @return callback
+     * @param callback{Function} 回调函数
+     * @return null
      */
-    "achieve": function (playerId, achievmentId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'achieve',
-            [playerId, achievmentId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    achieve: function (playerId, achievmentId, callback) {
+        var name = 'achieve';
+        var data = [playerId, achievmentId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 领取成就奖励
+     * @method complete
+     * @param playerId{string} 角色ID
+     * @param achievmentId{string} 成就ID
+     * @param callback{Function} 回调函数
+     * @return string 奖励
+     */
+    complete: function (playerId, achievmentId, callback) {
+        var name = 'complete';
+        var data = [playerId, achievmentId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 通过type提交成就 进度数自动+1
      * @method excuteAchievementsByType
      * @param type{string} 任务的type类型
      * @param playerId{string} 角色ID
-     * @param callback
-     * @return callback
+     * @param callback{Function} 回调函数
+     * @return achievement[] 相同类型成就集合
      */
-    "excuteAchievementsByType": function (type, playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'excuteAchievementsByType',
-            [type, playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    excuteAchievementsByType: function (type, playerId, callback) {
+        var name = 'excuteAchievementsByType';
+        var data = [type, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
      * 通过成就type累加指定进度
-     * @method customAchievementsByType
-     * @param type{string} 任务的type类型
-     * @param playerId{string} 角色ID
-     * @param progress{int} 进度
-     * @param callback
-     * @return callback
+     * @param type{string}
+     * @param playerId{string}
+     * @param progress{number}
+     * @param callback{function}
+     * @return achievement[]
      */
-    "customAchievementsByType": function (type, playerId, progress, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'excuteAchievementsByType',
-            [type, playerId, progress],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    customAchievementsByType: function (type, playerId, progress, callback) {
+        var name = 'excuteAchievementsByType';
+        var data = [type, playerId, progress];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 根据成就ID获取成就信息
+     * @method getAchievementById
+     * @param achievementId{string} 成就ID
+     * @param callback{Function} 回调函数
+     * @return object 成就详情
+     */
+    "getAchievementById": function (achievementId, callback) {
+        var name = 'getAchievementById';
+        var data = [achievementId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 通过类型获取指定角色可以进行的任务
      * @method getAchievementsByType
      * @param playerId{string} 角色ID
      * @param type{string} 任务的type类型
-     * @param callback
-     * @return callback
+     * @param callback{Function} 回调函数
+     * @return object
      */
     "getAchievementsByType": function (playerId, type, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAchievementsByType',
-            [playerId, type],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+        var name = 'getAchievementsByType';
+        var data = [playerId, type];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 获取可用的成就
+     * @method getAllAchievements
+     * @param callback{Function} 回调函数
+     * @return object 成就集合
+     */
+    "getAllAchievements": function (callback) {
+        var name = 'getAllAchievements';
+        var data = [];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定角色未达成的成就
+     * @method getAvailableAchievements
+     * @param playerId{string} 角色ID
+     * @param callback{Function} 回调函数
+     * @return object 未达成成就集合
+     */
+    "getAvailableAchievements": function (playerId, callback) {
+        var name = 'getAvailableAchievements';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定角色已领取奖励的成就
+     * @method getCompleteAchievements
+     * @param playerId{string} 角色ID
+     * @param callback{Function} 回调函数
+     * @return object 已领取奖励成就集合
+     */
+    "getCompleteAchievements": function (playerId, callback) {
+        var name = 'getCompleteAchievements';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定角色已经达成的成就
+     * @method getDoneAchievements
+     * @param playerId{String} 角色ID
+     * @param callback{Function} 回调函数
+     * @return object 已达成成就集合
+     */
+    "getDoneAchievements": function (playerId, callback) {
+        var name = 'getDoneAchievements';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 提交指定成就进度
      * @method setAchievementProgress
      * @param PlayerId{string} 角色ID
      * @param chievementId{string} 任务ID
      * @param progress{int} 进度
-     * @param callback
-     * @return callback
+     * @param callback{Function} 回调函数
+     * @return object
      */
-    "setAchievementProgress": function (PlayerId, chievementId, progress, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'setAchievementProgress',
-            [PlayerId, chievementId, progress],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "setAchievementProgress": function (playerId, chievementId, progress, callback) {
+        var name = 'setAchievementProgress';
+        var data = [playerId, chievementId, progress];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
     /**
      * 设置指定类型的成就进度
@@ -4300,23 +4039,16 @@ SgtApi.Achievement = {
      * @param type{string} 任务的type类型
      * @param playerId{string} 角色ID
      * @param progress{int} 进度
-     * @param callback
+     * @param callback{Function} 回调函数
+     * @return object
      */
     "setAchievementsProgressByType": function (type, playerId, progress, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'setAchievementsProgressByType',
-            [type, playerId, progress],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+        var name = 'setAchievementsProgressByType';
+        var data = [type, playerId, progress];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+};
 
 /**
  * 公告业务接口
@@ -4325,44 +4057,21 @@ SgtApi.Achievement = {
  * @type {{}|*}
  */
 SgtApi.AnnouncementService = {
-    url: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @return {boolean}
-     */
-    "init": function () {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        this.userData = SgtApi.context.userData;
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/announcement.do';
-        return true;
-    },
+
     /**
      * 通过公告类型获取最新公告 （获取版本号最大的）
      * @method getAnnounceByType
      * @param type{int} 公告类型
-     * @param callback
-     * @return callback
+     * @param callback{Function} 回调函数
+     * @return Announcement
      */
     "getAnnounceByType": function (type, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAnnounceByType',
-            [type],
-            function (result) {
-                //待过滤
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+        var name = 'getAnnounceByType';
+        var data = [type];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/announcement.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+};
 
 /**
  * 活动业务接口
@@ -4371,178 +4080,119 @@ SgtApi.AnnouncementService = {
  * @type {{}|*}
  */
 SgtApi.CampaignService = {
-    url: null,
+
+
     /**
-     * 初始化接口
-     * @method init
-     * @return {boolean}
+     * 获取当前已经激活的活动
+     * @method getAvailableCampaigns
+     * @param callback 回调函数
+     * @return campaign[]
      */
-    "init": function () {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/campaign.do';
-        return true;
+    "getAvailableCampaigns": function (callback) {
+        var name = 'getAvailableCampaigns';
+        var data = [];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+
     /**
      * 通过时间区间获取活动
      * @method getByTimeZone
-     * @param startTime{long} 开始时间
-     * @param endTime{long} 结束时间
-     * @param callback
-     * @return callback
+     * @param startTime{number} 开始时间
+     * @param endTime{number} 结束时间
+     * @param callback 回调函数
+     * @return campaign[]
      */
     "getByTimeZone": function (startTime, endTime, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getByTimeZone',
-            [startTime, endTime],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+        var name = 'getByTimeZone';
+        var data = [startTime, endTime];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
     /**
      * 通过活动ID获取活动
      * @method getCampaignById
      * @param id{int} 活动ID
-     * @param callback
-     * @return callback
+     * @param callback 回调函数
+     * @return campaign
      */
-    "getCampaignById": function (id, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getCampaignById',
-            [id],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "getCampaignById": function (campaignId, callback) {
+        var name = 'getCampaignById';
+        var data = [campaignId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
 
+    /**
+     * 通过活动ID获取活动详情数据
+     * @method getCampaignDetaiByCId
+     * @param id{int} 活动id
+     * @param callback 回调函数
+     * @return callback
+     */
+    "getCampaignDetaiByCId": function (campaignId, callback) {
+        var name = 'getCampaignDetaiByCId';
+        var data = [campaignId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
 
     /**
      * 通过活动详情ID获取活动详情数据
      * @method getCampaignDetaiById
      * @param id{int} 活动详情ID
-     * @param callback
-     * @return callback
+     * @param callback 回调函数
+     * @return campaignDetail
      */
-    "getCampaignDetaiById": function (id, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getCampaignDetaiById',
-            [id],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "getCampaignDetaiById": function (campaignId, callback) {
+        var name = 'getCampaignDetaiById';
+        var data = [campaignId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
-    /**
-     * 通过活动ID获取活动详情数据
-     * @method getCampaignDetaiByCId
-     * @param id{int} 活动id
-     * @param callback
-     * @return callback
-     */
-    "getCampaignDetaiByCId": function (id, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getCampaignDetaiByCId',
-            [id],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 更新进度
-     * @method updateProgress
-     * @param campaignId{int} 活动id
-     * @param progress{int} 进度
-     * @param callback
-     * @return callback
-     */
-    "updateProgress": function (campaignId, progress, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'updateProgress',
-            [campaignId, this.playerid, progress],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
+
     /**
      * 获取进度
      * @method getCampaignProgress
      * @param campaignId{int} 活动id
-     * @param callback
-     * @return callback
+     * @param playerId{string}
+     * @param callback 回调函数
+     * @return number
      */
-    "getCampaignProgress": function (campaignId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getCampaignProgress',
-            [campaignId, this.playerid],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "getCampaignProgress": function (campaignId, playerId, callback) {
+        var name = 'getCampaignProgress';
+        var data = [campaignId, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+
     /**
-     *获取当前已经激活的活动
-     * @method getAvailableCampaigns
-     * @param callback
-     * @return callback
+     * 更新进度
+     * @method updateProgress
+     * @param campaignId{int} 活动id
+     * @param playerId{string}
+     * @param progress{int} 进度
+     * @param callback 回调函数
+     * @return number
      */
-    "getAvailableCampaigns": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAvailableCampaigns',
-            [],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "updateProgress": function (campaignId, playerId, progress, callback) {
+        var nae = 'updateProgress';
+        var data = [campaignId, playerId, progress];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+
+
+};
 
 /**
- * 签到接口
- * @module  CheckinService
+ * 签到接口(已启用,请参考最新的CheckinBoardService)
+ * @module  CheckinBoardService
  * @type {{}|*}
  */
-SgtApi.CheckinService = {
+SgtApi.CheckinBoardService = {
     url: null,
     playerid: null,
     /**
@@ -4556,13 +4206,13 @@ SgtApi.CheckinService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        if (playerid == null) {
+        if (playerid === null) {
             console.error("playerid is null");
             return false;
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/checkinboard.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/checkinboard.do';
         return true;
     },
     /**
@@ -4787,7 +4437,7 @@ SgtApi.CheckinService = {
         );
     }
 
-}
+};
 
 /**
  * 日常任务接口
@@ -4795,719 +4445,490 @@ SgtApi.CheckinService = {
  * @type {{}|*}
  */
 SgtApi.DailyTaskService = {
-    url: null,
-    playid: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @param playid{string} 角色id
-     * @return {boolean}
-     */
-    "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        if (playid) {
-            this.playid = playid;
-        } else {
-            console.log('There was an error:playid is null');
-            return false;
-        }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/dailytask.do';
-        return true;
-    },
-    /**
-     * 获取每天的日常任务
-     * @method getDailyTasks
-     * @param callback
-     * @return callback
-     */
-    "getDailyTasks": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDailyTasks',
-            [this.playid],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
+
     /**
      * 提交任务进度，每提交一次，任务进度+1
      * @method excuteTask
      * @param taskId{string} 任务ID
-     * @param callback
-     * @return callback
+     * @param playerId{string}
+     * @param callback 回调函数
+     * @return dailyTask
      */
-    "excuteTask": function (taskId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'excuteTask',
-            [taskId, this.playid],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "excuteTask": function (taskId, playerId, callback) {
+        var name = 'excuteTask';
+        var data = [taskId, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
      * 通过type提交任务，每提交一次，任务进度+1 type只能对应1或0个任务
      * @method excuteTaskByType
      * @param type{string} 任务的type类型
-     * @param callback
-     * @return callback
+     * @param playerId{String}
+     * @param callback 回调函数
+     * @return dailyTask[]
      */
-    "excuteTasksByType": function (type, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'excuteTasksByType',
-            [type, this.playid],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "excuteTasksByType": function (type, playerId, callback) {
+        var name = 'excuteTasksByType';
+        var data = [type, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
-    /**
-     * 根据任务ID获取奖励 获取奖励时会先校验完成任务的进度
-     * @method getReward
-     * @param taskId{string} 任务ID
-     * @param callback
-     * @return callback
-     */
-    "getReward": function (taskId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getReward',
-            [taskId, this.playid],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 提交指定任务进度
-     * @method setTaskProgress
-     * @param taskId{string} 任务ID
-     * @param progress{int} 进度
-     * @param callback
-     * @return callback
-     */
-    "setTaskProgress": function (taskId, progress, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'setTaskProgress',
-            [this.playid, taskId, progress],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 设置指定类型的任务进度
-     * @method setTasksProgressByType
-     * @param type{string} 任务类型
-     * @param progress{int} 任务进度
-     * @param callback
-     * @return callback
-     */
-    "setTasksProgressByType": function (type, progress, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'setTasksProgressByType',
-            [type, this.playid, progress],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
+
     /**
      * 增加指定类型的任务进度
      * @method addexcuteTasksByType
      * @param type{string} 任务类型
+     * @param playerId{String}
      * @param progress{int} 任务进度
-     * @param callback
-     * @return callback
+     * @param callback 回调函数
+     * @return dailyTask[]
      */
-    "addexcuteTasksByType": function (type, progress, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'excuteTasksByType',
-            [type, this.playid, progress],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "addexcuteTasksByType": function (type, playerId, progress, callback) {
+        var name = 'excuteTasksByType';
+        var data = [type, playerId, progress];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 获取每天的日常任务
+     * @method getDailyTasks
+     * @param playerId{string}
+     * @param callback 回调函数
+     * @return dailyTask[]
+     */
+    "getDailyTasks": function (playerId, callback) {
+        var name = 'getDailyTasks';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 通过类型获取指定角色可以进行的任务
      * @method getDailyTasksByType
      * @param type{string} 任务类型
-     * @param callback
-     * @return callback
+     * @param callback 回调函数
+     * @return dailyTask[]
      */
-    "getDailyTasksByType": function (type, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDailyTasksByType',
-            [this.playid, type],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "getDailyTasksByType": function (playerId, type, callback) {
+        var name = 'getDailyTasksByType';
+        var data = [playerId, type];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+
+    /**
+     * 根据任务ID获取奖励 获取奖励时会先校验完成任务的进度
+     * @method getReward
+     * @param taskId{string} 任务ID
+     * @param playerId{string}
+     * @param callback 回调函数
+     * @return string
+     */
+    "getReward": function (taskId, playerId, callback) {
+        var name = 'getReward';
+        var data = [taskId, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+
+    /**
+     * 提交指定任务进度
+     * @method
+     * @param playerId{string}
+     * @param taskId{string} 任务ID
+     * @param progress{number} 进度
+     * @param callback 回调函数
+     * @return dailyTask
+     */
+    "setTaskProgress": function (playerId, taskId, progress, callback) {
+        var name = 'setTaskProgress';
+        var data = [playerId, taskId, progress];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 设置指定类型的任务进度
+     * @method setTasksProgressByType
+     * @param type{string} 任务类型
+     * @param playerId{string}
+     * @param progress{number} 任务进度
+     * @param callback 回调函数
+     * @return dailyTask
+     */
+    "setTasksProgressByType": function (type, playerId, progress, callback) {
+        var name = 'setTasksProgressByType';
+        var data = [type, playerId, progress];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/dailytask.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+
+
+};
 
 /**
  * 通用任务模块业务接口
- * @module  Task
+ * @module  TaskService
  * @type {{}|*}
  */
-SgtApi.Task = {
-    url: null,
-    playid: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @param playid{string} 角色id
-     * @return {boolean}
-     */
-    "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        if (typeof(playid) == "undefined" || !playid) {
-            console.log('There was an error:playid is null');
-            return false;
-        }
-        this.playid = playid;
+SgtApi.TaskService = {
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/task.do';
-        return true;
+    /**
+     * 对playerId的actionType的计数器做增加1
+     * @param playerId{string}
+     * @param actionType{string} 与计数器type相对应，不能为空
+     * @param callback{function} 回调函数
+     * @return object
+     */
+    addActionCount: function (playerId, actionType, callback) {
+        var name = 'addActionCount';
+        var data = [playerId, actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+
+    /**
+     *对playerId的actiontype的计数器做增加固定值
+     * @param playerId{string}
+     * @param actiontype{string}
+     * @param addtodayTimes{number}
+     * @param object
+     */
+    addActionCountTime: function (playerId, actionType, addtodayTimes, callback) {
+        var name = 'addActionCount';
+        var data = [playerId, actionType, addtodayTimes];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据任务ID完成任务 仅完成任务，并不获得奖励
+     * @method complete
+     * @param playerId{string}
+     * @param taskId{string} 任务id
+     * @param callback{function] 回调函数
+     * @return null
+     */
+    complete: function (playerId, taskId, callback) {
+        var name = 'complete';
+        var data = [playerId, taskId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据成就ID获取成就信息
+     * @method getAchievementById
+     * @param achievementId{string} 成就ID
+     * @param callback{function} 回调函数
+     * @return task
+     */
+    getAchievementById: function (achievementId, callback) {
+        var name = 'getAchievementById';
+        var data = [achievementId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据playerid获取所有可用的成就 若任务设置了做完后不显示则不会被返回
+     * @method getAchievements
+     * @param playerId{string}
+     * @param actiontype{string}
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getAchievements: function (playerId, actionType, callback) {
+        var name = 'getAchievements';
+        var data = [playerId, actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取所有可用的成就 若任务设置了做完后不显示则不会被返回
+     * @method getAchievementsByType
+     * @param actiontype{string}
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getAchievementsByType: function (actionType, callback) {
+        var name = 'getAchievementsByType';
+        var data = [actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 根据指定的playerid获取特定的actiontype的任务
      * @method getActionCount
+     * @param playerId{string}
      * @param actiontype{string} 与计数器type相对应，不能为空
      * @param callback
-     * @return callback
+     * @return object
      */
-    "getActionCount": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getActionCount',
-            [this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    "getActionCount": function (playerId, actiontype, callback) {
+        var name = 'getActionCount';
+        var data = [playerId, actiontype];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
-     * 对playerId的actiontype的计数器做增加固定值
-     * @method addActionCount
-     * @param actiontype{string} 与计数器type相对应，不能为空
-     * @param [addtodayTimes=1]{int} 需要增加的值,可不填，默认为1
-     * @param callback
-     * @return callback
+     * 获取所有可用的成就 若任务设置了做完后不显示则不会被返回
+     * @method getAllAchievements
+     * @param callback{function} 回调函数
+     * @return task[]
      */
-    "addActionCount": function (actiontype, addtodayTimes, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        if (typeof(addtodayTimes) == "undefined" || !addtodayTimes) {
-            backClient.call(
-                'addActionCount',
-                [this.playid, actiontype],
-                function (result) {
-                    return callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    return callback(false, error.error.message);
-                }
-            );
-        } else {
-            backClient.call(
-                'addActionCount',
-                [this.playid, actiontype, addtodayTimes],
-                function (result) {
-                    return callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    return callback(false, error.error.message);
-                }
-            );
-        }
+    getAllAchievements: function (callback) {
+        var name = 'getAllAchievements';
+        var data = [];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
-     * 根据ID获取指定Task
-     * @method getTaskById
-     * @param taskId{string} 任务id
-     * @param callback
-     * @return callback
+     * 获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
+     * @method getAllDailyTasks
+     * @param callback{function} 回调函数
+     * @return task[]
      */
-    "getTaskById": function (taskId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getTaskById',
-            [taskId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getAllDailyTasks: function (callback) {
+        var name = 'getAllDailyTasks';
+        var data = [];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
      * 获取所有可用的task 若任务设置了做完后不显示则不会被返回
      * @method getAllTasks
      * @param taskType{int}  0-成就，1-日常任
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getAllTasks: function (taskType, callback) {
+        var name = 'getAllTasks';
+        var data = [taskType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定角色已领取奖励的成就
+     * @method getCompleteAchievements
+     * @param playerId{string}
+     * @param actiontype{string}
+     * @param task[]
+     */
+    getCompleteAchievements: function (playerId, actionType, callback) {
+        var name = 'getCompleteAchievements';
+        var data = [playerId, actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定角色已领取奖励的日常任务
+     * @method getCompleteDailyTasks
+     * @param playerId{string}
+     * @param actiontype{string} 传入null时将不对type进行筛选
      * @param callback
      * @return callback
      */
-    "getAllTasks": function (taskType, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAllTasks',
-            [taskType],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getCompleteDailyTasks: function (playerId, actionType, callback) {
+        var name = 'getCompleteDailyTasks';
+        var data = [playerId, actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 获取指定类型该角色已经完成且还未领取奖励的Task 若任务设置了做完后不显示则不会被返回
+     * @method getCompleteTasks
+     * @param taskType{string} 传入null时将不对tasktype进行筛选
+     * @param playerId{string} 角色id
+     * @param actiontype{string} 传入null时将不对actiontype进行筛选
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getCompleteTasks: function (taskType, playerId, actiontype, callback) {
+        var name = 'getCompleteTasks';
+        var data = [taskType, playerId, actiontype];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据成就ID获取成就信息
+     * @method getDailyTaskById
+     * @param dailyTaskId{string} 成就ID
+     * @param callback{function} 回调函数
+     * @return task
+     */
+    getDailyTaskById: function (dailyTaskId, callback) {
+        var name = 'getDailyTaskById';
+        var data = [dailyTaskId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据playerid获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
+     * @method getDailyTasks
+     * @param playerId{string} 角色id
+     * @param actiontype{string}
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getDailyTasks: function (playerId, actionType, callback) {
+        var name = 'getDailyTasks';
+        var data = [playerId, actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
+     * @method getDailyTasksByType
+     * @param actiontype{string}
+     * @param callback
+     * @return task[]
+     */
+    getDailyTasksByType: function (actionType, callback) {
+        var name = 'getDailyTasksByType';
+        var data = [actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定角色已经达成的成就
+     * @method getDoneAchievements
+     * @param playerId{string} 角色id
+     * @param actiontype{string}
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getDoneAchievements: function (playerId, actionType, callback) {
+        var name = 'getDoneAchievements';
+        var data = [playerId, actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定角色已经达成的日常任务
+     * @method getDoneDailyTasks
+     * @param playerId{string} 角色id
+     * @param actiontype{string}
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getDoneDailyTasks: function (playerId, actionType, callback) {
+        var name = 'getDoneDailyTasks';
+        var data = [playerId, actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定类型该角色已经领取过奖励的Task
+     * @method getDoneTasks
+     * @param taskType{string} 传入null时将不对tasktype进行筛选
+     * @param playerId{string} 角色id
+     * @param actiontype{string} 传入null时将不对actiontype进行筛选
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getDoneTasks: function (taskType, playerId, actionType, callback) {
+        var name = 'getDoneTasks';
+        var data = [taskType, playerId, actionType];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据任务ID获取奖励 获取奖励时会先校验完成任务的进度
+     * @method getReward
+     * @param playerId{string} 角色id
+     * @param taskId{string} 任务ID
+     * @param callback{function} 回调函数
+     * @return string
+     */
+    getReward: function (playerId, taskId, callback) {
+        var name = 'getReward';
+        var data = [playerId, taskId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据ID获取指定Task
+     * @method getTaskById
+     * @param taskId{string} 任务id
+     * @param callback{function} 回调函数
+     * @return task
+     */
+    getTaskById: function (taskId, callback) {
+        var name = 'getTaskById';
+        var data = [taskId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据playerid获取所有可用的task 若任务设置了做完后不显示则不会被返回
+     * @param taskType{string}
+     * @param playerId{string}
+     * @param actiontype{string}
+     * @return task[]
+     */
+    getTasks: function (taskType, playerId, actiontype, callback) {
+        var name = 'getTasks';
+        var data = [taskType, playerId, actiontype];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 根据参数获取可用task 若任务设置了做完后不显示则不会被返回
+     * @param taskType{string} 传入null时将不对tasktype进行筛选
+     * @param playerId{string} 角色id
+     * @param actiontype{string} 传入null时将不对actiontype进行筛选
+     * @param status{number[]}
+     * @param callback{function} 回调函数
+     * @return task[]
+     */
+    getTasksStatus: function (taskType, playerId, actiontype, status, callback) {
+        var name = 'getTasks';
+        var data = [taskType, playerId, actiontype, status];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 获取所有可用的task 若任务设置了做完后不显示则不会被返回
      * @method getTasksByType
      * @param taskType{string} 传入null时将不对tasktype进行筛选
      * @param actiontype{string} 传入null时将不对actiontype进行筛选
-     * @param callback
-     * @return callback
+     * @param callback{function} 回调函数
+     * @return task[]
      */
-    "getTasksByType": function (taskType, actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getTasksByType',
-            [taskType, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据参数获取可用task 若任务设置了做完后不显示则不会被返回
-     * @method getTasks
-     * @param taskType{string} 传入null时将不对tasktype进行筛选,0-成就，1-日常任务
-     * @param actiontype{string} 传入null时将不对actiontype进行筛选
-     * @param [status]{int}
-     * @param callback
-     * @return callback
-     */
-    "getTasks": function (taskType, actiontype, status, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        if (typeof (status) == "undefined" || !status) {
-            backClient.call(
-                'getTasks',
-                [taskType, this.playid, actiontype],
-                function (result) {
-                    return callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    return callback(false, error.error.message);
-                }
-            );
-        } else {
-            backClient.call(
-                'getTasks',
-                [taskType, this.playid, actiontype, status],
-                function (result) {
-                    return callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    return callback(false, error.error.message);
-                }
-            );
-        }
-    },
-    /**
-     * 获取指定类型该角色已经完成且还未领取奖励的Task 若任务设置了做完后不显示则不会被返回
-     * @method getCompleteTasks
-     * @param taskType{string} 传入null时将不对tasktype进行筛选
-     * @param actiontype{string} 传入null时将不对actiontype进行筛选
-     * @param callback
-     * @return callback
-     */
-    "getCompleteTasks": function (taskType, actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getTasksByType',
-            [taskType, this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取指定类型该角色已经领取过奖励的Task
-     * @method getDoneTasks
-     * @param taskType{string} 传入null时将不对tasktype进行筛选
-     * @param actiontype{string} 传入null时将不对actiontype进行筛选
-     * @param callback
-     * @return callback
-     */
-    "getDoneTasks": function (taskType, actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDoneTasks',
-            [taskType, this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据任务ID完成任务 仅完成任务，并不获得奖励
-     * @method complete
-     * @param taskId{string} 任务id
-     * @param callback
-     * @return callback
-     */
-    "complete": function (taskId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'complete',
-            [this.playid, taskId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据任务ID获取奖励 获取奖励时会先校验完成任务的进度
-     * @method getReward
-     * @param taskId{string} 任务ID
-     * @param callback
-     * @return callback
-     */
-    "getReward": function (taskId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getReward',
-            [this.playid, taskId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据成就ID获取成就信息
-     * @method getAchievementById
-     * @param achievementId{string} 成就ID
-     * @param callback
-     * @return callback
-     */
-    "getAchievementById": function (achievementId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAchievementById',
-            [achievementId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取所有可用的成就 若任务设置了做完后不显示则不会被返回
-     * @method getAllAchievements
-     * @param callback
-     * @return callback
-     */
-    "getAllAchievements": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAllAchievements',
-            [],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取所有可用的成就 若任务设置了做完后不显示则不会被返回
-     * @method getAchievementsByType
-     * @param actiontype{string}
-     * @param callback
-     */
-    "getAchievementsByType": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAchievementsByType',
-            [actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据playerid获取所有可用的成就 若任务设置了做完后不显示则不会被返回
-     * @method getAchievements
-     * @param actiontype{string}
-     * @param callback
-     * @return callback
-     */
-    "getAchievements": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAchievements',
-            [this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取指定角色已领取奖励的成就
-     * @method getCompleteAchievements
-     * @param actiontype{string}
-     * @param callback
-     */
-    "getCompleteAchievements": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getCompleteAchievements',
-            [this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取指定角色已经达成的成就
-     * @method getDoneAchievements
-     * @param actiontype{string}
-     * @param callback
-     */
-    "getDoneAchievements": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDoneAchievements',
-            [this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据成就ID获取成就信息
-     * @method getDailyTaskById
-     * @param dailyTaskId{string} 成就ID
-     * @param callback
-     * @return callback
-     */
-    "getDailyTaskById": function (dailyTaskId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDailyTaskById',
-            [dailyTaskId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
-     * @method getAllDailyTasks
-     * @param callback
-     * @return callback
-     */
-    "getAllDailyTasks": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAllDailyTasks',
-            [],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
-     * @method getDailyTasksByType
-     * @param actiontype{string}
-     * @param callback
-     * @return callback
-     */
-    "getDailyTasksByType": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDailyTasksByType',
-            [actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 根据playerid获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
-     * @method getDailyTasks
-     * @param actiontype{string}
-     * @param callback
-     * @return callback
-     */
-    "getDailyTasks": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDailyTasks',
-            [this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取指定角色已领取奖励的日常任务
-     * @method getCompleteDailyTasks
-     * @param actiontype{string} 传入null时将不对type进行筛选
-     * @param callback
-     * @return callback
-     */
-    "getCompleteDailyTasks": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getCompleteDailyTasks',
-            [this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取指定角色已经达成的日常任务
-     * @method getDoneDailyTasks
-     * @param actiontype{string}
-     * @param callback
-     */
-    "getDoneDailyTasks": function (actiontype, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDoneDailyTasks',
-            [this.playid, actiontype],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getTasksByType: function (taskType, actiontype, callback) {
+        var name = 'getTasksByType';
+        var data = [taskType, actiontype];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/task.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+};
 
 /**
  * 好友业务接口
@@ -5515,479 +4936,268 @@ SgtApi.Task = {
  * @type {{}|*}
  */
 SgtApi.FriendshipService = {
-    url: null,
-    playid: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @param playid{string} 角色id
-     * @return {boolean}
-     */
-    "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        if (playid == null || typeof (playid) == "undefined") {
-            return false;
-        }
-        this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendship.do';
-        return true;
-    },
-    /**
-     * 邀请加好友（状态为未确认）
-     * @method invite
-     * @param receiveId{string} 被邀请人ID
-     * @param [mail=null]{mail} 通知邮件(可选参数)
-     * @param callback
-     * @return callback
-     */
-    "invite": function (receiveId, mail, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        if (!mail) {
-            backClient.call(
-                'invite',
-                [this.playid, receiveId],
-                function (result) {
-                    callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    callback(false, error.error.message);
-                }
-            );
-        } else {
-            backClient.call(
-                'invite',
-                [this.playid, receiveId, mail],
-                function (result) {
-                    callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    callback(false, error.error.message);
-                }
-            );
-        }
-    },
-    /**
-     * 批量邀请加好友（状态为未确认）
-     * @method bulkinvite
-     * @param receiveIds{string[]} 被邀请人ID string[]
-     * @param [mails=null]{mail[]} 通知邮件 可选参数 mail[]
-     * @param callback
-     * @return callback
-     */
-    "bulkinvite": function (receiveIds, mails, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        if (!mails) {
-            backClient.call(
-                'invite',
-                [this.playid, receiveIds],
-                function (result) {
-                    callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    callback(false, error.error.message);
-                }
-            );
-        } else {
-            backClient.call(
-                'invite',
-                [this.playid, receiveIds, mails],
-                function (result) {
-                    callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    callback(false, error.error.message);
-                }
-            );
-        }
-    },
-    /**
-     * 获取邀请自己的player
-     * @method getInvite
-     * @param callback
-     * @return callback
-     */
-    "getInvite": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getInvite',
-            [this.playid],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 获取还未确认邀请的player
-     * @method getNotConfirm
-     * @param callback
-     * @return callback
-     */
-    "getNotConfirm": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getNotConfirm',
-            [this.playid],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 确认邀请并加对方为好友（状态为确认）
-     * @method acceptInvite
-     * @param receiveId{string} 被邀请人ID
-     * @param [mail]{mail} 发送给对方的邮件 （可选参数）
-     * @param callback
-     * @return callback
-     */
-    "acceptInvite": function (receiveId, mail, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        if (!mail) {
-            backClient.call(
-                'acceptInvite',
-                [this.playid, receiveId],
-                function (result) {
-                    callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    callback(false, error.error.message);
-                }
-            );
-        } else {
-            backClient.call(
-                'acceptInvite',
-                [this.playid, receiveId, mail],
-                function (result) {
-                    callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    callback(false, error.error.message);
-                }
-            );
-        }
-    },
     /**
      * 自己作为被邀请者接受好友邀请
-     * @method acceptotherInvite
-     * @param sendIds{string[]} 邀请者playerId数组
-     * @param [mail]{mail} 发送给对方的邮件 （可选参数）
-     * @param callback
-     * @return callback
+     * @param sendIds{string[]}
+     * @param receiveId{string}
+     * @param callback{function} 回调函数
+     * @return null
      */
-    "acceptotherInvite": function (sendIds, mail, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        if (!mail) {
-            backClient.call(
-                'acceptInvite',
-                [sendIds, this.playid],
-                function (result) {
-                    callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    callback(false, error.error.message);
-                }
-            );
-        } else {
-            backClient.call(
-                'acceptInvite',
-                [sendIds, this.playid, mail],
-                function (result) {
-                    callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    callback(false, error.error.message);
-                }
-            );
-        }
+    acceptInvite: function (sendIds, receiveId, callback) {
+        var name = 'acceptInvite';
+        var data = [sendIds, receiveId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
     /**
-     * 获取指定用户的好友(已确认)列表
-     * @method getMyFriends
-     * @param page{int} 页码 1为第一页
-     * @param limit{int} 每页显示的数量
-     * @param callback
-     * @return callback
+     * 自己作为被邀请者批量确认/接受好友关系，并发送邮件
+     * @param sendIds{string[]}
+     * @param receiveId{string}
+     * @param mail{email}
+     * @return null
      */
-    "getMyFriends": function (page, limit, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getMyFriends',
-            [page, limit, this.playid],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
+    acceptInviteByMail: function (sendIds, receiveId, mail) {
+        var name = 'acceptInvite';
+        var data = [sendIds, receiveId, mail];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
-    /**
-     * 解除好友关系
-     * @method unfriend
-     * @param unfriendId{string/string[]} 要解除好友关系的角色ID / [string]要解除好友关系的角色IDs
-     * @param callback
-     * @return callback
-     */
-    "unfriend": function (unfriendId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'unfriend',
-            [this.playid, unfriendId],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 通过playerId获取该角色的好友数量
-     * @method getFrindsCount
-     * @param callback
-     * @return callback
-     */
-    "getFrindsCount": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getFrindsCount',
-            [this.playid],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 拒绝好友申请
-     * @method refuse
-     * @param sendId{string} 申请者/sendId[]
-     * @param callback
-     * @return callback
-     */
-    "refuse": function (sendId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'refuse',
-            [sendId, this.playid],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 判断对方是否是自己的好友
-     * @method isMyfriend
-     * @param otherId{string} 别人的id/otherId[string]
-     * @param callback
-     * @return callback
-     */
-    "isMyfriend": function (otherId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'isMyfriend',
-            [this.playid, otherId],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
-    },
+
     /**
      * 获取拒绝自己的请求
      * @method getDenied
      * @param page{int} 页码，1表示第一页
      * @param limit{int} 每页显示数量
+     * @param myId{string} 自己的角色ID
+     * @param callback
+     * @return player[]
+     */
+    getDenied: function (page, limit, myId, callback) {
+        var name = 'getDenied';
+        var data = [page, limit, myId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 通过playerId获取该角色的好友数量
+     * @method getFrindsCount
+     * @param playerId{string} 角色id
      * @param callback
      * @return callback
      */
-    "getDenied": function (page, limit, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getDenied',
-            [page, limit, this.playid],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
+    getFrindsCount: function (playerId, callback) {
+        var name = 'getFrindsCount';
+        var data = [playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取邀请自己的player
+     * @method getInvite
+     * @param receiveId{string}
+     * @param callback{function} 回调函数
+     * @return player[]
+     */
+    getInvite: function (receiveId, callback) {
+        var name = 'getInvite';
+        var data = [receiveId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取指定用户的好友(已确认)列表
+     * @method getMyFriends
+     * @param page{int} 页码 1为第一页
+     * @param limit{int} 每页显示的数量
+     * @param playerId{string} 角色id
+     * @param callback{function} 回调函数
+     * @return player[]
+     */
+    getMyFriends: function (page, limit, playerId, callback) {
+        var name = 'getMyFriends';
+        var data = [page, limit, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 获取还未确认邀请的player
+     * @method getNotConfirm
+     * @param sendId{string}
+     * @param callback
+     * @return player[]
+     */
+    getNotConfirm: function (sendId, callback) {
+        var name = 'getNotConfirm';
+        var data = [sendId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 批量邀请加好友（状态为未确认
+     * @param sendId{string}
+     * @param receiveId{string[]}
+     * @param callback
+     * @return null
+     */
+    invite: function (sendId, receiveId, callback) {
+        var name = 'invite';
+        var data = [sendId, receiveId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 批量邀请加好友，并发送邮件通知
+     * @param sendId{string}
+     * @param receiveId{string[]}
+     * @param mails{mail[]}
+     * @param callback
+     */
+    inviteByMails: function (sendId, receiveId, mails, callback) {
+        var name = 'invite';
+        var data = [sendId, receiveId, mails];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 判断对方是否是自己的好友
+     * @method isMyfriend
+     * @param myId{string}
+     * @param otherId{string[]}
+     * @param callback
+     * @return boolean
+     */
+    isMyfriend: function (myId, otherId, callback) {
+        var name = 'isMyfriend';
+        var data = [myId, otherId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 拒绝好友申请
+     * @method refuse
+     * @param sendId{string[]} 邀请者的角色ID集合
+     * @param receiveId{string} 被邀请者的ID（一般为自己的ID）
+     * @param callback{function} 回调函数
+     * @return boolean
+     */
+    refuse: function (sendId, receiveId, callback) {
+        var name = 'refuse';
+        var data = [myId, otherId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 批量解除好友关系
+     * @method unfriend
+     * @param playerId{string} 发起请求的角色ID
+     * @param unfriendId{string/string[]} 要解除好友关系的角色IDs
+     * @param callback{function} 回调函数
+     * @return null
+     */
+    unfriend: function (playerId, unfriendId, callback) {
+        var name = 'unfriend';
+        var data = [playerId, unfriendId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendship.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+
+};
 
 /**
  * 好友关系扩展业务
  * @module  FriendshipExtra
  * @type {{}|*}
  */
-SgtApi.FriendshipExtra = {
-    url: null,
-    playid: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @param playid{string} 角色id
-     * @return {boolean}
-     */
-    "init": function (playid) {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        if (playid == null || typeof (playid) == "undefined") {
-            return false;
-        }
-        this.playid = playid;
-
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/friendshipextra.do';
-        return true;
-    },
+SgtApi.FriendshipExtraService = {
+   
     /**
      * 枚举自己（发起者）的（已验证）好友和key对应的扩展数据,支持分页
      * @method getAllMyFriendsAndExt
+     * @param myPlayerId{string}
      * @param key{string} 扩展数据中的Key
      * @param start{int}
      * @param limit{int}
      * @param callback
-     * @return callback
+     * @return friendshipExtra[]
      */
-    "getAllMyFriendsAndExt": function (key, start, limit, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAllMyFriendsAndExt',
-            [this.playid, key, start, limit],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
+    getAllMyFriendsAndExt: function (myPlayerId, key, start, limit, callback) {
+       var name = 'getAllMyFriendsAndExt';
+       var data = [myPlayerId, key, start, limit];
+       var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
+       SgtApi.doRPC(name, data, url, callback);
     },
     /**
      * 获取自己指定好友和扩展数据
      * @method getMyFriendAndExt
+     * @param myPlayerId
      * @param friendId{string} 好友id
      * @param callback
-     * @return callback
+     * @return friendshipExtra
      */
-    "getMyFriendAndExt": function (friendId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getMyFriendAndExt',
-            [this.playid, friendId],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 修改自己（发起者）某个好友关系扩展数据中key对应的value的值
-     * @method updateMyFriendExt
-     * @param friendId{string} 好友id
-     * @param key{string} 扩展数据Key
-     * @param value{string} 扩展数据的值
-     * @param callback
-     * @return callback
-     */
-    "updateMyFriendExt": function (friendId, key, value, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'updateMyFriendExt',
-            [this.playid, friendId, key, value],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 批量修改指定好友关系的扩展数据,中key对应的值将会替换现有value
-     * @method updateMyFriendAllExt
-     * @param friendId{string} 好友id
-     * @param newExt｛map<String,String>｝map
-     * @param callback
-     * @return callback
-     */
-    "updateMyFriendAllExt": function (friendId, newExt, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'updateMyFriendAllExt',
-            [this.playid, friendId, newExt],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
+    getMyFriendAndExt: function (myPlayerId, friendId, callback) {
+        var name = 'getMyFriendAndExt';
+        var data = [myPlayerId, friendId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
+        SgtApi.doRPC(name,data,url,callback);
     },
     /**
      * 批量修改自己（发起者）所有好友关系扩展数据中key对应的value的值
      * @method updateAllMyFriendExt
+     * @param myPlayerId
      * @param key{string} 扩展数据Key
      * @param value{string} 扩展数据的值
      * @param callback
-     * @return callback
+     * @return null
      */
-    "updateAllMyFriendExt": function (key, value, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'updateAllMyFriendExt',
-            [this.playid, key, value],
-            function (result) {
-                callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                callback(false, error.error.message);
-            }
-        );
+    updateAllMyFriendExt: function (myPlayerId, key, value, callback) {
+        var name = 'getMyFriendAndExt';
+        var data = [myPlayerId, key, value];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
+        SgtApi.doRPC(name,data,url,callback);
+    },
+    /**
+     * 批量修改指定好友关系的扩展数据,中key对应的值将会替换现有value
+     * @method updateMyFriendAllExt
+     * @param myPlayerId
+     * @param friendId{string} 好友id
+     * @param newExt｛map<String,String>｝map
+     * @param callback
+     * @return null
+     */
+    updateMyFriendAllExt: function (myPlayerId, friendId, newExt, callback) {
+        var name = 'updateMyFriendAllExt';
+        var data = [myPlayerId, friendId, newExt];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
+        SgtApi.doRPC(name,data,url,callback);
+    },
+    /**
+     * 修改自己（发起者）某个好友关系扩展数据中key对应的value的值
+     * @method updateMyFriendExt
+     * @param myPlayerId
+     * @param friendId{string} 好友id
+     * @param key{string} 扩展数据Key
+     * @param value{string} 扩展数据的值
+     * @param callback
+     * @return null
+     */
+    updateMyFriendExt: function (myPlayerId, friendId, key, value, callback) {
+        var name = 'updateMyFriendExt';
+        var data = [myPlayerId, friendId, key, value];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+};
 
 /**
  * 黑名单业务接口
@@ -5995,19 +5205,20 @@ SgtApi.FriendshipExtra = {
  * @type {{}|*}
  */
 SgtApi.BlackListService = {
-    url: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @return {boolean}
+
+     /**
+     * 将player添加到黑名单那
+     * @method addPlayerIntoBlackList
+     * @param blackListId{string} 黑名单ID
+     * @param playerId{string} 角色ID
+     * @param callback
+     * @return boolean
      */
-    "init": function () {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/blacklist.do';
-        return true;
+    addPlayerIntoBlackList: function (blacklistId, playerId, callback) {
+        var name = 'addPlayerIntoBlackList';
+        var data = [blacklistId, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/blacklist.do';
+        SgtApi.doRPC(name,data,url,callback);
     },
     /**
      * 判断是否在黑名单之中
@@ -6015,45 +5226,15 @@ SgtApi.BlackListService = {
      * @param blacklistId{string} 黑名单自定义ID
      * @param playerId{string} 玩家的角色ID
      * @param callback
-     * @return callback
+     * @return boolean
      */
-    "isInBlackList": function (blacklistId, playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'isInBlacklist',
-            [blacklistId, playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 将player添加到黑名单那
-     * @method addPlayerIntoBlackList
-     * @param blackListId{string} 黑名单ID
-     * @param playerId{string} 角色ID
-     * @param callback
-     * @return callback
-     */
-    "addPlayerIntoBlackList": function (blackListId, playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'addPlayerIntoBlacklist',
-            [blackListId, playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    isInBlackList: function (blacklistId, playerId, callback) {
+        var name = 'isInBlackList';
+        var data = [blacklistId, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/blacklist.do';
+        SgtApi.doRPC(name,data,url,callback);
     }
-}
+};
 
 /**
  * 抽奖业务接口
@@ -6061,381 +5242,248 @@ SgtApi.BlackListService = {
  * @type {{}|*}
  */
 SgtApi.GachaBoxService = {
-    url: null,
-    playerid: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @param playerid{string} 角色id
-     * @return {boolean}
-     */
-    "init": function (playerid) {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        if (playerid == null || typeof (playerid) == "undefined") {
-            return false;
-        }
-        this.playerid = playerid;
+ 
+        
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/gachabox.do';
-        return true;
-    },
     /**
-     * 获取指定名称的GachaBox
-     * @method getGachaBoxByName
-     * @param gachaBoxname{String} GachaBoxName
+     * 有自动修正的连抽
+     * @method autobalanceDraw
+     * @param playerId
+     * @param gachaBoxId{int} 抽奖ID
+     * @param num{int} 抽奖次数
      * @param callback
+     * @return string[]
      */
-    "getGachaBoxByName": function (gachaBoxname, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getGachaBoxByName',
-            [gachaBoxname],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    autobalanceDraw: function (playerId, gachaBoxId, num, callback) {
+        var name = 'autobalanceDraw';
+        var data = [playerId, gachaBoxId, num];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 指定初始品质的自动修正连抽
+     * @method autobalanceDraw
+     * @param playerId
+     * @param gachaBoxId{int} 抽奖ID
+     * @param num{int} 抽奖次数
+     * @param [initQuality]{int} 初始品质
+     * @param callback
+     * @return gachaBoxResult
+     */
+    autobalanceDrawQuality: function (playerId, gachaBoxId, num, quality, callback) {
+        var name = 'autobalanceDraw';
+        var data = [playerId, gachaBoxId, num];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 指定初始品质和最大品质的自动修正连抽
+     * @method autobalanceDraw
+     * @param playerId
+     * @param gachaBoxId{int} 抽奖ID
+     * @param num{int} 抽奖次数
+     * @param [initQuality]{int} 初始品质
+     * @param maxQuality{int}
+     * @param callback
+     * @return gachaBoxResult
+     */
+    autobalanceDrawMaxQuality: function (playerId, gachaBoxId, num, quality, maxQuality, callback) {
+        var name = 'autobalanceDraw';
+        var data = [playerId, gachaBoxId, maxQuality, num];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+
+    /**
+     * 连续抽奖N次，N为数组qualities的元素个数，一个qualities元素对应一次抽奖
+     * @method draw
+     * @param playerId
+     * @param gachaBoxId{int} 抽奖ID
+     * @param quality{int/Array} 品质/品质数组
+     * @param callback
+     * @return string[]
+     */
+    draw: function (playerId, gachaBoxId, quality, callback) {
+        var name = 'draw';
+        var data = [playerId, gachaBoxId, quality];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
     /**
      * 获取当前所有有效的GachaBox
      * @method getAvailableGachaBox
      * @param callback
-     * @return callback
+     * @return gachaBox[]
      */
-    "getAvailableGachaBox": function (callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getAvailableGachaBox',
-            [],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getAvailableGachaBox: function (callback) {
+        var name = 'getAvailableGachaBox';
+        var data = [];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
+
+    /**
+     * 获取指定名称的GachaBox
+     * @method getGachaBoxByName
+     * @param gachaBoxname{String} GachaBoxName
+     * @param gachaBox
+     */
+    getGachaBoxByName: function (gachaBoxname, callback) {
+        var name = 'getGachaBoxByName';
+        var data = [gachaBoxname];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+   
     /**
      * 获取指定gachaBox的奖品
      * @method getLotteriesByGachaBoxId
      * @param gachaBoxId{string} 抽奖ID
      * @param callback
-     * @return callback
+     * @return lottery[]
      */
-    "getLotteriesByGachaBoxId": function (gachaBoxId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getLotteriesByGachaBoxId',
-            [gachaBoxId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    getLotteriesByGachaBoxId: function (gachaBoxId, callback) {
+        var name = 'getLotteriesByGachaBoxId';
+        var data = [gachaBoxId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
-    /**
-     * 根据gachaBox的名称和品质获得奖品/连续抽奖N次,N为数组qualities的元素个数,一个qualities元素对应一次抽奖
-     * @method draw
-     * @param gachaBoxId{int} 抽奖ID
-     * @param quality{int/Array} 品质/品质数组
-     * @param callback
-     * @return callback
-     */
-    "draw": function (gachaBoxId, quality, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'draw',
-            [this.playerid, gachaBoxId, quality],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 有自动修正的连抽
-     * @method autobalanceDraw
-     * @param gachaBoxId{int} 抽奖ID
-     * @param num{int} 抽奖次数
-     * @param [initQuality]{int} 初始品质（可选参数）
-     * @param callback
-     * @return callback
-     */
-    "autobalanceDraw": function (gachaBoxId, num, initQuality, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        if (typeof(initQuality) == "number") {
-            backClient.call(
-                'autobalanceDraw',
-                [this.playerid, gachaBoxId, num, initQuality],
-                function (result) {
-                    return callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    return callback(false, error.error.message);
-                }
-            );
-        } else {
-            backClient.call(
-                'autobalanceDraw',
-                [this.playerid, gachaBoxId, num],
-                function (result) {
-                    return callback(true, result.result);
-                },
-                function (error) {
-                    console.log('There was an error.error:', error.error);
-                    return callback(false, error.error.message);
-                }
-            );
-        }
-    },
-    /**
-     * 指定初始品质和最大品质的自动修正连抽
-     * @method customAutobalanceDraw
-     * @param gachaBoxId{int} 抽奖ID
-     * @param num{int} 连抽次数
-     * @param initQuality{int} 初始品质
-     * @param maxQuality{int} 品质上限，必须大于0
-     * @param callback
-     * @return callback
-     */
-    "customAutobalanceDraw": function (gachaBoxId, num, initQuality, maxQuality, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'autobalanceDraw',
-            [this.playerid, gachaBoxId, num, initQuality, maxQuality],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
+    
     /**
      * 指定奖品品质总值的连抽
      * @method limitDraw
+     * @param playerId
      * @param gachaBoxId{int} 抽奖ID
      * @param limitQuality{int} 指定奖品品质
      * @param callback
      */
-    "limitDraw": function (gachaBoxId, limitQuality, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'limitDraw',
-            [this.playerid, gachaBoxId, limitQuality],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    limitDraw: function (playerId, gachaBoxId, limitQuality, callback) {
+        var name = 'limitDraw';
+        var data = [playerId, gachaBoxId, limitQuality];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/gachabox.do';
+        SgtApi.doRPC(name, data, url, callback);
     }
-}
+};
 
 /**
  * 排行榜接口
  * @module  LeaderboardService
  * @type {{}|*}
  */
-SgtApi.LeaderboardService = {
-    url: null,
-    playerData: null,
-    /**
-     * 初始化接口
-     * @method init
-     * @param playerData{json} 角色信息
-     * @return {boolean}
-     */
-    "init": function (playerData) {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        if (playerData == null || typeof (playerData) == "undefined") {
-            return false;
-        }
-        this.playerData = playerData;
+SgtApi.LeaderBoardService = {
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/leaderboard.do';
-        return true;
-    },
-    /**
-     * 通过排行榜ID和角色ID获取该角色的排行榜
-     * @method getByLeaderId
-     * @param leaderId{string} 排行榜ID
-     * @param playerId{string} 角色ID
-     * @param callback
-     * @return callback
-     */
-    "getByLeaderId": function (leaderId, playerId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getLeaderBoardScoreByLeaderIdAndPlayerId',
-            [leaderId, playerId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 通过排行榜ID和排名获取排行榜集合 start从0开始，第一名的值是0 取前两名的则 start为0，limit为2 取第二名到第五名则start为1，limit为4 即：start的值为排名减1 如果取该排行榜中所有的排名 start和limit的值分别为：0 , -1
-     * @method getListByLeaderId
-     * @param leaderId{String} 排行榜ID
-     * @param start{int} 排名的起始位置（从0开始，第一位是0）
-     * @param limit{int} 排名的结束位置
-     * @param callback
-     * @return callback
-     */
-    "getListByLeaderId": function (leaderId, start, limit, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getTopLeaderBoardScoreByLeaderId',
-            [leaderId, start, limit],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 通过排行榜ID和角色ID获取该角色的排行榜（返回集合）
-     * @method getListByIdPlayer
-     * @param leaderId{string} 排行榜ID
-     * @param callback
-     * @return callback
-     */
-    "getListByIdPlayer": function (leaderId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getLeaderBoardScoreByExample',
-            [leaderId, this.playerData],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 提交排行榜数值
-     * @method submitLeaderBoardScore
-     * @param leaderId{String} 排行榜ID
-     * @param score{int} 分数值
-     * @param callback
-     * @return callback
-     */
-    "submitLeaderBoardScore": function (leaderId, score, callback) {
-        if (leaderId == '' || leaderId == null) {
-            return callback(false, '排行榜id为空！');
-        }
-        if (score < 0 || score == null) {
-            return callback(false, 'score值错误！');
-        }
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'submitLeaderBoardScore',
-            [leaderId, this.playerData.id, score],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    },
-    /**
-     * 提交排行榜数值
-     * @method submitLeaderBoardScores
-     * @param leaderId{String} 排行榜ID
-     * @param score{int} 分数值
-     * @param callback
-     * @return callback
-     */
-    "submitLeaderBoardScores": function (leaderId, playerId, score, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'submitLeaderBoardScore',
-            [leaderId, playerId, score],
-            function (result) {
-                return callback(true, result);
-            },
-            function (error) {
-                console.log('There was an error:', error);
-                return callback(false, error.message);
-            }
-        );
-    },
     /**
      * 更新分数值
      * @method addUpLeaderBoardScore
      * @param leaderId{String} 排行榜ID
-     * @param score{int} 增加的分数值
+     * @param playerId{string/string[]}
+     * @param score{number/number[]} 增加的分数值
      * @param callback
-     * @return callback
+     * @return boolean/boolean[]
      */
-    "addUpLeaderBoardScore": function (leaderId, score, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'addUpLeaderBoardScore',
-            [leaderId, this.playerData.id, score],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
+    addUpLeaderBoardScore: function (leaderId, plyaerId, score, callback) {
+        var name = 'addUpLeaderBoardScore';
+        var data = [leaderId, plyaerId, score];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
+        SgtApi.doRPC(name, data, url, callback);
     },
-    /**
-     * 通过排行榜的LeaderBoardID获取LeaderBoard信息
-     * @method getInfoByLeaderId
+
+     /**
+     * 通过排行榜的leaderBoardID获取leaderBoard信息
+     * @method getLeaderBoardByLeaderId
      * @param leaderId{String} 排行榜LeaderBoardId
      * @param callback
-     * @return callback
+     * @return leaderBoard
      */
-    "getInfoByLeaderId": function (leaderId, callback) {
-        var backClient = new $JsonRpc({ajaxUrl: this.url});
-        backClient.call(
-            'getLeaderBoardByLeaderId',
-            [leaderId],
-            function (result) {
-                return callback(true, result.result);
-            },
-            function (error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
-            }
-        );
-    }
-}
+    getLeaderBoardByLeaderId: function (leaderId, callback) {
+        var name = 'getLeaderBoardByLeaderId';
+        var data = [leaderId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 通过排行榜ID和角色ID获取该角色的排行榜（返回集合）
+     * @method getLeaderBoardScoreByExample
+     * @param leaderId{string} 排行榜ID
+     * @param player
+     * @param callback
+     * @return leaderBoardScore[]
+     */
+    getLeaderBoardScoreByExample: function (leaderId, player, callback) {
+       var name = 'getLeaderBoardScoreByExample';
+       var data = [leaderId, player];
+       var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
+       SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 通过排行榜ID和角色ID获取该角色的排行榜
+     * @method getLeaderBoardScoreByLeaderIdAndPlayerId
+     * @param leaderId{string} 排行榜ID
+     * @param playerId{string} 角色ID
+     * @param callback
+     * @return leaderBoardScore
+     */
+    getLeaderBoardScoreByLeaderIdAndPlayerId: function (leaderId, playerId, callback) {
+        var name = 'getLeaderBoardScoreByLeaderIdAndPlayerId';
+        var data = [leaderId, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 如果我是第一名则返回我和后面4位 如果不是第一名则返回我前面一位+我+后面3位 如果我是最后一名则返回我前面四位+我
+     * @method getLeaderBoardScoresByLeaderIdAndPlayerId
+     * @param leaderId
+     * @param playerId
+     * @param callback
+     * return leaderBoardScore[]
+     */
+    getLeaderBoardScoresByLeaderIdAndPlayerId : function (leaderId, playerId, callback) {
+        var name = 'getLeaderBoardScoresByLeaderIdAndPlayerId';
+        var data = [leaderId, playerId];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+
+    /**
+     * 通过排行榜ID和排名获取排行榜集合 start从0开始，第一名的值是0 取前两名的则 start为0，limit为2 取第二名到第五名则start为1，limit为4 即：start的值为排名减1 如果取该排行榜中所有的排名 start和limit的值分别为：0 , -1
+     * @method getTopLeaderBoardScoreByLeaderId
+     * @param leaderId{String} 排行榜ID
+     * @param start{int} 排名的起始位置（从0开始，第一位是0）
+     * @param limit{int} 排名的结束位置
+     * @param callback
+     * @return leaderBoardScore[]
+     */
+    getTopLeaderBoardScoreByLeaderId : function (leaderId, start, limit, callback) {
+        var name = 'getTopLeaderBoardScoreByLeaderId';
+        var data = [leaderId, start, limit];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
+        SgtApi.doRPC(name, data, url, callback);
+    },
+    
+    /**
+     * 提交排行榜数值
+     * @method submitLeaderBoardScore
+     * @param leaderId{String} 排行榜ID
+     * @param playerId{string/string[]}
+     * @param score{number/number[]} 分数值
+     * @param callback
+     * @return boolean/boolean[]
+     */
+    submitLeaderBoardScore: function (leaderId, playerId, score, callback) {
+        var name = 'submitLeaderBoardScore';
+        var data = [leaderId, playerId, score];
+        var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
+        SgtApi.doRPC(name, data, url, callback);
+     }
+   
+};
 
 /**
  * 邮件接口
@@ -6461,7 +5509,7 @@ SgtApi.MailService = {
         }
         this.playerData = playerData;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/mail.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/mail.do';
         return true;
     },
     /**
@@ -6696,7 +5744,7 @@ SgtApi.Notification = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/notification.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/notification.do';
         return true;
     },
     /**
@@ -6761,7 +5809,7 @@ SgtApi.Purchase = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/purchase.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/purchase.do';
         return true;
     },
     /**
@@ -6914,7 +5962,7 @@ SgtApi.StoreService = {
             return false;
         }
         this.playid = playid;
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/store.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/store.do';
         return true;
     },
     /**
@@ -7110,7 +6158,7 @@ SgtApi.ChargePoint = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/chargepoint.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/chargepoint.do';
         return true;
     },
     /**
@@ -7180,7 +6228,7 @@ SgtApi.BossService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/boss.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/boss.do';
         return true;
     },
     /**
@@ -7329,7 +6377,7 @@ SgtApi.FileStorage = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/filestorage.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/filestorage.do';
         return true;
     },
     /**
@@ -7401,7 +6449,7 @@ SgtApi.GiftCode = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/giftcode.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
         return true;
     },
     /**
@@ -7561,7 +6609,7 @@ SgtApi.PrivateChannel = {
             return false;
         }
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/privatechannel.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/privatechannel.do';
         return true;
     },
     /**
@@ -7693,7 +6741,7 @@ SgtApi.PublicChannelService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/publicchannel.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/publicchannel.do';
         return true;
     },
     /**
@@ -7925,13 +6973,13 @@ SgtApi.DelegateDid = {
         }
         this.playid = playid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/delegatedid.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/delegatedid.do';
         return true;
     },
     /**
      * 创建代理id（did）
      * @method createDid
-     * @param appId{string} APPID
+     * @param appId{string} appId
      * @param serverId{string} 服务器ID
      * @param callback
      * @return callback
@@ -8010,7 +7058,7 @@ SgtApi.StructuredDataService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/structureddata.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/structureddata.do';
         return true;
     },
     /**
@@ -8547,7 +7595,7 @@ SgtApi.TicketService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/ticket.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/ticket.do';
         return true;
     },
     /**
@@ -8625,7 +7673,7 @@ SgtApi.ErrorReportService = {
         }
         this.playerid = playerid;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/errorreport.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/errorreport.do';
         return true;
     },
 
@@ -8668,7 +7716,7 @@ SgtApi.InvitationCodeService = {
         }
         this.playerId = playerId;
 
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/invitationcode.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/invitationcode.do';
         return true;
     },
 
@@ -8769,7 +7817,7 @@ SgtApi.PaymentCallbackService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/paymentcallback.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/paymentcallback.do';
         return true;
     },
 
@@ -8803,7 +7851,7 @@ SgtApi.RouterService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/router.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/router.do';
         return true;
     },
     /**
@@ -8856,217 +7904,6 @@ SgtApi.RouterService = {
 };
 
 /**
- * @module SgpPlayerService
- * @type {{}|*}
- */
-SgtApi.SgpPlayerService = {
-    url: null,
-    playerId: null,
-
-    /**
-     * 初始化接口
-     * @method init
-     * @param playerid{string} 角色id
-     * @return {boolean}
-     */
-    "init": function (playerId) {
-        if (SgtApi.context.playServerData == null) {
-            console.log('There was an error:', '没获取角色服务器信息！');
-            return false;
-        }
-        if (playerId == null) {
-            return false;
-        }
-        this.playerId = playerId;
-
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/sgpplayer.do';
-        return true;
-    },
-
-    /**
-     * 创建一个角色
-     * @Method create
-     * @param player
-     * @param callback
-     */
-    'create': function (player, callback) {
-        var name = 'create';
-        var data = [player];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 通过playerId删除角色及相关信息 包括签到、活动、boss、排行榜、好友、抽奖
-     * @Method deleteSgpPlayerByPlayerId
-     * @param callback
-     */
-    'deleteSgpPlayerByPlayerId': function (callback) {
-        var name = 'deleteSgpPlayerByPlayerId';
-        var data = [this.playerId];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 下载存档
-     * @Method downloadSave
-     * @param callback
-     */
-    'downloadSave': function (callback) {
-        var name = 'downloadSave';
-        var data = [this.playerId];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 根据最后登陆时间查找角色
-     * @Method getByLastLoginTime
-     * @param lastLoginTime
-     * @param start
-     * @param limit
-     */
-    'getByLastLoginTime': function (lastLoginTime, start, limit, callback) {
-        var name = 'getByLastLoginTime';
-        var data = [lastLoginTime, start, limit];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 根据角色名查找角色
-     * @Method getByName
-     * @param _name
-     * @param start
-     * @param limit
-     * @param callback
-     */
-    'getByName': function (_name, start, limit, callback) {
-        var name = 'getByName';
-        var data = [_name, start, limit];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 根据用户ID查找角色
-     * @Method getByUserId
-     * @param userId
-     * @param callback
-     */
-    'getByUserId': function (userId, callback) {
-        var name = 'getByUserId';
-        var data = [userId];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 获取指定角色的好友上限
-     * @Method getFriendsMaxNumber
-     * @param sgpPlayerId
-     * @param callback
-     */
-    'getFriendsMaxNumber': function (sgpPlayerId, callback) {
-        var name = 'getFriendsMaxNumber';
-        var data = [sgpPlayerId];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 通过用户ID查找其中的一个角色
-     * @Method getOneByUserId
-     * @param userId
-     */
-    'getOneByUserId': function (userId, callback) {
-        var name = 'getOneByUserId';
-        var data = [userId];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 通过自定义ID获取SgpPlayer
-     * @Method getSgpPlayerByCustomId
-     * @param customId
-     * @param callback
-     */
-    'getSgpPlayerByCustomId': function (customId, callback) {
-        var name = 'getSgpPlayerByCustomId';
-        var data = [customId];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 通过ID获取SgpPlayer
-     * @Method getSgpPlayerById
-     * @param callback
-     */
-    'getSgpPlayerById': function (callback) {
-        var name = 'getSgpPlayerById';
-        var data = [this.playerId];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 随机返回若干个最近登录的sgpplayer
-     * @Method searchPlayersByLastLogin
-     * @param limit
-     * @param callback
-     */
-    'searchPlayersByLastLogin': function (limit, callback) {
-        var name = 'searchPlayersByLastLogin';
-        var data = [limit];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 根据条件过滤并随机查询若干个最近登录的sgpplayer
-     * @Method searchPlayersByLastLogin
-     * @param lastLoginTime
-     * @param limit
-     * @param excludePlayerIds
-     * @param callback
-     */
-    'searchPlayersByLastLogin': function (lastLoginTime, limit, excludePlayerIds, callback) {
-        var name = 'searchPlayersByLastLogin';
-        var data = [lastLoginTime, limit, excludePlayerIds];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 设置指定角色的好友上限
-     * @Method setFriendsMaxNumber
-     * @param sgpPlayerId
-     * @param number
-     */
-    'setFriendsMaxNumber': function (sgpPlayerId, number, callback) {
-        var name = 'setFriendsMaxNumber';
-        var data = [sgpPlayerId, number];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 更新角色信息
-     * @Method update
-     * @param player
-     * @param callback
-     */
-    'update': function (player, callback) {
-        var name = 'update';
-        var data = [player];
-        SgtApi.doRPC(name, data, this.url, callback);
-    },
-
-    /**
-     * 上传存档
-     * @Method uploadSave
-     * @param save
-     * @param callback
-     */
-    'uploadSave': function (save, callback) {
-        var name = 'uploadSave';
-        var data = [save];
-        SgtApi.doRPC(name, data, this.url, callback);
-    }
-}
-
-
-/**
  * 时间戳业务接口
  * @module  TimestampService
  * @type {{}|*}
@@ -9083,7 +7920,7 @@ SgtApi.TimestampService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/timestamp.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/timestamp.do';
         return true;
     },
 
@@ -9221,33 +8058,33 @@ SgtApi.VersionDetailService = {
             console.log('There was an error:', '没获取角色服务器信息！');
             return false;
         }
-        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.AppId + '/versiondetail.do';
+        this.url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/versiondetail.do';
         return true;
     },
 
 
     /**
-     * 根据appid和当前版本信息获取升级信息
+     * 根据appId和当前版本信息获取升级信息
      * @Method checkUpdate
-     * @param appid
+     * @param appId
      * @param currentVersion
      * @param callback
      */
-    'checkUpdate': function (appid, currentVersion, callback) {
+    'checkUpdate': function (appId, currentVersion, callback) {
         var name = 'checkUpdate';
-        var data = [appid, currentVersion];
+        var data = [appId, currentVersion];
         SgtApi.doRPC(name, data, this.url, callback);
     },
 
     /**
-     * 获取某个appid所有的版本信息
+     * 获取某个appId所有的版本信息
      * @Method getAllVersions
-     * @param appid
+     * @param appId
      * @param callback
      */
-    'getAllVersions': function (appid, callback) {
+    'getAllVersions': function (appId, callback) {
         var name = 'getAllVersions';
-        var data = [appid];
+        var data = [appId];
         SgtApi.doRPC(name, data, this.url, callback);
     }
 }
