@@ -3236,7 +3236,7 @@ function $JsonRpc(obj) {
  * @returns {Object} 工厂创建的实体对象
  */
 SgtApi.entityFactory = function (entity_name, fn) {
-    var entity = eval('new SgtApi.entity.' + entity_name.upperCase + '();');
+    var entity = eval('new SgtApi.entity.' + entity_name + '();');
     if (fn && fn !== '') {
         fn();
     }
