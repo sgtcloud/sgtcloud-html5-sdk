@@ -3596,7 +3596,7 @@ SgtApi.PlayerService = {
      */
     getByName: function (playerName, start, limit, callback) {
         var name = 'getByName';
-        var data = [name, start, limit];
+        var data = [playerName, start, limit];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     }, 
