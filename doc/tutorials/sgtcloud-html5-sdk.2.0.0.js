@@ -3236,7 +3236,7 @@ function $JsonRpc(obj) {
  * @returns {Object} 工厂创建的实体对象
  */
 SgtApi.entityFactory = function (entity_name, fn) {
-    var entity = eval('new SgtApi.entity.' + entity_name.upperCase + '();');
+    var entity = eval('new SgtApi.entity.' + entity_name + '();');
     if (fn && fn !== '') {
         fn();
     }
@@ -3723,7 +3723,7 @@ SgtApi.PlayerService = {
      */
     getByName: function (playerName, start, limit, callback) {
         var name = 'getByName';
-        var data = [name, start, limit];
+        var data = [playerName, start, limit];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     }, 

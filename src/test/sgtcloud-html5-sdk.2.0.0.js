@@ -59,7 +59,7 @@ jsonRPC =new Object({
                 }
             }
         };
-        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), true);
+        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), false);
 
         var headers=[
             {"name":"Accept","type":"application/json, text/javascript, */*;"},
@@ -3723,7 +3723,7 @@ SgtApi.PlayerService = {
      */
     getByName: function (playerName, start, limit, callback) {
         var name = 'getByName';
-        var data = [name, start, limit];
+        var data = [playerName, start, limit];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/sgpplayer.do';
         SgtApi.doRPC(name, data, url, callback);
     }, 
