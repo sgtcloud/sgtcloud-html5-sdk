@@ -6,7 +6,7 @@ A html5 out-of-box sdk for damn cool mbaas.
 
 致力于发展为 mbass的, 开箱即用的, 超酷的 html5 软件开发工具.
 
-了解更多, 请访问我们的主页 **[http://sgtcloud.cn](http://sgtcloud.cn)**
+了解更多, 请访问我们的主页 **[http://www.sgtcloud.cn](http://www.sgtcloud.cn)**
 
 ### 安装
 
@@ -23,15 +23,20 @@ A html5 out-of-box sdk for damn cool mbaas.
 将 sdk 引入到项目中 :
 
 ```javascript
-<script src="sgtcloud-html5-sdk.2.0.0.js"></script>
+<script src="sgtcloud-html5-sdk.2.0.0.min.js"></script>
 ```
 
-首次使用需要初始化 **应用标识** 和 **网关** :
+或则使用CDN的方式 :
+```javascript
+<script src="http://www.sgtcloud.cn/dist/sgtcloud-html5-sdk.2.0.0.min.js"></script>
+```
+
+点击 **[申请应用标识](http://wj.qq.com/survey.html?type=survey&id=136756&hash=233f)**  
+首次使用需要初始化**应用标识**  :
 
 ```javascript
 SgtApi.init({
-    appGateway: 'http://gw.sgtcloud.cn/gateway',
-    appId: appId: 'html5_demo2015'
+    appId: 'xxx'	//填写应用标识
 });
 ```
 
@@ -39,7 +44,7 @@ SgtApi.init({
 
 ```javascript
 var user = new SgtApi.entity.User();
-user.name = 'xxx';
+user.userName = 'xxx';
 user.password = 'xxx';
 ```
 
@@ -48,7 +53,8 @@ user.password = 'xxx';
 ```javascript
 SgtApi.UserService.register(user, function(result, data) {
     if(result) {  //表示注册成功
-        console.log(data);   //得到了注册用户信息
+		/* 返回用户注册信息 */
+        //data
     }
 });
 ```
@@ -57,10 +63,10 @@ SgtApi.UserService.register(user, function(result, data) {
 
 ### 文档
 
-* [官网](http://sgtcloud.cn)
-* [API]() 
-* [用户指南](http://sgtcloud.gitbooks.io/sgtcloud-html5-sdk/content/) 
-* [排行榜教程](http://sgtcloud.cn/tutorials/) 
+* [官网](http://www.sgtcloud.cn)
+* [API](http://www.sgtcloud.cn/api) 
+* [用户指南](http://www.sgtcloud.gitbooks.io/sgtcloud-html5-sdk/content/) 
+* [排行榜教程](http://www.sgtcloud.cn/tutorials) 
 
 ### 技术架构
 
