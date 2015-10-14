@@ -22,7 +22,10 @@
   "homepage": "https://github.com/sgtcloud/sgtcloud-html5-sdk#readme",
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-closure-compiler": "^0.3.1",
     "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-jsdoc": "^0.1.5",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.4.1"
   }

@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>5分钟创建一个排行榜</title>
+		<link rel="stylesheet" href="./lib/bootstrap.min.css">
+		<link rel="stylesheet" href="./lib/jquery.fullpage.min.css">
+		<style>
+			*{
+				text-align: center
+			}
+
+			body{
+				margin: 0;
+				padding: 0;
+				color :white;
+				font-family:arial;
+				background:black;
+			}
+
+			section{
+				margin: 0;
+				padding: 0;
+			}
+
+
+			p{
+				font-size: 22px;
+			}
+
+		
+
+
+			h1{
+				
+			}
+
+			#cloud_icon{
+				position:fixed;
+				left:6%;
+				top:5%;
+			}
+
+			input{
+				color:black;
+			}
+
+			#leaderBoardList tr td:hover{
+				color:black;
+			}
+
+			a{
+				color:white;
+				text-decoration: none
+			}
+
+			a:hover{
+				color:#f2eada;
+				text-decoration: none
+			}
+
+			a:visited{
+				color:#f2eada;
+				text-decoration: none
+			}
+
+			a:active{
+				color:#f2eada;
+				text-decoration: none
+			}
+
+			a:link{
+				color:#f2eada;
+				text-decoration: none
+			}
+		</style>
+	</head>
+	<body>
+		<a id="cloud_icon" href="http://www.sgtcloud.cn" target="_blank"><img  src="./img/cloud-icon-whtite.png"></a>
+		<div id="fullpage">
+		    <div class="section" id="section1">
+		    	<div>
+			    	<h1 style="margin-bottom:60px">进入<a target="_blank" href="http://console.sgtcloud.cn/console-dev/login">开发者后台</a>,点击排行榜</h1>
+			    	<h3 style="margin-bottom:-10px">数 据 管 理</h3>
+			    	<table id="leaderBoardList" class="table table-hover" style="width:160px;margin:20px auto">
+			    		<tr><td>公告</td></tr>
+			    		<tr><td>角色</td></tr>
+			    		<tr><td id="leaderBoard">排行榜</td></tr>
+			    		<tr><td>签到</td></tr>
+			    		<tr><td>活动</td></tr>
+					</table>
+				</div>
+		    </div>
+
+		    <div class="section">
+		    	<div class="container">
+				   	<h1 style="margin-bottom:50px">点击创建排行榜进入下一步</h1>
+
+				   	<div class="form-horizontal">
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-3">排行榜名称</label>
+					    <div class="col-sm-3">
+					      <input type="text" class="form-control" id="inputEmail3" placeholder="龙虎榜" disabled>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputPassword3" class="col-sm-2 control-label col-sm-offset-3">排行榜 ID</label>
+					    <div class="col-sm-3">
+					      <input type="text" class="form-control" id="inputPassword3" placeholder="longhubang" disabled>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-1 col-sm-10">
+					      <button id="createButton" style="margin-top:20px" class="btn btn-default btn-lg">创建排行榜</button>
+					    </div>
+					  </div>
+					</div>
+				</div>
+		    </div>
+
+		    <div class="section">
+		    	<h1 style="margin-bottom:30px">输入角色名和分数,点击提交分数</h1>
+		    	<input id="playerName" placeholder="角色名">
+		    	<input id="leaderBoardScore" placeholder="分数" style="margin-left:6px">
+		    	<button id="commitButton" class="btn btn-default" style="margin-left:6px">提交分数</button>
+		    	<div class="container" style="margin-top:80px;">
+<pre style='color:#d1d1d1;background:#000000;text-align:left;font-size:16px;'><span style='color:#9999a9; '>//提交排行榜分数</span>
+<span style='color:#e66170; font-weight:bold; '>function</span> commitLeaderBoardScore<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+
+	<span style='color:#9999a9; '>//提交排行榜分数</span>
+	SgtApi<span style='color:#d2cd86; '>.</span>LeaderBoardService<span style='color:#d2cd86; '>.</span>submitLeaderBoardScore<span style='color:#d2cd86; '>(</span>leaderBoardId<span style='color:#d2cd86; '>,</span> playerId<span style='color:#d2cd86; '>,</span> leaderBoardScore<span style='color:#d2cd86; '>,</span> <span style='color:#e66170; font-weight:bold; '>function</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>,</span> data<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+		//commit<span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span>
+	<span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+<span style='color:#b060b0; '>}</span>
+
+
+<span style='color:#9999a9; '>//显示排行榜</span>
+<span style='color:#e66170; font-weight:bold; '>function</span> showLeaderBoard<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+
+	<span style='color:#9999a9; '>//得到排行榜信息</span>
+	SgtApi<span style='color:#d2cd86; '>.</span>LeaderBoardService<span style='color:#d2cd86; '>.</span>getTopLeaderBoardScoreByLeaderId<span style='color:#d2cd86; '>(</span>leaderBoardId<span style='color:#d2cd86; '>,</span> <span >start</span><span style='color:#d2cd86; '>,</span> <span>size</span><span style='color:#d2cd86; '>,</span> <span style='color:#e66170; font-weight:bold; '>function</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>,</span> data<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+		//show<span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span>
+	<span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+<span style='color:#b060b0; '>}</span>
+</pre>
+				</div>
+		    </div>
+
+		    <div class="section">
+			    <div class="container">
+			    	<h1>&nbsp;&nbsp;龙 虎 榜</h1>
+			    	<div id="leaderBoard">
+			    		<table class="table" style="margin:70px auto 45px auto;width:300px;">
+			    			<thead>
+			    				<tr><td style="border:0;font-size:18px;">Top10</td><td style="border:0;font-size:18px;">角色名</td><td style="border:0;font-size:18px;">分数</td></tr>
+			    			</thead>
+			    			<tbody>
+			    				
+			    			</tbody>
+						</table>
+			    	</div>
+			    	<p id="detail" style="margin-bottom:150px"></p>
+				    <small style="marigin-bottom:60px">上海游际信息技术有限公司 © 2015 sgtcloud.cn lnc.沪ICP备1400972</small>
+			    </div>
+		    </div>
+		</div>
+
+		<script src="./lib/sgtcloud-html5-sdk.2.0.0.js"></script>
+		<script src="./lib/jquery.1.11.1.min.js"></script>
+		<script src="./lib/jquery.fullpage.min.js"></script>
+		<script>
+
+			$(function() {
+
+
+
+				//加载fullpage
+				$('#fullpage').fullpage({
+					verticalCentered: true,
+					sectionsColor: ['black','black','black','black'],
+					navigation: true,
+					navigationTooltips: ['step1', 'step2', 'step3', 'step4'],
+					anchors: ['step1', 'step2', 'step3', 'step4'],
+					fixedElements: '#fixedElements,#cloud_icon'
+				});
+
+				var userId = null;
+				var playerId = 0;
+				var playerName = '';
+
+				var leaderId = 'longhubang';
+				var leaderBoardName = '';
+				var leaderBoardScore = null;
+
+
+				//登录
+				SgtApi.UserService.login('ppoo001', 'ppoo001', function (result, data) {
+				    if (result) {
+				        userId = data.userid;
+				    }
+				});
+
+
+				//绑定按钮
+				$('#commitButton').on('click', commitLeaderBoardService);
+				$('#createButton').on('click', $.fn.fullpage.moveSectionDown);
+				$('#leaderBoard').on('click', $.fn.fullpage.moveSectionDown);
+
+				init();
+
+
+				var pass_validate = false;
+
+
+				//提交排行版业务
+				function commitLeaderBoardService(){
+					validatePlayerDuplicate();
+
+					if(pass_validate) {
+						if($('#leaderBoardScore').val()!==''){
+							console.log($('#leaderBoardScore').val());
+							createPlayer();
+							commitLeaderBoardScore();
+							createDetail();
+							pass_validate = false;
+						}
+					} else {
+						if($('#leaderBoardScore').val()!==''){
+							createPlayer();
+							createFailDetail();
+						}
+					}
+
+					$.fn.fullpage.moveSectionDown();
+
+				}
+
+
+				//验证角色名重复
+				function validatePlayerDuplicate(){
+					SgtApi.PlayerService.getByName($('#playerName').val(), 1 , 1, function(result, data) {
+						if(result) {
+							if(data === null) {
+								pass_validate = true;
+							}
+						}
+					});
+				}
+
+				var newPlayer=false;
+
+				var player=null;
+				//创建角色
+				function createPlayer() {
+					//创建角色实体
+					player = new SgtApi.entity.Player();
+					player.name = $('#playerName').val();
+
+					//创建角色
+					SgtApi.PlayerService.create(player, function(result, data) {
+						if(result) {
+							playerId = data.id;
+							newPlayer = true;
+						}
+					});
+				}
+
+				//提交分数
+				function commitLeaderBoardScore() {
+					
+
+					//提交排行榜分数
+					SgtApi.LeaderBoardService.submitLeaderBoardScore(leaderId, playerId, $('#leaderBoardScore').val(), function(result, data) {
+						if(result) {
+							showLeaderBoard();
+						}
+					});
+				}
+				
+				//初始化
+				function init() {
+					showLeaderBoard();
+					
+				}
+
+				//创建创建角色详情
+				function createDetail() {
+					SgtApi.LeaderBoardService.getLeaderBoardScoreByLeaderIdAndPlayerId('longhubang', playerId, function(result, data) {
+						if(result) {
+							$('#detail').empty();
+							var detail_html =$('<p>您创建的角色 '+ data.player.name +' 分数 '+ data.score +' 排名 ' + data.index + ' </p>');
+							$('#detail').append(detail_html);
+						}
+					});
+				}
+
+				function createFailDetail() {
+					// if($('#leaderBoardScore')!=='') {
+						// console.log($('#leaderBoardScore'));
+						$('#detail').empty();
+						var failDetail_html=$('<p>对不起, 您创建的角色已存在</p>');
+						$('#detail').append(failDetail_html);
+					// }
+
+				}
+
+				//显示排行榜
+				function showLeaderBoard() {
+
+					$('#leaderBoard table tbody').empty();
+
+					var playerNames = [];
+					var leaderBoardScores = [];
+
+					//得到排行榜信息
+					SgtApi.LeaderBoardService.getTopLeaderBoardScoreByLeaderId(leaderId, 0, 9, function(result, data) {
+						if(result) {
+							var players = data;
+							players.forEach(function(item) {
+								playerNames.push(item.player.name);
+								leaderBoardScores.push(item.score);
+							});
+						}
+					});
+
+
+					//<li class="list-group-item">Cras justo odio</li>
+					//创建DOM
+					playerNames.forEach(function(item, index) {
+						var html = $('<tr><td style="border:0;font-size:18px;">'+ (index+1) +'</td><td  style="border:0;font-size:18px;">'+ item +'</td><td  style="border:0;font-size:18px;">'+leaderBoardScores[index]+'</td></tr>');
+						$('#leaderBoard table tbody').append(html);
+						
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

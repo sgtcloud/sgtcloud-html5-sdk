@@ -1,4 +1,31 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sgtcloud-html5-sdk.2.0.0.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sgtcloud-html5-sdk.2.0.0.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Created by Administrator on 2015/9/17.
  */
 
@@ -3110,7 +3137,7 @@ function $JsonRpc(obj) {
  */
 SgtApi.entityFactory = function (entity_name, fn) {
     var entity = eval('new SgtApi.entity.' + entity_name + '();');
-    if (fn && fn !== '') {
+    if (fn &amp;&amp; fn !== '') {
         fn();
     }
     return entity;
@@ -3199,14 +3226,14 @@ SgtApi.config = {
  */
 SgtApi.init = function (json) {
     "use strict";
-    if (json.appGateway !== "" && json.appGateway) {
+    if (json.appGateway !== "" &amp;&amp; json.appGateway) {
         SgtApi.config.appGateway = json.appGateway;
     }
-    if (json.appId !== "" && json.appId) {
+    if (json.appId !== "" &amp;&amp; json.appId) {
         SgtApi.config.appId = json.appId;
     }
     if (json.channelId !== "" +
-        "" && json.channelId) {
+        "" &amp;&amp; json.channelId) {
         SgtApi.config.channelId = json.channelId;
     }
  
@@ -3460,7 +3487,7 @@ SgtApi.UserService = {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
             var name = "";
-            for (var i = 0; i < 8; i++) {
+            for (var i = 0; i &lt; 8; i++) {
                 var id = 0;
                 if (i > 5) {
                     id = Math.ceil(Math.random() * 9);
@@ -3825,7 +3852,7 @@ SgtApi.PlayerExtraService = {
     /**
      * 根据条件查询角色列表
      * @method getPlayerList
-     * @param condition{Map<String,String>} 查询条件 key 字段名称 value 字段值
+     * @param condition{Map&lt;String,String>} 查询条件 key 字段名称 value 字段值
      * @param callback 回调函数
      * @return Object 角色列表
      */
@@ -3840,7 +3867,7 @@ SgtApi.PlayerExtraService = {
     /**
      * 修改角色扩展信息
      * @method updatePlayerMap
-     * @param player{Map<String,Object>} 角色扩展信息
+     * @param player{Map&lt;String,Object>} 角色扩展信息
      * @param callback{Function} 回调函数
      * @return null
      */
@@ -5174,7 +5201,7 @@ SgtApi.FriendshipExtraService = {
      * @method updateMyFriendAllExt
      * @param myPlayerId
      * @param friendId{string} 好友id
-     * @param newExt｛map<String,String>｝map
+     * @param newExt｛map&lt;String,String>｝map
      * @param callback
      * @return null
      */
@@ -5558,10 +5585,10 @@ SgtApi.MailService = {
      * @return callback
      */
     "receive": function (start, limit, status, callback) {
-        if (start < 0 || start === null) {
+        if (start &lt; 0 || start === null) {
             start = 1;
         }
-        if (limit < 0 || limit === null) {
+        if (limit &lt; 0 || limit === null) {
             limit = 5;
         }
 
@@ -5593,7 +5620,7 @@ SgtApi.MailService = {
             localS = window.localStorage;
         }
         var otimestamp = localS.getItem("receiveUnread");
-        if (typeof(otimestamp) != "undefined" && otimestamp && otimestamp !== "") {
+        if (typeof(otimestamp) != "undefined" &amp;&amp; otimestamp &amp;&amp; otimestamp !== "") {
             timestamp = parseInt(otimestamp);
         }
         var backClient = new $JsonRpc({ajaxUrl: this.url});
@@ -8091,3 +8118,26 @@ SgtApi.VersionDetailService = {
 };
 
 
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-AccountService.html">AccountService</a></li><li><a href="module-AchievementService.html">AchievementService</a></li><li><a href="module-AnnouncementService.html">AnnouncementService</a></li><li><a href="module-BlackListService.html">BlackListService</a></li><li><a href="module-BossService.html">BossService</a></li><li><a href="module-CampaignService.html">CampaignService</a></li><li><a href="module-ChargePoint.html">ChargePoint</a></li><li><a href="module-CheckinBoardService.html">CheckinBoardService</a></li><li><a href="module-DailyTaskService.html">DailyTaskService</a></li><li><a href="module-DelegateDid.html">DelegateDid</a></li><li><a href="module-ErrorReportService.html">ErrorReportService</a></li><li><a href="module-FileStorage.html">FileStorage</a></li><li><a href="module-FriendshipExtra.html">FriendshipExtra</a></li><li><a href="module-FriendshipService.html">FriendshipService</a></li><li><a href="module-GachaBoxService.html">GachaBoxService</a></li><li><a href="module-GiftCode.html">GiftCode</a></li><li><a href="module-InvitationCodeService.html">InvitationCodeService</a></li><li><a href="module-LeaderboardService.html">LeaderboardService</a></li><li><a href="module-MailService.html">MailService</a></li><li><a href="module-Notification.html">Notification</a></li><li><a href="module-PaymentCallbackService.html">PaymentCallbackService</a></li><li><a href="module-PlayerExtraService.html">PlayerExtraService</a></li><li><a href="module-PlayerService.html">PlayerService</a></li><li><a href="module-PrivateChannel.html">PrivateChannel</a></li><li><a href="module-PublicChannelService.html">PublicChannelService</a></li><li><a href="module-Purchase.html">Purchase</a></li><li><a href="module-RouterService.html">RouterService</a></li><li><a href="module-StoreService.html">StoreService</a></li><li><a href="module-StructuredDataService.html">StructuredDataService</a></li><li><a href="module-TaskService.html">TaskService</a></li><li><a href="module-TicketService.html">TicketService</a></li><li><a href="module-TimestampService.html">TimestampService</a></li><li><a href="module-VersionDetailService.html">VersionDetailService</a></li></ul><h3>Classes</h3><ul><li><a href="sendCaptchaMessage.html">sendCaptchaMessage</a></li><li><a href="SgtApi.entity.Achievement.html">Achievement</a></li><li><a href="SgtApi.entity.Announcement.html">Announcement</a></li><li><a href="SgtApi.entity.Blacklist.html">Blacklist</a></li><li><a href="SgtApi.entity.Boss.html">Boss</a></li><li><a href="SgtApi.entity.Campaign.html">Campaign</a></li><li><a href="SgtApi.entity.CampaignDetail.html">CampaignDetail</a></li><li><a href="SgtApi.entity.Channel.html">Channel</a></li><li><a href="SgtApi.entity.ChargeLog.html">ChargeLog</a></li><li><a href="SgtApi.entity.ChargePoint.html">ChargePoint</a></li><li><a href="SgtApi.entity.CheckinBoard.html">CheckinBoard</a></li><li><a href="SgtApi.entity.CheckinResult.html">CheckinResult</a></li><li><a href="SgtApi.entity.DailyTask.html">DailyTask</a></li><li><a href="SgtApi.entity.ExternalCallbackBean.html">ExternalCallbackBean</a></li><li><a href="SgtApi.entity.FileItem.html">FileItem</a></li><li><a href="SgtApi.entity.Friendship.html">Friendship</a></li><li><a href="SgtApi.entity.FriendshipExtra.html">FriendshipExtra</a></li><li><a href="SgtApi.entity.GachaBox.html">GachaBox</a></li><li><a href="SgtApi.entity.GachaBoxResult.html">GachaBoxResult</a></li><li><a href="SgtApi.entity.Gift.html">Gift</a></li><li><a href="SgtApi.entity.GiftRecord.html">GiftRecord</a></li><li><a href="SgtApi.entity.Item.html">Item</a></li><li><a href="SgtApi.entity.LeaderBoard.html">LeaderBoard</a></li><li><a href="SgtApi.entity.LeaderBoardScore.html">LeaderBoardScore</a></li><li><a href="SgtApi.entity.Lottery.html">Lottery</a></li><li><a href="SgtApi.entity.Mail.html">Mail</a></li><li><a href="SgtApi.entity.MailsCollection.html">MailsCollection</a></li><li><a href="SgtApi.entity.MailTemplate.html">MailTemplate</a></li><li><a href="SgtApi.entity.Message.html">Message</a></li><li><a href="SgtApi.entity.Order.html">Order</a></li><li><a href="SgtApi.entity.Player.html">Player</a></li><li><a href="SgtApi.entity.PlayerExtra.html">PlayerExtra</a></li><li><a href="SgtApi.entity.Reward.html">Reward</a></li><li><a href="SgtApi.entity.Save.html">Save</a></li><li><a href="SgtApi.entity.Server.html">Server</a></li><li><a href="SgtApi.entity.Store.html">Store</a></li><li><a href="SgtApi.entity.StructuredData.html">StructuredData</a></li><li><a href="SgtApi.entity.Task.html">Task</a></li><li><a href="SgtApi.entity.Ticket.html">Ticket</a></li><li><a href="SgtApi.entity.TimerTask.html">TimerTask</a></li><li><a href="SgtApi.entity.User.html">User</a></li><li><a href="SgtApi.entity.VersionDetail.html">VersionDetail</a></li><li><a href="SgtApi.init.html">init</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Wed Oct 14 2015 19:20:31 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
