@@ -62,35 +62,94 @@ SgtApi.UserService.register(user, function(result, data) {
 * [用户指南](http://sgtcloud.gitbooks.io/sgtcloud-html5-sdk/content/) 
 * [排行榜教程](http://sgtcloud.cn/tutorials/) 
 
+### 技术架构
+
+sdk 采用了 [jsonrpc2.0](http://www.jsonrpc.org/) 的通讯协议
+
+![](http://blog.espol.edu.ec/taws/files/2009/01/jrj2.jpg)
+
 ### 业务模块
 
-* 用户 - User - UserService
-* 角色 - Player - PlayerService
-* 角色扩展 - PlayerExtra - PlayerExtraService
-* 成就 - Achievement - AchievementService
-* 公告 - Announcement - AnnouncementService
-* 活动 - Campaign - CampaignService
-* 签到 - CheckinBoard - CheckinBoardService
-* 任务 - Task -  TaskService
-* 日常任务 - DailyTask - DailyTaskService
-* 好友 - Friendship - FriendshipService
-* 好友扩展 - FriendshipExtra - FriendshipExtraService
-* 黑名单 - Blacklist - BlackListService
-* 抽奖 - GachaBox - GachaBoxService
-* 排行榜 - LeaderBoard - LeaderBoardService
-* 邮件 - Mail - MailService
-* 通知 - Notification - NotificationService
-* 充值 - Purchase - PurchaseService
-* 商城 - Store - StoreService
-* 计费点 - ChargePoint - ChargePointService
-* Boss - Boss - BossService
-* 文件存储 - FileStorage - FileStorageService\
-* 礼包 - GiftCode - GiftCodeService
-* 个人通道 - PrivateChannel - PrivateChannelService
-* 公共通道 - PublicChannel - PublicChannelService
-* 第三方 - DelegateDid - DelegateDidService
-* 结构化数据 - StructuredDate - StructuredDateService
-* 反馈 - Ticket - TicketService
+* 用户  
+User - UserService
+
+* 角色  
+Player - PlayerService
+
+* 角色扩展  
+PlayerExtra - PlayerExtraService
+
+* 成就  
+Achievement - AchievementService
+
+* 公告  
+Announcement - AnnouncementService
+
+* 活动  
+Campaign - CampaignService
+
+* 签到  
+CheckinBoard - CheckinBoardService
+ 
+* 任务  
+Task -  TaskService
+
+* 日常任务  
+DailyTask - DailyTaskService
+
+* 好友  
+Friendship - FriendshipService
+
+* 好友扩展  
+FriendshipExtra - FriendshipExtraService
+
+* 黑名单  
+Blacklist - BlackListService
+
+* 抽奖  
+GachaBox - GachaBoxService
+
+* 排行榜  
+LeaderBoard - LeaderBoardService
+
+* 邮件  
+Mail - MailService
+
+* 通知  
+Notification - NotificationService
+
+* 充值  
+Purchase - PurchaseService
+
+* 商城  
+Store - StoreService
+
+* 计费点  
+ChargePoint - ChargePointService
+
+* Boss  
+Boss - BossService
+
+* 文件存储  
+FileStorage - FileStorageService
+
+* 礼包  
+GiftCode - GiftCodeService
+
+* 个人通道  
+PrivateChannel - PrivateChannelService
+
+* 公共通道  
+PublicChannel - PublicChannelService
+
+* 第三方  
+DelegateDid - DelegateDidService
+
+* 结构化数据  
+StructuredDate - StructuredDateService
+
+* 反馈  
+Ticket - TicketService
 
 ### 贡献
 
