@@ -18,7 +18,7 @@ A html5 out-of-box sdk for damn cool mbaas.
 
 * 引入sdk到你的项目中
 
-### 教程
+### 入门
 
 将 sdk 引入到项目中 :
 
