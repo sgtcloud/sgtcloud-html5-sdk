@@ -65,7 +65,7 @@ SgtApi.UserService.register(user, function(result, data) {
 
 * [官网](http://www.sgtcloud.cn)
 * [API](http://www.sgtcloud.cn/api) 
-* [用户指南](http://www.sgtcloud.gitbooks.io/sgtcloud-html5-sdk/content/) 
+* [用户指南](https://www.gitbook.com/book/sgtcloud/sgtcloud-html5-sdk/details) 
 * [排行榜教程](http://www.sgtcloud.cn/tutorials) 
 
 ### 技术架构

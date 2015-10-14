@@ -3336,14 +3336,14 @@ SgtApi.init = function (json) {
         "" && json.channelId) {
         SgtApi.config.channelId = json.channelId;
     }
-
+ 
 };
 
 /**
  * 用户登陆注册
  *
- * @module  AccountService
- * @type {{}|*}
+ * @module AccountService
+ * 
  */
 SgtApi.UserService = {
 
@@ -3385,7 +3385,7 @@ SgtApi.UserService = {
 
     /**
      * 客户端通过提交user对象完成注册
-     * @method register
+     * @method  register
      * @param user{user}
      * @param callback{function} 回调函数
      * @return user
@@ -8216,3 +8216,5 @@ SgtApi.VersionDetailService = {
         SgtApi.doRPC(name, data, this.url, callback);
     }
 };
+
+
