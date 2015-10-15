@@ -21,8 +21,6 @@ gulp.task('compile', function() {
 	pipe(uglify()).
 	pipe(rename({extname: '.min.js'})).
 	pipe(gulp.dest('./dist/'));
-	gulp.start('generateApi');
-	gulp.start('npm:publish');
 });
 
 gulp.task('development', function() {
@@ -51,17 +49,24 @@ gulp.task('lint', function() {
 	.pipe(eslint.failOnError());
 });
 
+gulp.task('tutorials', function() {
+	exec('start.bat');
+});
+
 gulp.task('default', ['lint'], function() {
+	if(yargs.p) {
+		gulp.start('npm:publish');
+	}
+	if(yargs.g) {
+		gulp.start('generateApi');
+	}
+	if(yargs.tutorials) {
+		gulp.start('tutorials');
+	}
 	if(yargs.w) {
 		gulp.start('development');
 	} else {
 		gulp.start('compile');
-	}
-	if(yargs.p) {
-		gulp.start('npm:publish');
-	}
-	if(yargs.a) {
-		gulp.start('generateApi');
 	}
 });
 
