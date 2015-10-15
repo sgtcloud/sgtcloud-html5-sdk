@@ -2,10 +2,15 @@
   "name": "sgtcloud-html5-sdk",
   "version": "2.0.0",
   "description": "A html5 out-of-box sdk for damn cool mbaas",
+  "keywords": [
+    "html5",
+    "sdk",
+    "html5-sdk"
+  ],
   "main": "gulpfile.js",
   "directories": {
     "doc": "doc",
-    "example": "example"
+    "tutorials": "tutorials"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/sgtcloud/sgtcloud-html5-sdk/issues"
   },
-  "homepage": "https://github.com/sgtcloud/sgtcloud-html5-sdk#readme",
+  "homepage": "http://www.sgtcloud.cn",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-closure-compiler": "^0.3.1",
