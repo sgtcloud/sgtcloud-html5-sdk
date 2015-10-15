@@ -32,6 +32,7 @@
     "gulp-eslint": "^1.0.0",
     "gulp-jsdoc": "^0.1.5",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.4.1"
+    "gulp-uglify": "^1.4.1",
+    "yargs": "^3.27.0"
   }
 }
