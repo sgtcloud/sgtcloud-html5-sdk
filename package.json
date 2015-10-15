@@ -19,8 +19,8 @@
     "type": "git",
     "url": "git+https://github.com/sgtcloud/sgtcloud-html5-sdk.git"
   },
-  "author": "sgtclout-team",
-  "license": "ISC",
+  "author": "sgtclout",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sgtcloud/sgtcloud-html5-sdk/issues"
   },

@@ -4,6 +4,7 @@ var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var jsdoc = require('gulp-jsdoc');
 var eslint = require('gulp-eslint');
+var exec = require('child_process').exec;
 
 var options = {
 	lintPaths : [
@@ -20,6 +21,7 @@ gulp.task('compile', function() {
 	pipe(rename({extname: '.min.js'})).
 	pipe(gulp.dest('./dist/'));
 	gulp.start('generateApi');
+	gulp.start('npm:publish');
 });
 
 gulp.task('development', function() {
@@ -33,6 +35,12 @@ gulp.task('development', function() {
 gulp.task('generateApi', function() {
 	gulp.src('./src/sgtcloud-html5-sdk.2.0.0.js').
 	pipe(jsdoc('./api/'));
+});
+
+gulp.task('npm:publish', function() {
+	exec('npm publish', function() {
+
+	});
 });
 
 gulp.task('lint', function() {
