@@ -4,6 +4,8 @@ var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var jsdoc = require('gulp-jsdoc');
 var eslint = require('gulp-eslint');
+var exec = require('child_process').exec;
+var yargs = require('yargs').argv;
 
 var options = {
 	lintPaths : [
@@ -20,6 +22,7 @@ gulp.task('compile', function() {
 	pipe(rename({extname: '.min.js'})).
 	pipe(gulp.dest('./dist/'));
 	gulp.start('generateApi');
+	gulp.start('npm:publish');
 });
 
 gulp.task('development', function() {
@@ -35,6 +38,12 @@ gulp.task('generateApi', function() {
 	pipe(jsdoc('./api/'));
 });
 
+gulp.task('npm:publish', function() {
+	exec('npm publish', function() {
+
+	});
+});
+
 gulp.task('lint', function() {
 	gulp.src(options.lintPaths)
 	.pipe(eslint())
@@ -42,5 +51,17 @@ gulp.task('lint', function() {
 	.pipe(eslint.failOnError());
 });
 
-gulp.task('default', ['lint']);
+gulp.task('default', ['lint'], function() {
+	if(yargs.w) {
+		gulp.start('development');
+	} else {
+		gulp.start('compile');
+	}
+	if(yargs.p) {
+		gulp.start('npm:publish');
+	}
+	if(yargs.a) {
+		gulp.start('generateApi');
+	}
+});
 
