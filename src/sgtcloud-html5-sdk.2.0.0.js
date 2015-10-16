@@ -42,7 +42,8 @@
  *
  */
 
-SgtApi = $S = {};
+var SgtApi = {};
+var $S = SgtApi;
 
 
 /**

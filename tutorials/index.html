@@ -23,13 +23,9 @@
 				padding: 0;
 			}
 
-
 			p{
 				font-size: 22px;
 			}
-
-		
-
 
 			h1{
 				
@@ -73,28 +69,43 @@
 				color:#f2eada;
 				text-decoration: none
 			}
+
+			.highCode {
+				 margin-top:100px;
+			}
+
+			pre {
+				text-align:left;
+				font-size:17px;
+			}
 		</style>
 	</head>
 	<body>
 		<a id="cloud_icon" href="http://www.sgtcloud.cn" target="_blank"><img  src="./img/cloud-icon-whtite.png"></a>
 		<div id="fullpage">
+
+			<!-- page 1 -->
 		    <div class="section" id="section1">
-		    	<div>
-			    	<h1 style="margin-bottom:60px">进入<a target="_blank" href="http://console.sgtcloud.cn/console-dev/login">开发者后台</a>,点击排行榜</h1>
-			    	<h3 style="margin-bottom:-10px">数 据 管 理</h3>
-			    	<table id="leaderBoardList" class="table table-hover" style="width:160px;margin:20px auto">
-			    		<tr><td>公告</td></tr>
-			    		<tr><td>角色</td></tr>
-			    		<tr><td id="leaderBoard">排行榜</td></tr>
-			    		<tr><td>签到</td></tr>
-			    		<tr><td>活动</td></tr>
-					</table>
+		    	<div class="container">
+		    		<div style="font-size:45px;margin-top:-140px">5 分 钟 创 建 一 个 排 行 榜</div>
+			    	<h2 style="margin-top:150px">进入<a target="_blank" href="http://console.sgtcloud.cn/console-dev/login">开发者后台</a>,点击 排行榜 </h2>
+			    	<div style="margin-top:50px">
+				    	<h4 style="margin-bottom:-10px">数 据 管 理</h4>
+				    	<table id="leaderBoardList" class="table table-hover" style="width:160px;margin:20px auto">
+				    		<tr><td>公告</td></tr>
+				    		<tr><td>角色</td></tr>
+				    		<tr><td id="leaderBoard">排行榜</td></tr>
+				    		<tr><td>签到</td></tr>
+				    		<tr><td>活动</td></tr>
+						</table>
+					</div>
 				</div>
 		    </div>
 
+		    <!-- page 2 -->
 		    <div class="section">
 		    	<div class="container">
-				   	<h1 style="margin-bottom:50px">点击创建排行榜进入下一步</h1>
+				   	<h2 style="margin-bottom:50px">点击 创建排行榜 完成后台排行榜创建</h2>
 
 				   	<div class="form-horizontal">
 					  <div class="form-group">
@@ -118,13 +129,42 @@
 				</div>
 		    </div>
 
+		    <!-- page 3 -->
 		    <div class="section">
-		    	<h1 style="margin-bottom:30px">输入角色名和分数,点击提交分数</h1>
-		    	<input id="playerName" placeholder="角色名">
-		    	<input id="leaderBoardScore" placeholder="分数" style="margin-left:6px">
-		    	<button id="commitButton" class="btn btn-default" style="margin-left:6px">提交分数</button>
-		    	<div class="container" style="margin-top:80px;">
-<pre style='color:#d1d1d1;background:#000000;text-align:left;font-size:16px;'><span style='color:#9999a9; '>//提交排行榜分数</span>
+		    	<div class="container">
+		    		<h2 style="margin-bottom:50px">使用 sdk 实现角色排行榜提交</h2>
+		    		<p style="margin-bottom:20px">xxxxxxxxxxxxxxxxxxxxxxxx</p>
+					<button id="autoLogin" class="btn btn-default btn-lg">点我一键登录</button>	
+					<div class="highCode">
+<pre style='color:#d1d1d1;background:#000000;'><span style='color:#9999a9; '>//初始化应用标识</span>
+SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(</span><span style='color:#b060b0; '>{</span>
+	appId <span style='color:#b060b0; '>:</span> <span style='color:#02d045; '>'</span><span style='color:#00c4c4; '>html5_demo2015</span><span style='color:#02d045; '>'</span>
+<span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+
+<span style='color:#9999a9; '>// 自动登陆, 返回注册的user对象 </span>
+<span style='color:#e66170; font-weight:bold; '>function</span> autoLogin<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+	<span style='color:#e66170; font-weight:bold; '>var</span> user <span style='color:#d2cd86; '>=</span> <span style='color:#0f4d75; '>null</span><span style='color:#b060b0; '>;</span>
+	SgtApi<span style='color:#d2cd86; '>.</span>UserService<span style='color:#d2cd86; '>.</span>quickLogin<span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>function</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>,</span> data<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+		<span style='color:#e66170; font-weight:bold; '>if</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+			user <span style='color:#d2cd86; '>=</span> data<span style='color:#b060b0; '>;</span>
+		<span style='color:#b060b0; '>}</span>
+	<span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+	<span style='color:#e66170; font-weight:bold; '>return</span> user<span style='color:#b060b0; '>;</span>
+<span style='color:#b060b0; '>}</span>
+</pre>
+					</div>		
+		    	</div>
+		    </div>
+
+		    <!-- page 4 -->
+		    <div class="section">
+		    	<div class="container">
+			    	<h1 style="margin-bottom:30px">输入角色名和分数,点击提交分数</h1>
+			    	<input id="playerName" placeholder="角色名">
+			    	<input id="leaderBoardScore" placeholder="分数" style="margin-left:6px">
+			    	<button id="commitButton" class="btn btn-default" style="margin-left:6px">提交分数</button>
+			    	<div class="highCode">
+<pre style='color:#d1d1d1;background:#000000;'><span style='color:#9999a9; '>//提交排行榜分数</span>
 <span style='color:#e66170; font-weight:bold; '>function</span> commitLeaderBoardScore<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
 
 	<span style='color:#9999a9; '>//提交排行榜分数</span>
@@ -144,11 +184,13 @@
 <span style='color:#b060b0; '>}</span>
 </pre>
 				</div>
-		    </div>
+			</div>
+		</div>
 
+		    <!-- page 5 -->
 		    <div class="section">
 			    <div class="container">
-			    	<h1>&nbsp;&nbsp;龙 虎 榜</h1>
+			    	<h1>龙 虎 榜</h1>
 			    	<div id="leaderBoard">
 			    		<table class="table" style="margin:70px auto 45px auto;width:300px;">
 			    			<thead>
@@ -160,7 +202,7 @@
 						</table>
 			    	</div>
 			    	<p id="detail" style="margin-bottom:150px"></p>
-				    <small style="marigin-bottom:60px">上海游际信息技术有限公司 © 2015 sgtcloud.cn lnc.沪ICP备1400972</small>
+				    <small style="position:absolute;bottom:30px;left:0;right:0">上海游际信息技术有限公司 © 2015 sgtcloud.cn lnc.沪ICP备1400972</small>
 			    </div>
 		    </div>
 		</div>
@@ -172,18 +214,7 @@
 
 			$(function() {
 
-
-
-				//加载fullpage
-				$('#fullpage').fullpage({
-					verticalCentered: true,
-					sectionsColor: ['black','black','black','black'],
-					navigation: true,
-					navigationTooltips: ['step1', 'step2', 'step3', 'step4'],
-					anchors: ['step1', 'step2', 'step3', 'step4'],
-					fixedElements: '#fixedElements,#cloud_icon'
-				});
-
+				//声明参数
 				var userId = null;
 				var playerId = 0;
 				var playerName = '';
@@ -192,33 +223,63 @@
 				var leaderBoardName = '';
 				var leaderBoardScore = null;
 
+				var player=null;
+				var newPlayer=false;
 
-				//登录
-				SgtApi.UserService.login('ppoo001', 'ppoo001', function (result, data) {
-				    if (result) {
-				        userId = data.userid;
-				    }
-				});
+				var pass_validate = false;
 
 
-				//绑定按钮
-				$('#commitButton').on('click', commitLeaderBoardService);
-				$('#createButton').on('click', $.fn.fullpage.moveSectionDown);
-				$('#leaderBoard').on('click', $.fn.fullpage.moveSectionDown);
-
+				//初始化
 				init();
 
 
-				var pass_validate = false;
+				//初始化
+				function init() {
+
+					//加载fullpage
+					$('#fullpage').fullpage({
+						verticalCentered: true,
+						navigation: true,
+						navigationTooltips: ['step1', 'step2', 'step3', 'step4'],
+						anchors: ['step1', 'step2', 'step3', 'step4'],
+						fixedElements: '#cloud_icon'
+					});
+
+					//自动登录
+					console.log(autoLogin());
+
+					//显示排行榜
+					showLeaderBoard();
+
+					//绑定按钮
+					$('#commitButton').on('click', commitLeaderBoardService);
+					$('#createButton').on('click', $.fn.fullpage.moveSectionDown);
+					$('#leaderBoard').on('click', $.fn.fullpage.moveSectionDown);
+				}
+
+				//初始化应用标识
+				SgtApi.init({
+					appId : 'html5_demo2015'
+				});
+
+				// 自动登陆, 返回注册的user对象 
+				function autoLogin() {
+					var user = null;
+					SgtApi.UserService.quickLogin(function(result, data) {
+						if(result) {
+							user = data;
+						}
+					});
+					return user;
+				}
 
 
 				//提交排行版业务
 				function commitLeaderBoardService(){
 					validatePlayerDuplicate();
-
+					
 					if(pass_validate) {
 						if($('#leaderBoardScore').val()!==''){
-							console.log($('#leaderBoardScore').val());
 							createPlayer();
 							commitLeaderBoardScore();
 							createDetail();
@@ -246,12 +307,11 @@
 						}
 					});
 				}
+				
 
-				var newPlayer=false;
-
-				var player=null;
 				//创建角色
 				function createPlayer() {
+
 					//创建角色实体
 					player = new SgtApi.entity.Player();
 					player.name = $('#playerName').val();
@@ -265,10 +325,10 @@
 					});
 				}
 
+
 				//提交分数
 				function commitLeaderBoardScore() {
 					
-
 					//提交排行榜分数
 					SgtApi.LeaderBoardService.submitLeaderBoardScore(leaderId, playerId, $('#leaderBoardScore').val(), function(result, data) {
 						if(result) {
@@ -276,14 +336,9 @@
 						}
 					});
 				}
-				
-				//初始化
-				function init() {
-					showLeaderBoard();
-					
-				}
+	
 
-				//创建创建角色详情
+				//创建角色详情
 				function createDetail() {
 					SgtApi.LeaderBoardService.getLeaderBoardScoreByLeaderIdAndPlayerId('longhubang', playerId, function(result, data) {
 						if(result) {
@@ -294,21 +349,18 @@
 					});
 				}
 
+
+				//创建角色失败详情
 				function createFailDetail() {
-					// if($('#leaderBoardScore')!=='') {
-						// console.log($('#leaderBoardScore'));
 						$('#detail').empty();
 						var failDetail_html=$('<p>对不起, 您创建的角色已存在</p>');
 						$('#detail').append(failDetail_html);
-					// }
-
 				}
+
 
 				//显示排行榜
 				function showLeaderBoard() {
-
 					$('#leaderBoard table tbody').empty();
-
 					var playerNames = [];
 					var leaderBoardScores = [];
 
@@ -323,8 +375,6 @@
 						}
 					});
 
-
-					//<li class="list-group-item">Cras justo odio</li>
 					//创建DOM
 					playerNames.forEach(function(item, index) {
 						var html = $('<tr><td style="border:0;font-size:18px;">'+ (index+1) +'</td><td  style="border:0;font-size:18px;">'+ item +'</td><td  style="border:0;font-size:18px;">'+leaderBoardScores[index]+'</td></tr>');
@@ -333,6 +383,7 @@
 					});
 				}
 			});
+
 		</script>
 	</body>
 </html>

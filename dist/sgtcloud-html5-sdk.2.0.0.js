@@ -169,7 +169,8 @@ jsonRPC =new Object({
  *
  */
 
-SgtApi = $S = {};
+var SgtApi = {};
+var $S = SgtApi;
 
 
 /**
