@@ -169,7 +169,8 @@ jsonRPC =new Object({
  *
  */
 
-SgtApi = $S = {};
+var SgtApi = {};
+var $S = SgtApi;
 
 
 /**
@@ -3397,9 +3398,9 @@ SgtApi.UserService = {
         SgtApi.doRPC(name, data, url, function(result, data){
             if(result) {
                 SgtApi.context.userData = data;
-                callback(true,data);
+                SgtApi.UserService.getPlayServer(callback);
             } else {
-                callback(false,data);
+                SgtApi.UserService.getPlayServer(callback);
             }
         });
     },
@@ -5507,7 +5508,7 @@ SgtApi.GachaBoxService = {
 SgtApi.LeaderBoardService = {
 
     /**
-     * 更新分数值
+     * 增加分数值
      * @method addUpLeaderBoardScore
      * @param leaderId{String} 排行榜ID
      * @param playerId{string/string[]}
@@ -5598,7 +5599,7 @@ SgtApi.LeaderBoardService = {
     },
     
     /**
-     * 提交排行榜数值
+     * 更新排行榜数值
      * @method submitLeaderBoardScore
      * @param leaderId{String} 排行榜ID
      * @param playerId{string/string[]}
