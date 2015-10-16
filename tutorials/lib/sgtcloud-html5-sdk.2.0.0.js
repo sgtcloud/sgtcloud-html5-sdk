@@ -3397,9 +3397,9 @@ SgtApi.UserService = {
         SgtApi.doRPC(name, data, url, function(result, data){
             if(result) {
                 SgtApi.context.userData = data;
-                callback(true,data);
+                SgtApi.UserService.getPlayServer(callback);
             } else {
-                callback(false,data);
+                SgtApi.UserService.getPlayServer(callback);
             }
         });
     },
@@ -5515,9 +5515,9 @@ SgtApi.LeaderBoardService = {
      * @param callback
      * @return boolean/boolean[]
      */
-    addUpLeaderBoardScore: function (leaderId, plyaerId, score, callback) {
+    addUpLeaderBoardScore: function (leaderId, playerId, score, callback) {
         var name = 'addUpLeaderBoardScore';
-        var data = [leaderId, plyaerId, score];
+        var data = [leaderId, playerId, score];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
         SgtApi.doRPC(name, data, url, callback);
     },

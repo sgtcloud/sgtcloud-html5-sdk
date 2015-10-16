@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="./lib/jquery.fullpage.min.css">
 		<style>
 			*{
-				text-align: center
+				/*text-align: center*/
 			}
 
 			body{
@@ -33,8 +33,8 @@
 
 			#cloud_icon{
 				position:fixed;
-				left:6%;
-				top:5%;
+				right:2%;
+				top:3%;
 			}
 
 			input{
@@ -50,9 +50,9 @@
 				text-decoration: none
 			}
 
-			a:hover{
+		a:hover{
 				color:#f2eada;
-				text-decoration: none
+				text-decoration: none;
 			}
 
 			a:visited{
@@ -70,14 +70,14 @@
 				text-decoration: none
 			}
 
-			.highCode {
-				 margin-top:100px;
-			}
+
 
 			pre {
 				text-align:left;
-				font-size:17px;
+				font-size:18px;
 			}
+
+
 		</style>
 	</head>
 	<body>
@@ -86,12 +86,13 @@
 
 			<!-- page 1 -->
 		    <div class="section" id="section1">
-		    	<div class="container">
-		    		<div style="font-size:45px;margin-top:-140px">5 分 钟 创 建 一 个 排 行 榜</div>
-			    	<h2 style="margin-top:150px">进入<a target="_blank" href="http://console.sgtcloud.cn/console-dev/login">开发者后台</a>,点击 排行榜 </h2>
-			    	<div style="margin-top:50px">
-				    	<h4 style="margin-bottom:-10px">数 据 管 理</h4>
-				    	<table id="leaderBoardList" class="table table-hover" style="width:160px;margin:20px auto">
+		    	<div class="container text-center" style="position:relative;top:10%">
+		    		<div style="font-size:45px;">5 分 钟 创 建 一 个 排 行 榜</div>
+			    	<h2 style="margin-top:100px">进入<a target="_blank" href="http://console.sgtcloud.cn/console-dev/login">开发者后台</a>,点击 排行榜</h2>
+			    	<div class="text-center" style="display:inline-block;margin:30px auto" >
+				    	<!-- <h4 style="">数 据 管 理</h4> -->
+				    	<table id="leaderBoardList" class="table table-hover" style="width:160px">
+				    		<tr><td style="border:0;font-size:18px;">数&nbsp;&nbsp;据&nbsp;&nbsp;管&nbsp;&nbsp;理</td></tr>
 				    		<tr><td>公告</td></tr>
 				    		<tr><td>角色</td></tr>
 				    		<tr><td id="leaderBoard">排行榜</td></tr>
@@ -102,40 +103,46 @@
 				</div>
 		    </div>
 
+
 		    <!-- page 2 -->
 		    <div class="section">
-		    	<div class="container">
-				   	<h2 style="margin-bottom:50px">点击 创建排行榜 完成后台排行榜创建</h2>
+		    	<div class="container text-center" style="position:relative;top:20%">
+				   	<h2>点击 创建排行榜 完成后台排行榜创建</h2>
 
-				   	<div class="form-horizontal">
+				   	<div class="form-horizontal" style="margin-top:60px">
 					  <div class="form-group">
-					    <label for="inputEmail3" class="col-sm-2 control-label col-sm-offset-3">排行榜名称</label>
-					    <div class="col-sm-3">
-					      <input type="text" class="form-control" id="inputEmail3" placeholder="龙虎榜" disabled>
+					    <label  class="col-xs-2 control-label col-xs-offset-3">排行榜名称</label>
+					    <div class="col-xs-3">
+					      <input class="form-control" id="inputEmail3" placeholder="龙虎榜" disabled>
 					    </div>
 					  </div>
 					  <div class="form-group">
-					    <label for="inputPassword3" class="col-sm-2 control-label col-sm-offset-3">排行榜 ID</label>
-					    <div class="col-sm-3">
-					      <input type="text" class="form-control" id="inputPassword3" placeholder="longhubang" disabled>
+					    <label  class="col-xs-2 control-label col-xs-offset-3">排行榜 ID</label>
+					    <div class="col-xs-3">
+					      <input class="form-control" id="inputPassword3" placeholder="longhubang" disabled>
 					    </div>
 					  </div>
 					  <div class="form-group">
-					    <div class="col-sm-offset-1 col-sm-10">
-					      <button id="createButton" style="margin-top:20px" class="btn btn-default btn-lg">创建排行榜</button>
+					    <div class="col-xs-offset-5 col-xs-2">
+					      <button id="createButton" style="margin-top:30px" class="btn btn-default btn-lg">创建排行榜</button>
 					    </div>
-					  </div>
 					</div>
+				</div>
 				</div>
 		    </div>
 
+
 		    <!-- page 3 -->
 		    <div class="section">
-		    	<div class="container">
-		    		<h2 style="margin-bottom:50px">使用 sdk 实现角色排行榜提交</h2>
-		    		<p style="margin-bottom:20px">xxxxxxxxxxxxxxxxxxxxxxxx</p>
-					<button id="autoLogin" class="btn btn-default btn-lg">点我一键登录</button>	
-					<div class="highCode">
+		    	<div class="container" style="position:relative;top:20%">
+		    		<div class="row">
+		    			<div class="col-xs-5">
+				    		<h2>使用 sdk 实现角色排行榜提交</h2>
+				    		<p style="margin-top:20px">在使用排行榜服务之前, 需要先对sdk进行初始化, 这里使用的是测试的应用标识, 你也在这里<a target="_blank" href="http://wj.qq.com/survey.html?type=survey&id=136756&hash=233f">申请</a>个人的应用标识 </p>
+				    		<p>现在我们可以登录一个用户了, 点击一键登录, 右侧是代码实现</p>
+							<button id="autoLoginButton" class="btn btn-default btn-lg" style="margin-top:40px">点我一键登录</button>	
+						</div>
+						<div class="col-xs-7">
 <pre style='color:#d1d1d1;background:#000000;'><span style='color:#9999a9; '>//初始化应用标识</span>
 SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(</span><span style='color:#b060b0; '>{</span>
 	appId <span style='color:#b060b0; '>:</span> <span style='color:#02d045; '>'</span><span style='color:#00c4c4; '>html5_demo2015</span><span style='color:#02d045; '>'</span>
@@ -152,47 +159,63 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 	<span style='color:#e66170; font-weight:bold; '>return</span> user<span style='color:#b060b0; '>;</span>
 <span style='color:#b060b0; '>}</span>
 </pre>
+						</div>
 					</div>		
-		    	</div>
+				</div>
 		    </div>
+
 
 		    <!-- page 4 -->
 		    <div class="section">
-		    	<div class="container">
-			    	<h1 style="margin-bottom:30px">输入角色名和分数,点击提交分数</h1>
-			    	<input id="playerName" placeholder="角色名">
-			    	<input id="leaderBoardScore" placeholder="分数" style="margin-left:6px">
-			    	<button id="commitButton" class="btn btn-default" style="margin-left:6px">提交分数</button>
-			    	<div class="highCode">
-<pre style='color:#d1d1d1;background:#000000;'><span style='color:#9999a9; '>//提交排行榜分数</span>
+		    	<div class="container" style="position:relative;top:12%">
+			    	<h2>输入角色名和分数, 并点击提交分数</h2>
+			    	<p style="margin-top:20px">现在我们在来提交排行榜, 输入角色名和分数并点击提交分数按钮</p>
+			    	<div id="selectPlayer" class="row text-center" style="margin-top:30px;">
+				    	<div class="dropdown col-xs-2 ">
+				    	  <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				    	    选择角色
+				    	    <span class="caret"></span>
+				    	  </button>
+				    	  <ul class="dropdown-menu">
+				    	    <li><a href="#">您未登录</a></li>
+				    	  </ul>
+				    	</div>
+				    	<div class="col-xs-2" style="margin-left:-50px">
+					    	<input id="playerName" class="form-control" placeholder="请填角色名">
+				    	</div>
+				    	<div class="col-xs-2" style="margin-left:-15px">
+				    		<input id="leaderBoardScore" class="form-control" placeholder="请填分数值" >
+				    	</div>
+				    
+				    	<div class="col-xs-2 " style="margin-top:-4px;margin-left:-40px ">
+					    	<button id="commitButton" class="btn btn-default btn-lg">提交分数</button>
+				    	</div>
+			    		<div class="col-xs-12" style="margin-top:60px;">
+<pre style='color:#d1d1d1;background:#000000;'><span style='color:#9999a9; '>//更新排行榜信息</span>
 <span style='color:#e66170; font-weight:bold; '>function</span> commitLeaderBoardScore<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
-
-	<span style='color:#9999a9; '>//提交排行榜分数</span>
 	SgtApi<span style='color:#d2cd86; '>.</span>LeaderBoardService<span style='color:#d2cd86; '>.</span>submitLeaderBoardScore<span style='color:#d2cd86; '>(</span>leaderBoardId<span style='color:#d2cd86; '>,</span> playerId<span style='color:#d2cd86; '>,</span> leaderBoardScore<span style='color:#d2cd86; '>,</span> <span style='color:#e66170; font-weight:bold; '>function</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>,</span> data<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
-		//commit<span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span>
+		<span style='color:#9999a9; '>//commit...</span>
 	<span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
 <span style='color:#b060b0; '>}</span>
 
-
-<span style='color:#9999a9; '>//显示排行榜</span>
-<span style='color:#e66170; font-weight:bold; '>function</span> showLeaderBoard<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
-
-	<span style='color:#9999a9; '>//得到排行榜信息</span>
-	SgtApi<span style='color:#d2cd86; '>.</span>LeaderBoardService<span style='color:#d2cd86; '>.</span>getTopLeaderBoardScoreByLeaderId<span style='color:#d2cd86; '>(</span>leaderBoardId<span style='color:#d2cd86; '>,</span> <span >start</span><span style='color:#d2cd86; '>,</span> <span>size</span><span style='color:#d2cd86; '>,</span> <span style='color:#e66170; font-weight:bold; '>function</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>,</span> data<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
-		//show<span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span>
+<span style='color:#9999a9; '>//显示排行榜信息</span>
+<span style='color:#e66170; font-weight:bold; '>function</span> showLeaderBoardScore<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+	SgtApi<span style='color:#d2cd86; '>.</span>LeaderBoardService<span style='color:#d2cd86; '>.</span>getTopLeaderBoardScoreByLeaderId<span style='color:#d2cd86; '>(</span>leaderBoardId<span style='color:#d2cd86; '>,</span> start<span style='color:#d2cd86; '>,</span> size<span style='color:#d2cd86; '>,</span> <span style='color:#e66170; font-weight:bold; '>function</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>,</span> data<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
+		<span style='color:#9999a9; '>//show...</span>
 	<span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
 <span style='color:#b060b0; '>}</span>
 </pre>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
 
 		    <!-- page 5 -->
 		    <div class="section">
-			    <div class="container">
+		    	<div class="container text-center" style="position:relative;top:10%;">
 			    	<h1>龙 虎 榜</h1>
-			    	<div id="leaderBoard">
-			    		<table class="table" style="margin:70px auto 45px auto;width:300px;">
+			    	<div id="leaderBoard"  style="margin:70px auto 45px auto;width:300px;">
+			    		<table class="table">
 			    			<thead>
 			    				<tr><td style="border:0;font-size:18px;">Top10</td><td style="border:0;font-size:18px;">角色名</td><td style="border:0;font-size:18px;">分数</td></tr>
 			    			</thead>
@@ -202,30 +225,29 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 						</table>
 			    	</div>
 			    	<p id="detail" style="margin-bottom:150px"></p>
-				    <small style="position:absolute;bottom:30px;left:0;right:0">上海游际信息技术有限公司 © 2015 sgtcloud.cn lnc.沪ICP备1400972</small>
-			    </div>
+				    <small id='logo' style="position:relative;bottom:10px;">上海游际信息技术有限公司 © 2015 sgtcloud.cn lnc.沪ICP备1400972</small>
+				</div>
 		    </div>
-		</div>
-
+	</div>
 		<script src="./lib/sgtcloud-html5-sdk.2.0.0.js"></script>
 		<script src="./lib/jquery.1.11.1.min.js"></script>
+		<script src="./lib/bootstrap.min.js"></script>
 		<script src="./lib/jquery.fullpage.min.js"></script>
 		<script>
 
 			$(function() {
 
 				//声明参数
+				var user = null;
 				var userId = null;
-				var playerId = 0;
-				var playerName = '';
 
 				var leaderId = 'longhubang';
 				var leaderBoardName = '';
 				var leaderBoardScore = null;
 
 				var player=null;
-				var newPlayer=false;
-
+				var playerId = 0;
+				var playerName = '';
 				var pass_validate = false;
 
 
@@ -236,35 +258,82 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 				//初始化
 				function init() {
 
-					//加载fullpage
-					$('#fullpage').fullpage({
-						verticalCentered: true,
-						navigation: true,
-						navigationTooltips: ['step1', 'step2', 'step3', 'step4'],
-						anchors: ['step1', 'step2', 'step3', 'step4'],
-						fixedElements: '#cloud_icon'
+					//初始化应用标识
+					SgtApi.init({
+						appId : 'html5_demo2015'
 					});
 
-					//自动登录
-					console.log(autoLogin());
-
-					//显示排行榜
-					showLeaderBoard();
-
+					//加载fullpage
+					$('#fullpage').fullpage({
+						verticalCentered: false,
+						navigation: true,
+						navigationTooltips: ['step1', 'step2', 'step3', 'step4','step5'],
+						anchors: ['step1', 'step2', 'step3', 'step4','step5'],
+						fixedElements: '#cloud_icon'
+					});
+					
 					//绑定按钮
+					$('#autoLoginButton').on('click', autoLoginService);
 					$('#commitButton').on('click', commitLeaderBoardService);
 					$('#createButton').on('click', $.fn.fullpage.moveSectionDown);
 					$('#leaderBoard').on('click', $.fn.fullpage.moveSectionDown);
 				}
 
-				//初始化应用标识
-				SgtApi.init({
-					appId : 'html5_demo2015'
-				});
+				//<li><a href="#">Action</a></li>
+				//选择角色
+				function selectPlayer(id) {
+					SgtApi.PlayerService.getByUserId(id, function(result, data) {
+						if(result) {
+							if(data){
+								//增加角色名
+								data.forEach(function(item, index) {
+									var html = $('<li data-id=' + item.id + '><a href="#">' + item.name + '</a></li>');
+									$('#selectPlayer div ul').append(html);
+								});
+
+								//绑定角色名
+								$('#selectPlayer div ul li').on('click', function() {
+									var text = $(this).text();
+									$('#playerName').val(text);
+									bindScoreByPlayerId(leaderId,$(this).attr('data-id'));
+								});
+							} else {
+								$('#selectPlayer div ul').append($('<li><a href="#">未创建角色</a></li>'));
+							}
+						}	
+					});
+				}
+
+				function bindScoreByPlayerId(leaderId, playerId) {
+					SgtApi.LeaderBoardService.getLeaderBoardScoreByLeaderIdAndPlayerId(leaderId, playerId, function(result, data) {
+						if(result) {
+							if(data !== null) {
+								$('#leaderBoardScore').val(data.score);
+							}
+						}
+					});
+				}
+
+
+				//自动登录业务
+				function autoLoginService() {
+					user = autoLogin();
+					if(user !== null) {
+
+						//进入下一页
+						$.fn.fullpage.moveSectionDown();
+
+						//显示排行榜
+						showLeaderBoard();
+
+						//加入角色选择选项
+						$('#selectPlayer div ul').empty();
+						selectPlayer(user.userid);
+					}
+				}
 
 				// 自动登陆, 返回注册的user对象 
 				function autoLogin() {
-					var user = null;
 					SgtApi.UserService.quickLogin(function(result, data) {
 						if(result) {
 							user = data;
@@ -273,41 +342,86 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 					return user;
 				}
 
-
+				//(复杂业务逻辑)
 				//提交排行版业务
 				function commitLeaderBoardService(){
-					validatePlayerDuplicate();
-					
-					if(pass_validate) {
-						if($('#leaderBoardScore').val()!==''){
+					// if(validatePlayerDuplicate()) {
+					// 	if($('#leaderBoardScore').val()!==''){
+					// 		createPlayer();
+					// 		commitLeaderBoardScore();
+					// 		createDetail();
+					// 		pass_validate = false;
+					// 	}
+					// } else {
+					// 	if($('#leaderBoardScore').val()!==''){
+					// 		createPlayer();
+					// 		createFailDetail();
+					// 	}
+					// }
+
+					//有输入角色名和分数
+					if($('#playerName').val()&&$('#leaderBoardScore').val()){
+						if(validateOwnPlayerIsExist()) {
+							//角色在自己用户下存在,更新
+							// updateLeaderBoardScore('longhubang', playerId, $('#leaderBoardScore').val());
+							commitLeaderBoardScore();
+							createUpdateDetail();
+						} else if (validateGlobalPlayerIsExist()) {
+							//角色在自己用户下不存在,在其他用户下存在,不可更新
+					 		createFailDetail();
+						} else {
+							//角色不存在,创建
 							createPlayer();
 							commitLeaderBoardScore();
 							createDetail();
-							pass_validate = false;
 						}
-					} else {
-						if($('#leaderBoardScore').val()!==''){
-							createPlayer();
-							createFailDetail();
-						}
+
+					}else{
+						//没有输入角色名和分数
 					}
 
+
+					//翻页
 					$.fn.fullpage.moveSectionDown();
 
+					//刷新选择角色列表
+					$('#selectPlayer div ul').empty();
+					selectPlayer(user.userid);
 				}
 
 
 				//验证角色名重复
-				function validatePlayerDuplicate(){
+				function validateGlobalPlayerIsExist(){
+					var r = false;
 					SgtApi.PlayerService.getByName($('#playerName').val(), 1 , 1, function(result, data) {
 						if(result) {
 							if(data === null) {
-								pass_validate = true;
+								r = false;
+							} else {
+								r = true;
 							}
 						}
 					});
+					return r;
 				}
 				
+				//根据角色判断是否已创建该角色
+				function validateOwnPlayerIsExist(){
+					var r = false;
+					SgtApi.PlayerService.getByUserId(user.userid, function(result, data) {
+						if(result) {
+							for(var i = 0; i<data.length; i++) {
+								if($('#playerName').val() === data[i].name) {
+									playerId = data[i].id;
+									r = true;
+									return;
+								}
+							}
+							r = false;
+						}
+					});
+					return r;
+				}
 
 				//创建角色
 				function createPlayer() {
@@ -320,8 +434,14 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 					SgtApi.PlayerService.create(player, function(result, data) {
 						if(result) {
 							playerId = data.id;
-							newPlayer = true;
 						}
+					});
+				}
+
+
+				//更新排行分数
+				function updateLeaderBoardScore(leaderId, playerId, score) {
+					SgtApi.LeaderBoardService.addUpLeaderBoardScore(leaderId, playerId, score, function(result, data) {
 					});
 				}
 
@@ -329,7 +449,7 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 				//提交分数
 				function commitLeaderBoardScore() {
 					
-					//提交排行榜分数
+					//提交排行榜分数,没有-创建,有-覆盖
 					SgtApi.LeaderBoardService.submitLeaderBoardScore(leaderId, playerId, $('#leaderBoardScore').val(), function(result, data) {
 						if(result) {
 							showLeaderBoard();
@@ -352,11 +472,21 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 
 				//创建角色失败详情
 				function createFailDetail() {
-						$('#detail').empty();
-						var failDetail_html=$('<p>对不起, 您创建的角色已存在</p>');
-						$('#detail').append(failDetail_html);
+					$('#detail').empty();
+					var failDetail_html=$('<p>对不起, 您创建的角色已存在</p>');
+					$('#detail').append(failDetail_html);
 				}
 
+				//创建角色更新详情
+				function createUpdateDetail() {
+					SgtApi.LeaderBoardService.getLeaderBoardScoreByLeaderIdAndPlayerId('longhubang', playerId, function(result, data) {
+						if(result) {
+							$('#detail').empty();
+							var detail_html =$('<p>您更新的角色 '+ data.player.name +' 分数 '+ data.score +' 排名 ' + data.index + ' </p>');
+							$('#detail').append(detail_html);
+						}
+					});
+				}
 
 				//显示排行榜
 				function showLeaderBoard() {
@@ -364,22 +494,14 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 					var playerNames = [];
 					var leaderBoardScores = [];
 
-					//得到排行榜信息
+					//得到排行榜信息, 并插入dom
 					SgtApi.LeaderBoardService.getTopLeaderBoardScoreByLeaderId(leaderId, 0, 9, function(result, data) {
 						if(result) {
-							var players = data;
-							players.forEach(function(item) {
-								playerNames.push(item.player.name);
-								leaderBoardScores.push(item.score);
+							data.forEach(function(item, index) {
+								var html = $('<tr><td style="border:0;font-size:18px;">'+ (index+1) +'</td><td  style="border:0;font-size:18px;">'+ item.player.name +'</td><td  style="border:0;font-size:18px;">'+item.score+'</td></tr>');
+								$('#leaderBoard table tbody').append(html);
 							});
 						}
-					});
-
-					//创建DOM
-					playerNames.forEach(function(item, index) {
-						var html = $('<tr><td style="border:0;font-size:18px;">'+ (index+1) +'</td><td  style="border:0;font-size:18px;">'+ item +'</td><td  style="border:0;font-size:18px;">'+leaderBoardScores[index]+'</td></tr>');
-						$('#leaderBoard table tbody').append(html);
-						
 					});
 				}
 			});
