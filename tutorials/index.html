@@ -167,7 +167,7 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 
 		    <!-- page 4 -->
 		    <div class="section">
-		    	<div class="container" style="position:relative;top:12%">
+		    	<div class="container" style="position:relative;top:7%">
 			    	<h2>输入角色名和分数, 并点击提交分数</h2>
 			    	<p style="margin-top:20px">现在我们在来提交排行榜, 输入角色名和分数并点击提交分数按钮</p>
 			    	<div id="selectPlayer" class="row" style="margin-top:30px;">
@@ -194,19 +194,16 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 					    	</div>
 				    	</div>
 
-			    		<div class="col-xs-12" style="margin-top:60px;">
+			    		<div class="col-xs-12" style="margin-top:50px;">
 <pre style='color:#d1d1d1;background:#000000;'><span style='color:#9999a9; '>// 更新排行榜</span>
 <span style='color:#e66170; font-weight:bold; '>function</span> commitLeaderBoardScore<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
-
 	<span style='color:#9999a9; '>// 更新指定排行榜, 角色的分数</span>
 	SgtApi<span style='color:#d2cd86; '>.</span>LeaderBoardService<span style='color:#d2cd86; '>.</span>submitLeaderBoardScore<span style='color:#d2cd86; '>(</span>leaderBoardId<span style='color:#d2cd86; '>,</span> playerId<span style='color:#d2cd86; '>,</span> leaderBoardScore<span style='color:#d2cd86; '>,</span> <span style='color:#e66170; font-weight:bold; '>function</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>,</span> data<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
 		<span style='color:#9999a9; '>// commit...</span>
 	<span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
 <span style='color:#b060b0; '>}</span>
-
 <span style='color:#9999a9; '>// 显示排行榜</span>
 <span style='color:#e66170; font-weight:bold; '>function</span> showLeaderBoardScore<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
-
 	<span style='color:#9999a9; '>// 得到指定排行榜范围的信息</span>
 	SgtApi<span style='color:#d2cd86; '>.</span>LeaderBoardService<span style='color:#d2cd86; '>.</span>getTopLeaderBoardScoreByLeaderId<span style='color:#d2cd86; '>(</span>leaderBoardId<span style='color:#d2cd86; '>,</span> start<span style='color:#d2cd86; '>,</span> size<span style='color:#d2cd86; '>,</span> <span style='color:#e66170; font-weight:bold; '>function</span><span style='color:#d2cd86; '>(</span>result<span style='color:#d2cd86; '>,</span> data<span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
 		<span style='color:#9999a9; '>// show...</span>
