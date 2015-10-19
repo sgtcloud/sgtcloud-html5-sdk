@@ -77,7 +77,35 @@
 				font-size:18px;
 			}
 
+			@media screen and (min-width: 1600px){
+				.fit1 {
+					position:relative;
+					top:100px;
+				}
+				.fit2 {
+					position:relative;
+					top:100px;
+				}
+				.fit3 {
+					margin:75px auto 50px auto;
+					width:300px;
+				}
+			}
 
+			@media screen and (max-width: 1600px){
+				.fit1 {
+					position:relative;
+					top:10px;
+				}
+				.fit2 {
+					position:relative;
+					top:10px;
+				}
+				.fit3 {
+					margin:10px auto 50px auto;
+					width:300px;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -167,7 +195,7 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 
 		    <!-- page 4 -->
 		    <div class="section">
-		    	<div class="container" style="position:relative;top:7%">
+		    	<div class="container fit1">
 			    	<h2>输入角色名和分数, 并点击提交分数</h2>
 			    	<p style="margin-top:20px">现在我们在来提交排行榜, 输入角色名和分数并点击提交分数按钮</p>
 			    	<div id="selectPlayer" class="row" style="margin-top:30px;">
@@ -194,7 +222,7 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 					    	</div>
 				    	</div>
 
-			    		<div class="col-xs-12" style="margin-top:50px;">
+			    		<div class="col-xs-12" style="margin-top:40px;">
 <pre style='color:#d1d1d1;background:#000000;'><span style='color:#9999a9; '>// 更新排行榜</span>
 <span style='color:#e66170; font-weight:bold; '>function</span> commitLeaderBoardScore<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span> <span style='color:#b060b0; '>{</span>
 	<span style='color:#9999a9; '>// 更新指定排行榜, 角色的分数</span>
@@ -217,9 +245,9 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 
 		    <!-- page 5 -->
 		    <div class="section">
-		    	<div class="container text-center" style="position:relative;top:10%;">
-			    	<h1>龙 虎 榜</h1>
-			    	<div id="leaderBoard"  style="margin:70px auto 45px auto;width:300px;">
+		    	<div class="container text-center fit2">
+			    	<h1>龙虎榜</h1>
+			    	<div id="leaderBoard" class="fit3">
 			    		<table class="table">
 			    			<thead>
 			    				<tr><td style="border:0;font-size:18px;">Top10</td><td style="border:0;font-size:18px;">角色名</td><td style="border:0;font-size:18px;">分数</td></tr>
@@ -229,8 +257,8 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 			    			</tbody>
 						</table>
 			    	</div>
-			    	<p id="detail" style="margin-bottom:150px">请先<a href="#step3">登录</a>查看排行榜</p>
-				    <small id='logo' style="position:relative;bottom:10px;">上海游际信息技术有限公司 © 2015 sgtcloud.cn lnc.沪ICP备1400972</small>
+			    	<p id="detail">请先<a href="#step3">登录</a>查看排行榜</p>
+				    <small id='logo' style="display:none">上海游际信息技术有限公司 © 2015 sgtcloud.cn lnc.沪ICP备1400972</small>
 				</div>
 		    </div>
 	</div>
@@ -488,6 +516,7 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 					var leaderBoardScores = [];
 
 					$('#detail').empty();
+					$('#logo').attr('style','display:block;margin-top:50px');
 
 					//得到排行榜信息, 并插入dom
 					SgtApi.LeaderBoardService.getTopLeaderBoardScoreByLeaderId(leaderId, 0, 9, function(result, data) {
