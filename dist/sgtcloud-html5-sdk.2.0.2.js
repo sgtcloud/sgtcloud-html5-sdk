@@ -3533,7 +3533,7 @@ SgtApi.UserService = {
      * @param callback
      * @return boolean
      */
-    "updateUserByUserId": function(userId, userName, password, email, callback) {
+    updateUserByUserId: function(userId, userName, password, email, callback) {
         var name = 'updateUserByUserId';
         var data = [userId, userName, password, email];
         var url = SgtApi.config.appGateway + '/user';
@@ -3549,7 +3549,7 @@ SgtApi.UserService = {
      * @param callback
      * @return boolean
      */
-    "updateUserNameAndPassword": function(userId, userName, password, callback) {
+    updateUserNameAndPassword: function(userId, userName, password, callback) {
         var name = 'updateUserNameAndPassword';
         var data = [userId, userName, password];
         var url = SgtApi.config.appGateway + '/user';
@@ -4077,7 +4077,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object 成就详情
      */
-    "getAchievementById": function(achievementId, callback) {
+    getAchievementById: function(achievementId, callback) {
         var name = 'getAchievementById';
         var data = [achievementId];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4092,7 +4092,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object
      */
-    "getAchievementsByType": function(playerId, type, callback) {
+    getAchievementsByType: function(playerId, type, callback) {
         var name = 'getAchievementsByType';
         var data = [playerId, type];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4105,7 +4105,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object 成就集合
      */
-    "getAllAchievements": function(callback) {
+    getAllAchievements: function(callback) {
         var name = 'getAllAchievements';
         var data = [];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4119,7 +4119,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object 未达成成就集合
      */
-    "getAvailableAchievements": function(playerId, callback) {
+    getAvailableAchievements: function(playerId, callback) {
         var name = 'getAvailableAchievements';
         var data = [playerId];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4133,7 +4133,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object 已领取奖励成就集合
      */
-    "getCompleteAchievements": function(playerId, callback) {
+    getCompleteAchievements: function(playerId, callback) {
         var name = 'getCompleteAchievements';
         var data = [playerId];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4147,7 +4147,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object 已达成成就集合
      */
-    "getDoneAchievements": function(playerId, callback) {
+    getDoneAchievements: function(playerId, callback) {
         var name = 'getDoneAchievements';
         var data = [playerId];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4158,14 +4158,14 @@ SgtApi.AchievementService = {
      * 提交指定成就进度
      * @method setAchievementProgress
      * @param PlayerId{string} 角色ID
-     * @param chievementId{string} 任务ID
+     * @param achievementId{string} 任务ID
      * @param progress{int} 进度
      * @param callback{Function} 回调函数
      * @return object
      */
-    "setAchievementProgress": function(playerId, chievementId, progress, callback) {
+    setAchievementProgress: function(playerId, achievementId, progress, callback) {
         var name = 'setAchievementProgress';
-        var data = [playerId, chievementId, progress];
+        var data = [playerId, achievementId, progress];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
@@ -4178,7 +4178,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object
      */
-    "setAchievementsProgressByType": function(type, playerId, progress, callback) {
+    setAchievementsProgressByType: function(type, playerId, progress, callback) {
         var name = 'setAchievementsProgressByType';
         var data = [type, playerId, progress];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4201,7 +4201,7 @@ SgtApi.AnnouncementService = {
      * @param callback{Function} 回调函数
      * @return Announcement
      */
-    "getAnnounceByType": function(type, callback) {
+    getAnnounceByType: function(type, callback) {
         var name = 'getAnnounceByType';
         var data = [type];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/announcement.do';
@@ -4224,7 +4224,7 @@ SgtApi.CampaignService = {
      * @param callback 回调函数
      * @return campaign[]
      */
-    "getAvailableCampaigns": function(callback) {
+    getAvailableCampaigns: function(callback) {
         var name = 'getAvailableCampaigns';
         var data = [];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';
@@ -4240,7 +4240,7 @@ SgtApi.CampaignService = {
      * @param callback 回调函数
      * @return campaign[]
      */
-    "getByTimeZone": function(startTime, endTime, callback) {
+    getByTimeZone: function(startTime, endTime, callback) {
         var name = 'getByTimeZone';
         var data = [startTime, endTime];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/campaign.do';

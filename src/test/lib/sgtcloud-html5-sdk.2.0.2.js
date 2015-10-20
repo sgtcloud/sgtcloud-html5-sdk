@@ -1,130 +1,3 @@
-jsonRPC =new Object({
-    version: '2.0',
-    endPoint: null,
-    namespace: null,
-    setup: function(params) {
-        this.endPoint = params["endPoint"];
-        this.namespace = params["namespace"];
-        this.cache = params["cache"] !== undefined ? params["cache"] : true;
-        return this;
-    },
-    request: function(method, options) {
-        if (options === undefined) {
-            options = {"id": 1};
-        }
-        if (options["id"] === undefined) {
-            options["id"] = 1;
-        }
-        if (options["cache"] === undefined) {
-            options["cache"] = this.cache;
-        }
-
-        this._doRequest(JSON.stringify(this._requestDataObj(method, options["params"], options["id"])), options);
-        return true;
-    },
-    // Creates an RPC suitable request object
-    _requestDataObj: function(method, params, id) {
-        var dataObj = {
-            "jsonrpc": this.version,
-            "method": this.namespace ? this.namespace +'.'+ method : method,
-            "id": id
-        }
-        if(params !== undefined) {
-            dataObj["params"] = params;
-        }
-        return dataObj;
-    },
-
-    _requestUrl: function(url, cache) {
-        url = url || this.endPoint;
-        if (!cache) {
-            if (url.indexOf("?") < 0) {
-                url += '?tm=' + new Date().getTime();
-            }
-            else {
-                url += "&tm=" + new Date().getTime();
-            }
-        }
-        return url;
-    },
-    _doRequest: function(data, options) {
-        var _that = this;
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState==4) {
-                if (xmlhttp.status==200) {
-                    _that._requestSuccess.call(_that, xmlhttp.responseText, options["success"], options["error"]);
-                } else {
-                    _that._requestError.call(_that, xmlhttp.responseText, options["error"]);
-                }
-            }
-        };
-        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), false);
-
-        var headers=[
-            {"name":"Accept","type":"application/json, text/javascript, */*;"},
-            {"name":"Content-Type","type":"application/json-rpc"}
-        ];
-        for (var i=0;i<headers.length;i++) {
-            xmlhttp.setRequestHeader( headers[i]["name"], headers[i]["type"]);
-        }
-
-        xmlhttp.send(data);
-    },
-    // Handles calling of error callback function
-    _requestError: function(responseText, error) {
-        if (error !== undefined && typeof(error) === 'function') {
-            if(typeof(responseText) === 'string') {
-                try {
-                    error(eval ( '(' + responseText + ')' ));
-                }
-                catch(e) {
-                    error(this._response());
-                }
-            }
-            else {
-                error(this._response());
-            }
-        }
-    },
-    _requestSuccess: function(responseText, success, error) {
-        var response = this._response(responseText);
-
-        if(response.error && typeof(error) === 'function') {
-            error(response);
-            return;
-        }
-
-        // Otherwise, successful request, run the success request if it exists
-        if(typeof(success) === 'function') {
-            success(response);
-        }
-    },
-    _response: function(responseText) {
-        if (responseText === undefined) {
-            return {
-                error: 'Internal server error',
-                version: '2.0'
-            };
-        }
-        else {
-          try {
-              if(typeof(responseText) === 'string') {
-                  responseText = eval ( '(' + responseText + ')' );
-              }
-              return responseText;
-          }
-          catch (e) {
-              return {
-                  error: 'Internal server error: ' + e,
-                  version: '2.0'
-              }
-          }
-        }
-    }
-});
-
-
 /**
  * Created by Administrator on 2015/9/17.
  */
@@ -168,6 +41,8 @@ jsonRPC =new Object({
  *
  *
  */
+
+
 
 var SgtApi = {};
 var $S = SgtApi;
@@ -3533,7 +3408,7 @@ SgtApi.UserService = {
      * @param callback
      * @return boolean
      */
-    "updateUserByUserId": function(userId, userName, password, email, callback) {
+    updateUserByUserId: function(userId, userName, password, email, callback) {
         var name = 'updateUserByUserId';
         var data = [userId, userName, password, email];
         var url = SgtApi.config.appGateway + '/user';
@@ -3549,7 +3424,7 @@ SgtApi.UserService = {
      * @param callback
      * @return boolean
      */
-    "updateUserNameAndPassword": function(userId, userName, password, callback) {
+    updateUserNameAndPassword: function(userId, userName, password, callback) {
         var name = 'updateUserNameAndPassword';
         var data = [userId, userName, password];
         var url = SgtApi.config.appGateway + '/user';
@@ -4077,7 +3952,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object 成就详情
      */
-    "getAchievementById": function(achievementId, callback) {
+    getAchievementById: function(achievementId, callback) {
         var name = 'getAchievementById';
         var data = [achievementId];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4092,7 +3967,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object
      */
-    "getAchievementsByType": function(playerId, type, callback) {
+    getAchievementsByType: function(playerId, type, callback) {
         var name = 'getAchievementsByType';
         var data = [playerId, type];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4105,7 +3980,7 @@ SgtApi.AchievementService = {
      * @param callback{Function} 回调函数
      * @return object 成就集合
      */
-    "getAllAchievements": function(callback) {
+    getAllAchievements: function(callback) {
         var name = 'getAllAchievements';
         var data = [];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
@@ -4158,14 +4033,14 @@ SgtApi.AchievementService = {
      * 提交指定成就进度
      * @method setAchievementProgress
      * @param PlayerId{string} 角色ID
-     * @param chievementId{string} 任务ID
+     * @param achievementId{string} 任务ID
      * @param progress{int} 进度
      * @param callback{Function} 回调函数
      * @return object
      */
-    "setAchievementProgress": function(playerId, chievementId, progress, callback) {
+    "setAchievementProgress": function(playerId, achievementId, progress, callback) {
         var name = 'setAchievementProgress';
-        var data = [playerId, chievementId, progress];
+        var data = [playerId, achievementId, progress];
         var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/achievement.do';
         SgtApi.doRPC(name, data, url, callback);
     },
@@ -7257,3 +7132,6 @@ SgtApi.VersionDetailService = {
         SgtApi.doRPC(name, data, url, callback);
     }
 };
+
+
+module.exports = SgtApi;
