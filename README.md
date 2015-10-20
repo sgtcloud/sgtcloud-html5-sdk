@@ -4,8 +4,6 @@
 
 A html5 out-of-box sdk for damn cool mbaas.
 
-致力于发展为 mbass的, 开箱即用的, 超酷的 html5 软件开发工具.
-
 了解更多, 请访问我们的主页 **[http://www.sgtcloud.cn](http://www.sgtcloud.cn)**
 
 ### 安装
