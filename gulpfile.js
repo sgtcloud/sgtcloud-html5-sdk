@@ -7,6 +7,7 @@ var eslint = require('gulp-eslint');
 var exec = require('child_process').exec;
 var yargs = require('yargs').argv;
 var mocha = require('gulp-mocha');
+var mochawesome = require('mochawesome');
 
 var options = {
     compileFiles: ['./src/jsonrpc.js', './src/sgtcloud-html5-sdk.2.0.2.js'],
@@ -59,8 +60,10 @@ gulp.task('tutorials', function() {
 gulp.task('run:test', function() {
     gulp.src('./src/test/test.js')
         .pipe(mocha({
-            reporter: 'nyan'
-        }));
+            reporter: 'mochawesome',
+            timeout: '4000'
+        }))
+        .pipe(gulp.dest('log'));
 });
 
 gulp.task('default', ['lint'], function() {
