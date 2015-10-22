@@ -131,7 +131,7 @@ jsonRPC =new Object({
  */
 (function() {
 
-    SgtApi = {};
+    var SgtApi = {};
     /**
      *  Entity 实体类
      *
@@ -3221,12 +3221,14 @@ jsonRPC =new Object({
         });
         jsonRPC.request(name, {
             params: data,
-            success: function(result) {
-                return callback(true, result.result);
+            success: function(data) {
+                return callback(true, data.result);
             },
-            error: function(error) {
-                console.log('There was an error.error:', error.error);
-                return callback(false, error.error.message);
+            error: function(data) {
+                var errorObj = data.error.data;
+                var errorType = errorObj.exceptionTypeName.substring(errorObj.exceptionTypeName.lastIndexOf('.'));
+                var errorMessage = errorObj.message;
+                return callback(false, errorType + ': ' + errorMessage);
             }
         });
     };
@@ -3592,12 +3594,12 @@ jsonRPC =new Object({
                     'channelId': SgtApi.config.channelId
                 }],
                 function(result) {
-                    console.log('success ' + result.result);
+                    // console.log('success ' + result.result);
                     SgtApi.context.playServerData = result.result;
                     return callback(true, SgtApi.context.userData);
                 },
                 function(error) {
-                    console.log('There was an error.error[route]:', error.error);
+                    // console.log('There was an error.error[route]:', error.error);
                     return callback(false, error.error.message);
                 }
             );
@@ -4369,7 +4371,7 @@ jsonRPC =new Object({
          * @param callback
          */
         setCheckinTimes: function(playerId, checkinBoardId, times, callback) {
-            var name = 'getRewardByChekinboardId';
+            var name = 'setCheckinTimes';
             var data = [playerId, checkinBoardId, times];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/checkinboard.do';
             SgtApi.doRPC(name, data, url, callback);
@@ -5202,7 +5204,7 @@ jsonRPC =new Object({
          * @return boolean
          */
         addPlayerIntoBlacklist: function(blacklistId, playerId, callback) {
-            var name = 'addPlayerIntoBlackList';
+            var name = 'addPlayerIntoBlacklist';
             var data = [blacklistId, playerId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/blacklist.do';
             SgtApi.doRPC(name, data, url, callback);
@@ -5216,7 +5218,7 @@ jsonRPC =new Object({
          * @return boolean
          */
         isInBlacklist: function(blacklistId, playerId, callback) {
-            var name = 'isInBlackList';
+            var name = 'isInBlacklist';
             var data = [blacklistId, playerId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/blacklist.do';
             SgtApi.doRPC(name, data, url, callback);
@@ -5387,7 +5389,7 @@ jsonRPC =new Object({
          * @return leaderBoard
          */
         getLeaderBoardByLeaderId: function(leaderId, callback) {
-            var name = 'getLeaderBoardScoreByExamplerdByLeaderId';
+            var name = 'getLeaderBoardByLeaderId';
             var data = [leaderId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/leaderboard.do';
             SgtApi.doRPC(name, data, url, callback);
@@ -5638,7 +5640,7 @@ jsonRPC =new Object({
      * @module  Notification
      * @type {{}|*}
      */
-    SgtApi.Notification = {
+    SgtApi.NotificationService = {
 
 
         getLatestNotification: function(playerId, callback) {
@@ -5668,7 +5670,7 @@ jsonRPC =new Object({
      * @module  Purchase
      * @type {{}|*}
      */
-    SgtApi.Purchase = {
+    SgtApi.PurchaseService = {
 
         /**
          * 获取服务器支持的支付渠道
@@ -5702,7 +5704,7 @@ jsonRPC =new Object({
          * @param callback
          * @return callback
          */
-        "getPaymentResult": function(playerId, transaction, callback) {
+        getPaymentResult: function(playerId, transaction, callback) {
             var name = 'getPaymentResult';
             var data = [playerId, transaction];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/purchase.do';
@@ -5714,7 +5716,7 @@ jsonRPC =new Object({
          * @param callback
          * @return callback
          */
-        "getTotalChargeCost": function(playerId, callback) {
+        getTotalChargeCost: function(playerId, callback) {
             var name = 'getTotalChargeCost';
             var data = [playerId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/purchase.do';
@@ -5727,7 +5729,7 @@ jsonRPC =new Object({
          * @param callback
          * @return callback
          */
-        "isFirstCharge": function(playerId, customChargePointId, callback) {
+        isFirstCharge: function(playerId, customChargePointId, callback) {
             var name = 'isFirstCharge';
             var data = [playerId, customChargePointId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/purchase.do';
@@ -5740,7 +5742,7 @@ jsonRPC =new Object({
          * @param callback
          * @return callback
          */
-        "getChargeTimes": function(playerId, customChargePointId, callback) {
+        getChargeTimes: function(playerId, customChargePointId, callback) {
             var name = 'getChargeTimes';
             var data = [playerId, customChargePointId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/purchase.do';
@@ -5776,7 +5778,7 @@ jsonRPC =new Object({
          */
         getStore: function(storeId, playerId, callback) {
             var name = 'getStore';
-            var data = [toreId, playerId];
+            var data = [storeId, playerId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/store.do';
             SgtApi.doRPC(name, data, url, callback);
         },
@@ -5872,7 +5874,7 @@ jsonRPC =new Object({
      * @module  ChargePoint
      * @type {{}|*}
      */
-    SgtApi.ChargePoint = {
+    SgtApi.ChargePointService = {
 
         /**
          * 获取所有计费点
@@ -5993,7 +5995,7 @@ jsonRPC =new Object({
      * @module  FileStorage
      * @type {{}|*}
      */
-    SgtApi.FileStorage = {
+    SgtApi.FileStorageService = {
 
         /**
          * 判断是否在黑名单之中
@@ -6028,33 +6030,7 @@ jsonRPC =new Object({
      * @module  GiftCode
      * @type {{}|*}
      */
-    SgtApi.GiftCode = {
-        /**
-         * 获取有效的礼包
-         * @method getGifts
-         * @param callback
-         * @return callback
-         */
-        getGifts: function(callback) {
-            var name = 'getGifts';
-            var data = [];
-            var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
-            SgtApi.doRPC(name, data, url, callback);
-        },
-        /**
-         * 兑换并返回奖品
-         * @method redeem
-         * @param giftId{string} 礼包ID
-         * @param code{string} 兑换码
-         * @param callback
-         * @return callback
-         */
-        redeem: function(playerId, giftId, code, callback) {
-            var name = 'redeem';
-            var data = [playerId, giftId, code];
-            var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
-            SgtApi.doRPC(name, data, url, callback);
-        },
+    SgtApi.GiftCodeService = {
         /**
          * 通过兑换码获取礼包详情
          * @method getGiftByCode
@@ -6068,6 +6044,20 @@ jsonRPC =new Object({
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
             SgtApi.doRPC(name, data, url, callback);
         },
+
+        /**
+         * 获取有效的礼包
+         * @method getGifts
+         * @param callback
+         * @return callback
+         */
+        getGifts: function(callback) {
+            var name = 'getGifts';
+            var data = [];
+            var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
+            SgtApi.doRPC(name, data, url, callback);
+        },
+
         /**
          *获取兑换记录， playerId和giftId至少有一个不为空。 playerId为null则返回该礼包的所有记录 giftId为null则返回该角色所有兑换记录
          * @method getRecord
@@ -6083,20 +6073,22 @@ jsonRPC =new Object({
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
             SgtApi.doRPC(name, data, url, callback);
         },
+
         /**
-         * 兑换奖励，奖励通过邮件发送
-         * @method redeemOverMail
+         * 兑换并返回奖品
+         * @method redeem
          * @param giftId{string} 礼包ID
          * @param code{string} 兑换码
          * @param callback
          * @return callback
          */
-        redeemOverMail: function(playerId, code, callback) {
-            var name = 'redeemOverMail';
-            var data = [playerId, code];
+        redeem: function(playerId, giftId, code, callback) {
+            var name = 'redeem';
+            var data = [playerId, giftId, code];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
             SgtApi.doRPC(name, data, url, callback);
         },
+
         /**
          * 兑奖并使用邮件直接发送奖励给角色
          * @method redeemOverMail
@@ -6109,7 +6101,23 @@ jsonRPC =new Object({
             var data = [playerId, code];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
             SgtApi.doRPC(name, data, url, callback);
+        },
+
+        /**
+         * 兑换奖励，奖励通过邮件发送
+         * @method redeemOverMail
+         * @param giftId{string} 礼包ID
+         * @param code{string} 兑换码
+         * @param callback
+         * @return callback
+         */
+        redeemOverMail: function(playerId, giftId, code, callback) {
+            var name = 'redeemOverMail';
+            var data = [playerId, giftId, code];
+            var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/giftcode.do';
+            SgtApi.doRPC(name, data, url, callback);
         }
+
     };
 
     /**
@@ -6117,7 +6125,7 @@ jsonRPC =new Object({
      * @module  PrivateChannel
      * @type {{}|*}
      */
-    SgtApi.PrivateChannel = {
+    SgtApi.PrivateChannelService = {
         /**
          * 压入消息，同时会更新通道的ttl，如果ttl为0，则默认为一周
          * @method pushMessage
@@ -6156,7 +6164,7 @@ jsonRPC =new Object({
          */
         popMessage: function(key, playerId, callback) {
             var name = 'popMessage';
-            var data = [key, playerId, message, ttl];
+            var data = [key, playerId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/privatechannel.do';
             SgtApi.doRPC(name, data, url, callback);
         },
