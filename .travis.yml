@@ -5,3 +5,5 @@ before_script:
   - npm install -g gulp
   - npm install -g mocha
 script: gulp -t
+service_name: travis-pro
+repo_token: gx01dV2Pf2JdQtYA7za7ZQPop7x9n1oGt
