@@ -1,7 +1,7 @@
 ## sgtcloud-html5-sdk
 
 ### 介绍
-[![Build Status](https://travis-ci.org/sgtcloud/sgtcloud-html5-sdk)](https://travis-ci.org/sgtcloud/sgtcloud-html5-sdk)
+[![Build Status](https://travis-ci.org/sgtcloud/sgtcloud-html5-sdk.svg?branch=2.0.0)](https://travis-ci.org/sgtcloud/sgtcloud-html5-sdk.svg?branch=2.0.0)
 
 A html5 out-of-box sdk for damn cool mbaas.
 
