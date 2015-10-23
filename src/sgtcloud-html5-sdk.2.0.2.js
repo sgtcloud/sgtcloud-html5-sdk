@@ -3098,6 +3098,7 @@
                 return callback(true, data.result);
             },
             error: function(data) {
+                console.log(data);
                 var errorObj = data.error.data;
                 var errorType = errorObj.exceptionTypeName.substring(errorObj.exceptionTypeName.lastIndexOf('.'));
                 var errorMessage = errorObj.message;
@@ -3109,7 +3110,7 @@
 
     /**
      * Sgt  上下文
-     * @type {{userData: null, playerServerData: null, playerData: null}}
+     * @type {{userData: null, playServerData: null, playerData: null}}
      */
     SgtApi.context = {
         userData: {}, //当前用户数据信息
@@ -3627,7 +3628,7 @@
         },
 
         /**
-         * 通过ID获取Player
+         * 通过角色id获取角色信息
          * @method getSgpPlayerById
          * @param playerId{string} 主键ID
          * @param callback{Function} 回调函数
@@ -5023,7 +5024,7 @@
          * @return null
          */
         updateAllMyFriendExt: function(myPlayerId, key, value, callback) {
-            var name = 'getMyFriendAndExt';
+            var name = 'updateAllMyFriendExt';
             var data = [myPlayerId, key, value];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/friendshipextra.do';
             SgtApi.doRPC(name, data, url, callback);
@@ -5365,7 +5366,7 @@
          */
         sendMail: function(player, mail, callback) {
             if (mail.title === '' || mail.title === null) {
-                return callback(false, '邮件标题不能为空！');
+                return callback(false, 'Excepti邮件标题不能为空！');
             }
             if (mail.toId === '' || mail.toId === null) {
                 return callback(false, '收邮件人ID不能为空！');
@@ -6142,7 +6143,7 @@
          * @param callback
          */
         popMessageOrnum: function(mssgnum, channelId, callback) {
-            var name = 'popMessageOrnum';
+            var name = 'popMessage';
             var data = [mssgnum, channelId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/publicchannel.do';
             SgtApi.doRPC(name, data, url, callback);
@@ -6210,7 +6211,7 @@
      * @module  DelegateDid
      * @type {{}|*}
      */
-    SgtApi.DelegateDid = {
+    SgtApi.DelegateDidService = {
         /**
          * 创建代理id（did）
          * @method createDid
@@ -6246,7 +6247,7 @@
          */
         queryByCondition: function(playerId, callback) {
             var name = 'queryByCondition';
-            var data = [SgtApi.context.playerServerData.id, playerId];
+            var data = [SgtApi.context.playServerData.id, playerId];
             var url = SgtApi.context.playServerData.address + '/' + SgtApi.config.appId + '/delegatedid.do';
             SgtApi.doRPC(name, data, url, callback);
         }
