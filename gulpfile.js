@@ -62,8 +62,7 @@ gulp.task('run:test', function() {
         .pipe(mocha({
             reporter: 'mochawesome',
             timeout: '4000'
-        }))
-        .pipe(gulp.dest('log'));
+        }));
 });
 
 gulp.task('default', ['lint'], function() {

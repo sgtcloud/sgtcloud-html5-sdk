@@ -2835,3 +2835,663 @@ describe('PrivateChannelService', function() {
         });
     });
 });
+
+//测试PublicChannelService
+describe('PublicChannelService', function() {
+    describe('createChannel', function() {
+        it('should create channel', function(done) {
+            SgtApi.PublicChannelService.createChannel('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('pushMessage', function() {
+        it('should push message', function(done) {
+            SgtApi.PublicChannelService.pushMessage('', '', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('popAllMessage', function() {
+        it('should pop all message', function(done) {
+            SgtApi.PublicChannelService.popAllMessage('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('popMessage', function() {
+        it('should pop message', function(done) {
+            SgtApi.PublicChannelService.popMessage('', 100, 100, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('popMessageOrnum', function() {
+        it('should pop message or num', function(done) {
+            SgtApi.PublicChannelService.popMessageOrnum(1, '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('popMessageOrnumtim', function() {
+        it('should pop message or num tim', function(done) {
+            SgtApi.PublicChannelService.popMessageOrnumtim('', 100, 100, '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('clearChannel', function() {
+        it('should clear channel', function(done) {
+            SgtApi.PublicChannelService.clearChannel('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('deleteMessage', function() {
+        it('should delete message', function(done) {
+            SgtApi.PublicChannelService.deleteMessage('', 123, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('getMessageContent', function() {
+        it('should get message content', function(done) {
+            SgtApi.PublicChannelService.getMessageContent(123, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+});
+
+describe('DelegateDidService', function() {
+    describe('createDid', function() {
+        it('should create did', function(done) {
+            SgtApi.DelegateDidService.createDid(player.id, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('queryByDid', function() {
+        it('should query by did', function(done) {
+            SgtApi.DelegateDidService.queryByDid('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('queryByCondition', function() {
+        it('should query by conditon', function(done) {
+            SgtApi.DelegateDidService.queryByCondition(player.id, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+});
+
+describe('StructuredDataService', function() {
+    describe('getValue', function() {
+        it('should get value', function(done) {
+            SgtApi.StructuredDataService.getValue('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('saveOrUpdateValue', function() {
+        it('should save or update value', function(done) {
+            SgtApi.StructuredDataService.saveOrUpdateValue('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('getListValue', function() {
+        it('should get list value', function(done) {
+            SgtApi.StructuredDataService.getListValue('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('addListValue', function() {
+        it('should add list value', function(done) {
+            SgtApi.StructuredDataService.addListValue('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('updateListValue', function() {
+        it('should update list value', function(done) {
+            SgtApi.StructuredDataService.updateListValue('', '', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('getMapValue', function() {
+        it('should get map value', function(done) {
+            SgtApi.StructuredDataService.getMapValue('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('getMapValueByHashKey', function() {
+        it('should get map value by hash key', function(done) {
+            SgtApi.StructuredDataService.getMapValueByHashKey('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('saveOrUpdateMap', function() {
+        it('should save or update map', function(done) {
+            SgtApi.StructuredDataService.saveOrUpdateMap('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('setOrUpdateHashValue', function() {
+        it('should set or update hash value', function(done) {
+            SgtApi.StructuredDataService.setOrUpdateHashValue('', '', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('getSetValue', function() {
+        it('should get set value', function(done) {
+            SgtApi.StructuredDataService.getSetValue('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('addSetValue', function() {
+        it('should add set value', function(done) {
+            SgtApi.StructuredDataService.addSetValue('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('updateSetValue', function() {
+        it('should update set value', function(done) {
+            SgtApi.StructuredDataService.updateSetValue('', '', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('getZSetValue', function() {
+        it('should get z set value', function(done) {
+            SgtApi.StructuredDataService.getZSetValue('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('addZSetValue', function() {
+        it('should add z set value', function(done) {
+            SgtApi.StructuredDataService.addZSetValue('', '', 1, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('updateZSetValue', function() {
+        it('should update z set value', function(done) {
+            SgtApi.StructuredDataService.updateZSetValue('', '', 1, '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('getZSetRangByScore', function() {
+        it('should get z set rang by score', function(done) {
+            SgtApi.StructuredDataService.getZSetRangByScore('', 1, 1, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('getListByIndex', function() {
+        it('should get list by index', function(done) {
+            SgtApi.StructuredDataService.getListByIndex('', 1, 2, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('remove', function() {
+        it('should remove', function(done) {
+            SgtApi.StructuredDataService.remove('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('removeFromSet', function() {
+        it('should remove from set ', function(done) {
+            SgtApi.StructuredDataService.removeFromSet('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('removeFromHash', function() {
+        it('should remove from hash', function(done) {
+            SgtApi.StructuredDataService.removeFromHash('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('containtSet', function() {
+        it('should containt set', function(done) {
+            SgtApi.StructuredDataService.containtSet('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('containsHash', function() {
+        it('should contains hash', function(done) {
+            SgtApi.StructuredDataService.containsHash('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('containsKey', function() {
+        it('should contains key', function(done) {
+            SgtApi.StructuredDataService.containsKey('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+});
+
+//测试TichetService
+describe('TicketService', function() {
+    describe('getTicketsById', function() {
+        it('should get tickets by id', function(done) {
+            SgtApi.TicketService.getTicketsById(player.id, 1, 1, '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+
+    describe('sendTicket', function() {
+        it('should send ticket', function(done) {
+            SgtApi.TicketService.sendTicket({}, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+});
+
+//测试ErrorReportService
+describe('ErrorReportService', function() {
+    describe('sendErrorReport', function() {
+        it('should send error report', function(done) {
+            SgtApi.ErrorReportService.sendErrorReport('', '', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    if (data.match('Exception')) {
+                        assert.ok(true, data);
+                    } else {
+                        assert.ok(false, data);
+                    }
+                }
+                done();
+            });
+        });
+    });
+});
+
