@@ -1,6 +1,6 @@
 var assert = require('assert');
 var jsonRPC = require('./lib/jsonrpc');
-var SgtApi = require('../sgtcloud-html5-sdk.2.0.2');
+var SgtApi = require('../sgtcloud-html5-sdk');
 
 
 var user = null;
