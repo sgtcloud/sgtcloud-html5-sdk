@@ -5,7 +5,7 @@ var SgtApi = require('../sgtcloud-html5-sdk.2.0.2');
 
 var user = null;
 var player = null;
-var mail = new SgtApi.entity.Mail();
+var mail = new SgtApi.Mail();
 mail.title = '123';
 mail.id = '123';
 
@@ -41,7 +41,7 @@ describe('UserService', function() {
 
 // 测试PlayerService
 describe('PlayerService', function() {
-    player = new SgtApi.entity.Player();
+    player = new SgtApi.Player();
     player.name = 'testPlayer005';
 
     describe('create', function() {
@@ -2040,20 +2040,7 @@ describe('LeaderBoardService', function() {
 //测试MailService
 describe('MailService', function() {
     describe('sendMail', function() {
-        it('should send mail', function(done) {
-            SgtApi.MailService.sendMail(player, mail, function(result, data) {
-                if (result) {
-                    assert.ok(true, data);
-                } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
-                }
-                done();
-            });
-        });
+        it('should send mail');
     });
 
     describe('receive', function() {
@@ -2074,20 +2061,7 @@ describe('MailService', function() {
     });
 
     describe('receiveUnread', function() {
-        it('should receive unread', function(done) {
-            SgtApi.MailService.receiveUnread(function(result, data) {
-                if (result) {
-                    assert.ok(true, data);
-                } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
-                }
-                done();
-            });
-        });
+        it('should receive unread');
     });
 
     describe('readMail', function() {
@@ -3495,3 +3469,18 @@ describe('ErrorReportService', function() {
     });
 });
 
+// //测试WxCentralService
+// describe('WxCentralService', function() {
+//     describe('getAccessToken', function() {
+//         it('should get access token', function(done) {
+//             SgtApi.WxCentralService.getAccessToken(function(result, data) {
+//                 if (result) {
+//                     console.log(data);
+//                     assert.ok(true, data);
+//                 } else {
+//                     assert.ok(false, data);
+//                 }
+//             });
+//         });
+//     });
+// });
