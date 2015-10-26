@@ -64,7 +64,7 @@ gulp.task('run:test', function() {
     gulp.src('./src/test/test.js')
         .pipe(mocha({
             reporter: 'mochawesome',
-            timeout: '4000'
+            timeout: '10000'
         }));
 });
 
