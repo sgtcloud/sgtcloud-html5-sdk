@@ -10,15 +10,18 @@ var mocha = require('gulp-mocha');
 var mochawesome = require('mochawesome');
 
 var options = {
-    compileFiles: ['./src/jsonrpc.js', './src/sgtcloud-html5-sdk.2.0.2.js'],
+	//要编译的文件名集合
+    compileFileNames: ['./src/jsonrpc.js', './src/sgtcloud-html5-sdk.js'],
+    //编译后的文件名
+    compiledFileName:'sgtcloud-html5-sdk.2.0.3.js',
     lintPaths: [
         './src/*.js'
     ]
 };
 
 gulp.task('compile', function() {
-    gulp.src(options.compileFiles).
-    pipe(concat('sgtcloud-html5-sdk.2.0.2.js')).
+    gulp.src(options.compileFileNames).
+    pipe(concat(options.compiledFileName)).
     pipe(gulp.dest('./dist/')).
     pipe(uglify()).
     pipe(rename({
@@ -36,7 +39,7 @@ gulp.task('development', function() {
 });
 
 gulp.task('generateApi', function() {
-    gulp.src('./src/sgtcloud-html5-sdk.2.0.2.js').
+    gulp.src('./src/sgtcloud-html5-sdk.2.0.3.js').
     pipe(jsdoc('./api/'));
 });
 
@@ -61,25 +64,29 @@ gulp.task('run:test', function() {
     gulp.src('./src/test/test.js')
         .pipe(mocha({
             reporter: 'mochawesome',
-            timeout: '4000'
+            timeout: '10000'
         }));
 });
 
 gulp.task('default', ['lint'], function() {
+	//发布到npm仓库
     if (yargs.p) {
         gulp.start('npm:publish');
     }
+    //生成jsdoc
     if (yargs.g) {
         gulp.start('generateApi');
     }
+    //启动排行榜教程服务器
     if (yargs.tutorials) {
         gulp.start('tutorials');
     }
+    //监听
     if (yargs.w) {
         gulp.start('development');
-    } else if (yargs.t) {
+    } else if (yargs.t) {	//测试
         gulp.start('run:test');
-    } else {
+    } else {				//编译
         gulp.start('compile');
     }
 });
