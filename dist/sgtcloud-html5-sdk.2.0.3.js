@@ -3189,14 +3189,18 @@ jsonRPC =new Object({
         jsonRPC.request(name, {
             params: data,
             success: function(data) {
-                return callback(true, data.result);
+                if (callback) {
+                    return callback(true, data.result);
+                }
             },
             error: function(data) {
-                console.log(data);
-                var errorObj = data.error.data;
-                var errorType = errorObj.exceptionTypeName.substring(errorObj.exceptionTypeName.lastIndexOf('.'));
-                var errorMessage = errorObj.message;
-                return callback(false, errorType + ': ' + errorMessage);
+                if (callback) {
+                    console.log(data);
+                    var errorObj = data.error.data;
+                    var errorType = errorObj.exceptionTypeName.substring(errorObj.exceptionTypeName.lastIndexOf('.'));
+                    var errorMessage = errorObj.message;
+                    return callback(false, errorType + ': ' + errorMessage);
+                }
             }
         });
     };
@@ -6985,6 +6989,7 @@ jsonRPC =new Object({
     // browser
     if (typeof navigator !== 'undefined') {
         window.SgtApi = SgtApi;
+        window.sgt = SgtApi;
     }
     // nodejs
     if (typeof module !== 'undefined') {

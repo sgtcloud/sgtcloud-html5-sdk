@@ -57,7 +57,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('tutorials', function() {
-    exec('start.bat');
+    exec('cd ./tutorials/ && start.bat');
 });
 
 gulp.task('run:test', function() {
