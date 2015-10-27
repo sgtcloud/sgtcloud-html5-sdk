@@ -23,14 +23,11 @@ describe('UserService', function() {
         it('should login', function(done) {
             SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {
                 if (result) {
+                    console.log(data);
                     user = data;
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -49,14 +46,11 @@ describe('PlayerService', function() {
             SgtApi.PlayerService.create(player, function(result, data) {
                 if (data) {
                     player = data;
+                    console.log(data);
                     assert.ok(true, data);
                     assert.strictEqual(player.name, data.name);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -69,11 +63,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -86,11 +76,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -103,11 +89,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -120,11 +102,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -137,11 +115,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -154,11 +128,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -171,11 +141,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -188,11 +154,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -205,11 +167,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -222,11 +180,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -239,11 +193,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -256,11 +206,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -273,11 +219,7 @@ describe('PlayerService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -293,11 +235,7 @@ describe('PlayerService', function() {
                         player = data;
                     });
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -308,17 +246,13 @@ describe('PlayerService', function() {
 // 测试PlayerExtraService
 describe('PlayerExtraService', function() {
 
-    describe('addPlayer', function() {
-        it('should add player', function(done) {
-            SgtApi.PlayerExtraService.addPlayer(player, function(result, data) {
+    describe('addPlayerExtra', function() {
+        it('should add player extra', function(done) {
+            SgtApi.PlayerExtraService.addPlayerExtra({}, function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -331,11 +265,7 @@ describe('PlayerExtraService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -348,96 +278,72 @@ describe('PlayerExtraService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
         });
     });
 
-    describe('getPlayerById', function() {
-        it('should get player by id', function(done) {
-            SgtApi.PlayerExtraService.getPlayerById(player.id, function(result, data) {
+    describe('getPlayerExtraById', function() {
+        it('should get player extra by id', function(done) {
+            SgtApi.PlayerExtraService.getPlayerExtraById(player.id, function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
         });
     });
 
-    describe('getPlayerList', function() {
-        it('should get player list', function(done) {
-            SgtApi.PlayerExtraService.getPlayerList({}, function(result, data) {
+    describe('getPlayerExtraList', function() {
+        it('should get player extra list', function(done) {
+            SgtApi.PlayerExtraService.getPlayerExtraList({}, function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
         });
     });
 
-    describe('updatePlayerMap', function() {
-        it('should update player map', function(done) {
-            SgtApi.PlayerExtraService.updatePlayerMap(player, function(result, data) {
+    describe('updatePlayerExtraMap', function() {
+        it('should update player extra map', function(done) {
+            SgtApi.PlayerExtraService.updatePlayerExtraMap({}, function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
         });
     });
 
-    describe('updatePlayer', function() {
-        it('should update player', function(done) {
-            SgtApi.PlayerExtraService.updatePlayer(player.id, player, function(result, data) {
+    describe('updatePlayerExtra', function() {
+        it('should update player extra', function(done) {
+            SgtApi.PlayerExtraService.updatePlayerExtra(player.id, player, function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
         });
     });
 
-    describe('deletePlayerById', function() {
-        it('should delete player by id', function(done) {
-            SgtApi.PlayerExtraService.deletePlayerById(player.id, function(result, data) {
+    describe('deletePlayerExtraById', function() {
+        it('should delete player extra by id', function(done) {
+            SgtApi.PlayerExtraService.deletePlayerExtraById(player.id, function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -455,11 +361,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -472,11 +374,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -489,11 +387,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -506,11 +400,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -523,11 +413,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -540,11 +426,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -557,11 +439,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -574,11 +452,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -591,11 +465,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -608,11 +478,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -625,11 +491,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -642,11 +504,7 @@ describe('AchievementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -663,11 +521,7 @@ describe('AnnouncementService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -684,11 +538,7 @@ describe('CampaignService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -701,11 +551,7 @@ describe('CampaignService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -718,11 +564,7 @@ describe('CampaignService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -735,11 +577,7 @@ describe('CampaignService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -752,11 +590,7 @@ describe('CampaignService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -769,11 +603,7 @@ describe('CampaignService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -786,11 +616,7 @@ describe('CampaignService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -807,11 +633,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -824,11 +646,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -841,11 +659,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -871,11 +685,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -888,11 +698,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -905,11 +711,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -922,11 +724,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -939,11 +737,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -956,11 +750,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -973,11 +763,7 @@ describe('CheckinBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -987,18 +773,13 @@ describe('CheckinBoardService', function() {
 
 //测试DailyTaskService
 describe('DailyTaskService', function() {
-
     describe('executeTask', function() {
         it('should execute task', function(done) {
             SgtApi.DailyTaskService.executeTask('123', player.id, function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1011,11 +792,7 @@ describe('DailyTaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1028,11 +805,7 @@ describe('DailyTaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1045,11 +818,7 @@ describe('DailyTaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1062,11 +831,7 @@ describe('DailyTaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1080,13 +845,9 @@ describe('DailyTaskService', function() {
                     assert.ok(true, data);
                 } else {
                     if (data === '您已经领取了任务奖励，不要这么贪得无厌哦！') {
-                        assert(true);
+                        assert.ok(true, data);
                     } else {
-                        if (data.match('Exception')) {
-                            assert.ok(true, data);
-                        } else {
-                            assert.ok(false, data);
-                        }
+                        assert.ok(false, data);
                     }
                 }
                 done();
@@ -1100,11 +861,7 @@ describe('DailyTaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1117,11 +874,7 @@ describe('DailyTaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1138,11 +891,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1155,11 +904,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1172,11 +917,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1189,11 +930,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1206,11 +943,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1223,11 +956,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1240,11 +969,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1257,11 +982,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1274,11 +995,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1291,11 +1008,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1308,11 +1021,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1325,11 +1034,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1342,11 +1047,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1359,11 +1060,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1376,11 +1073,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1393,11 +1086,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1410,11 +1099,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1427,11 +1112,7 @@ describe('TaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1448,11 +1129,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1465,11 +1142,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1482,11 +1155,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1499,11 +1168,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1516,11 +1181,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1533,11 +1194,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1550,11 +1207,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1567,11 +1220,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1584,11 +1233,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1601,11 +1246,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1618,11 +1259,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1635,11 +1272,7 @@ describe('FriendshipService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1656,11 +1289,7 @@ describe('FriendshipExtraService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1673,11 +1302,7 @@ describe('FriendshipExtraService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1690,11 +1315,7 @@ describe('FriendshipExtraService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1707,11 +1328,7 @@ describe('FriendshipExtraService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1724,11 +1341,7 @@ describe('FriendshipExtraService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1745,11 +1358,7 @@ describe('BlacklistService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1762,11 +1371,7 @@ describe('BlacklistService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1783,11 +1388,7 @@ describe('GachaBoxService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1800,11 +1401,7 @@ describe('GachaBoxService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1817,11 +1414,7 @@ describe('GachaBoxService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1834,11 +1427,7 @@ describe('GachaBoxService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1851,11 +1440,7 @@ describe('GachaBoxService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1868,11 +1453,7 @@ describe('GachaBoxService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1885,11 +1466,7 @@ describe('GachaBoxService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1902,11 +1479,7 @@ describe('GachaBoxService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1923,11 +1496,7 @@ describe('LeaderBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1940,11 +1509,7 @@ describe('LeaderBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1957,11 +1522,7 @@ describe('LeaderBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1974,11 +1535,7 @@ describe('LeaderBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -1991,11 +1548,7 @@ describe('LeaderBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2008,11 +1561,7 @@ describe('LeaderBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2025,11 +1574,7 @@ describe('LeaderBoardService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2049,11 +1594,7 @@ describe('MailService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2070,11 +1611,7 @@ describe('MailService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2087,11 +1624,7 @@ describe('MailService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2104,11 +1637,7 @@ describe('MailService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2121,11 +1650,7 @@ describe('MailService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2138,11 +1663,7 @@ describe('MailService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2159,11 +1680,7 @@ describe('NotificationService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2176,11 +1693,7 @@ describe('NotificationService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2190,18 +1703,13 @@ describe('NotificationService', function() {
 
 //测试PurchaseService
 describe('PurchaseService', function() {
-
     describe('getSupportedStores', function() {
         it('should get supported stores', function(done) {
             SgtApi.PurchaseService.getSupportedStores(function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2214,11 +1722,7 @@ describe('PurchaseService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2231,11 +1735,7 @@ describe('PurchaseService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2248,11 +1748,7 @@ describe('PurchaseService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2265,11 +1761,7 @@ describe('PurchaseService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2282,11 +1774,7 @@ describe('PurchaseService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2296,18 +1784,13 @@ describe('PurchaseService', function() {
 
 //测试StoreService
 describe('StoreService', function() {
-
     describe('getDefaultStore', function() {
         it('should get default store', function(done) {
             SgtApi.StoreService.getDefaultStore(player.id, function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2320,11 +1803,7 @@ describe('StoreService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2337,11 +1816,7 @@ describe('StoreService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2354,11 +1829,7 @@ describe('StoreService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2371,11 +1842,7 @@ describe('StoreService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2388,11 +1855,7 @@ describe('StoreService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2405,11 +1868,7 @@ describe('StoreService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2422,11 +1881,7 @@ describe('StoreService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2436,18 +1891,13 @@ describe('StoreService', function() {
 
 //测试ChargePoint
 describe('ChargePointService', function() {
-
     describe('getAllChargePoints', function() {
         it('should get all charge points', function(done) {
             SgtApi.ChargePointService.getAllChargePoints(function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2460,11 +1910,7 @@ describe('ChargePointService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2474,18 +1920,13 @@ describe('ChargePointService', function() {
 
 //测试BossService
 describe('BossService', function() {
-
     describe('getByBossIdstr', function() {
         it('should get by boss id str', function(done) {
             SgtApi.BossService.getByBossIdstr([''], function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2498,11 +1939,7 @@ describe('BossService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2515,11 +1952,7 @@ describe('BossService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2532,11 +1965,7 @@ describe('BossService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2549,11 +1978,7 @@ describe('BossService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2566,11 +1991,7 @@ describe('BossService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2580,18 +2001,13 @@ describe('BossService', function() {
 
 //测试FileStorageService
 describe('FileStorageService', function() {
-
     describe('getUrl', function() {
         it('should get url', function(done) {
             SgtApi.FileStorageService.getUrl('', function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2604,11 +2020,7 @@ describe('FileStorageService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2618,18 +2030,13 @@ describe('FileStorageService', function() {
 
 //测试GiftCodeService
 describe('GiftCodeService', function() {
-
     describe('getGifts', function() {
         it('should get gifts', function(done) {
             SgtApi.GiftCodeService.getGifts(function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2642,11 +2049,7 @@ describe('GiftCodeService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2659,11 +2062,7 @@ describe('GiftCodeService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2676,11 +2075,7 @@ describe('GiftCodeService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2693,11 +2088,7 @@ describe('GiftCodeService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2710,11 +2101,7 @@ describe('GiftCodeService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2730,11 +2117,7 @@ describe('PrivateChannelService', function() {
                 if (result) {
                     assert.ok(true);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2747,11 +2130,7 @@ describe('PrivateChannelService', function() {
                 if (result) {
                     assert.ok(true);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2764,11 +2143,7 @@ describe('PrivateChannelService', function() {
                 if (result) {
                     assert.ok(true);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2781,11 +2156,7 @@ describe('PrivateChannelService', function() {
                 if (result) {
                     assert.ok(true);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2798,11 +2169,7 @@ describe('PrivateChannelService', function() {
                 if (result) {
                     assert.ok(true);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2818,11 +2185,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2835,11 +2198,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2852,11 +2211,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2869,11 +2224,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2886,11 +2237,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2903,11 +2250,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2920,11 +2263,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2937,11 +2276,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2954,11 +2289,7 @@ describe('PublicChannelService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2973,11 +2304,7 @@ describe('DelegateDidService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -2990,11 +2317,7 @@ describe('DelegateDidService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3007,11 +2330,7 @@ describe('DelegateDidService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3026,11 +2345,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3043,11 +2358,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3060,11 +2371,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3077,11 +2384,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3094,11 +2397,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3111,11 +2410,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3128,11 +2423,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3145,11 +2436,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3162,11 +2449,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3179,11 +2462,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3196,11 +2475,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3213,11 +2488,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3230,11 +2501,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3247,11 +2514,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3264,11 +2527,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3281,11 +2540,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3298,11 +2553,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3315,11 +2566,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3332,11 +2579,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3349,11 +2592,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3366,11 +2605,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3383,11 +2618,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3400,11 +2631,7 @@ describe('StructuredDataService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3420,11 +2647,7 @@ describe('TicketService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3437,11 +2660,7 @@ describe('TicketService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3457,11 +2676,7 @@ describe('ErrorReportService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data.match('Exception')) {
-                        assert.ok(true, data);
-                    } else {
-                        assert.ok(false, data);
-                    }
+                    assert.ok(false, data);
                 }
                 done();
             });
@@ -3469,18 +2684,9 @@ describe('ErrorReportService', function() {
     });
 });
 
-// //测试WxCentralService
-// describe('WxCentralService', function() {
-//     describe('getAccessToken', function() {
-//         it('should get access token', function(done) {
-//             SgtApi.WxCentralService.getAccessToken(function(result, data) {
-//                 if (result) {
-//                     console.log(data);
-//                     assert.ok(true, data);
-//                 } else {
-//                     assert.ok(false, data);
-//                 }
-//             });
-//         });
-//     });
-// });
+//测试WxCentralService
+describe('WxCentralService', function() {
+    describe('getAccessToken', function() {
+        it('should get access token');
+    });
+});

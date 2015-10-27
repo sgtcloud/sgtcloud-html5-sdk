@@ -30,7 +30,7 @@
          * @type {string}
          * @default null
          */
-        this.userId = null;
+        this.userid = null;
         /**
          * 用户名
          * @property userName
@@ -3062,14 +3062,15 @@
         jsonRPC.request(name, {
             params: data,
             success: function(data) {
-                return callback(true, data.result);
+                if (callback) {
+                    return callback(true, data.result);
+                }
             },
             error: function(data) {
-                console.log(data);
-                var errorObj = data.error.data;
-                var errorType = errorObj.exceptionTypeName.substring(errorObj.exceptionTypeName.lastIndexOf('.'));
-                var errorMessage = errorObj.message;
-                return callback(false, errorType + ': ' + errorMessage);
+                if (callback) {
+                    console.log(data);
+                    return callback(false, data.error.data.messagr || data.error.message || '此处居然木有错误信息');
+                }
             }
         });
     };
@@ -3730,9 +3731,9 @@
              * @param callback{Function}
              * @return null
              */
-            addPlayer: function(player, callback) {
+            addPlayerExtra: function(playerExtra, callback) {
                 var name = 'addPlayer';
-                var data = [player];
+                var data = [playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -3742,7 +3743,7 @@
              * @param callback{Function} 回调函数
              * @return null
              */
-            deletePlayerById: function(playerId, callback) {
+            deletePlayerExtraById: function(playerId, callback) {
                 var name = 'deletePlayerById';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3782,7 +3783,7 @@
              * @param callback{Function} 回调函数
              * @return Object
              */
-            getPlayerById: function(playerId, callback) {
+            getPlayerExtraById: function(playerId, callback) {
                 var name = 'getPlayerById';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3794,7 +3795,7 @@
              * @param callback 回调函数
              * @return Object 角色列表
              */
-            getPlayerList: function(condition, callback) {
+            getPlayerExtraList: function(condition, callback) {
                 var name = 'getPlayerList';
                 var data = [condition];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3808,9 +3809,9 @@
              * @param callback{Function} 回调函数
              * @return null
              */
-            updatePlayerMap: function(player, callback) {
+            updatePlayerExtraMap: function(playerExtra, callback) {
                 var name = 'updatePlayer';
-                var data = [player];
+                var data = [playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -3821,9 +3822,9 @@
              * @param callback{Function} 回调函数
              * @return null
              */
-            updatePlayer: function(playerId, player, callback) {
+            updatePlayerExtra: function(playerId, playerExtra, callback) {
                 var name = 'updatePlayer';
-                var data = [playerId, player];
+                var data = [playerId, playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -4289,7 +4290,6 @@
             executeTask: function(taskId, playerId, callback) {
                 var name = 'excuteTask';
                 var data = [taskId, playerId];
-
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -6858,6 +6858,7 @@
     // browser
     if (typeof navigator !== 'undefined') {
         window.SgtApi = SgtApi;
+        window.sgt = SgtApi;
     }
     // nodejs
     if (typeof module !== 'undefined') {
