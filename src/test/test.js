@@ -2684,18 +2684,9 @@ describe('ErrorReportService', function() {
     });
 });
 
-// //测试WxCentralService
-// describe('WxCentralService', function() {
-//     describe('getAccessToken', function() {
-//         it('should get access token', function(done) {
-//             SgtApi.WxCentralService.getAccessToken(function(result, data) {
-//                 if (result) {
-//                     console.log(data);
-//                     assert.ok(true, data);
-//                 } else {
-//                     assert.ok(false, data);
-//                 }
-//             });
-//         });
-//     });
-// });
+//测试WxCentralService
+describe('WxCentralService', function() {
+    describe('getAccessToken', function() {
+        it('should get access token');
+    });
+});
