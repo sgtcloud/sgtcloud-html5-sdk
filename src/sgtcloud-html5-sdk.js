@@ -3062,6 +3062,7 @@
         jsonRPC.request(name, {
             params: data,
             success: function(data) {
+                console.log(data);
                 if (callback) {
                     return callback(true, data.result);
                 }
@@ -3078,7 +3079,7 @@
 
     /**
      * Sgt  上下文
-     * @type {{userData: null, server: null, playerData: null}}
+     * @type {{user: null, server: null, playerData: null}}
      */
     SgtApi.context = {
         user: null, //当前用户数据信息
@@ -3169,10 +3170,7 @@
     };
 
     /**
-     * 用户登陆注册
-     *
-     * @module AccountService
-     * 
+     * 用户相关业务接口
      */
     SgtApi.UserService = function() {
         var _appGateway = SgtApi.context.appGateway;
@@ -3182,32 +3180,31 @@
         return {
             /**
              * 验证手机号和验证码是否匹配
-             * @param smobile{string} 用户手机号
-             * @param captcha{string} 用户输入验证码
-             * @param callback
-             * @result string
+             * @param  {string}   smobile  用户手机号
+             * @param  {string}   captcha  用户输入验证码
+             * @param  {Function} callback 回调函数
+             * @return {string}            是否验证成功结果
              */
-            isMatcher: function(smobile, captcha, callback) {
+            isMatch: function(smobile, captcha, callback) {
                 var name = 'isMatcher';
                 var data = [smobile, captcha];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
             /**
-             * 登陆
-             * @method login
-             * @param username{string} 用户名
-             * @param password{string} 密码
-             * @param callback{function} 此回调函数中可以有两个参数,第一个参数的值为true/false代表成功与否, 第二参数分别代表User对象和错误信息
-             * @return user
+             * 手动登录
+             * @param  {string}   username 用户名
+             * @param  {string}   password 密码
+             * @param  {Function} callback 回调函数
+             * @return {User}              登录后的user对象
              */
-            login: function(username, password, callback) {
+            login: function(userName, password, callback) {
                 var that = this;
                 var name = 'login';
                 var data = [username, password];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        SgtApi.context.userData = data;
+                        SgtApi.context.user = data;
                         that.getPlayServer(callback);
                     } else {
                         callback(false, data);
@@ -3217,52 +3214,28 @@
 
             /**
              * 客户端通过提交user对象完成注册
-             * @method  register
-             * @param user{user}
-             * @param callback{function} 回调函数
-             * @return user
+             * @param  {User}       user     user对象
+             * @param  {Function}   callback 回调函数
+             * @return {User}       注册后的user对象
              */
-            register: function(user, callback) {
+            regist: function(user, callback) {
                 var name = 'register';
                 var data = [user];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        SgtApi.context.userData = data;
-                        this.getPlayServer(callback);
+                        SgtApi.context.user = data;
+                        SgtApi.UserService.getPlayServer(callback);
                     } else {
-                        this.getPlayServer(callback);
-                    }
-                });
-            },
-
-            /**
-             * 自动注册 或者自动登录
-             * @method registerByPhone
-             * @param imei{string} 手机IMEI号
-             * @param iccid{string} 手机ICCID号
-             * @param mac{string} 手机MAC地址
-             * @param callback{function} 回调函数
-             * @return user
-             */
-            registerByPhone: function(imei, iccid, mac, callback) {
-                var name = 'register';
-                var data = [imei, iccid, mac];
-                SgtApi.doRPC(name, data, _url, function(result, data) {
-                    if (result) {
-                        SgtApi.context.userData = data;
-                        callback(true, data);
-                    } else {
-                        callback(false, data);
+                        SgtApi.UserService.getPlayServer(callback);
                     }
                 });
             },
 
             /**
              * 重置密码发送邮件
-             * @method resetPassword
-             * @param userName{string} 用户名
-             * @param callback{function} 回调函数
-             * @return null
+             * @param  {string}   userName 用户名
+             * @param  {Function} callback 回调函数
+             * @return {null}            
              */
             resetPassword: function(userName, callback) {
                 var name = 'resetPassword';
@@ -3272,10 +3245,9 @@
 
             /**
              * 保存用户留资方法
-             * @method saveLeaveInfo
-             * @param userName{string} 用户留资对象
-             * @param callback{function} 回调函数
-             * @return userLeaveInfo
+             * @param  {UserLeaveInfo}   userLeaveInfo 用户留资对象
+             * @param  {Function} callback      回调函数
+             * @return {UserLeaveInfo}                 用户留资对象
              */
             saveLeaveInfo: function(userLeaveInfo, callback) {
                 var name = 'saveLeaveInfo';
@@ -3285,12 +3257,10 @@
 
             /**
              * 发送手机验证码短信
-             * @method sendCaptchaMessage
-             * @param smobile{string} 用户手机号
-             * @param appName{string} 当前产品名称
-             * @param callback{function} 回调函数
-             * @return data{boolean} true发送成功 false发送失败
-             * @constructor
+             * @param  {string}   smobile  用户手机号
+             * @param  {string}   appName  当前产品名称
+             * @param  {Function} callback 回调函数
+             * @return {boolean}            true发送成功, false发送失败
              */
             sendCaptchaMessage: function(smobile, appName, callback) {
                 var name = 'SendMessage';
@@ -3299,28 +3269,11 @@
             },
 
             /**
-             * 发送手机验证码短信
-             * @method sendCaptchaMessage
-             * @param smobile{string} 用户手机号
-             * @param appName{string} 当前产品名称
-             * @param appId{string} 当前appId
-             * @param callback{function} 回调函数
-             * @return data{boolean} true发送成功 false发送失败
-             * @constructor
-             */
-            sendCaptchaMessageByAppId: function(smobile, appName, appId, callback) {
-                var name = 'SendMessage';
-                var data = [smobile, appName, appId];
-                SgtApi.doRPC(name, data, _url, callback);
-            },
-
-            /**
              * 通过用户名更改密码
-             * @method updatePasswordByUserName
-             * @param userName{string} 用户名
-             * @param password{string} 密码
-             * @param callback
-             * @return null
+             * @param  {string}   userName 用户名
+             * @param  {string}   password 密码
+             * @param  {Function} callback 回调函数
+             * @return {null}            
              */
             updatePasswordByUserName: function(userName, password, callback) {
                 var name = 'updatePasswordByUserName';
@@ -3337,10 +3290,9 @@
 
             /**
              * 更新用户信息
-             * @method updateUser
-             * @param user{user} 对象
-             * @param callback 
-             * @return user 更新之后的User
+             * @param  {User}   user     User数据对象
+             * @param  {Function} callback 回调函数
+             * @return {User}            更新之后的User
              */
             updateUser: function(user, callback) {
                 var name = 'updateUser';
@@ -3357,13 +3309,12 @@
 
             /**
              * 更新用户名，密码，邮箱
-             * @method updateUserByUserId
-             * @param userId{string} 用户ID
-             * @param userName{string} 用户名
-             * @param password{string} 密码
-             * @param email{string} 邮箱
-             * @param callback
-             * @return boolean
+             * @param  {string}   userId   用户ID
+             * @param  {string}   userName 用户名
+             * @param  {string}   password 密码
+             * @param  {string}   email    邮箱
+             * @param  {Function} callback 回调函数
+             * @return {boolean}            true更新成功 false更新失败
              */
             updateUserByUserId: function(userId, userName, password, email, callback) {
                 var name = 'updateUserByUserId';
@@ -3380,12 +3331,11 @@
 
             /**
              * 更新用户名，密码
-             * @method updateUserByuserId
-             * @param userId{string} 用户ID
-             * @param userName{string} 用户名
-             * @param password{string} 密码
-             * @param callback
-             * @return boolean
+             * @param  {string}   userId   用户ID
+             * @param  {string}   userName 用户名
+             * @param  {string}   password 密码
+             * @param  {Function} callback "回调函数"
+             * @return {boolean}            true更新成功 false更新失败
              */
             updateUserNameAndPassword: function(userId, userName, password, callback) {
                 var name = 'updateUserNameAndPassword';
@@ -3404,12 +3354,13 @@
                 localStorage.setItem('username', useranme);
                 localStorage.setItem('password', password);
             },
+
             /**
              * 检测token有效性
-             * @method validationToken
-             * @param userName{string}  用户名
-             * @param token{string} token令牌
-             * @return boolean 
+             * @param  {string}   userName 用户名
+             * @param  {string}   token    token令牌
+             * @param  {Function} callback 回调函数
+             * @return {boolean}            true合法，false不合法
              */
             validationToken: function(userName, token, callback) {
                 var name = 'validationToken';
@@ -3417,21 +3368,17 @@
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
-
-
-
             /**
-             * 快速注册登录
-             * @method quickLogin
-             * @param callback
-             * @return callback
+             * 快速登录
+             * @param  {Function} callback 回调函数
+             * @return {User}            登录后的User对象
              */
             quickLogin: function(callback) {
 
                 var username = localStorage.getItem("sgt-" + _appId + "-username");
                 var password = localStorage.getItem("sgt-" + _appId + "-password");
                 if (username && password) {
-                    this.login(username, password, callback);
+                    SgtApi.UserService.login(username, password, callback);
                 } else {
                     var num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
                     var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -3452,7 +3399,7 @@
                     var newuser = new SgtApi.User();
                     newuser.userName = name;
                     newuser.password = 'yoedge2014';
-                    this.register(newuser, function(result, data) {
+                    SgtApi.UserService.regist(newuser, function(result, data) {
                         if (result) {
                             localStorage.setItem("sgt-" + _appId + "-username", newuser.userName);
                             localStorage.setItem("sgt-" + _appId + "-password", newuser.password);
@@ -3464,12 +3411,6 @@
                 }
             },
 
-            /**
-             * 获取用户服务器信息
-             * @method getPlayServer
-             * @param callback
-             * @return callback
-             */
             getPlayServer: function(callback) {
                 if (SgtApi.context.channelId === null) {
                     return callback(false, 'channelId未设置！');
@@ -3479,15 +3420,15 @@
                 });
                 backClient.call(
                     'route', [_appId, {
-                        'userId': SgtApi.context.userData.userid,
-                        'createTime': SgtApi.context.userData.createTime,
+                        'userId': SgtApi.context.user.userid,
+                        'createTime': SgtApi.context.user.createTime,
                         'channelId': SgtApi.context.channelId
                     }],
                     function(result) {
                         // console.log('success ' + result.result);
                         SgtApi.context.server = result.result;
                         SgtApi._createServices();
-                        return callback(true, SgtApi.context.userData);
+                        return callback(true, SgtApi.context.user);
                     },
                     function(error) {
                         // console.log('There was an error.error[route]:', error.error);
@@ -3514,9 +3455,9 @@
              * @return player
              */
             create: function(player, callback) {
-                player.lastLoginTime = SgtApi.context.userData.lastLoginTime;
+                player.lastLoginTime = SgtApi.context.user.lastLoginTime;
                 player.serverId = SgtApi.context.server.id;
-                player.userId = SgtApi.context.userData.userid;
+                player.userId = SgtApi.context.user.userid;
                 var name = 'create';
                 var data = [player];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5562,9 +5503,10 @@
             /**
              * 购买指定的商品，如果使用游戏币购买，那么在购买前需要同步服务器端的游戏币
              * @method purchase
+             * @param {string} palyerId 角色信息
              * @param storeId{string} 商城ID
              * @param itemId{int} 物品ID
-             * @param amounts{int} 购买数量
+             * @param amounts{number} 购买数量
              * @param ckret 如果为true，则需要返回一个订单id（即did），网游一般需要来操作
              * @param callback
              * @return callback
@@ -6106,7 +6048,7 @@
              */
             createDid: function(playerId, callback) {
                 var name = 'createDid';
-                var data = [SgtApi.context.server.id, SgtApi.context.userData.userId, playerId];
+                var data = [SgtApi.context.server.id, SgtApi.context.user.userId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**

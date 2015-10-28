@@ -157,7 +157,7 @@ jsonRPC =new Object({
          * @type {string}
          * @default null
          */
-        this.userId = null;
+        this.userid = null;
         /**
          * 用户名
          * @property userName
@@ -3196,10 +3196,7 @@ jsonRPC =new Object({
             error: function(data) {
                 if (callback) {
                     console.log(data);
-                    var errorObj = data.error.data;
-                    var errorType = errorObj.exceptionTypeName.substring(errorObj.exceptionTypeName.lastIndexOf('.'));
-                    var errorMessage = errorObj.message;
-                    return callback(false, errorType + ': ' + errorMessage);
+                    return callback(false, data.error.data.messagr || data.error.message || '此处居然木有错误信息');
                 }
             }
         });
@@ -3208,7 +3205,7 @@ jsonRPC =new Object({
 
     /**
      * Sgt  上下文
-     * @type {{userData: null, server: null, playerData: null}}
+     * @type {{user: null, server: null, playerData: null}}
      */
     SgtApi.context = {
         user: null, //当前用户数据信息
@@ -3337,7 +3334,7 @@ jsonRPC =new Object({
                 var data = [username, password];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        SgtApi.context.userData = data;
+                        SgtApi.context.user = data;
                         that.getPlayServer(callback);
                     } else {
                         callback(false, data);
@@ -3352,15 +3349,15 @@ jsonRPC =new Object({
              * @param callback{function} 回调函数
              * @return user
              */
-            register: function(user, callback) {
+            regist: function(user, callback) {
                 var name = 'register';
                 var data = [user];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        SgtApi.context.userData = data;
-                        this.getPlayServer(callback);
+                        SgtApi.context.user = data;
+                        SgtApi.UserService.getPlayServer(callback);
                     } else {
-                        this.getPlayServer(callback);
+                        SgtApi.UserService.getPlayServer(callback);
                     }
                 });
             },
@@ -3379,7 +3376,7 @@ jsonRPC =new Object({
                 var data = [imei, iccid, mac];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        SgtApi.context.userData = data;
+                        SgtApi.context.user = data;
                         callback(true, data);
                     } else {
                         callback(false, data);
@@ -3561,7 +3558,7 @@ jsonRPC =new Object({
                 var username = localStorage.getItem("sgt-" + _appId + "-username");
                 var password = localStorage.getItem("sgt-" + _appId + "-password");
                 if (username && password) {
-                    this.login(username, password, callback);
+                    SgtApi.UserService.login(username, password, callback);
                 } else {
                     var num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
                     var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -3582,7 +3579,7 @@ jsonRPC =new Object({
                     var newuser = new SgtApi.User();
                     newuser.userName = name;
                     newuser.password = 'yoedge2014';
-                    this.register(newuser, function(result, data) {
+                    SgtApi.UserService.register(newuser, function(result, data) {
                         if (result) {
                             localStorage.setItem("sgt-" + _appId + "-username", newuser.userName);
                             localStorage.setItem("sgt-" + _appId + "-password", newuser.password);
@@ -3609,15 +3606,15 @@ jsonRPC =new Object({
                 });
                 backClient.call(
                     'route', [_appId, {
-                        'userId': SgtApi.context.userData.userid,
-                        'createTime': SgtApi.context.userData.createTime,
+                        'userId': SgtApi.context.user.userid,
+                        'createTime': SgtApi.context.user.createTime,
                         'channelId': SgtApi.context.channelId
                     }],
                     function(result) {
                         // console.log('success ' + result.result);
                         SgtApi.context.server = result.result;
                         SgtApi._createServices();
-                        return callback(true, SgtApi.context.userData);
+                        return callback(true, SgtApi.context.user);
                     },
                     function(error) {
                         // console.log('There was an error.error[route]:', error.error);
@@ -3644,9 +3641,9 @@ jsonRPC =new Object({
              * @return player
              */
             create: function(player, callback) {
-                player.lastLoginTime = SgtApi.context.userData.lastLoginTime;
+                player.lastLoginTime = SgtApi.context.user.lastLoginTime;
                 player.serverId = SgtApi.context.server.id;
-                player.userId = SgtApi.context.userData.userid;
+                player.userId = SgtApi.context.user.userid;
                 var name = 'create';
                 var data = [player];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3861,9 +3858,9 @@ jsonRPC =new Object({
              * @param callback{Function}
              * @return null
              */
-            addPlayer: function(player, callback) {
+            addPlayerExtra: function(playerExtra, callback) {
                 var name = 'addPlayer';
-                var data = [player];
+                var data = [playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -3873,7 +3870,7 @@ jsonRPC =new Object({
              * @param callback{Function} 回调函数
              * @return null
              */
-            deletePlayerById: function(playerId, callback) {
+            deletePlayerExtraById: function(playerId, callback) {
                 var name = 'deletePlayerById';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3913,7 +3910,7 @@ jsonRPC =new Object({
              * @param callback{Function} 回调函数
              * @return Object
              */
-            getPlayerById: function(playerId, callback) {
+            getPlayerExtraById: function(playerId, callback) {
                 var name = 'getPlayerById';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3925,7 +3922,7 @@ jsonRPC =new Object({
              * @param callback 回调函数
              * @return Object 角色列表
              */
-            getPlayerList: function(condition, callback) {
+            getPlayerExtraList: function(condition, callback) {
                 var name = 'getPlayerList';
                 var data = [condition];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3939,9 +3936,9 @@ jsonRPC =new Object({
              * @param callback{Function} 回调函数
              * @return null
              */
-            updatePlayerMap: function(player, callback) {
+            updatePlayerExtraMap: function(playerExtra, callback) {
                 var name = 'updatePlayer';
-                var data = [player];
+                var data = [playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -3952,9 +3949,9 @@ jsonRPC =new Object({
              * @param callback{Function} 回调函数
              * @return null
              */
-            updatePlayer: function(playerId, player, callback) {
+            updatePlayerExtra: function(playerId, playerExtra, callback) {
                 var name = 'updatePlayer';
-                var data = [playerId, player];
+                var data = [playerId, playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -4420,7 +4417,6 @@ jsonRPC =new Object({
             executeTask: function(taskId, playerId, callback) {
                 var name = 'excuteTask';
                 var data = [taskId, playerId];
-
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -6237,7 +6233,7 @@ jsonRPC =new Object({
              */
             createDid: function(playerId, callback) {
                 var name = 'createDid';
-                var data = [SgtApi.context.server.id, SgtApi.context.userData.userId, playerId];
+                var data = [SgtApi.context.server.id, SgtApi.context.user.userId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
