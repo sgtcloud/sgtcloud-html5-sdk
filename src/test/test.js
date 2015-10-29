@@ -844,7 +844,7 @@ describe('DailyTaskService', function() {
                 if (result) {
                     assert.ok(true, data);
                 } else {
-                    if (data === '您已经领取了任务奖励，不要这么贪得无厌哦！') {
+                    if (data.match('您已经领取了任务奖励，不要这么贪得无厌哦！')) {
                         assert.ok(true, data);
                     } else {
                         assert.ok(false, data);
@@ -2672,7 +2672,7 @@ describe('TicketService', function() {
 describe('ErrorReportService', function() {
     describe('sendErrorReport', function() {
         it('should send error report', function(done) {
-            SgtApi.ErrorReportService.sendErrorReport('', '', '', function(result, data) {
+            SgtApi.ErrorReportService.sendErrorReport('', '', '', '', function(result, data) {
                 if (result) {
                     assert.ok(true, data);
                 } else {
@@ -2687,6 +2687,42 @@ describe('ErrorReportService', function() {
 //测试WxCentralService
 describe('WxCentralService', function() {
     describe('getAccessToken', function() {
-        it('should get access token');
+        it('should get access token', function(done) {
+            SgtApi.WxCentralService.getAccessToken('html5_demo2015', function(result, data) {
+                if (result) {
+                    console.log(data);
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+                done();
+            });
+        });
+    });
+    describe('getJSTicket', function() {
+        it('should get js ticket', function(done) {
+            SgtApi.WxCentralService.getJSTicket('html5_demo2015', function(result, data) {
+                if (result) {
+                    console.log(data);
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+                done();
+            });
+        });
+    });
+    describe('getSignature', function() {
+        it('should get signature', function(done) {
+            SgtApi.WxCentralService.getSignature('html5_demo2015', 'abc', 100, 'http://sgtcloud.cn', function(result, data) {
+                if (result) {
+                    console.log(data);
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+                done();
+            });
+        });
     });
 });

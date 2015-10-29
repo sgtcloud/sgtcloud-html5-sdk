@@ -3062,18 +3062,25 @@
         jsonRPC.request(name, {
             params: data,
             success: function(data) {
-                console.log(data);
                 if (callback) {
                     return callback(true, data.result);
                 }
             },
             error: function(data) {
                 if (callback) {
-                    console.log(data);
-                    return callback(false, data.error.data.messagr || data.error.message || '此处居然木有错误信息');
+                    return callback(false, SgtApi.errorMessage(data) + '.\nat: ' + name + '()');
                 }
             }
         });
+    };
+
+    SgtApi.errorMessage = function(data) {
+        if (data.error.data) {
+            var _exception = data.error.data.exceptionTypeName.substring(data.error.data.exceptionTypeName.lastIndexOf('.'));
+            var _message = data.error.data.message;
+            return _exception + ': ' + _message;
+        }
+        return data.error.message || '发生了错误,但服务器未返回错误信息';
     };
 
 
@@ -3199,13 +3206,12 @@
              * @return {User}              登录后的user对象
              */
             login: function(userName, password, callback) {
-                var that = this;
                 var name = 'login';
-                var data = [username, password];
+                var data = [userName, password];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         SgtApi.context.user = data;
-                        that.getPlayServer(callback);
+                        SgtApi.UserService.getPlayServer(callback);
                     } else {
                         callback(false, data);
                     }
@@ -3280,7 +3286,7 @@
                 var data = [userName, password];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        this._saveLocalStorage(userName, password);
+                        SgtApi.UserService._saveLocalStorage(userName, password);
                         callback(true, data);
                     } else {
                         callback(false, data);
@@ -3299,7 +3305,7 @@
                 var data = [user];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (resilt) {
-                        this._saveLocalStorage(user.userName, user.password);
+                        SgtApi.UserService._saveLocalStorage(user.userName, user.password);
                         callback(true, data);
                     } else {
                         callback(false, data);
@@ -3321,7 +3327,7 @@
                 var data = [userId, userName, password, email];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        this._saveLocalStorage(userName, password);
+                        SgtApi.UserService._saveLocalStorage(userName, password);
                         callback(true, data);
                     } else {
                         callback(false, data);
@@ -3342,7 +3348,7 @@
                 var data = [userId, userName, password];
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        this._saveLocalStorage(userName, password);
+                        SgtApi.UserService._saveLocalStorage(userName, password);
                         callback(true, data);
                     } else {
                         callback(false, data);
@@ -3351,8 +3357,8 @@
             },
 
             _saveLocalStorage: function(userName, password) {
-                localStorage.setItem('username', useranme);
-                localStorage.setItem('password', password);
+                localStorage.setItem('sgt-" + _appId + "-username', userName);
+                localStorage.setItem('sgt-" + _appId + "-password', password);
             },
 
             /**
@@ -3665,12 +3671,12 @@
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/playerExtraService.do';
 
         return {
+
             /**
              * 添加角色扩展信息
-             * @method addPlayer
-             * @param player{Object} 角色扩展信息
-             * @param callback{Function}
-             * @return null
+             * @param {PlayerExtra}   playerExtra 角色扩展对象
+             * @param {Function} callback    回调函数
+             * @return null        	 
              */
             addPlayerExtra: function(playerExtra, callback) {
                 var name = 'addPlayer';
@@ -3680,9 +3686,9 @@
 
             /**
              * 根据角色ID删除角色扩展信息
-             * @method deletePlayerById
-             * @param callback{Function} 回调函数
-             * @return null
+             * @param  {String}   playerId 扩展角色id
+             * @param  {Function} callback 回调函数
+             * @return null            
              */
             deletePlayerExtraById: function(playerId, callback) {
                 var name = 'deletePlayerById';
@@ -6443,9 +6449,9 @@
              * @param content{string} 自定义数据内容
              * @return callback
              */
-            sendErrorReport: function(type, customId, content, callback) {
+            sendErrorReport: function(playerId, type, customId, content, callback) {
                 var name = 'sendErrorReport';
-                var data = [this.playerid, type, customId, content];
+                var data = [playerId, type, customId, content];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6465,7 +6471,7 @@
              */
             getInvitationCode: function(callback) {
                 var name = 'getInvitationCode';
-                var data = [this.playerId];
+                var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -6780,23 +6786,46 @@
      * @type {Object}
      */
     SgtApi.WxCentralService = function() {
-        var _appId = SgtApi.context.appId;
         var _url = SgtApi.context.appGateway + '/wxcentral';
         return {
             /**
-             * 获取token
-             * @param appId {string} 应用标识
-             * @return {string} token在sgt中,每个token有效期为1小时
+             * 获取微信的accessToken，每一小时刷新一次
+             * @param appId {string} SGT中的appid
+             * @return {WxResult } 含有accessToken的WxResult
              */
-            getAccessToken: function(callback) {
+            getAccessToken: function(appId, callback) {
                 var name = 'getAccessToken';
-                var data = [_appId];
+                var data = [appId];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+            /**
+             * 获取微信的jsapi_ticket
+             * @param  {string}   appId    SGT中的appid
+             * @param  {Function} callback 回调函数
+             * @return {WxResult}            含有jsapi_ticket的WxResult
+             */
+            getJSTicket: function(appId, callback) {
+                var name = 'getJSTicket';
+                var data = [appId];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+            /**
+             * 获取jsapi 签名，签名用的noncestr和timestamp必须与wx.config中的nonceStr和timestamp相同。
+             * @param  {string}   appId     随即字符串
+             * @param  {string}   noncestr  随即字符串  
+             * @param  {number}   timestamp 时间戳
+             * @param  {string}   url       页面url，必须是调用JS接口页面的完整URL。
+             * @param  {Function} callback  回调函数
+             * @return {WxResult }         
+             */
+            getSignature: function(appId, nonceStr, timestamp, url, callback) {
+                var name = 'getSignature';
+                var data = [appId, nonceStr, timestamp, url];
                 SgtApi.doRPC(name, data, _url, callback);
             }
+
         };
     };
-
-
     // browser
     if (typeof navigator !== 'undefined') {
         window.SgtApi = SgtApi;
