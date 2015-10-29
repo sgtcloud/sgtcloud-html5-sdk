@@ -2726,7 +2726,7 @@ describe('WxCentralService', function() {
     });
     describe('getSignature', function() {
         it('should get signature', function(done) {
-            SgtApi.WxCentralService.getSignature('html5_demo2015', 'abc', 100, 'http://sgtcloud.cn', function(result, data) {
+            SgtApi.WxCentralService.getSignature('html5_demo2015','http://sgtcloud.cn', function(result, data) {
                 if (result) {
                     console.log(data);
                     assert.ok(true, data);

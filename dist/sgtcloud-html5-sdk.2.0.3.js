@@ -6916,15 +6916,14 @@ jsonRPC =new Object({
             /**
              * 获取jsapi 签名，签名用的noncestr和timestamp必须与wx.config中的nonceStr和timestamp相同。
              * @param  {string}   appId     SGT中的appid
-             * @param  {string}   noncestr  随即字符串  
-             * @param  {number}   timestamp 时间戳
              * @param  {string}   url       页面url，必须是调用JS接口页面的完整URL。
              * @param  {Function} callback  回调函数
-             * @return {WxResult }         
+             * @return {WxResult }          包含签名以及计算参数的WxResult:{ result: 处理正常result有值{"signature":"签名","timestamp":"计算时用到的时间戳，单位秒","noncestr":"计算签名的随机字符串"}
+             *                            ,error:"计算失败时返回的错误信息"
              */
-            getSignature: function(appId, nonceStr, timestamp, url, callback) {
+            getSignature: function(appId, url, callback) {
                 var name = 'getSignature';
-                var data = [appId, nonceStr, parseInt(timestamp / 1000), url.split('#')[0]];
+                var data = [appId, url.split('#')[0]];
                 SgtApi.doRPC(name, data, _url, callback);
             }
 
