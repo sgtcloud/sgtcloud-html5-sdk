@@ -19,11 +19,23 @@ SgtApi.init({
 
 //测试UserService
 describe('UserService', function() {
+
+    describe('quickLogin', function() {
+        it('should quick login', function(done) {
+            SgtApi.UserService.quickLogin(function(result, data) {
+                if (result) {
+                    console.log(data);
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+        });
+    });
     describe('login', function() {
         it('should login', function(done) {
             SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {
                 if (result) {
-                    console.log(data);
                     user = data;
                     assert.ok(true, data);
                 } else {
@@ -34,6 +46,7 @@ describe('UserService', function() {
 
         });
     });
+
 });
 
 // 测试PlayerService
@@ -46,7 +59,6 @@ describe('PlayerService', function() {
             SgtApi.PlayerService.create(player, function(result, data) {
                 if (data) {
                     player = data;
-                    console.log(data);
                     assert.ok(true, data);
                     assert.strictEqual(player.name, data.name);
                 } else {

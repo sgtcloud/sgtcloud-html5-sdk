@@ -3030,25 +3030,6 @@
     };
 
     /**
-     *  JsonRpc 接口
-     */
-
-    function $JsonRpc(obj) {
-        this.data = obj;
-        this.call = function(name, data, succ, error) {
-            jsonRPC.setup({
-                "endPoint": this.data.ajaxUrl,
-                "namespace": ''
-            });
-            jsonRPC.request(name, {
-                "params": data,
-                "success": succ,
-                "error": error
-            });
-        };
-    }
-
-    /**
      * @param name
      * @param data
      * @param url
@@ -3134,6 +3115,7 @@
             SgtApi.context.channelId = config.channelId;
         }
         SgtApi.UserService = SgtApi.UserService();
+        SgtApi.RouterService = SgtApi.RouterService();
     };
 
     /**
@@ -3170,7 +3152,6 @@
         SgtApi.ErrorReportService = SgtApi.ErrorReportService();
         SgtApi.InvitationCodeService = SgtApi.InvitationCodeService();
         SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
-        SgtApi.RouterService = SgtApi.RouterService();
         SgtApi.TimestampService = SgtApi.TimestampService();
         SgtApi.VersionDetailService = SgtApi.VersionDetailService();
         SgtApi.WxCentralService = SgtApi.WxCentralService();
@@ -3211,7 +3192,7 @@
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         SgtApi.context.user = data;
-                        SgtApi.UserService.getPlayServer(callback);
+                        SgtApi.UserService._getPlayServer(callback);
                     } else {
                         callback(false, data);
                     }
@@ -3230,9 +3211,9 @@
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         SgtApi.context.user = data;
-                        SgtApi.UserService.getPlayServer(callback);
+                        SgtApi.UserService._getPlayServer(callback);
                     } else {
-                        SgtApi.UserService.getPlayServer(callback);
+                        callback(false, data);
                     }
                 });
             },
@@ -3417,30 +3398,26 @@
                 }
             },
 
-            getPlayServer: function(callback) {
-                if (SgtApi.context.channelId === null) {
-                    return callback(false, 'channelId未设置！');
-                }
-                var backClient = new $JsonRpc({
-                    ajaxUrl: _appGateway + "/route"
-                });
-                backClient.call(
-                    'route', [_appId, {
-                        'userId': SgtApi.context.user.userid,
-                        'createTime': SgtApi.context.user.createTime,
-                        'channelId': SgtApi.context.channelId
-                    }],
-                    function(result) {
-                        // console.log('success ' + result.result);
-                        SgtApi.context.server = result.result;
+            /**
+             * 进行分服操作,并解锁其他服务
+             * @param  {Function} callback [description]
+             * @return {[type]}            [description]
+             */
+            _getPlayServer: function(callback) {
+                console.log('laila');
+                SgtApi.RouterService.route(_appId, {
+                    'userId': SgtApi.context.user.userid,
+                    'createTime': SgtApi.context.user.createTime,
+                    'channelId': SgtApi.context.channelId
+                }, function(result, data) {
+                    if (result) {
+                        SgtApi.context.server = data;
                         SgtApi._createServices();
-                        return callback(true, SgtApi.context.user);
-                    },
-                    function(error) {
-                        // console.log('There was an error.error[route]:', error.error);
-                        return callback(false, error.error.message);
+                        callback(true, SgtApi.context.user);
+                    } else {
+                        callback(false, data);
                     }
-                );
+                });
             }
         };
     };
@@ -3676,7 +3653,7 @@
              * 添加角色扩展信息
              * @param {PlayerExtra}   playerExtra 角色扩展对象
              * @param {Function} callback    回调函数
-             * @return null        	 
+             * @return null          
              */
             addPlayerExtra: function(playerExtra, callback) {
                 var name = 'addPlayer';
@@ -5272,31 +5249,31 @@
              * @return callback
              */
             receiveUnread: function(callback) {
-                var timestamp = 0;
-                var localS = null;
-                if (cc.sys) {
-                    localS = cc.sys.localStorage;
-                } else {
-                    localS = window.localStorage;
-                }
-                var otimestamp = localS.getItem("receiveUnread");
-                if (typeof(otimestamp) != "undefined" && otimestamp && otimestamp !== "") {
-                    timestamp = parseInt(otimestamp);
-                }
-                var backClient = new $JsonRpc({
-                    ajax_Url: this._url
-                });
-                backClient.call(
-                    'receiveUnread', [timestamp, this.playerData.id],
-                    function(result) {
-                        localS.setItem('receiveUnread', Math.round(new Date().getTime() / 1000));
-                        return callback(true, result.result);
-                    },
-                    function(error) {
-                        console.log('There was an error.error:', error.error);
-                        return callback(false, error.error.message);
-                    }
-                );
+                // var timestamp = 0;
+                // var localS = null;
+                // if (cc.sys) {
+                //     localS = cc.sys.localStorage;
+                // } else {
+                //     localS = window.localStorage;
+                // }
+                // var otimestamp = localS.getItem("receiveUnread");
+                // if (typeof(otimestamp) != "undefined" && otimestamp && otimestamp !== "") {
+                //     timestamp = parseInt(otimestamp);
+                // }
+                // var backClient = new $JsonRpc({
+                //     ajax_Url: this._url
+                // });
+                // backClient.call(
+                //     'receiveUnread', [timestamp, this.playerData.id],
+                //     function(result) {
+                //         localS.setItem('receiveUnread', Math.round(new Date().getTime() / 1000));
+                //         return callback(true, result.result);
+                //     },
+                //     function(error) {
+                //         console.log('There was an error.error:', error.error);
+                //         return callback(false, error.error.message);
+                //     }
+                // );
             },
             /**
              * 阅读邮件/批量阅读邮件
@@ -6569,7 +6546,7 @@
      * @type {{}|*}
      */
     SgtApi.RouterService = function() {
-        var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/router.do';
+        var _url = SgtApi.context.appGateway + "/route";
         return {
 
             /**
@@ -6613,7 +6590,7 @@
              * @param appId
              * @param map
              */
-            route: function(appId, map) {
+            route: function(appId, map, callback) {
                 var name = 'route';
                 var data = [appId, map];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6811,7 +6788,7 @@
             },
             /**
              * 获取jsapi 签名，签名用的noncestr和timestamp必须与wx.config中的nonceStr和timestamp相同。
-             * @param  {string}   appId     随即字符串
+             * @param  {string}   appId     SGT中的appid
              * @param  {string}   noncestr  随即字符串  
              * @param  {number}   timestamp 时间戳
              * @param  {string}   url       页面url，必须是调用JS接口页面的完整URL。
@@ -6820,7 +6797,7 @@
              */
             getSignature: function(appId, nonceStr, timestamp, url, callback) {
                 var name = 'getSignature';
-                var data = [appId, nonceStr, timestamp, url];
+                var data = [appId, nonceStr, parseInt(timestamp / 1000), url.split('#')[0]];
                 SgtApi.doRPC(name, data, _url, callback);
             }
 
