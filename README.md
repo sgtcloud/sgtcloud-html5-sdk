@@ -30,7 +30,7 @@ A html5 out-of-box sdk for damn cool mbaas.
 ```
 
 点击 **[申请应用标识](http://wj.qq.com/survey.html?type=survey&id=136756&hash=233f)**  
-首次使用需要初始化**应用标识**  :
+首次使用需要初始化**应用标识** :
 
 ```javascript
 SgtApi.init({
@@ -41,23 +41,27 @@ SgtApi.init({
 生成一个简单实体 :
 
 ```javascript
-var user = new SgtApi.entity.User();
+var user = new sgt.User();
 user.userName = 'xxx';
 user.password = 'xxx';
 ```
 
 再调用一个简单业务, 每个业务的最后一个参数都是一个回调函数 :
 
+
 ```javascript
-SgtApi.UserService.register(user, function(result, data) {
-    if(result) {  //表示注册成功
-		/* 返回用户注册信息 */
-        //data
-    }
+sgt.UserService.quickLogin(function(result, data) {
+	if (result) {
+		// .....
+		// 快速登录成功代码块
+	} else {
+		// .....
+		// 快速登录失败代码块
+	}
 });
 ```
 
-当登录/注册成功后, 可以操作该用户去执行其他业务
+当登录/注册成功后, 解锁其他服务，这时可以操作该用户去执行其他服务
 
 ### 文档
 
