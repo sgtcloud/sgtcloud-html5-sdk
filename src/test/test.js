@@ -37,6 +37,7 @@ describe('UserService', function() {
             SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {
                 if (result) {
                     user = data;
+                    console.log(SgtApi.context.server);
                     assert.ok(true, data);
                 } else {
                     assert.ok(false, data);

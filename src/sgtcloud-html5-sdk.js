@@ -3116,6 +3116,7 @@
         }
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
+        SgtApi.WxCentralService = SgtApi.WxCentralService();
     };
 
     /**
@@ -3154,7 +3155,6 @@
         SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
         SgtApi.TimestampService = SgtApi.TimestampService();
         SgtApi.VersionDetailService = SgtApi.VersionDetailService();
-        SgtApi.WxCentralService = SgtApi.WxCentralService();
     };
 
     /**
@@ -6802,6 +6802,18 @@
 
         };
     };
+
+    
+    SgtApi.SocketService = function() {
+    	var _url = SgtApi.context.server.xxx + SgtApi.context.appId;
+    	return {	
+    		getSocket : function(nameSpace) {
+				document.write('<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>');
+    			return io(_url + nameSpace);
+    		}
+    	};
+
+    }
     // browser
     if (typeof navigator !== 'undefined') {
         window.SgtApi = SgtApi;

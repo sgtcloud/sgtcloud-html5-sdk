@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>sdk微信使用教程</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+	<h1>sdk微信使用教程</h1>
+	<hr>
+	<pre>
+		var _appId = 'your_appId';	//用户标识，用于初始化
+		var _url = 'your_url'	//调用此js文件的完整url地址
+
+		//第一步，初始化sgt
+		sgt.init({
+			appId: _appId;
+		});
+
+		//第二步，调用微信中控服务
+		sgt.WxCentralService.getSignature(_appId, _url, function(result, data) {
+			if (result) {
+				//成功返回签名信息，执行微信服务
+				doWxApi(data);
+			}
+		});
+
+		//第三步，执行微信api服务
+		function doWxApi(data){
+			//微信配置
+			wx.config({
+				appId: "微信公众号appId"	//需要在后台进行绑定
+				timestamp: data.timestamp,
+				nonceStr: data.noncestr,
+				signature: data.signature
+			})
+
+			//微信其他api
+			wx.ready();
+		}
+	</pre>
+	</div>
+</body>
+</html>
