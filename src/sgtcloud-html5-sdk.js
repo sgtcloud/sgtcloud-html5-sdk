@@ -3116,6 +3116,7 @@
         }
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
+        SgtApi.WxCentralService = SgtApi.WxCentralService();
     };
 
     /**
@@ -3154,7 +3155,6 @@
         SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
         SgtApi.TimestampService = SgtApi.TimestampService();
         SgtApi.VersionDetailService = SgtApi.VersionDetailService();
-        SgtApi.WxCentralService = SgtApi.WxCentralService();
     };
 
     /**
