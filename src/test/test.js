@@ -20,18 +20,6 @@ SgtApi.init({
 //测试UserService
 describe('UserService', function() {
 
-    describe('quickLogin', function() {
-        it('should quick login', function(done) {
-            SgtApi.UserService.quickLogin(function(result, data) {
-                if (result) {
-                    console.log(data);
-                    assert.ok(true, data);
-                } else {
-                    assert.ok(false, data);
-                }
-            });
-        });
-    });
     describe('login', function() {
         it('should login', function(done) {
             SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {
@@ -2697,6 +2685,150 @@ describe('ErrorReportService', function() {
     });
 });
 
+//测试InvitationCodeService
+describe('InvitationCodeService', function() {
+    describe('getInvitationCode', function() {
+        it('should get invitation code', function(done) {
+            SgtApi.InvitationCodeService.getInvitationCode(function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+    describe('getInviteeReward', function() {
+        it('should get invitee reward', function(done) {
+            SgtApi.InvitationCodeService.getInviteeReward('', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+    describe('getInviterReward', function() {
+        it('should get inviter reward', function(done) {
+            SgtApi.InvitationCodeService.getInviterReward('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+    describe('redeemReward', function() {
+        it('should redeem reward', function(done) {
+            SgtApi.InvitationCodeService.redeemReward('', '', '', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+    describe('getInviteCount', function() {
+        it('should get invite count', function(done) {
+            SgtApi.InvitationCodeService.getInviteCount('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+    describe('redeemInviterReward', function() {
+        it('should redeem inviter reward', function(done) {
+            SgtApi.InvitationCodeService.redeemInviterReward('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+});
+
+//测试PaymentCallbackService
+describe('PaymentCallbackService', function() {
+    describe('doCallback', function() {
+        it('should do callback', function(done) {
+            SgtApi.PaymentCallbackService.doCallback('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+});
+
+//测试RouterService
+describe('RouterService', function() {
+    describe('getCurrentTimestamp', function() {
+        it('should get current timestamp', function(done) {
+            SgtApi.RouterService.getCurrentTimestamp(function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+    describe('getRegisterServer', function() {
+        it('should get register server', function(done) {
+            SgtApi.RouterService.getRegisterServer('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+    describe('getServerList', function() {
+        it('should get server list', function(done) {
+            SgtApi.RouterService.getServerList('', function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+    describe('route', function() {
+        it('should route', function(done) {
+            SgtApi.RouterService.route('', {}, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+            });
+            done();
+        });
+    });
+});
+
 //测试WxCentralService
 describe('WxCentralService', function() {
     describe('getAccessToken', function() {
@@ -2727,7 +2859,7 @@ describe('WxCentralService', function() {
     });
     describe('getSignature', function() {
         it('should get signature', function(done) {
-            SgtApi.WxCentralService.getSignature('html5_demo2015','http://sgtcloud.cn', function(result, data) {
+            SgtApi.WxCentralService.getSignature('html5_demo2015', 'http://sgtcloud.cn', function(result, data) {
                 if (result) {
                     console.log(data);
                     assert.ok(true, data);
