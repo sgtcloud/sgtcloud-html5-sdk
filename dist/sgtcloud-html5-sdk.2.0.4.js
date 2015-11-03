@@ -3247,51 +3247,70 @@ jsonRPC =new Object({
     };
 
     /**
-     * 创建Service 实例
-     * @return {[type]} [description]
-     */
-    SgtApi._createServices = function() {
-        SgtApi.PlayerService = SgtApi.PlayerService();
-        SgtApi.PlayerExtraService = SgtApi.PlayerExtraService();
-        SgtApi.AchievementService = SgtApi.AchievementService();
-        SgtApi.AnnouncementService = SgtApi.AnnouncementService();
-        SgtApi.CampaignService = SgtApi.CampaignService();
-        SgtApi.CheckinBoardService = SgtApi.CheckinBoardService();
-        SgtApi.DailyTaskService = SgtApi.DailyTaskService();
-        SgtApi.TaskService = SgtApi.TaskService();
-        SgtApi.FriendshipService = SgtApi.FriendshipService();
-        SgtApi.FriendshipExtraService = SgtApi.FriendshipExtraService();
-        SgtApi.BlacklistService = SgtApi.BlacklistService();
-        SgtApi.GachaBoxService = SgtApi.GachaBoxService();
-        SgtApi.LeaderBoardService = SgtApi.LeaderBoardService();
-        SgtApi.MailService = SgtApi.MailService();
-        SgtApi.NotificationService = SgtApi.NotificationService();
-        SgtApi.PurchaseService = SgtApi.PurchaseService();
-        SgtApi.StoreService = SgtApi.StoreService();
-        SgtApi.ChargePointService = SgtApi.ChargePointService();
-        SgtApi.BossService = SgtApi.BossService();
-        SgtApi.FileStorageService = SgtApi.FileStorageService();
-        SgtApi.GiftCodeService = SgtApi.GiftCodeService();
-        SgtApi.PrivateChannelService = SgtApi.PrivateChannelService();
-        SgtApi.PublicChannelService = SgtApi.PublicChannelService();
-        SgtApi.DelegateDidService = SgtApi.DelegateDidService();
-        SgtApi.StructuredDataService = SgtApi.StructuredDataService();
-        SgtApi.TicketService = SgtApi.TicketService();
-        SgtApi.ErrorReportService = SgtApi.ErrorReportService();
-        SgtApi.InvitationCodeService = SgtApi.InvitationCodeService();
-        SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
-        SgtApi.TimestampService = SgtApi.TimestampService();
-        SgtApi.VersionDetailService = SgtApi.VersionDetailService();
-    };
-
-    /**
      * 用户相关业务接口
      */
     SgtApi.UserService = function() {
         var _appGateway = SgtApi.context.appGateway;
         var _appId = SgtApi.context.appId;
         var _url = _appGateway + '/user';
-
+        var _doneInit = false;
+        /**
+         * 创建Service 实例
+         */
+        var _createServices = function() {
+            if (!_doneInit) {
+                SgtApi.PlayerService = SgtApi.PlayerService();
+                SgtApi.PlayerExtraService = SgtApi.PlayerExtraService();
+                SgtApi.AchievementService = SgtApi.AchievementService();
+                SgtApi.AnnouncementService = SgtApi.AnnouncementService();
+                SgtApi.CampaignService = SgtApi.CampaignService();
+                SgtApi.CheckinBoardService = SgtApi.CheckinBoardService();
+                SgtApi.DailyTaskService = SgtApi.DailyTaskService();
+                SgtApi.TaskService = SgtApi.TaskService();
+                SgtApi.FriendshipService = SgtApi.FriendshipService();
+                SgtApi.FriendshipExtraService = SgtApi.FriendshipExtraService();
+                SgtApi.BlacklistService = SgtApi.BlacklistService();
+                SgtApi.GachaBoxService = SgtApi.GachaBoxService();
+                SgtApi.LeaderBoardService = SgtApi.LeaderBoardService();
+                SgtApi.MailService = SgtApi.MailService();
+                SgtApi.NotificationService = SgtApi.NotificationService();
+                SgtApi.PurchaseService = SgtApi.PurchaseService();
+                SgtApi.StoreService = SgtApi.StoreService();
+                SgtApi.ChargePointService = SgtApi.ChargePointService();
+                SgtApi.BossService = SgtApi.BossService();
+                SgtApi.FileStorageService = SgtApi.FileStorageService();
+                SgtApi.GiftCodeService = SgtApi.GiftCodeService();
+                SgtApi.PrivateChannelService = SgtApi.PrivateChannelService();
+                SgtApi.PublicChannelService = SgtApi.PublicChannelService();
+                SgtApi.DelegateDidService = SgtApi.DelegateDidService();
+                SgtApi.StructuredDataService = SgtApi.StructuredDataService();
+                SgtApi.TicketService = SgtApi.TicketService();
+                SgtApi.ErrorReportService = SgtApi.ErrorReportService();
+                SgtApi.InvitationCodeService = SgtApi.InvitationCodeService();
+                SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
+                SgtApi.TimestampService = SgtApi.TimestampService();
+                SgtApi.VersionDetailService = SgtApi.VersionDetailService();
+                _doneInit = true;
+            }
+        };
+        /**
+         * 获取服务器信息并解锁其他服务
+         */
+        var _getPlayServer = function(callback) {
+            SgtApi.RouterService.route(_appId, {
+                'userId': SgtApi.context.user.userid,
+                'createTime': SgtApi.context.user.createTime,
+                'channelId': SgtApi.context.channelId
+            }, function(result, data) {
+                if (result) {
+                    SgtApi.context.server = data;
+                    _createServices();
+                    callback(true, SgtApi.context.user);
+                } else {
+                    callback(false, data);
+                }
+            });
+        };
         return {
             /**
              * 验证手机号和验证码是否匹配
@@ -3319,7 +3338,7 @@ jsonRPC =new Object({
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         SgtApi.context.user = data;
-                        SgtApi.UserService._getPlayServer(callback);
+                        _getPlayServer(callback);
                     } else {
                         callback(false, data);
                     }
@@ -3338,7 +3357,7 @@ jsonRPC =new Object({
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         SgtApi.context.user = data;
-                        SgtApi.UserService._getPlayServer(callback);
+                        _getPlayServer(callback);
                     } else {
                         callback(false, data);
                     }
@@ -3392,9 +3411,10 @@ jsonRPC =new Object({
             updatePasswordByUserName: function(userName, password, callback) {
                 var name = 'updatePasswordByUserName';
                 var data = [userName, password];
+                var that = this;
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        SgtApi.UserService._saveLocalStorage(userName, password);
+                        that.saveLocalStorage(userName, password);
                         callback(true, data);
                     } else {
                         callback(false, data);
@@ -3411,9 +3431,10 @@ jsonRPC =new Object({
             updateUser: function(user, callback) {
                 var name = 'updateUser';
                 var data = [user];
+                var that = this;
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (resilt) {
-                        SgtApi.UserService._saveLocalStorage(user.userName, user.password);
+                        that.saveLocalStorage(user.userName, user.password);
                         callback(true, data);
                     } else {
                         callback(false, data);
@@ -3433,9 +3454,10 @@ jsonRPC =new Object({
             updateUserByUserId: function(userId, userName, password, email, callback) {
                 var name = 'updateUserByUserId';
                 var data = [userId, userName, password, email];
+                var that = this;
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        SgtApi.UserService._saveLocalStorage(userName, password);
+                        that.saveLocalStorage(userName, password);
                         callback(true, data);
                     } else {
                         callback(false, data);
@@ -3454,19 +3476,15 @@ jsonRPC =new Object({
             updateUserNameAndPassword: function(userId, userName, password, callback) {
                 var name = 'updateUserNameAndPassword';
                 var data = [userId, userName, password];
+                var that = this;
                 SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
-                        SgtApi.UserService._saveLocalStorage(userName, password);
+                        that.saveLocalStorage(userName, password);
                         callback(true, data);
                     } else {
                         callback(false, data);
                     }
                 });
-            },
-
-            _saveLocalStorage: function(userName, password) {
-                localStorage.setItem('sgt-" + _appId + "-username', userName);
-                localStorage.setItem('sgt-" + _appId + "-password', password);
             },
 
             /**
@@ -3488,18 +3506,17 @@ jsonRPC =new Object({
              * @return {User}            登录后的User对象
              */
             quickLogin: function(callback) {
-
                 var username = localStorage.getItem("sgt-" + _appId + "-username");
                 var password = localStorage.getItem("sgt-" + _appId + "-password");
                 if (username && password) {
-                    SgtApi.UserService.login(username, password, callback);
+                    this.login(username, password, callback);
                 } else {
                     var num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
                     var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
                     ];
-                    var name = "";
+                    var name = '';
                     for (var i = 0; i < 8; i++) {
                         var id = 0;
                         if (i > 5) {
@@ -3510,13 +3527,13 @@ jsonRPC =new Object({
                             name += chars[id];
                         }
                     }
-                    var newuser = new SgtApi.User();
-                    newuser.userName = name;
-                    newuser.password = 'yoedge2014';
-                    SgtApi.UserService.regist(newuser, function(result, data) {
+                    var user = new SgtApi.User();
+                    user.userName = name;
+                    user.password = 'yoedge2014';
+                    this.regist(user, function(result, data) {
                         if (result) {
-                            localStorage.setItem("sgt-" + _appId + "-username", newuser.userName);
-                            localStorage.setItem("sgt-" + _appId + "-password", newuser.password);
+                            localStorage.setItem('sgt-' + _appId + '-username', user.userName);
+                            localStorage.setItem('sgt-' + _appId + '-password', user.password);
                             callback(true, data);
                         } else {
                             callback(false, data);
@@ -3524,27 +3541,23 @@ jsonRPC =new Object({
                     });
                 }
             },
+            /**
+             * 存储或修改当前应用标识的用户名和密码到localStorage中,便于快速登录
+             * @param  {string} userName 用户名
+             * @param  {string} password 密码
+             */
+            saveLocalStorage: function(userName, password) {
+                localStorage.setItem('sgt-' + _appId + '-username', userName);
+                localStorage.setItem('sgt-' + _appId + '-password', password);
+            },
 
             /**
-             * 进行分服操作,并解锁其他服务
-             * @param  {Function} callback [description]
-             * @return {[type]}            [description]
+             * 删除localStorage中的当前应用标识的用户名和密码
+             * @return {[type]} [description]
              */
-            _getPlayServer: function(callback) {
-                console.log('laila');
-                SgtApi.RouterService.route(_appId, {
-                    'userId': SgtApi.context.user.userid,
-                    'createTime': SgtApi.context.user.createTime,
-                    'channelId': SgtApi.context.channelId
-                }, function(result, data) {
-                    if (result) {
-                        SgtApi.context.server = data;
-                        SgtApi._createServices();
-                        callback(true, SgtApi.context.user);
-                    } else {
-                        callback(false, data);
-                    }
-                });
+            removeLocalStorage: function() {
+                localStorage.removeItem('sgt-' + _appId + '-username');
+                localStorage.removeItem('sgt-' + _appId + '-password');
             }
         };
     };
@@ -5703,9 +5716,8 @@ jsonRPC =new Object({
         return {
             /**
              * 获取所有计费点
-             * @method getAllChargePoints
-             * @param callback
-             * @return callback
+             * @param  {Function} callback 回调函数
+             * @return {ChargePoint[]}            
              */
             getAllChargePoints: function(callback) {
                 var name = 'getAllChargePoints';
@@ -5713,10 +5725,9 @@ jsonRPC =new Object({
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
-             * 获取当前可用的计费点   
-             * @method getAvailableChargePoints
-             * @param callback
-             * @return callback
+             * 获取当前可用的计费点
+             * @param  {Function} callback 回调函数
+             * @return {ChargePoint[]}            
              */
             getAvailableChargePoints: function(callback) {
                 var name = 'getAvailableChargePoints';
@@ -5811,20 +5822,18 @@ jsonRPC =new Object({
     };
 
     /**
-     * 文件分发存储业务
+     * 文件分发存储业务 此业务不提供创建/上传文件接口， 如有需要请在客户端中访问客户端sdk提供的接口
      * @module  FileStorage
      * @type {{}|*}
      */
     SgtApi.FileStorageService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/filestorage.do';
         return {
-
             /**
-             * 判断是否在黑名单之中
-             * @method get_Url
-             * @param fileName{string} 文件路径/key值
-             * @param callback
-             * @return callback
+             * 获取指定文件路径可访问的url
+             * @param  {string}   fileName 文件路径/key值
+             * @param  {Function} callback 回调函数
+             * @return {string}            
              */
             getUrl: function(fileName, callback) {
                 var name = 'getUrl';
@@ -5833,10 +5842,9 @@ jsonRPC =new Object({
             },
             /**
              * 删除文件
-             * @method delete
-             * @param fileName{string} 文件路径/key值
-             * @param callback
-             * @return callback
+             * @param  {string}   fileName 文件路径/key值
+             * @param  {Function} callback 回调函数
+             * @return {boolean}            删除成功true,否则返回false
              */
             delete: function(fileName, callback) {
                 var name = 'delete';
@@ -5856,10 +5864,9 @@ jsonRPC =new Object({
         return {
             /**
              * 通过兑换码获取礼包详情
-             * @method getGiftByCode
-             * @param code{string} 兑换码
-             * @param callback
-             * @return callback
+             * @param  {string}   code     兑换码
+             * @param  {Function} callback 回调函数
+             * @return {Gift}            礼包详情
              */
             getGiftByCode: function(code, callback) {
                 var name = 'getGiftByCode';
@@ -5869,9 +5876,8 @@ jsonRPC =new Object({
 
             /**
              * 获取有效的礼包
-             * @method getGifts
-             * @param callback
-             * @return callback
+             * @param  {Function} callback 回调函数
+             * @return {Gift[]}            有效的礼包集合
              */
             getGifts: function(callback) {
                 var name = 'getGifts';
@@ -5880,13 +5886,13 @@ jsonRPC =new Object({
             },
 
             /**
-             *获取兑换记录， playerId和giftId至少有一个不为空。 playerId为null则返回该礼包的所有记录 giftId为null则返回该角色所有兑换记录
-             * @method getRecord
-             * @param giftId{string} 礼包ID
-             * @param start{int} 起始页码
-             * @param limit{int} 每页显示条目数
-             * @param callback
-             * @return callback
+             * 获取兑换记录， playerId和giftId至少有一个不为空。 playerId为null则返回该礼包的所有记录 giftId为null则返回该角色所有兑换记录
+             * @param  {string}   playerId 角色ID
+             * @param  {string}   giftId   礼包ID
+             * @param  {number}   start    起始页码
+             * @param  {number}   limit    每页显示条目数
+             * @param  {Function} callback 回调函数
+             * @return {GiftRecord[]}            GiftRecord 集合
              */
             getRecord: function(playerId, giftId, start, limit, callback) {
                 var name = 'getRecord';
@@ -5896,11 +5902,11 @@ jsonRPC =new Object({
 
             /**
              * 兑换并返回奖品
-             * @method redeem
-             * @param giftId{string} 礼包ID
-             * @param code{string} 兑换码
-             * @param callback
-             * @return callback
+             * @param  {string}   playerId 角色ID
+             * @param  {string}   giftId   礼包ID
+             * @param  {string}   code     兑换码
+             * @param  {Function} callback 回调函数
+             * @return {string}            奖品
              */
             redeem: function(playerId, giftId, code, callback) {
                 var name = 'redeem';
@@ -5910,10 +5916,10 @@ jsonRPC =new Object({
 
             /**
              * 兑奖并使用邮件直接发送奖励给角色
-             * @method redeemOverMail
-             * @param code{string} 兑换码
-             * @param callback
-             * @return callback
+             * @param  {string}   playerId 角色ID
+             * @param  {string}   code     兑奖码
+             * @param  {Function} callback 回调函数
+             * @return {Gift}            成功返回gift，失败返回null
              */
             redeemGiftByCodeOverMail: function(playerId, code, callback) {
                 var name = 'redeemGiftByCodeOverMail';
@@ -5923,18 +5929,17 @@ jsonRPC =new Object({
 
             /**
              * 兑换奖励，奖励通过邮件发送
-             * @method redeemOverMail
-             * @param giftId{string} 礼包ID
-             * @param code{string} 兑换码
-             * @param callback
-             * @return callback
+             * @param  {string}   playerId 角色ID
+             * @param  {string}   giftId   礼包ID
+             * @param  {string}   code     兑换码
+             * @param  {Function} callback 回调函数
+             * @return {null}            
              */
             redeemOverMail: function(playerId, giftId, code, callback) {
                 var name = 'redeemOverMail';
                 var data = [playerId, giftId, code];
                 SgtApi.doRPC(name, data, _url, callback);
             }
-
         };
     };
     /**
@@ -6930,17 +6935,16 @@ jsonRPC =new Object({
         };
     };
 
-    
-    SgtApi.SocketService = function() {
-    	var _url = SgtApi.context.server.xxx + SgtApi.context.appId;
-    	return {	
-    		getSocket : function(nameSpace) {
-				document.write('<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>');
-    			return io(_url + nameSpace);
-    		}
-    	};
 
-    }
+    SgtApi.SocketService = function() {
+        var _url = SgtApi.context.server.xxx + SgtApi.context.appId;
+        return {
+            getSocket: function(nameSpace) {
+                document.write('<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>');
+                return io(_url + nameSpace);
+            }
+        };
+    };
     // browser
     if (typeof navigator !== 'undefined') {
         window.SgtApi = SgtApi;
