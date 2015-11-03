@@ -3126,47 +3126,50 @@
         var _appGateway = SgtApi.context.appGateway;
         var _appId = SgtApi.context.appId;
         var _url = _appGateway + '/user';
+        var _doneInit = false;
         /**
          * 创建Service 实例
          */
         var _createServices = function() {
-            SgtApi.PlayerService = SgtApi.PlayerService();
-            SgtApi.PlayerExtraService = SgtApi.PlayerExtraService();
-            SgtApi.AchievementService = SgtApi.AchievementService();
-            SgtApi.AnnouncementService = SgtApi.AnnouncementService();
-            SgtApi.CampaignService = SgtApi.CampaignService();
-            SgtApi.CheckinBoardService = SgtApi.CheckinBoardService();
-            SgtApi.DailyTaskService = SgtApi.DailyTaskService();
-            SgtApi.TaskService = SgtApi.TaskService();
-            SgtApi.FriendshipService = SgtApi.FriendshipService();
-            SgtApi.FriendshipExtraService = SgtApi.FriendshipExtraService();
-            SgtApi.BlacklistService = SgtApi.BlacklistService();
-            SgtApi.GachaBoxService = SgtApi.GachaBoxService();
-            SgtApi.LeaderBoardService = SgtApi.LeaderBoardService();
-            SgtApi.MailService = SgtApi.MailService();
-            SgtApi.NotificationService = SgtApi.NotificationService();
-            SgtApi.PurchaseService = SgtApi.PurchaseService();
-            SgtApi.StoreService = SgtApi.StoreService();
-            SgtApi.ChargePointService = SgtApi.ChargePointService();
-            SgtApi.BossService = SgtApi.BossService();
-            SgtApi.FileStorageService = SgtApi.FileStorageService();
-            SgtApi.GiftCodeService = SgtApi.GiftCodeService();
-            SgtApi.PrivateChannelService = SgtApi.PrivateChannelService();
-            SgtApi.PublicChannelService = SgtApi.PublicChannelService();
-            SgtApi.DelegateDidService = SgtApi.DelegateDidService();
-            SgtApi.StructuredDataService = SgtApi.StructuredDataService();
-            SgtApi.TicketService = SgtApi.TicketService();
-            SgtApi.ErrorReportService = SgtApi.ErrorReportService();
-            SgtApi.InvitationCodeService = SgtApi.InvitationCodeService();
-            SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
-            SgtApi.TimestampService = SgtApi.TimestampService();
-            SgtApi.VersionDetailService = SgtApi.VersionDetailService();
+            if (!_doneInit) {
+                SgtApi.PlayerService = SgtApi.PlayerService();
+                SgtApi.PlayerExtraService = SgtApi.PlayerExtraService();
+                SgtApi.AchievementService = SgtApi.AchievementService();
+                SgtApi.AnnouncementService = SgtApi.AnnouncementService();
+                SgtApi.CampaignService = SgtApi.CampaignService();
+                SgtApi.CheckinBoardService = SgtApi.CheckinBoardService();
+                SgtApi.DailyTaskService = SgtApi.DailyTaskService();
+                SgtApi.TaskService = SgtApi.TaskService();
+                SgtApi.FriendshipService = SgtApi.FriendshipService();
+                SgtApi.FriendshipExtraService = SgtApi.FriendshipExtraService();
+                SgtApi.BlacklistService = SgtApi.BlacklistService();
+                SgtApi.GachaBoxService = SgtApi.GachaBoxService();
+                SgtApi.LeaderBoardService = SgtApi.LeaderBoardService();
+                SgtApi.MailService = SgtApi.MailService();
+                SgtApi.NotificationService = SgtApi.NotificationService();
+                SgtApi.PurchaseService = SgtApi.PurchaseService();
+                SgtApi.StoreService = SgtApi.StoreService();
+                SgtApi.ChargePointService = SgtApi.ChargePointService();
+                SgtApi.BossService = SgtApi.BossService();
+                SgtApi.FileStorageService = SgtApi.FileStorageService();
+                SgtApi.GiftCodeService = SgtApi.GiftCodeService();
+                SgtApi.PrivateChannelService = SgtApi.PrivateChannelService();
+                SgtApi.PublicChannelService = SgtApi.PublicChannelService();
+                SgtApi.DelegateDidService = SgtApi.DelegateDidService();
+                SgtApi.StructuredDataService = SgtApi.StructuredDataService();
+                SgtApi.TicketService = SgtApi.TicketService();
+                SgtApi.ErrorReportService = SgtApi.ErrorReportService();
+                SgtApi.InvitationCodeService = SgtApi.InvitationCodeService();
+                SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
+                SgtApi.TimestampService = SgtApi.TimestampService();
+                SgtApi.VersionDetailService = SgtApi.VersionDetailService();
+                _doneInit = true;
+            }
         };
         /**
          * 获取服务器信息并解锁其他服务
          */
         var _getPlayServer = function(callback) {
-            console.log('laila');
             SgtApi.RouterService.route(_appId, {
                 'userId': SgtApi.context.user.userid,
                 'createTime': SgtApi.context.user.createTime,
