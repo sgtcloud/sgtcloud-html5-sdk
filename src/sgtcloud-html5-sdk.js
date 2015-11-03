@@ -3055,15 +3055,32 @@
         });
     };
 
+    //错误信息
     SgtApi.errorMessage = function(data) {
+
         if (data.error.data) {
-            var _exception = data.error.data.exceptionTypeName.substring(data.error.data.exceptionTypeName.lastIndexOf('.'));
+            //开发者自定义
+            var defException = SgtApi.customException();
+            for (var i in defException) {
+                if (i === data.error.data.exceptionTypeName) {
+                    return defException[i];
+                }
+            }
+            //服务器默认
             var _message = data.error.data.message;
-            return _exception + ': ' + _message;
+            return _message;
         }
         return data.error.message || '发生了错误,但服务器未返回错误信息';
     };
 
+    //自定义异常
+    SgtApi.customException = function(exceptionConfig) {
+        var custome = {};
+        for (var i in exceptionConfig) {
+            custome.i = exceptionConfig[i];
+        }
+        return custome;
+    };
 
     /**
      * Sgt  上下文
