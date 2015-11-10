@@ -161,6 +161,16 @@ StructuredDate - StructuredDateService
 * 反馈  
 Ticket - TicketService
 
+* 微信中控
+WxCentralService
+
+* 用户留资
+UserLeaveInfo - UserLeaveInfoService
+
+* 随机角色名
+RandomNameGroupService
+
+
 ### 贡献
 
 如果你有好的意见或建议，欢迎给我们提 issue 或 pull request，为提升 sgtcloud-html5-sdk 贡献力量
