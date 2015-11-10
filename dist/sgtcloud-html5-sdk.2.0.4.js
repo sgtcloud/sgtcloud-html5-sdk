@@ -3155,6 +3155,40 @@ jsonRPC =new Object({
          */
         this.versionName = null;
     };
+    SgtApi.UserLeaveInfo = function() {
+        /**
+         * 主键id
+         */
+        this.id = null;
+        /**
+         * 用户名
+         */
+        this.userName = null;
+        /**
+         * 联系电话
+         */
+        this.phone = null;
+        /**
+         * 联系地址
+         */
+        this.address = null;
+        /**
+         * 备注
+         */
+        this.content = null;
+        /**
+         * 创建时间
+         */
+        this.createTime = null;
+        /**
+         * 更新时间
+         */
+        this.updateTime = null;
+        /**
+         * 所属appid
+         */
+        this.appId = null;
+    };
 
     /**
      * @param name
@@ -3261,6 +3295,7 @@ jsonRPC =new Object({
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
         SgtApi.WxCentralService = SgtApi.WxCentralService();
+        SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
     };
 
     /**
@@ -3307,6 +3342,7 @@ jsonRPC =new Object({
                 SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
                 SgtApi.TimestampService = SgtApi.TimestampService();
                 SgtApi.VersionDetailService = SgtApi.VersionDetailService();
+                SgtApi.RandomNameGroupService = SgtApi.RandomNameGroupService();
                 _doneInit = true;
             }
         };
@@ -3321,6 +3357,7 @@ jsonRPC =new Object({
             }, function(result, data) {
                 if (result) {
                     SgtApi.context.server = data;
+                    console.log(data);
                     _createServices();
                     callback(true, SgtApi.context.user);
                 } else {
@@ -3393,17 +3430,7 @@ jsonRPC =new Object({
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
-            /**
-             * 保存用户留资方法
-             * @param  {UserLeaveInfo}   userLeaveInfo 用户留资对象
-             * @param  {Function} callback      回调函数
-             * @return {UserLeaveInfo}                 用户留资对象
-             */
-            saveLeaveInfo: function(userLeaveInfo, callback) {
-                var name = 'saveLeaveInfo';
-                var data = [userLeaveInfo];
-                SgtApi.doRPC(name, data, _url, callback);
-            },
+
 
             /**
              * 发送手机验证码短信
@@ -6937,21 +6964,69 @@ jsonRPC =new Object({
             },
             /**
              * 获取jsapi 签名，签名用的noncestr和timestamp必须与wx.config中的nonceStr和timestamp相同。
-             * @param  {string}   appId     SGT中的appid
-             * @param  {string}   url       页面url，必须是调用JS接口页面的完整URL。
              * @param  {Function} callback  回调函数
-             * @return {WxResult }          包含签名以及计算参数的WxResult:{ result: 处理正常result有值{"signature":"签名","timestamp":"计算时用到的时间戳，单位秒","noncestr":"计算签名的随机字符串"}
-             *                            ,error:"计算失败时返回的错误信息"
+             * @return {WxResult }  WxResult:{ result: 处理正常result有值{"signature":"签名","timestamp":"计算时用到的时间戳，单位秒","noncestr":"计算签名的随机字符串","wxAppId":"微信appid","appSecret":"微信的凭证密钥"}
+        ,error:"计算失败时返回的错误信息"
              */
-            getSignature: function(appId, url, callback) {
+            getSignature: function(callback) {
                 var name = 'getSignature';
-                var data = [appId, url.split('#')[0]];
+                var data = [SgtApi.context.appId, window.location.href.split('#')[0]];
                 SgtApi.doRPC(name, data, _url, callback);
             }
 
         };
     };
 
+    /**
+     * 留资模块:提供用户留存资料接口
+     */
+    SgtApi.UserLeaveInfoService = function() {
+        var _url = SgtApi.context.appGateway + '/userleaveinfo';
+        return {
+            /**
+             * 保存用户留资方法
+             * @param  {UserLeaveInfo}   userLeaveInfo 用户留资对象
+             * @param  {Function} callback      回调函数
+             * @return {UserLeaveInfo}                 用户留资对象
+             */
+            saveLeaveInfo: function(userLeaveInfo, callback) {
+                var name = 'saveLeaveInfo';
+                var data = [userLeaveInfo];
+                SgtApi.doRPC(name, data, _url, callback);
+            }
+        };
+    };
+
+    /**
+     * 随机角色名生成模块
+     * 提供了生成随机角色名接口，可以使用默认的姓和名文本库生成角色名，还可以通过开发者管理后台自定义上传姓和名文本库生成角色名。
+     */
+    SgtApi.RandomNameGroupService = function() {
+        var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/randomnamegroup.do';
+        return {
+            /**
+             * 从默认的文本内容 生成随机名字
+             * @param {Function} 回调函数
+             * @return {string} 角色名
+             */
+            defaultRandomName: function(callback) {
+                var name = 'defaultRandomName';
+                var data = [];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+            /**
+             * 根据groupName 指定的库文本内容  生成随机名字
+             * @param {string} groupName 库名（需通过开发者管理后台--数据管理--随机名称页面新增一条自定义文本库信息）
+             * @param {Function} callback 回调函数
+             * @return {string} 角色名
+             */
+            randomNameByGroupName: function(groupName, callback) {
+                var name = 'randomNameByGroupName';
+                var data = [groupName];
+                SgtApi.doRPC(name, data, _url, callback);
+            }
+        };
+    };
 
     SgtApi.SocketService = function() {
         var _url = SgtApi.context.server.xxx + SgtApi.context.appId;

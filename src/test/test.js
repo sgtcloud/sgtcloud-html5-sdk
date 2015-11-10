@@ -19,7 +19,6 @@ SgtApi.init({
 
 //测试UserService
 describe('UserService', function() {
-
     describe('login', function() {
         it('should login', function(done) {
             SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {
@@ -32,10 +31,8 @@ describe('UserService', function() {
                 }
                 done();
             });
-
         });
     });
-
 });
 
 // 测试PlayerService
@@ -2862,6 +2859,51 @@ describe('WxCentralService', function() {
             SgtApi.WxCentralService.getSignature('html5_demo2015', 'http://sgtcloud.cn', function(result, data) {
                 if (result) {
                     console.log(data);
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+                done();
+            });
+        });
+    });
+});
+
+//测试UserLeaveInfo
+describe('UserLeaveInfoService', function() {
+    describe('saveLeaveInfo', function() {
+        it('should save leave info', function(done) {
+            var userLeaveInfo = new SgtApi.UserLeaveInfo();
+            SgtApi.UserLeaveInfoService.saveLeaveInfo(userLeaveInfo, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+                done();
+            });
+        });
+    });
+});
+
+//测试RandomNameGroupService
+describe('RandomNameGroupService', function() {
+    describe('defaultRandomName', function() {
+        it('should default random name', function(done) {
+            SgtApi.RandomNameGroupService.defaultRandomName(function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                } else {
+                    assert.ok(false, data);
+                }
+                done();
+            });
+        });
+    });
+    describe('randomNameByGroupName', function() {
+        it('should ramdom name by group name', function(done) {
+            SgtApi.RandomNameGroupService.randomNameByGroupName('psy', function(result, data) {
+                if (result) {
                     assert.ok(true, data);
                 } else {
                     assert.ok(false, data);
