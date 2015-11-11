@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>sdk微信使用教程</title>
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/default.min.css">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+    <title>sgtcloud-html5-sdk 微信中控服务 使用教程</title>
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+    <link rel="stylesheet" href="./lib/default.min.css">
+    <script src="./lib/highlight.min.js"></script>
     <script type="text/javascript">
     hljs.initHighlightingOnLoad();
     </script>
@@ -15,7 +15,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>sdk微信使用教程</h1>
+            <h1>sgtcloud-html5-sdk 微信中控服务 使用教程</h1>
             <hr>
         </header>
         <section class="step-one">
@@ -30,10 +30,10 @@
         </section>
         <section class="step-two">
             <h4>第二步</h4>
-            <p>初始化sdk</p>
+            <p>初始化sgtcloud-html5-sdk</p>
             <pre>
         		<code>
-var appId = 'html5_demo2015';
+var appId = 'html5_demo2015'; //此appId仅供测试,请到<a target="_blank" href="http://console.sgtcloud.cn/">sgtcloud开发者平台</a>申请试用
 
 sgt.init({
     appId: appId
@@ -47,8 +47,12 @@ sgt.init({
             <pre>
         	<code>
 /**
-WxResult:{ result: 处理正常result有值{"signature":"签名","timestamp":"计算时用到的时间戳，单位秒","noncestr":"计算签名的随机字符串","wxAppId":"微信appid","appSecret":"微信的凭证密钥"},error:"计算失败时返回的错误信息"
- */
+ * 回调返回数据data:
+ * { 
+ * result: {"signature":"签名","timestamp":"计算时用到的时间戳，单位秒","noncestr":"计算签名的随机字符串","wxAppId":"微信appid","appSecret":"微信的凭证密钥"},
+ * error:"计算失败时返回的错误信息"
+ * }
+ * /
 sgt.WxCentralService.getSignature(function(result, data) {
     if (result) {
     	doWxApi(data);
@@ -61,17 +65,17 @@ sgt.WxCentralService.getSignature(function(result, data) {
         </section>
         <section class="step-four">
             <h4>第四步</h4>
-            <p>定制微信Api</p>
+            <p>调用微信Api</p>
             <pre>
         	<code>
 function doWxApi(data) {
     wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: data.result.wxAppId, // 必填，公众号的唯一标识
+        appId: data.result.wxAppId, // 必填，公众号的唯一标识,首次使用需要<a href="http://console.sgtcloud.cn/" target="_blank">在sgtcloud开发者平台</a>进行绑定
         timestamp: data.result.timestamp, // 必填，生成签名的时间戳
         nonceStr: data.result.noncestr, // 必填，生成签名的随机串
         signature: data.result.signature, // 必填，签名，见附录1
-        jsApiList: ['onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        jsApiList: ['onMenuShareAppMessage'] // 必填，需要使用的JS接口列表
     });
 
     wx.ready(function() {
