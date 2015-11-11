@@ -1,44 +1,115 @@
 <!doctype html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<title>sdk微信使用教程</title>
-	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <title>sgtcloud-html5-sdk 微信中控服务 使用教程</title>
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+    <link rel="stylesheet" href="./lib/default.min.css">
+    <script src="./lib/highlight.min.js"></script>
+    <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+    </script>
 </head>
+
 <body>
-	<div class="container">
-	<h1>sdk微信使用教程</h1>
-	<hr>
-	<pre>
-		var _appId = 'your_appId';	//用户标识，用于初始化
+    <div class="container">
+        <header>
+            <h1>sgtcloud-html5-sdk 微信中控服务 使用教程</h1>
+            <hr>
+        </header>
+        <section class="step-one">
+            <h4>第一步</h4>
+            <p>引入相关js库到页面中</p>
+            <pre>
+        		<code>
+&lt;script type="text/javascript" src="sgtcloud-html5-sdk.2.0.4.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"&gt;&lt;/script&gt;
+				</code>
+        	</pre>
+        </section>
+        <section class="step-two">
+            <h4>第二步</h4>
+            <p>初始化sgtcloud-html5-sdk</p>
+            <pre>
+        		<code>
+var appId = 'html5_demo2015'; //此appId仅供测试,请到<a target="_blank" href="http://console.sgtcloud.cn/">sgtcloud开发者平台</a>申请试用
 
-		//第一步，初始化sgt
-		sgt.init({
-			appId: _appId;
-		});
+sgt.init({
+    appId: appId
+});
+        		</code>
+   	     	</pre>
+        </section>
+        <section class="step-three">
+            <h4>第三步</h4>
+            <p>使用微信中控服务</p>
+            <pre>
+        	<code>
+/**
+ * 回调返回数据data:
+ * { 
+ * result: {"signature":"签名","timestamp":"计算时用到的时间戳，单位秒","noncestr":"计算签名的随机字符串","wxAppId":"微信appid","appSecret":"微信的凭证密钥"},
+ * error:"计算失败时返回的错误信息"
+ * }
+ * /
+sgt.WxCentralService.getSignature(function(result, data) {
+    if (result) {
+    	doWxApi(data);
+    } else {
+        console.log('getSignature has faild');
+    }
+});
+        	</code>
+        	</pre>
+        </section>
+        <section class="step-four">
+            <h4>第四步</h4>
+            <p>调用微信Api</p>
+            <pre>
+        	<code>
+function doWxApi(data) {
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: data.result.wxAppId, // 必填，公众号的唯一标识,首次使用需要<a href="http://console.sgtcloud.cn/" target="_blank">在sgtcloud开发者平台</a>进行绑定
+        timestamp: data.result.timestamp, // 必填，生成签名的时间戳
+        nonceStr: data.result.noncestr, // 必填，生成签名的随机串
+        signature: data.result.signature, // 必填，签名，见附录1
+        jsApiList: ['onMenuShareAppMessage'] // 必填，需要使用的JS接口列表
+    });
 
-		//第二步，调用微信中控服务
-		sgt.WxCentralService.getSignature(function(result, data) {
-			if (result) {
-				//成功返回签名信息，执行微信服务
-				doWxApi(data);
-			}
-		});
+    wx.ready(function() {
+        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        wx.onMenuShareAppMessage({
+            title: 'sgtcloud-html5-sdk', // 分享标题
+            desc: 'A html5 out-of-box sdk for damn cool mbaas.', // 分享描述
+            link: 'https://github.com/sgtcloud/sgtcloud-html5-sdk', // 分享链接
+            imgUrl: 'http://sgtcloud.cn/resource/cloud-icon.png', // 分享图标
+            success: function() {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function() {
+                // 用户取消分享后执行的回调函数
+            }
+        });
 
-		//第三步，执行微信api服务
-		function doWxApi(data){
-			//微信配置
-			wx.config({
-				appId: "微信公众号appId"	//需要在后台进行绑定
-				timestamp: data.timestamp,
-				nonceStr: data.noncestr,
-				signature: data.signature
-			})
+        wx.checkJsApi({
+            jsApiList: ['onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+            success: function(res) {
+                // 以键值对的形式返回，可用的api值true，不可用为false
+                // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+            }
+        });
 
-			//微信其他api
-			wx.ready();
-		}
+        wx.error(function(res) {
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        });
+    });
+}
+			</code>
 	</pre>
-	</div>
+        </section>
+    </div>
 </body>
+
 </html>
