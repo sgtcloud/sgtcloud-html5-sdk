@@ -2832,7 +2832,6 @@ describe('WxCentralService', function() {
         it('should get access token', function(done) {
             SgtApi.WxCentralService.getAccessToken('html5_demo2015', function(result, data) {
                 if (result) {
-                    console.log(data);
                     assert.ok(true, data);
                 } else {
                     assert.ok(false, data);
@@ -2845,7 +2844,6 @@ describe('WxCentralService', function() {
         it('should get js ticket', function(done) {
             SgtApi.WxCentralService.getJSTicket('html5_demo2015', function(result, data) {
                 if (result) {
-                    console.log(data);
                     assert.ok(true, data);
                 } else {
                     assert.ok(false, data);
@@ -2855,11 +2853,17 @@ describe('WxCentralService', function() {
         });
     });
     describe('getSignature', function() {
-        it('should get signature', function(done) {
-            SgtApi.WxCentralService.getSignature('html5_demo2015', 'http://sgtcloud.cn', function(result, data) {
+        it('should get signature');
+    });
+    describe('getPayOrder', function() {
+        it('should get pay order', function(done) {
+            var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
+
+
+            SgtApi.WxCentralService.getPayOrder('html5_demo2015', {body:'',total_fee:100,trade_type:'JSAPI',serverId:'',openid:'o1iIptx19vzJsWaGjaPs63BvZsOk'}, function(result, data) {
                 if (result) {
-                    console.log(data);
                     assert.ok(true, data);
+                    console.log(data);
                 } else {
                     assert.ok(false, data);
                 }

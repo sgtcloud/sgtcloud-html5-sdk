@@ -6972,8 +6972,20 @@ jsonRPC =new Object({
                 var name = 'getSignature';
                 var data = [SgtApi.context.appId, window.location.href.split('#')[0]];
                 SgtApi.doRPC(name, data, _url, callback);
-            }
+            },
 
+            /**
+             * web端采用微信支付
+             * @param  {string}   appId      用户表示
+             * @param  {Object}   paramModel 参数对象
+             * @param  {Function} callback   回调函数
+             * @return {Object}              
+             */
+            getWxPayOrder: function(appId, paramModel, callback) {
+                var name = 'getWxPayOrder';
+                var data = [appId, paramModel];
+                SgtApi.doRPC(name, data, _url, callback);
+            }
         };
     };
 
