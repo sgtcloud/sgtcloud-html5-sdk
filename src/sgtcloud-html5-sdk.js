@@ -3216,6 +3216,7 @@
                 SgtApi.TimestampService = SgtApi.TimestampService();
                 SgtApi.VersionDetailService = SgtApi.VersionDetailService();
                 SgtApi.RandomNameGroupService = SgtApi.RandomNameGroupService();
+                SgtApi.SocketService = SgtApi.SocketService();
                 _doneInit = true;
             }
         };
@@ -6914,11 +6915,11 @@
     };
 
     SgtApi.SocketService = function() {
-        var _url = SgtApi.context.server.xxx + SgtApi.context.appId;
+        var _url = SgtApi.context.server.socketUrl + '/' + SgtApi.context.appId + '/';
         return {
             getSocket: function(nameSpace) {
                 document.write('<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>');
-                return io(_url + nameSpace);
+                return io(_url + nameSpace ? nameSpace : '');
             }
         };
     };
