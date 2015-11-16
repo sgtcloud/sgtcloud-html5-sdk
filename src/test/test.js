@@ -269,7 +269,7 @@ describe('UserService', function() {
 //         it('should add player extra', function(done) {
 //             SgtApi.PlayerExtraService.addPlayerExtra({}, function(result, data) {
 //                 if (result) {
-//                     assert.ok(true, data);
+//                     assert.ok(true,);
 //                 } else {
 //                     assert.ok(false, data);
 //                 }

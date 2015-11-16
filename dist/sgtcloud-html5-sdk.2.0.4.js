@@ -3343,6 +3343,7 @@ jsonRPC =new Object({
                 SgtApi.TimestampService = SgtApi.TimestampService();
                 SgtApi.VersionDetailService = SgtApi.VersionDetailService();
                 SgtApi.RandomNameGroupService = SgtApi.RandomNameGroupService();
+                SgtApi.SocketService = SgtApi.SocketService();
                 _doneInit = true;
             }
         };
@@ -6981,8 +6982,8 @@ jsonRPC =new Object({
              * @param  {Function} callback   回调函数
              * @return {Object}              
              */
-            getWxPayOrder: function(appId, paramModel, callback) {
-                var name = 'getWxPayOrder';
+            getPayOrder: function(appId, paramModel, callback) {
+                var name = 'getPayOrder';
                 var data = [appId, paramModel];
                 SgtApi.doRPC(name, data, _url, callback);
             }
@@ -7041,11 +7042,11 @@ jsonRPC =new Object({
     };
 
     SgtApi.SocketService = function() {
-        var _url = SgtApi.context.server.xxx + SgtApi.context.appId;
+        var _url = SgtApi.context.server.sockerUrl + '/' + SgtApi.context.appId + '/';
         return {
             getSocket: function(nameSpace) {
                 document.write('<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>');
-                return io(_url + nameSpace);
+                return io(_url + nameSpace ? nameSpace : '');
             }
         };
     };

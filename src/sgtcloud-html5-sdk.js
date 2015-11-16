@@ -6915,7 +6915,7 @@
     };
 
     SgtApi.SocketService = function() {
-        var _url = SgtApi.context.server.socketUrl + '/' + SgtApi.context.appId + '/';
+        var _url = SgtApi.context.server.sockerUrl + '/' + SgtApi.context.appId + '/';
         return {
             getSocket: function(nameSpace) {
                 document.write('<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>');
