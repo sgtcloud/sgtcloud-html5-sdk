@@ -3,14 +3,14 @@
   "stats": {
     "suites": 5,
     "tests": 3,
-    "passes": 0,
+    "passes": 1,
     "pending": 0,
-    "failures": 3,
-    "start": "2015-11-13T11:01:57.151Z",
-    "end": "2015-11-13T11:02:18.465Z",
-    "duration": 21314,
+    "failures": 2,
+    "start": "2015-11-13T11:46:27.555Z",
+    "end": "2015-11-13T11:46:30.980Z",
+    "duration": 3425,
     "testsRegistered": 3,
-    "passPercent": 0,
+    "passPercent": 33.3,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -33,20 +33,16 @@
                 "title": "should login",
                 "fullTitle": "UserService login should login",
                 "timedOut": false,
-                "duration": 925,
-                "state": "failed",
-                "pass": false,
-                "fail": true,
+                "duration": 2602,
+                "state": "passed",
+                "speed": "slow",
+                "pass": true,
+                "fail": false,
                 "pending": false,
                 "code": "SgtApi.UserService.login(<span class=\"hljs-string\">'Ak61E175'</span>, <span class=\"hljs-string\">'yoedge2014'</span>, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">result, data</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (result) {<br>        user = data;<br>        <span class=\"hljs-built_in\">console</span>.log(SgtApi.context.server);<br>        assert.ok(<span class=\"hljs-literal\">true</span>, data);<br>    } <span class=\"hljs-keyword\">else</span> {<br>        assert.ok(<span class=\"hljs-literal\">false</span>, data);<br>    }<br>    done();<br>});",
-                "err": {
-                  "name": "AssertionError",
-                  "message": "用户名不存在.\nat: login()",
-                  "stack": "AssertionError: 用户名不存在.<br>at: login()<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">36</span>:<span class=\"hljs-number\">28</span><br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3271</span>:<span class=\"hljs-number\">25</span><br>    at jsonRPC.request.error (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3086</span>:<span class=\"hljs-number\">28</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._requestSuccess (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">98</span>:<span class=\"hljs-number\">13</span>)<br>    at xmlhttp.onreadystatechange (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">59</span>:<span class=\"hljs-number\">43</span>)<br>    at dispatchEvent (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">591</span>:<span class=\"hljs-number\">25</span>)<br>    at setState (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">610</span>:<span class=\"hljs-number\">14</span>)<br>    at send (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">519</span>:<span class=\"hljs-number\">9</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._doRequest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">78</span>:<span class=\"hljs-number\">17</span>)<br>    at <span class=\"hljs-built_in\">Object</span>.request (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">26</span>:<span class=\"hljs-number\">14</span>)"
-                },
                 "isRoot": false,
-                "uuid": "1f320e20-c05c-409c-8627-f1e0c89597b8",
-                "parentUUID": "1ca8911f-0913-4148-863d-dd0cb3a6ce08",
+                "uuid": "1af6d3c8-6beb-4b27-b649-5a397320a34b",
+                "parentUUID": "a620140e-7517-488c-a881-0f2de3a0019d",
                 "skipped": false
               }
             ],
@@ -54,44 +50,40 @@
             "root": false,
             "_timeout": 20000,
             "file": "\\src\\test\\test.js",
-            "uuid": "1ca8911f-0913-4148-863d-dd0cb3a6ce08",
+            "uuid": "a620140e-7517-488c-a881-0f2de3a0019d",
             "fullFile": "C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js",
-            "passes": [],
-            "failures": [
+            "passes": [
               {
                 "title": "should login",
                 "fullTitle": "UserService login should login",
                 "timedOut": false,
-                "duration": 925,
-                "state": "failed",
-                "pass": false,
-                "fail": true,
+                "duration": 2602,
+                "state": "passed",
+                "speed": "slow",
+                "pass": true,
+                "fail": false,
                 "pending": false,
                 "code": "SgtApi.UserService.login(<span class=\"hljs-string\">'Ak61E175'</span>, <span class=\"hljs-string\">'yoedge2014'</span>, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">result, data</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (result) {<br>        user = data;<br>        <span class=\"hljs-built_in\">console</span>.log(SgtApi.context.server);<br>        assert.ok(<span class=\"hljs-literal\">true</span>, data);<br>    } <span class=\"hljs-keyword\">else</span> {<br>        assert.ok(<span class=\"hljs-literal\">false</span>, data);<br>    }<br>    done();<br>});",
-                "err": {
-                  "name": "AssertionError",
-                  "message": "用户名不存在.\nat: login()",
-                  "stack": "AssertionError: 用户名不存在.<br>at: login()<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">36</span>:<span class=\"hljs-number\">28</span><br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3271</span>:<span class=\"hljs-number\">25</span><br>    at jsonRPC.request.error (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3086</span>:<span class=\"hljs-number\">28</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._requestSuccess (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">98</span>:<span class=\"hljs-number\">13</span>)<br>    at xmlhttp.onreadystatechange (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">59</span>:<span class=\"hljs-number\">43</span>)<br>    at dispatchEvent (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">591</span>:<span class=\"hljs-number\">25</span>)<br>    at setState (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">610</span>:<span class=\"hljs-number\">14</span>)<br>    at send (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">519</span>:<span class=\"hljs-number\">9</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._doRequest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">78</span>:<span class=\"hljs-number\">17</span>)<br>    at <span class=\"hljs-built_in\">Object</span>.request (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">26</span>:<span class=\"hljs-number\">14</span>)"
-                },
                 "isRoot": false,
-                "uuid": "1f320e20-c05c-409c-8627-f1e0c89597b8",
-                "parentUUID": "1ca8911f-0913-4148-863d-dd0cb3a6ce08",
+                "uuid": "1af6d3c8-6beb-4b27-b649-5a397320a34b",
+                "parentUUID": "a620140e-7517-488c-a881-0f2de3a0019d",
                 "skipped": false
               }
             ],
+            "failures": [],
             "skipped": [],
             "hasTests": true,
             "hasSuites": false,
             "totalTests": 1,
-            "totalPasses": 0,
-            "totalFailures": 1,
+            "totalPasses": 1,
+            "totalFailures": 0,
             "totalPending": 0,
             "totalSkipped": 0,
-            "hasPasses": false,
-            "hasFailures": true,
+            "hasPasses": true,
+            "hasFailures": false,
             "hasPending": false,
             "hasSkipped": false,
-            "duration": 925
+            "duration": 2602
           },
           {
             "title": "registe",
@@ -100,21 +92,21 @@
               {
                 "title": "should registe",
                 "fullTitle": "UserService registe should registe",
-                "timedOut": true,
-                "duration": 20001,
+                "timedOut": false,
+                "duration": 444,
                 "state": "failed",
                 "pass": false,
                 "fail": true,
                 "pending": false,
                 "code": "<span class=\"hljs-keyword\">var</span> user = <span class=\"hljs-keyword\">new</span> SgtApi.User();<br>user.userName = <span class=\"hljs-string\">'Ak61E175'</span>;<br>user.password = <span class=\"hljs-string\">'yoedge2014'</span>;<br>SgtApi.UserService.regist(user, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">result, data</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (result) {<br>        assert.ok(<span class=\"hljs-literal\">true</span>, data);<br>    } <span class=\"hljs-keyword\">else</span> {<br>        assert.ok(<span class=\"hljs-literal\">false</span>, data);<br>    }<br>});",
                 "err": {
-                  "name": "Error",
-                  "message": "timeout of 20000ms exceeded. Ensure the done() callback is being called in this test.",
-                  "stack": "<span class=\"hljs-built_in\">Error</span>: timeout <span class=\"hljs-keyword\">of</span> <span class=\"hljs-number\">20000</span>ms exceeded. Ensure the done() callback is being called <span class=\"hljs-keyword\">in</span> <span class=\"hljs-keyword\">this</span> test.<br>    at <span class=\"hljs-literal\">null</span>.&lt;anonymous&gt; (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">189</span>:<span class=\"hljs-number\">19</span>)"
+                  "name": "AssertionError",
+                  "message": "用户名已经存在.\nat: register()",
+                  "stack": "AssertionError: 用户名已经存在.<br>at: register()<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">52</span>:<span class=\"hljs-number\">28</span><br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3290</span>:<span class=\"hljs-number\">25</span><br>    at jsonRPC.request.error (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3086</span>:<span class=\"hljs-number\">28</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._requestSuccess (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">98</span>:<span class=\"hljs-number\">13</span>)<br>    at xmlhttp.onreadystatechange (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">59</span>:<span class=\"hljs-number\">43</span>)<br>    at dispatchEvent (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">591</span>:<span class=\"hljs-number\">25</span>)<br>    at setState (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">610</span>:<span class=\"hljs-number\">14</span>)<br>    at send (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">519</span>:<span class=\"hljs-number\">9</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._doRequest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">78</span>:<span class=\"hljs-number\">17</span>)<br>    at <span class=\"hljs-built_in\">Object</span>.request (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">26</span>:<span class=\"hljs-number\">14</span>)"
                 },
                 "isRoot": false,
-                "uuid": "5e5be82e-d07d-48c6-9acd-d7ef6255ee0e",
-                "parentUUID": "0b05c4d8-0196-40ef-8119-a2ed47405ca9",
+                "uuid": "ba299237-d7c7-4fe2-b8fe-bb82326aae8c",
+                "parentUUID": "c028d121-0ec9-4dc2-ba6d-c396b412544f",
                 "skipped": false
               }
             ],
@@ -122,28 +114,28 @@
             "root": false,
             "_timeout": 20000,
             "file": "\\src\\test\\test.js",
-            "uuid": "0b05c4d8-0196-40ef-8119-a2ed47405ca9",
+            "uuid": "c028d121-0ec9-4dc2-ba6d-c396b412544f",
             "fullFile": "C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js",
             "passes": [],
             "failures": [
               {
                 "title": "should registe",
                 "fullTitle": "UserService registe should registe",
-                "timedOut": true,
-                "duration": 20001,
+                "timedOut": false,
+                "duration": 444,
                 "state": "failed",
                 "pass": false,
                 "fail": true,
                 "pending": false,
                 "code": "<span class=\"hljs-keyword\">var</span> user = <span class=\"hljs-keyword\">new</span> SgtApi.User();<br>user.userName = <span class=\"hljs-string\">'Ak61E175'</span>;<br>user.password = <span class=\"hljs-string\">'yoedge2014'</span>;<br>SgtApi.UserService.regist(user, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">result, data</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (result) {<br>        assert.ok(<span class=\"hljs-literal\">true</span>, data);<br>    } <span class=\"hljs-keyword\">else</span> {<br>        assert.ok(<span class=\"hljs-literal\">false</span>, data);<br>    }<br>});",
                 "err": {
-                  "name": "Error",
-                  "message": "timeout of 20000ms exceeded. Ensure the done() callback is being called in this test.",
-                  "stack": "<span class=\"hljs-built_in\">Error</span>: timeout <span class=\"hljs-keyword\">of</span> <span class=\"hljs-number\">20000</span>ms exceeded. Ensure the done() callback is being called <span class=\"hljs-keyword\">in</span> <span class=\"hljs-keyword\">this</span> test.<br>    at <span class=\"hljs-literal\">null</span>.&lt;anonymous&gt; (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">189</span>:<span class=\"hljs-number\">19</span>)"
+                  "name": "AssertionError",
+                  "message": "用户名已经存在.\nat: register()",
+                  "stack": "AssertionError: 用户名已经存在.<br>at: register()<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">52</span>:<span class=\"hljs-number\">28</span><br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3290</span>:<span class=\"hljs-number\">25</span><br>    at jsonRPC.request.error (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3086</span>:<span class=\"hljs-number\">28</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._requestSuccess (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">98</span>:<span class=\"hljs-number\">13</span>)<br>    at xmlhttp.onreadystatechange (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">59</span>:<span class=\"hljs-number\">43</span>)<br>    at dispatchEvent (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">591</span>:<span class=\"hljs-number\">25</span>)<br>    at setState (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">610</span>:<span class=\"hljs-number\">14</span>)<br>    at send (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">519</span>:<span class=\"hljs-number\">9</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._doRequest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">78</span>:<span class=\"hljs-number\">17</span>)<br>    at <span class=\"hljs-built_in\">Object</span>.request (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">26</span>:<span class=\"hljs-number\">14</span>)"
                 },
                 "isRoot": false,
-                "uuid": "5e5be82e-d07d-48c6-9acd-d7ef6255ee0e",
-                "parentUUID": "0b05c4d8-0196-40ef-8119-a2ed47405ca9",
+                "uuid": "ba299237-d7c7-4fe2-b8fe-bb82326aae8c",
+                "parentUUID": "c028d121-0ec9-4dc2-ba6d-c396b412544f",
                 "skipped": false
               }
             ],
@@ -159,7 +151,7 @@
             "hasFailures": true,
             "hasPending": false,
             "hasSkipped": false,
-            "duration": 20001
+            "duration": 444
           }
         ],
         "tests": [],
@@ -167,7 +159,7 @@
         "root": false,
         "_timeout": 20000,
         "file": "\\src\\test\\test.js",
-        "uuid": "d54134d0-8e36-48b3-a165-37f28f43f44e",
+        "uuid": "6c3c1eda-96fc-4c2b-9b1b-0aa10f114bfa",
         "fullFile": "C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js",
         "passes": [],
         "failures": [],
@@ -196,7 +188,7 @@
                 "title": "should get socket",
                 "fullTitle": "SocketService getSocket should get socket",
                 "timedOut": false,
-                "duration": 6,
+                "duration": 4,
                 "state": "failed",
                 "pass": false,
                 "fail": true,
@@ -208,8 +200,8 @@
                   "stack": "<span class=\"hljs-built_in\">ReferenceError</span>: <span class=\"hljs-built_in\">document</span> is not defined<br>    at <span class=\"hljs-built_in\">Object</span>.getSocket (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">6921</span>:<span class=\"hljs-number\">17</span>)<br>    at Context.&lt;anonymous&gt; (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">2953</span>:<span class=\"hljs-number\">34</span>)<br>    at callFnAsync (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">306</span>:<span class=\"hljs-number\">8</span>)<br>    at Test.Runnable.run (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">261</span>:<span class=\"hljs-number\">7</span>)<br>    at Runner.runTest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">421</span>:<span class=\"hljs-number\">10</span>)<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">528</span>:<span class=\"hljs-number\">12</span><br>    at next (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">341</span>:<span class=\"hljs-number\">14</span>)<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">351</span>:<span class=\"hljs-number\">7</span><br>    at next (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">283</span>:<span class=\"hljs-number\">14</span>)<br>    at Immediate._onImmediate (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">319</span>:<span class=\"hljs-number\">5</span>)"
                 },
                 "isRoot": false,
-                "uuid": "90fcebd3-1bcc-4f5d-8b75-3fec26d9bdd6",
-                "parentUUID": "519940c0-63a2-4b1f-97a1-7e2b095ed62c",
+                "uuid": "5d0e133e-ac7e-4c08-a6bc-3c058a0722aa",
+                "parentUUID": "323ebb2a-6ade-4ea5-8ffc-c5cb1d840e9a",
                 "skipped": false
               }
             ],
@@ -217,7 +209,7 @@
             "root": false,
             "_timeout": 20000,
             "file": "\\src\\test\\test.js",
-            "uuid": "519940c0-63a2-4b1f-97a1-7e2b095ed62c",
+            "uuid": "323ebb2a-6ade-4ea5-8ffc-c5cb1d840e9a",
             "fullFile": "C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js",
             "passes": [],
             "failures": [
@@ -225,7 +217,7 @@
                 "title": "should get socket",
                 "fullTitle": "SocketService getSocket should get socket",
                 "timedOut": false,
-                "duration": 6,
+                "duration": 4,
                 "state": "failed",
                 "pass": false,
                 "fail": true,
@@ -237,8 +229,8 @@
                   "stack": "<span class=\"hljs-built_in\">ReferenceError</span>: <span class=\"hljs-built_in\">document</span> is not defined<br>    at <span class=\"hljs-built_in\">Object</span>.getSocket (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">6921</span>:<span class=\"hljs-number\">17</span>)<br>    at Context.&lt;anonymous&gt; (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">2953</span>:<span class=\"hljs-number\">34</span>)<br>    at callFnAsync (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">306</span>:<span class=\"hljs-number\">8</span>)<br>    at Test.Runnable.run (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">261</span>:<span class=\"hljs-number\">7</span>)<br>    at Runner.runTest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">421</span>:<span class=\"hljs-number\">10</span>)<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">528</span>:<span class=\"hljs-number\">12</span><br>    at next (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">341</span>:<span class=\"hljs-number\">14</span>)<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">351</span>:<span class=\"hljs-number\">7</span><br>    at next (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">283</span>:<span class=\"hljs-number\">14</span>)<br>    at Immediate._onImmediate (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">319</span>:<span class=\"hljs-number\">5</span>)"
                 },
                 "isRoot": false,
-                "uuid": "90fcebd3-1bcc-4f5d-8b75-3fec26d9bdd6",
-                "parentUUID": "519940c0-63a2-4b1f-97a1-7e2b095ed62c",
+                "uuid": "5d0e133e-ac7e-4c08-a6bc-3c058a0722aa",
+                "parentUUID": "323ebb2a-6ade-4ea5-8ffc-c5cb1d840e9a",
                 "skipped": false
               }
             ],
@@ -254,7 +246,7 @@
             "hasFailures": true,
             "hasPending": false,
             "hasSkipped": false,
-            "duration": 6
+            "duration": 4
           }
         ],
         "tests": [],
@@ -262,7 +254,7 @@
         "root": false,
         "_timeout": 20000,
         "file": "\\src\\test\\test.js",
-        "uuid": "d75e7be7-4bfc-422e-82e0-6b2e63a9ca40",
+        "uuid": "ba7e873a-e9a3-4e54-8d92-7e3bcb937d1b",
         "fullFile": "C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js",
         "passes": [],
         "failures": [],
@@ -285,7 +277,7 @@
     "pending": [],
     "root": true,
     "_timeout": 20000,
-    "uuid": "95dbb40c-6f6d-4ec7-a5ce-e26128b5f511",
+    "uuid": "97d0c037-58a2-4381-828b-e0f026cefbe3",
     "fullFile": "",
     "file": "",
     "passes": [],
@@ -310,47 +302,43 @@
       "title": "should login",
       "fullTitle": "login should login",
       "timedOut": false,
-      "duration": 925,
-      "state": "failed",
-      "pass": false,
-      "fail": true,
+      "duration": 2602,
+      "state": "passed",
+      "speed": "slow",
+      "pass": true,
+      "fail": false,
       "pending": false,
       "code": "SgtApi.UserService.login(<span class=\"hljs-string\">'Ak61E175'</span>, <span class=\"hljs-string\">'yoedge2014'</span>, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">result, data</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (result) {<br>        user = data;<br>        <span class=\"hljs-built_in\">console</span>.log(SgtApi.context.server);<br>        assert.ok(<span class=\"hljs-literal\">true</span>, data);<br>    } <span class=\"hljs-keyword\">else</span> {<br>        assert.ok(<span class=\"hljs-literal\">false</span>, data);<br>    }<br>    done();<br>});",
-      "err": {
-        "name": "AssertionError",
-        "message": "用户名不存在.\nat: login()",
-        "stack": "AssertionError: 用户名不存在.<br>at: login()<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">36</span>:<span class=\"hljs-number\">28</span><br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3271</span>:<span class=\"hljs-number\">25</span><br>    at jsonRPC.request.error (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3086</span>:<span class=\"hljs-number\">28</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._requestSuccess (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">98</span>:<span class=\"hljs-number\">13</span>)<br>    at xmlhttp.onreadystatechange (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">59</span>:<span class=\"hljs-number\">43</span>)<br>    at dispatchEvent (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">591</span>:<span class=\"hljs-number\">25</span>)<br>    at setState (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">610</span>:<span class=\"hljs-number\">14</span>)<br>    at send (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">519</span>:<span class=\"hljs-number\">9</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._doRequest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">78</span>:<span class=\"hljs-number\">17</span>)<br>    at <span class=\"hljs-built_in\">Object</span>.request (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">26</span>:<span class=\"hljs-number\">14</span>)"
-      },
       "isRoot": false,
-      "uuid": "e4b23434-021a-4ce1-bc2f-c472c8623c26",
-      "parentUUID": "1ca8911f-0913-4148-863d-dd0cb3a6ce08",
+      "uuid": "05220c68-4ec8-462b-ae1b-5444dc763060",
+      "parentUUID": "a620140e-7517-488c-a881-0f2de3a0019d",
       "skipped": false
     },
     {
       "title": "should registe",
       "fullTitle": "registe should registe",
-      "timedOut": true,
-      "duration": 20001,
+      "timedOut": false,
+      "duration": 444,
       "state": "failed",
       "pass": false,
       "fail": true,
       "pending": false,
       "code": "<span class=\"hljs-keyword\">var</span> user = <span class=\"hljs-keyword\">new</span> SgtApi.User();<br>user.userName = <span class=\"hljs-string\">'Ak61E175'</span>;<br>user.password = <span class=\"hljs-string\">'yoedge2014'</span>;<br>SgtApi.UserService.regist(user, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">result, data</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (result) {<br>        assert.ok(<span class=\"hljs-literal\">true</span>, data);<br>    } <span class=\"hljs-keyword\">else</span> {<br>        assert.ok(<span class=\"hljs-literal\">false</span>, data);<br>    }<br>});",
       "err": {
-        "name": "Error",
-        "message": "timeout of 20000ms exceeded. Ensure the done() callback is being called in this test.",
-        "stack": "<span class=\"hljs-built_in\">Error</span>: timeout <span class=\"hljs-keyword\">of</span> <span class=\"hljs-number\">20000</span>ms exceeded. Ensure the done() callback is being called <span class=\"hljs-keyword\">in</span> <span class=\"hljs-keyword\">this</span> test.<br>    at <span class=\"hljs-literal\">null</span>.&lt;anonymous&gt; (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">189</span>:<span class=\"hljs-number\">19</span>)"
+        "name": "AssertionError",
+        "message": "用户名已经存在.\nat: register()",
+        "stack": "AssertionError: 用户名已经存在.<br>at: register()<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">52</span>:<span class=\"hljs-number\">28</span><br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3290</span>:<span class=\"hljs-number\">25</span><br>    at jsonRPC.request.error (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3086</span>:<span class=\"hljs-number\">28</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._requestSuccess (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">98</span>:<span class=\"hljs-number\">13</span>)<br>    at xmlhttp.onreadystatechange (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">59</span>:<span class=\"hljs-number\">43</span>)<br>    at dispatchEvent (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">591</span>:<span class=\"hljs-number\">25</span>)<br>    at setState (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">610</span>:<span class=\"hljs-number\">14</span>)<br>    at send (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">519</span>:<span class=\"hljs-number\">9</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._doRequest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">78</span>:<span class=\"hljs-number\">17</span>)<br>    at <span class=\"hljs-built_in\">Object</span>.request (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">26</span>:<span class=\"hljs-number\">14</span>)"
       },
       "isRoot": false,
-      "uuid": "f51e5bf5-36ba-4e59-9cd1-64f906229f99",
-      "parentUUID": "0b05c4d8-0196-40ef-8119-a2ed47405ca9",
+      "uuid": "918f6c87-85b5-4ed2-8994-a5749662e976",
+      "parentUUID": "c028d121-0ec9-4dc2-ba6d-c396b412544f",
       "skipped": false
     },
     {
       "title": "should get socket",
       "fullTitle": "getSocket should get socket",
       "timedOut": false,
-      "duration": 6,
+      "duration": 4,
       "state": "failed",
       "pass": false,
       "fail": true,
@@ -362,60 +350,57 @@
         "stack": "<span class=\"hljs-built_in\">ReferenceError</span>: <span class=\"hljs-built_in\">document</span> is not defined<br>    at <span class=\"hljs-built_in\">Object</span>.getSocket (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">6921</span>:<span class=\"hljs-number\">17</span>)<br>    at Context.&lt;anonymous&gt; (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">2953</span>:<span class=\"hljs-number\">34</span>)<br>    at callFnAsync (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">306</span>:<span class=\"hljs-number\">8</span>)<br>    at Test.Runnable.run (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">261</span>:<span class=\"hljs-number\">7</span>)<br>    at Runner.runTest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">421</span>:<span class=\"hljs-number\">10</span>)<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">528</span>:<span class=\"hljs-number\">12</span><br>    at next (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">341</span>:<span class=\"hljs-number\">14</span>)<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">351</span>:<span class=\"hljs-number\">7</span><br>    at next (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">283</span>:<span class=\"hljs-number\">14</span>)<br>    at Immediate._onImmediate (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">319</span>:<span class=\"hljs-number\">5</span>)"
       },
       "isRoot": false,
-      "uuid": "b4caeec0-0577-4724-a513-16d1910780e5",
-      "parentUUID": "519940c0-63a2-4b1f-97a1-7e2b095ed62c",
+      "uuid": "502335ee-6db3-4cf9-a0fb-d05cd6990306",
+      "parentUUID": "323ebb2a-6ade-4ea5-8ffc-c5cb1d840e9a",
       "skipped": false
     }
   ],
   "allHooks": [],
   "allPending": [],
-  "allPasses": [],
-  "allFailures": [
+  "allPasses": [
     {
       "title": "should login",
       "fullTitle": "login should login",
       "timedOut": false,
-      "duration": 925,
-      "state": "failed",
-      "pass": false,
-      "fail": true,
+      "duration": 2602,
+      "state": "passed",
+      "speed": "slow",
+      "pass": true,
+      "fail": false,
       "pending": false,
       "code": "SgtApi.UserService.login(<span class=\"hljs-string\">'Ak61E175'</span>, <span class=\"hljs-string\">'yoedge2014'</span>, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">result, data</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (result) {<br>        user = data;<br>        <span class=\"hljs-built_in\">console</span>.log(SgtApi.context.server);<br>        assert.ok(<span class=\"hljs-literal\">true</span>, data);<br>    } <span class=\"hljs-keyword\">else</span> {<br>        assert.ok(<span class=\"hljs-literal\">false</span>, data);<br>    }<br>    done();<br>});",
-      "err": {
-        "name": "AssertionError",
-        "message": "用户名不存在.\nat: login()",
-        "stack": "AssertionError: 用户名不存在.<br>at: login()<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">36</span>:<span class=\"hljs-number\">28</span><br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3271</span>:<span class=\"hljs-number\">25</span><br>    at jsonRPC.request.error (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3086</span>:<span class=\"hljs-number\">28</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._requestSuccess (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">98</span>:<span class=\"hljs-number\">13</span>)<br>    at xmlhttp.onreadystatechange (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">59</span>:<span class=\"hljs-number\">43</span>)<br>    at dispatchEvent (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">591</span>:<span class=\"hljs-number\">25</span>)<br>    at setState (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">610</span>:<span class=\"hljs-number\">14</span>)<br>    at send (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">519</span>:<span class=\"hljs-number\">9</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._doRequest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">78</span>:<span class=\"hljs-number\">17</span>)<br>    at <span class=\"hljs-built_in\">Object</span>.request (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">26</span>:<span class=\"hljs-number\">14</span>)"
-      },
       "isRoot": false,
-      "uuid": "6ab585d6-be0c-49ca-8480-621c14e3c335",
-      "parentUUID": "1ca8911f-0913-4148-863d-dd0cb3a6ce08",
+      "uuid": "b706d380-d707-410e-b92a-3f708db40279",
+      "parentUUID": "a620140e-7517-488c-a881-0f2de3a0019d",
       "skipped": false
-    },
+    }
+  ],
+  "allFailures": [
     {
       "title": "should registe",
       "fullTitle": "registe should registe",
-      "timedOut": true,
-      "duration": 20001,
+      "timedOut": false,
+      "duration": 444,
       "state": "failed",
       "pass": false,
       "fail": true,
       "pending": false,
       "code": "<span class=\"hljs-keyword\">var</span> user = <span class=\"hljs-keyword\">new</span> SgtApi.User();<br>user.userName = <span class=\"hljs-string\">'Ak61E175'</span>;<br>user.password = <span class=\"hljs-string\">'yoedge2014'</span>;<br>SgtApi.UserService.regist(user, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">result, data</span>) </span>{<br>    <span class=\"hljs-keyword\">if</span> (result) {<br>        assert.ok(<span class=\"hljs-literal\">true</span>, data);<br>    } <span class=\"hljs-keyword\">else</span> {<br>        assert.ok(<span class=\"hljs-literal\">false</span>, data);<br>    }<br>});",
       "err": {
-        "name": "Error",
-        "message": "timeout of 20000ms exceeded. Ensure the done() callback is being called in this test.",
-        "stack": "<span class=\"hljs-built_in\">Error</span>: timeout <span class=\"hljs-keyword\">of</span> <span class=\"hljs-number\">20000</span>ms exceeded. Ensure the done() callback is being called <span class=\"hljs-keyword\">in</span> <span class=\"hljs-keyword\">this</span> test.<br>    at <span class=\"hljs-literal\">null</span>.&lt;anonymous&gt; (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">189</span>:<span class=\"hljs-number\">19</span>)"
+        "name": "AssertionError",
+        "message": "用户名已经存在.\nat: register()",
+        "stack": "AssertionError: 用户名已经存在.<br>at: register()<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">52</span>:<span class=\"hljs-number\">28</span><br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3290</span>:<span class=\"hljs-number\">25</span><br>    at jsonRPC.request.error (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">3086</span>:<span class=\"hljs-number\">28</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._requestSuccess (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">98</span>:<span class=\"hljs-number\">13</span>)<br>    at xmlhttp.onreadystatechange (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">59</span>:<span class=\"hljs-number\">43</span>)<br>    at dispatchEvent (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">591</span>:<span class=\"hljs-number\">25</span>)<br>    at setState (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">610</span>:<span class=\"hljs-number\">14</span>)<br>    at send (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\xmlhttprequest\\lib\\XMLHttpRequest.js:<span class=\"hljs-number\">519</span>:<span class=\"hljs-number\">9</span>)<br>    at <span class=\"hljs-built_in\">Object</span>._doRequest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">78</span>:<span class=\"hljs-number\">17</span>)<br>    at <span class=\"hljs-built_in\">Object</span>.request (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\lib\\jsonrpc.js:<span class=\"hljs-number\">26</span>:<span class=\"hljs-number\">14</span>)"
       },
       "isRoot": false,
-      "uuid": "8eab9973-56bd-4890-8c69-3d6aba40f97b",
-      "parentUUID": "0b05c4d8-0196-40ef-8119-a2ed47405ca9",
+      "uuid": "1276bda9-3bf3-40be-8d35-b2094aeae50a",
+      "parentUUID": "c028d121-0ec9-4dc2-ba6d-c396b412544f",
       "skipped": false
     },
     {
       "title": "should get socket",
       "fullTitle": "getSocket should get socket",
       "timedOut": false,
-      "duration": 6,
+      "duration": 4,
       "state": "failed",
       "pass": false,
       "fail": true,
@@ -427,8 +412,8 @@
         "stack": "<span class=\"hljs-built_in\">ReferenceError</span>: <span class=\"hljs-built_in\">document</span> is not defined<br>    at <span class=\"hljs-built_in\">Object</span>.getSocket (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\sgtcloud-html5-sdk.js:<span class=\"hljs-number\">6921</span>:<span class=\"hljs-number\">17</span>)<br>    at Context.&lt;anonymous&gt; (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\src\\test\\test.js:<span class=\"hljs-number\">2953</span>:<span class=\"hljs-number\">34</span>)<br>    at callFnAsync (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">306</span>:<span class=\"hljs-number\">8</span>)<br>    at Test.Runnable.run (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runnable.js:<span class=\"hljs-number\">261</span>:<span class=\"hljs-number\">7</span>)<br>    at Runner.runTest (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">421</span>:<span class=\"hljs-number\">10</span>)<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">528</span>:<span class=\"hljs-number\">12</span><br>    at next (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">341</span>:<span class=\"hljs-number\">14</span>)<br>    at C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">351</span>:<span class=\"hljs-number\">7</span><br>    at next (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">283</span>:<span class=\"hljs-number\">14</span>)<br>    at Immediate._onImmediate (C:\\Users\\Administrator\\Desktop\\github\\sgtcloud-html5-sdk\\node_modules\\mocha\\lib\\runner.js:<span class=\"hljs-number\">319</span>:<span class=\"hljs-number\">5</span>)"
       },
       "isRoot": false,
-      "uuid": "8c673878-ef5c-4b1a-b0c8-8d215c6ac9ff",
-      "parentUUID": "519940c0-63a2-4b1f-97a1-7e2b095ed62c",
+      "uuid": "b3d6114f-9443-4da2-9170-d6e0d8fb9a4c",
+      "parentUUID": "323ebb2a-6ade-4ea5-8ffc-c5cb1d840e9a",
       "skipped": false
     }
   ]

@@ -6914,15 +6914,19 @@
         };
     };
 
+    /**
+     * Socketio服务, 需要主动在页面引入socketio包(https://cdn.socket.io/socket.io-1.3.7.js),
+     * 再通过socketio的api进行交互
+     */
     SgtApi.SocketService = function() {
-        var _url = SgtApi.context.server.socketUrl + '/' + SgtApi.context.appId + '/';
+        var _url = SgtApi.context.server.socketUrl + SgtApi.context.appId + '/';
         return {
             getSocket: function(nameSpace) {
-                document.write('<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>');
-                return io(_url + nameSpace ? nameSpace : '');
+                return io(_url + (nameSpace ? nameSpace : ''));
             }
         };
     };
+
     // browser
     if (typeof navigator !== 'undefined') {
         window.SgtApi = SgtApi;
