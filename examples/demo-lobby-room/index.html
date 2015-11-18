@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Lobby-Room Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    body {
+        background: #337AB7;
+        padding: 20px;
+        font-size: 20px;
+    }
+    
+    .container h1 {
+        text-align: center;
+        color: white;
+        margin-top: 50px;
+    }
+    
+    #console {
+        margin-top: 20px;
+        height: 400px;
+        overflow: auto;
+        border: 2px solid white;
+        border-radius: 15px;
+    }
+    
+    #control {
+        border: 2px solid white;
+        border-radius: 15px;
+        margin-top: 50px;
+    }
+    
+    #bar {
+        margin-top: 10px;
+    }
+    
+    .username-msg {
+        color: orange;
+    }
+    
+    .connect-msg {
+        color: green;
+    }
+    
+    .disconnect-msg {
+        color: red;
+    }
+    
+    .send-msg {
+        color: #888
+    }
+    
+    textarea {
+        resize: none;
+    }
+    
+    button {
+        background: rgba(139, 195, 74, 0.71);
+        font-weight: 2px;
+        overflow: hidden;
+        margin: 10px 10px;
+    }
+    
+    button:hover {
+        background: rgb(139, 195, 74);
+    }
+    
+    @media (max-width: 1600px) {
+        body {
+            font-size: 20x;
+        }   
+        .container h1 {
+            margin-top: 5px;
+        }
+        #console {
+            margin-top: 5px;
+            height: 300px;
+        }
+        #control {
+            margin-top: 10px;
+        }
+    }
+    </style>
+    <script src="./js/socket.io.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/jquery-1.7.2.min.js"></script>
+    <script src="./js/sgtcloud-html5-sdk.2.0.4.js"></script>
+    <script>
+    $(function() {
+
+
+
+        $('#nickname').html('<span style="color:' + getUsernameColor(userName) + '">' + userName + '<span>');
+
+        var rename = function() {
+            var input = $('<input value="' + userName + '" maxlength="14">');
+            $('#nickname').html(input);
+            input.trigger('focus');
+            input.click(function() {
+                return false;
+            });
+            input.blur(function() {
+                $('#nickname').html('<span style="color:' + getUsernameColor(input.val()) + '">' + input.val() + '<span>');
+                userName = input.val();
+            });
+        };
+
+        $('#rename').on('click', rename);
+
+
+
+
+    });
+    </script>
+    <script>
+    var COLORS = [
+        '#e21400', '#91580f', '#f8a700', '#f78b00',
+        '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
+        '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+    ];
+
+    // Gets the color of a username through our hash function
+    function getUsernameColor(username) {
+        // Compute hash code
+        var hash = 7;
+        for (var i = 0; i < username.length; i++) {
+            hash = username.charCodeAt(i) + (hash << 5) - hash;
+        }
+        // Calculate color
+        var index = Math.abs(hash % COLORS.length);
+        return COLORS[index];
+    }
+
+    var socket = io.connect('http://127.0.0.1:1337/wodog');
+    // sgt.init({
+    //     appId: 'xmj_sgp',
+    //     appGateway: 'http://test.sgtcloud.cn/gateway'
+    // });
+
+    // sgt.UserService.login('Ak61E175', 'yoedge2014', function(){});
+
+    // var socket = sgt.SocketService.getSocket();
+
+
+    var userName = 'user' + Math.floor((Math.random() * 1000) + 1);
+
+    // var socket = io.connect('http://localhost:9092');
+
+    socket.on('connect', function() {
+        output('<span class="connect-msg">Client has connected to the server!</span>');
+    });
+
+    socket.on('mass', function(data) {
+
+        output('<span class="username-msg" style="color:' + getUsernameColor(data.id) + '"><strong>' + data.id + '</strong></span> ' + data.msg);
+    });
+
+    socket.on('disconnect', function() {
+        output('<span class="disconnect-msg">The client has disconnected!</span>');
+    });
+
+    function sendDisconnect() {
+        socket.disconnect();
+    }
+
+    function sendMessage() {
+        var message = $('#msg').val();
+        if (!message) {
+            return;
+        }
+        $('#msg').val('');
+
+        // don't forget to define type field '@class' 
+        // it should equals to class name which used 
+        // to deserialize object on server side
+        // via ...addJsonObjectListener() method
+        //
+        // TIP: you can customize type name field
+        // via Configuration.jsonTypeFieldName property
+
+        // var jsonObject = {
+        //     userName: userName,
+        //     message: message
+        // };
+
+        var jsonObject = {
+            id: userName,
+            type: null,
+            msg: message,
+            targets: null
+        };
+        socket.emit('mass', jsonObject);
+
+    }
+
+    function output(message) {
+        var currentTime = "<span class='time'>" + moment().format('HH:mm:ss') + "</span>";
+        var element = $("<div>" + currentTime + " " + message + "</div>");
+        $('#console').append(element);
+        document.getElementById('console').scrollTop = document.getElementById('console').scrollHeight;
+    }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lobby-Room Chat</h1>
+        <br/>
+        <div id="console" class="well">
+            <div>房间信息</div>
+            <hr color="blue">
+        </div>
+        <div id="control" class="well">
+            <div>
+                <p>nickname: <strong id="nickname"></strong></p>
+            </div>
+            <textarea id="msg" rows="3" class="form-control" placeholder="Type something..."></textarea>
+            <div id="bar" class="row">
+                <div class="col-xs-9"></div>
+                <button type="button" onClick="sendMessage()" class="btn btn-lg col-xs-1">Send</button>
+                <button type="button" id="rename" class="btn btn-lg col-xs-1">Rename</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
