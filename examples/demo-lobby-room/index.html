@@ -19,13 +19,18 @@
         margin-top: 50px;
     }
     
-    #console {
-        margin-top: 20px;
-        height: 400px;
-        overflow: auto;
+    #room {
+        margin-top: 50px;
         border: 2px solid white;
         border-radius: 15px;
     }
+    
+    #console {
+        overflow: auto;
+        height: 300px;
+    }
+    
+    #dashboard {}
     
     #control {
         border: 2px solid white;
@@ -35,6 +40,10 @@
     
     #bar {
         margin-top: 10px;
+    }
+    
+    #dashboard {
+        border-bottom: 1px solid #D2E1EC;
     }
     
     .username-msg {
@@ -55,43 +64,53 @@
     
     textarea {
         resize: none;
+        width: 100%;
+        height: 90px;
+        overflow: hidden;
+        /*没超出内容则不显示滚条*/
+        /*overflow:hidden; 永远不显示滚动条*/
     }
     
-    button {
+    .btn1 {
         background: rgba(139, 195, 74, 0.71);
         font-weight: 2px;
         overflow: hidden;
         margin: 10px 10px;
     }
     
-    button:hover {
+    .btn1:hover {
         background: rgb(139, 195, 74);
     }
     
     @media (max-width: 1600px) {
         body {
             font-size: 20x;
-        }   
+        }
+        #room {
+            margin-top: 15px;
+        }
         .container h1 {
             margin-top: 5px;
         }
         #console {
-            margin-top: 5px;
-            height: 300px;
+            margin-top: 10px;
+            height: 200px;
         }
         #control {
             margin-top: 10px;
+        }
+        textarea {
+            height: 65px;
         }
     }
     </style>
     <script src="./js/socket.io.js"></script>
     <script src="./js/moment.min.js"></script>
-    <script src="./js/jquery-1.7.2.min.js"></script>
+    <script src="./js/jquery.1.11.1.min.js"></script>
     <script src="./js/sgtcloud-html5-sdk.2.0.4.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
     <script>
     $(function() {
-
-
 
         $('#nickname').html('<span style="color:' + getUsernameColor(userName) + '">' + userName + '<span>');
 
@@ -111,11 +130,48 @@
         $('#rename').on('click', rename);
 
 
+        $('#current').next().children().on('click', function() {
+            $('#current').html($(this).text() + '<span class="caret"></span>');
+            $('#current').attr('send', $(this).attr('send'));
+
+            var send = $('#current').attr('send');
+            console.log(send);
+            if (send === 'lobbyId') {
+                socket.emit('joinRoom', lobbyId);
+                console.log(lobbyId);
+            } else if (send === 'room1Id') {
+                socket.emit('joinRoom', room1Id);
+                console.log(room1Id);
+            } else if (send === 'room2Id') {
+                socket.emit('joinRoom', room2Id);
+                console.log(room2Id);
+            }
+        });
 
 
     });
     </script>
     <script>
+    lobbyId = '';
+    room1Id = '';
+    room2Id = '';
+
+    var GameRoom = function() {
+        this.id = null;
+        this.name = null;
+        this.count = null;
+        this.createTime = null;
+        this.lastActiveTime = null;
+        this.customData = null;
+    };
+
+    var ChatObject = function() {
+        this.message = null;
+        this.roomId = null;
+        this.targetId = null;
+        this.sendId = null;
+    };
+
     var COLORS = [
         '#e21400', '#91580f', '#f8a700', '#f78b00',
         '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
@@ -140,27 +196,82 @@
     //     appGateway: 'http://test.sgtcloud.cn/gateway'
     // });
 
-    // sgt.UserService.login('Ak61E175', 'yoedge2014', function(){});
+    // sgt.UserService.login('Ak61E175', 'yoedge2014', function() {});
 
     // var socket = sgt.SocketService.getSocket();
 
+    // console.log(socket);
 
     var userName = 'user' + Math.floor((Math.random() * 1000) + 1);
 
-    // var socket = io.connect('http://localhost:9092');
+    var current = '大厅';
+
+
+    socket.on('leaveRoom', function(data) {
+    	console.log(data);
+    });
 
     socket.on('connect', function() {
         output('<span class="connect-msg">Client has connected to the server!</span>');
+
+        var gameRoom1 = new GameRoom();
+        gameRoom1.name = '大厅';
+        gameRoom1.id = '001';
+        socket.emit('createRoom', gameRoom1);
+
+        var gameRoom2 = new GameRoom();
+        gameRoom2.name = '房间1';
+        gameRoom2.id = '002';
+        socket.emit('createRoom', gameRoom2);
+
+        var gameRoom3 = new GameRoom();
+        gameRoom3.name = '房间2';
+        gameRoom3.id = '003';
+        socket.emit('createRoom', gameRoom3);
+
     });
 
-    socket.on('mass', function(data) {
+    var times = 1;
+    socket.on('createRoom', function(data) {
+        if (times === 1) {
+            lobbyId = data.id;
+            times++;
+            socket.emit('joinRoom', lobbyId);
+        } else if (times === 2) {
+            room1Id = data.id;
+            times++;
+        } else if (times === 3) {
+            room2Id = data.id;
+            times++;
+        }
+    });
 
-        output('<span class="username-msg" style="color:' + getUsernameColor(data.id) + '"><strong>' + data.id + '</strong></span> ' + data.msg);
+    socket.on('roomMass', function(data) {
+
+        output('<span class="username-msg" style="color:' + getUsernameColor(data.sendId) + '"><strong>' + data.sendId + '</strong></span> ' + data.message);
+        console.log(data);
+    });
+
+    socket.on('joinRoom', function(data) {
+    	console.log('im join');
+        console.log(data);
     });
 
     socket.on('disconnect', function() {
         output('<span class="disconnect-msg">The client has disconnected!</span>');
     });
+
+    socket.on('connectNum', function(data) {
+        $('#num').html(data);
+    });
+
+    socket.on('disconnectNum', function(data) {
+        $('#num').html(data);
+    });
+
+    function sendConnect() {
+
+    }
 
     function sendDisconnect() {
         socket.disconnect();
@@ -169,7 +280,7 @@
     function sendMessage() {
         var message = $('#msg').val();
         if (!message) {
-            return;
+            return false;
         }
         $('#msg').val('');
 
@@ -186,13 +297,21 @@
         //     message: message
         // };
 
-        var jsonObject = {
-            id: userName,
-            type: null,
-            msg: message,
-            targets: null
-        };
-        socket.emit('mass', jsonObject);
+
+        var chatObject = new ChatObject();
+        chatObject.sendId = userName;
+        chatObject.message = message;
+
+        var send = $('#current').attr('send');
+        if (send === 'lobbyId') {
+            chatObject.roomId = lobbyId;
+        } else if (send === 'room1Id') {
+            chatObject.roomId = room1Id;
+        } else if (send === 'room2Id') {
+            chatObject.roomId = room2Id;
+        }
+        console.log(chatObject.roomId);
+        socket.emit('roomMass', chatObject);
 
     }
 
@@ -202,26 +321,55 @@
         $('#console').append(element);
         document.getElementById('console').scrollTop = document.getElementById('console').scrollHeight;
     }
+
+    $(window).keydown(function(event) {
+        // Auto-focus the current input when a key is typed
+        if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+            $('#msg').focus();
+        }
+        // When the client hits ENTER on their keyboard
+        if (event.which === 13) {
+            sendMessage();
+            return false;
+        }
+    });
     </script>
 </head>
 
 <body>
     <div class="container">
         <h1>Lobby-Room Chat</h1>
-        <br/>
-        <div id="console" class="well">
-            <div>房间信息</div>
-            <hr color="blue">
+        <div id="room" class="well">
+            <div id="dashboard" class="row">
+                <div class="col-xs-2">
+                    <p>在线人数 <span id="num"></span></p>
+                </div>
+                <div class="col-xs-1 col-xs-offset-9">
+                    <div class="dropdown">
+                        <div id="current" type="button" data-toggle="dropdown" send="lobbyId">
+                            大厅
+                            <span class="caret"></span>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li send="lobbyId"><a>大厅</a></li>
+                            <li send="room1Id"><a>房间1</a></li>
+                            <li send="room2Id"><a>房间2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="console">
+            </div>
         </div>
         <div id="control" class="well">
             <div>
-                <p>nickname: <strong id="nickname"></strong></p>
+                <p>昵称: <strong id="nickname"></strong></p>
             </div>
-            <textarea id="msg" rows="3" class="form-control" placeholder="Type something..."></textarea>
+            <textarea id="msg" placeholder="Type something..."></textarea>
             <div id="bar" class="row">
                 <div class="col-xs-9"></div>
-                <button type="button" onClick="sendMessage()" class="btn btn-lg col-xs-1">Send</button>
-                <button type="button" id="rename" class="btn btn-lg col-xs-1">Rename</button>
+                <button type="button" onClick="sendMessage()" class="btn btn-lg col-xs-1 btn1">Send</button>
+                <button type="button" id="rename" class="btn btn-lg col-xs-1 btn1">Rename</button>
             </div>
         </div>
     </div>
