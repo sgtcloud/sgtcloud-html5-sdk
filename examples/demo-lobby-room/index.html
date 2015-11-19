@@ -190,17 +190,15 @@
         return COLORS[index];
     }
 
-    var socket = io.connect('http://127.0.0.1:1337/wodog');
-    // sgt.init({
-    //     appId: 'xmj_sgp',
-    //     appGateway: 'http://test.sgtcloud.cn/gateway'
-    // });
+    // var socket = io.connect('http://127.0.0.1:1337/wodog');
+    sgt.init({
+        appId: 'xmj_sgp',
+        appGateway: 'http://test.sgtcloud.cn/gateway'
+    });
 
-    // sgt.UserService.login('Ak61E175', 'yoedge2014', function() {});
+    sgt.UserService.login('Ak61E175', 'yoedge2014', function() {});
 
-    // var socket = sgt.SocketService.getSocket();
-
-    // console.log(socket);
+    var socket = sgt.SocketService.getSocket();
 
     var userName = 'user' + Math.floor((Math.random() * 1000) + 1);
 
