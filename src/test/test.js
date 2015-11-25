@@ -24,37 +24,37 @@ SgtApi.init({
 //测试服用户名:
 
 //测试UserService
-describe('UserService', function() {
-    describe('login', function() {
-        it('should login', function(done) {
-            SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {
-                if (result) {
-                    user = data;
-                    console.log(SgtApi.context.server);
-                    assert.ok(true, data);
-                } else {
-                    assert.ok(false, data);
-                }
-                done();
-            });
-        });
-    });
+// describe('UserService', function() {
+//     describe('login', function() {
+//         it('should login', function(done) {
+//             SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {
+//                 if (result) {
+//                     user = data;
+//                     console.log(SgtApi.context.server);
+//                     assert.ok(true, data);
+//                 } else {
+//                     assert.ok(false, data);
+//                 }
+//                 done();
+//             });
+//         });
+//     });
     
-    describe('registe', function() {
-        it('should registe', function(done) {
-            var user = new SgtApi.User();
-            user.userName = 'Ak61E175';
-            user.password = 'yoedge2014';
-            SgtApi.UserService.regist(user, function(result, data) {
-                if (result) {
-                    assert.ok(true, data);
-                } else {
-                    assert.ok(false, data);
-                }
-            });
-        });
-    });
-});
+//     describe('registe', function() {
+//         it('should registe', function(done) {
+//             var user = new SgtApi.User();
+//             user.userName = 'Ak61E175';
+//             user.password = 'yoedge2014';
+//             SgtApi.UserService.regist(user, function(result, data) {
+//                 if (result) {
+//                     assert.ok(true, data);
+//                 } else {
+//                     assert.ok(false, data);
+//                 }
+//             });
+//         });
+//     });
+// });
 
 // 测试PlayerService
 // describe('PlayerService', function() {
@@ -2876,28 +2876,28 @@ describe('UserService', function() {
 //     describe('getSignature', function() {
 //         it('should get signature');
 //     });
-//     describe('getPayOrder', function() {
-//         it('should get pay order', function(done) {
-//             var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
+    describe('getPayOrder', function() {
+        it('should get pay order', function(done) {
+            // var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
 
 
-//             SgtApi.WxCentralService.getPayOrder('html5_demo2015', {
-//                 body: '',
-//                 total_fee: 100,
-//                 trade_type: 'JSAPI',
-//                 serverId: '',
-//                 openid: 'o1iIptx19vzJsWaGjaPs63BvZsOk'
-//             }, function(result, data) {
-//                 if (result) {
-//                     assert.ok(true, data);
-//                     console.log(data);
-//                 } else {
-//                     assert.ok(false, data);
-//                 }
-//                 done();
-//             });
-//         });
-//     });
+            SgtApi.WxCentralService.getPayOrder({
+                body: 'khjjhj',
+                total_fee: 1,
+                trade_type: 'JSAPI',
+                serverId: '',   
+                openid: 'o1iIptx19vzJsWaGjaPs63BvZsOk'
+            }, function(result, data) {
+                if (result) {
+                    assert.ok(true, data);
+                    console.log(data);
+                } else {
+                    assert.ok(false, data);
+                }
+                done();
+            });
+        });
+    });
 // });
 
 // //测试UserLeaveInfo
@@ -2946,11 +2946,11 @@ describe('UserService', function() {
 // });
 
 //测试 SocketService
-describe('SocketService', function() {
-    describe('getSocket', function() {
-        it('should get socket', function(done) {
-            console.log(SgtApi.context.server);
-            SgtApi.SocketService.getSocket();
-        });
-    });
-});
+// describe('SocketService', function() {
+//     describe('getSocket', function() {
+//         it('should get socket', function(done) {
+//             console.log(SgtApi.context.server);
+//             SgtApi.SocketService.getSocket();
+//         });
+//     });
+// });
