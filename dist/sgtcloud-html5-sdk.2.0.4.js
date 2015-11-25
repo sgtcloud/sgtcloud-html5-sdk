@@ -3276,6 +3276,16 @@ jsonRPC =new Object({
         channelId: ''
     };
 
+    //识别 MicroMessenger 这个关键字来确定是否微信内置的浏览器
+    function is_weixin() {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * 初始化sdk配置
      * @class init
@@ -3294,8 +3304,17 @@ jsonRPC =new Object({
         }
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
-        SgtApi.WxCentralService = SgtApi.WxCentralService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
+
+        //初始化微信中控服务
+        if (wx) {
+            if (is_weixin()) {
+                SgtApi.WxCentralService = SgtApi.WxCentralService();
+            }
+            console.error('您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务');
+        } else {
+            console.error('您未导入wx-js-sdk, 所以没有为您初始化微信中控服务\r\n若您想了解更多详情, 可以访问微信公众平台开发者文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html');
+        }
     };
 
     /**
@@ -6982,9 +7001,30 @@ jsonRPC =new Object({
              * @param  {Function} callback   回调函数
              * @return {Object}              
              */
-            getPayOrder: function(appId, paramModel, callback) {
+            getPayOrder: function(paramModel, callback) {
                 var name = 'getPayOrder';
-                var data = [appId, paramModel];
+                var data = [SgtApi.context.appId, paramModel];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+
+            /**
+             * 通过code换取网页授权access_token
+             * 还有openid
+             * @param  {String}   appId    公众号的唯一标识
+             * @param  {String}   code     auth验证返回的code
+             * @param  {Function} callback 回调函数
+             * @return {Object}            {
+                                               "access_token":"ACCESS_TOKEN",
+                                               "expires_in":7200,
+                                               "refresh_token":"REFRESH_TOKEN",
+                                               "openid":"OPENID",
+                                               "scope":"SCOPE",
+                                               "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+                                            }
+             */
+            getUserAccessToken: function(code, callback) {
+                var name = 'getUserAccessToken';
+                var data = [SgtApi.context.appId, code];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
