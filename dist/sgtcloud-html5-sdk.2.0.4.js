@@ -3273,7 +3273,9 @@ jsonRPC =new Object({
         // * @type {string}
         // * @default "zstfYB"
         // */
-        channelId: ''
+        channelId: '',
+        openid: null,
+        access_token: null
     };
 
     //识别 MicroMessenger 这个关键字来确定是否微信内置的浏览器
@@ -3284,6 +3286,14 @@ jsonRPC =new Object({
         } else {
             return false;
         }
+    }
+
+    //获取url中的参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); //匹配目标参数
+        if (r !== null) return unescape(r[2]);
+        return null; //返回参数值
     }
 
     /**
@@ -3305,11 +3315,24 @@ jsonRPC =new Object({
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
-
         //初始化微信中控服务
         if (wx) {
             if (is_weixin()) {
                 SgtApi.WxCentralService = SgtApi.WxCentralService();
+                if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
+                    SgtApi.context.openid = localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid');
+                }
+                if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-access_token')) {
+                    SgtApi.context.access_token = localStorage.getItem('sgt-' + SgtApi.context.appId + '-access_token');
+                }
+                if (getUrlParam('code')) {
+                    SgtApi.WxCentralService.getUserAccessToken(getUrlParam('code'), function(result, data) {
+                        SgtApi.context.openid = data.openid;
+                        SgtApi.context.access_token = data.access_token;
+                        localStorage.setItem('sgt-' + SgtApi.context.appId + '-access_token', SgtApi.context.access_token);
+                        localStorage.setItem('sgt-' + SgtApi.context.appId + '-openid', SgtApi.context.openid);
+                    });
+                }
             }
             console.error('您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务');
         } else {
@@ -7025,6 +7048,34 @@ jsonRPC =new Object({
             getUserAccessToken: function(code, callback) {
                 var name = 'getUserAccessToken';
                 var data = [SgtApi.context.appId, code];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+
+            /**
+             * 微信授权方法
+             * @param  {String} appid        微信的appid
+             * @param  {String} scope        可选
+             * @return {null}              
+             */
+            auth: function(appid, scope) {
+                var sVal = null;
+                if (scope) {
+                    sVal = scope;
+                } else {
+                    sVal = 'snsapi_base';
+                }
+                window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + encodeURIComponent(location.href) + '&response_type=code&scope=' + sVal + '&state=' + SgtApi.context.appId + '#wechat_redirect';
+            },
+
+            /**
+             * 登录获取微信用户信息
+             * 需要在auth带snsapi_userinfo 授权之后才能使用此方法
+             * @param  {Function} callback [description]
+             * @return {[type]}            [description]
+             */
+            getUserInfo: function(callback){
+                var name = 'getUserInfo';
+                var data = [SgtApi.context.access_token, SgtApi.context.openid];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };

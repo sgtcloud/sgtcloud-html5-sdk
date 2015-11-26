@@ -1,0 +1,152 @@
+<html>
+
+<head>
+    <title>微信支付</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <script type="text/javascript" src="./js/sgtcloud-html5-sdk.2.0.4.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.1.11.1.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        //签名
+        var signature = null;
+        //订单
+        var order = null;
+
+        //初始化sdk
+        sgt.init({
+            appId: 'xmj_sgp',
+            appGateway: 'http://test.sgtcloud.cn/gateway'
+        });
+
+        //登录用户
+        SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {});
+
+        sgt.WxCentralService.getSignature(function(result, data) {
+            console.log(data);
+            signature = data;
+        });
+
+
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: signature.result.wxAppId, // 必填，公众号的唯一标识
+            timestamp: signature.result.timestamp, // 必填，生成签名的时间戳
+            nonceStr: signature.result.noncestr, // 必填，生成签名的随机串
+            signature: signature.result.signature, // 必填，签名，见附录1
+            jsApiList: ['onMenuShareAppMessage', 'chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function() {
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            wx.checkJsApi({
+                jsApiList: ['onMenuShareAppMessage', 'chooseWXPay'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                success: function(res) {
+                    // 以键值对的形式返回，可用的api值true，不可用为false
+                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                }
+            });
+            wx.error(function(res) {
+                // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+            });
+        });
+
+
+        //获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r !== null) return unescape(r[2]);
+            return null; //返回参数值
+        }
+
+
+        //认证逻辑
+        $('#auth').click(function() {
+            sgt.WxCentralService.auth('wx9e1986fc11ecbd89', 'snsapi_userinfo');
+            // , 'snsapi_userinfo');
+        });
+
+        //认证后逻辑
+        if (getUrlParam('code')) {
+            //支付的业务逻辑
+            $('#other').css('display', 'block');
+            $('#auth').css('display', 'none');
+        }
+
+        $('#userinfo').click(function() {
+            // location.href = 'https://api.weixin.qq.com/sns/userinfo?access_token=' + sgt.context.access_token + '&openid=' + sgt.context.openid + '&lang=zh_CN';
+            sgt.WxCentralService.getUserInfo(function(result, data) {
+                alert(JSON.stringify(data));
+            });
+        });
+
+        if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
+            $('#other').css('display', 'block');
+            $('#auth').css('display', 'none');
+        }
+
+        //支付逻辑
+        $('#pay').click(function() {
+
+            //发起订单服务
+            sgt.WxCentralService.getPayOrder({
+                body: $('#good').val(),
+                total_fee: $('#money').val() * 100,
+                trade_type: 'JSAPI',
+                serverId: '',
+                openid: sgt.context.openid
+            }, function(result, data) {
+                order = data;
+            });
+
+            //微信支付
+            wx.chooseWXPay({
+                timestamp: order.time_start, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                nonceStr: order.nonce_str, // 支付签名随机串，不长于 32 位
+                package: 'prepay_id=' + order.prepay_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                paySign: order.paySign, // 支付签名
+                success: function(res) {
+                    // 支付成功后的回调函数
+                },
+                fail: function(res) {}
+            });
+        });
+    });
+    </script>
+</head>
+
+<body <div class="container">
+    <h1>微信支付</h1>
+    <p>请使用微信客户端打开此页面, 否则功能不会生效</p>
+    <hr>
+    <div id="auth">
+        <h4>进行授权</h4>
+        <button id="auth">点击授权</button>
+        <p>由于您是第一次登录,所以需要点击授权后才会进入支付页面</p>
+    </div>
+    <div id="other" style="display:none">
+        <form class="form-inline" id="form" display="hidden">
+            <div class="form-group">
+                <label for="good">商品</label>
+                <input type="text" class="form-control" id="good" placeholder="测试商品" value="测试商品">
+            </div>
+            <div class="form-group">
+                <label for="money">金额</label>
+                <input type="text" class="form-control" id="money" placeholder="0.01" value="0.01">
+            </div>
+        </form>
+        <h4>进行支付</h4>
+        <button id="pay">点击支付</button>
+        <p>点击支付进行支付</p>
+        <h4>查看用户信息</h4>
+        <button id="userinfo">userinfo</button>
+        <p>点击查看用户信息</p>
+    </div>
+</body>
+</body>
+
+</html>
