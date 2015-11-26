@@ -1,3 +1,130 @@
+jsonRPC =new Object({
+    version: '2.0',
+    endPoint: null,
+    namespace: null,
+    setup: function(params) {
+        this.endPoint = params["endPoint"];
+        this.namespace = params["namespace"];
+        this.cache = params["cache"] !== undefined ? params["cache"] : true;
+        return this;
+    },
+    request: function(method, options) {
+        if (options === undefined) {
+            options = {"id": 1};
+        }
+        if (options["id"] === undefined) {
+            options["id"] = 1;
+        }
+        if (options["cache"] === undefined) {
+            options["cache"] = this.cache;
+        }
+
+        this._doRequest(JSON.stringify(this._requestDataObj(method, options["params"], options["id"])), options);
+        return true;
+    },
+    // Creates an RPC suitable request object
+    _requestDataObj: function(method, params, id) {
+        var dataObj = {
+            "jsonrpc": this.version,
+            "method": this.namespace ? this.namespace +'.'+ method : method,
+            "id": id
+        }
+        if(params !== undefined) {
+            dataObj["params"] = params;
+        }
+        return dataObj;
+    },
+
+    _requestUrl: function(url, cache) {
+        url = url || this.endPoint;
+        if (!cache) {
+            if (url.indexOf("?") < 0) {
+                url += '?tm=' + new Date().getTime();
+            }
+            else {
+                url += "&tm=" + new Date().getTime();
+            }
+        }
+        return url;
+    },
+    _doRequest: function(data, options) {
+        var _that = this;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState==4) {
+                if (xmlhttp.status==200) {
+                    _that._requestSuccess.call(_that, xmlhttp.responseText, options["success"], options["error"]);
+                } else {
+                    _that._requestError.call(_that, xmlhttp.responseText, options["error"]);
+                }
+            }
+        };
+        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), false);
+
+        var headers=[
+            {"name":"Accept","type":"application/json, text/javascript, */*;"},
+            {"name":"Content-Type","type":"application/json-rpc"}
+        ];
+        for (var i=0;i<headers.length;i++) {
+            xmlhttp.setRequestHeader( headers[i]["name"], headers[i]["type"]);
+        }
+
+        xmlhttp.send(data);
+    },
+    // Handles calling of error callback function
+    _requestError: function(responseText, error) {
+        if (error !== undefined && typeof(error) === 'function') {
+            if(typeof(responseText) === 'string') {
+                try {
+                    error(eval ( '(' + responseText + ')' ));
+                }
+                catch(e) {
+                    error(this._response());
+                }
+            }
+            else {
+                error(this._response());
+            }
+        }
+    },
+    _requestSuccess: function(responseText, success, error) {
+        var response = this._response(responseText);
+
+        if(response.error && typeof(error) === 'function') {
+            error(response);
+            return;
+        }
+
+        // Otherwise, successful request, run the success request if it exists
+        if(typeof(success) === 'function') {
+            success(response);
+        }
+    },
+    _response: function(responseText) {
+        if (responseText === undefined) {
+            return {
+                error: 'Internal server error',
+                version: '2.0'
+            };
+        }
+        else {
+          try {
+              if(typeof(responseText) === 'string') {
+                  responseText = eval ( '(' + responseText + ')' );
+              }
+              return responseText;
+          }
+          catch (e) {
+              return {
+                  error: 'Internal server error: ' + e,
+                  version: '2.0'
+              }
+          }
+        }
+    }
+});
+
+
 /**
  * sgt html5 api
  * 开发者 by zhcy
@@ -3146,28 +3273,8 @@
         // * @type {string}
         // * @default "zstfYB"
         // */
-        channelId: '',
-        openid: null,
-        access_token: null
+        channelId: ''
     };
-
-    //识别 MicroMessenger 这个关键字来确定是否微信内置的浏览器
-    function is_weixin() {
-        var ua = navigator.userAgent.toLowerCase();
-        if (ua.match(/MicroMessenger/i) == "micromessenger") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //获取url中的参数
-    function getUrlParam(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-        var r = window.location.search.substr(1).match(reg); //匹配目标参数
-        if (r !== null) return unescape(r[2]);
-        return null; //返回参数值
-    }
 
     /**
      * 初始化sdk配置
@@ -3187,30 +3294,8 @@
         }
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
+        SgtApi.WxCentralService = SgtApi.WxCentralService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
-        //初始化微信中控服务
-        if (wx) {
-            if (is_weixin()) {
-                SgtApi.WxCentralService = SgtApi.WxCentralService();
-                if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
-                    SgtApi.context.openid = localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid');
-                }
-                if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-access_token')) {
-                    SgtApi.context.access_token = localStorage.getItem('sgt-' + SgtApi.context.appId + '-access_token');
-                }
-                if (getUrlParam('code')) {
-                    SgtApi.WxCentralService.getUserAccessToken(getUrlParam('code'), function(result, data) {
-                        SgtApi.context.openid = data.openid;
-                        SgtApi.context.access_token = data.access_token;
-                        localStorage.setItem('sgt-' + SgtApi.context.appId + '-access_token', SgtApi.context.access_token);
-                        localStorage.setItem('sgt-' + SgtApi.context.appId + '-openid', SgtApi.context.openid);
-                    });
-                }
-            }
-            console.error('您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务');
-        } else {
-            console.error('您未导入wx-js-sdk, 所以没有为您初始化微信中控服务\r\n若您想了解更多详情, 可以访问微信公众平台开发者文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html');
-        }
     };
 
     /**
@@ -6900,55 +6985,6 @@
             getPayOrder: function(paramModel, callback) {
                 var name = 'getPayOrder';
                 var data = [SgtApi.context.appId, paramModel];
-                SgtApi.doRPC(name, data, _url, callback);
-            },
-
-            /**
-             * 通过code换取网页授权access_token
-             * 还有openid
-             * @param  {String}   appId    公众号的唯一标识
-             * @param  {String}   code     auth验证返回的code
-             * @param  {Function} callback 回调函数
-             * @return {Object}            {
-                                               "access_token":"ACCESS_TOKEN",
-                                               "expires_in":7200,
-                                               "refresh_token":"REFRESH_TOKEN",
-                                               "openid":"OPENID",
-                                               "scope":"SCOPE",
-                                               "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
-                                            }
-             */
-            getUserAccessToken: function(code, callback) {
-                var name = 'getUserAccessToken';
-                var data = [SgtApi.context.appId, code];
-                SgtApi.doRPC(name, data, _url, callback);
-            },
-
-            /**
-             * 微信授权方法
-             * @param  {String} appid        微信的appid
-             * @param  {String} scope        可选
-             * @return {null}              
-             */
-            auth: function(appid, scope) {
-                var sVal = null;
-                if (scope) {
-                    sVal = scope;
-                } else {
-                    sVal = 'snsapi_base';
-                }
-                window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + encodeURIComponent(location.href) + '&response_type=code&scope=' + sVal + '&state=' + SgtApi.context.appId + '#wechat_redirect';
-            },
-
-            /**
-             * 登录获取微信用户信息
-             * 需要在auth带snsapi_userinfo 授权之后才能使用此方法
-             * @param  {Function} callback [description]
-             * @return {[type]}            [description]
-             */
-            getUserInfo: function(callback){
-                var name = 'getUserInfo';
-                var data = [SgtApi.context.access_token, SgtApi.context.openid];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
