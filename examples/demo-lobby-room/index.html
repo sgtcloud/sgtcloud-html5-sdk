@@ -119,14 +119,8 @@
     <script>
     $(function() {
 
-        /**
-         * 给昵称增加颜色
-         */
         $('#nickname').html('<span style="color:' + getUsernameColor(userName) + '">' + userName + '<span>');
 
-        /**
-         * 修改名字的方法
-         */
         var rename = function() {
             var input = $('<input  id="rename_input" value="' + userName + '" maxlength="14">');
             $('#nickname').html(input);
@@ -141,15 +135,9 @@
             });
         };
 
-        /**
-         * 绑定点击触发修改名字
-         */
         $('#rename').on('click', rename);
 
 
-        /**
-         * 切换房间
-         */
         $('#current').next().children().on('click', function() {
             $('#current').html($(this).text());
             $('#current').attr('send', $(this).attr('send'));
@@ -176,9 +164,6 @@
     room1Id = '';
     room2Id = '';
 
-    /**
-     * 房间对象
-     */
     var GameRoom = function() {
         this.id = null;
         this.name = null;
@@ -188,9 +173,6 @@
         this.customData = null;
     };
 
-    /**
-     * 消息对象
-     */
     var ChatObject = function() {
         this.message = null;
         this.roomId = null;
@@ -198,9 +180,6 @@
         this.sendId = null;
     };
 
-    /**
-     * 预定昵称的颜色
-     */
     var COLORS = [
         '#e21400', '#91580f', '#f8a700', '#f78b00',
         '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
@@ -219,51 +198,28 @@
         return COLORS[index];
     }
 
-    /**
-     *  初始化sdk
-     */
+    // var socket = io.connect('http://127.0.0.1:1337/wodog');
     sgt.init({
         appId: 'xmj_sgp',
         appGateway: 'http://test.sgtcloud.cn/gateway'
     });
 
-    /**
-     * 登录用户才能激活socketio服务
-     */
     sgt.UserService.login('Ak61E175', 'yoedge2014', function() {});
 
-    /**
-     * 获取socketio服务
-     */
     var socket = sgt.SocketService.getSocket();
 
-    /**
-     * 随机生成昵称
-     */
     var userName = 'user' + Math.floor((Math.random() * 1000) + 1);
 
-    /**
-     * 设置最初房间
-     */
     var current = '大厅';
 
 
-    /**
-     * socketio 监听离开房间事件
-     */
     socket.on('leaveRoom', function(data) {
         console.log(data);
     });
 
-    /**
-     * socketio 监听连接事件
-     */
     socket.on('connect', function() {
         output('<span class="connect-msg">Client has connected to the server!</span>');
 
-        /**
-         * 连接上后创建三个房间,分别是大厅,房间1,房间2
-         */
         var gameRoom1 = new GameRoom();
         gameRoom1.name = '大厅';
         gameRoom1.id = '001';
@@ -281,9 +237,6 @@
 
     });
 
-    /**
-     * 获取每个房间的id, 分别保存在lobbyId, room1Id, room2Id中, 最后加入大厅
-     */
     var times = 1;
     socket.on('createRoom', function(data) {
         if (times === 1) {
@@ -299,61 +252,37 @@
         }
     });
 
-    /**
-     * socketio 监听房间消息事件
-     */
     socket.on('roomMass', function(data) {
 
         output('<span class="username-msg" style="color:' + getUsernameColor(data.sendId) + '"><strong>' + data.sendId + '</strong></span> ' + data.message);
         console.log(data);
     });
 
-    /**
-     * socketio 监听加入房间事件
-     */
     socket.on('joinRoom', function(data) {
         console.log('im join');
         console.log(data);
     });
 
-    /**
-     * socketio 监听断开连接事件
-     */
     socket.on('disconnect', function() {
         output('<span class="disconnect-msg">The client has disconnected!</span>');
     });
 
-    /**
-     * socketio 监听连接数量事件
-     */
     socket.on('connectNum', function(data) {
         $('#num').html(data);
     });
 
-    /**
-     * socketio 监听断开连接数量事件
-     */
     socket.on('disconnectNum', function(data) {
         $('#num').html(data);
     });
 
-    /**
-     * 连上连接方法
-     */
     function sendConnect() {
 
     }
 
-    /**
-     * 断开连接方法
-     */
     function sendDisconnect() {
         socket.disconnect();
     }
 
-    /**
-     * 发送消息方法
-     */
     function sendMessage() {
         var message = $('#msg').val();
         if (!message) {
@@ -392,9 +321,6 @@
 
     }
 
-    /**
-     * 渲染DOM方法
-     */
     function output(message) {
         var currentTime = "<span class='time'>" + moment().format('HH:mm:ss') + "</span>";
         var element = $("<div>" + currentTime + " " + message + "</div>");
@@ -402,9 +328,6 @@
         document.getElementById('console').scrollTop = document.getElementById('console').scrollHeight;
     }
 
-    /**
-     * 监听键盘按键
-     */
     $(window).keydown(function(event) {
     	if($('#rename_input')){
     		return;
