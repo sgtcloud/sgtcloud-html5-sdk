@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 
 <head>
     <title>微信支付</title>
@@ -65,7 +65,7 @@
 
         //认证逻辑
         $('#auth').click(function() {
-            sgt.WxCentralService.auth('wx9e1986fc11ecbd89', 'snsapi_userinfo');
+            sgt.WxCentralService.auth('wx9e1986fc11ecbd89') ;
             // , 'snsapi_userinfo');
         });
 
@@ -77,12 +77,9 @@
         }
 
         $('#userinfo').click(function() {
-            // location.href = 'https://api.weixin.qq.com/sns/userinfo?access_token=' + sgt.context.access_token + '&openid=' + sgt.context.openid + '&lang=zh_CN';
-            sgt.WxCentralService.getUserInfo(function(result, data) {
-                alert(JSON.stringify(data));
-            });
+            location.href = 'https://api.weixin.qq.com/sns/userinfo?access_token=' + sgt.context.access_token + '&openid=' + sgt.context.openid + '&lang=zh_CN';
         });
-
+        
         if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
             $('#other').css('display', 'block');
             $('#auth').css('display', 'none');
@@ -142,10 +139,8 @@
         <h4>进行支付</h4>
         <button id="pay">点击支付</button>
         <p>点击支付进行支付</p>
-        <h4>查看用户信息</h4>
-        <button id="userinfo">userinfo</button>
-        <p>点击查看用户信息</p>
     </div>
+    <!-- <button id="userinfo">userinfo</button> -->
 </body>
 </body>
 

@@ -71,6 +71,7 @@ sgt.UserService.quickLogin(function(result, data) {
 * [用户指南](https://www.gitbook.com/book/sgtcloud/sgtcloud-html5-sdk/details) 
 * [排行榜教程](http://www.sgtcloud.cn/tutorials) 
 * [微信中控教程](http://www.sgtcloud.cn/tutorials/tutorial-wx)
+* [聊天室Demo](http://www.sgtcloud.cn/tutorials/demo-lobby-room)
 
 ### 技术架构
 

@@ -2438,6 +2438,35 @@
          */
         SgtApi.Order.prototype.STATUS_OF_SUCESS = 0;
     };
+    /**
+     * 微信支付统一下单参数对象模型
+     */
+    SgtApi.WxPayOrderModel = function() {
+        /*
+        总金额
+         */
+        this.total_fee = null;
+        /**
+         * 交易类型
+         */
+        this.trade_type = 'JSAPI';
+        /**
+         * 用户标识
+         */
+        this.openid = null;
+        /**
+         * 服务器ID
+         */
+        this.serverId = null;
+        /**
+         * 角色ID
+         */
+        this.playerId = null;
+        /**
+         * 用户ID
+         */
+        this.userId = null;
+    };
 
     /**
      * 角色扩展信息公共父类，所有开发者扩展的角色信息要么继承这个类，要么在自己的扩展类中添加playerId字段
@@ -6893,7 +6922,16 @@
             /**
              * web端采用微信支付
              * @param  {string}   appId      用户表示
-             * @param  {Object}   paramModel 参数对象
+             * @param  {Object}   paramModel 参数对象  
+                      {
+						    body: 'JSAPI支付测试',
+						    total_fee: 1,
+						    trade_type: 'JSAPI',
+						    openid: 'oUpF8uMuAJO_M2pxb1Q9zNjWeS6o',
+						    serverId: '',
+							playerId: '',
+							userId: '',		
+						}
              * @param  {Function} callback   回调函数
              * @return {Object}              
              */
@@ -6937,7 +6975,7 @@
                 } else {
                     sVal = 'snsapi_base';
                 }
-                window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + encodeURIComponent(location.href) + '&response_type=code&scope=' + sVal + '&state=' + SgtApi.context.appId + '#wechat_redirect';
+                window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + encodeURIComponent(location.href.split('?')[0]) + '&response_type=code&scope=' + sVal + '&state=' + SgtApi.context.appId + '#wechat_redirect';
             },
 
             /**
@@ -6946,7 +6984,7 @@
              * @param  {Function} callback [description]
              * @return {[type]}            [description]
              */
-            getUserInfo: function(callback){
+            getUserInfo: function(callback) {
                 var name = 'getUserInfo';
                 var data = [SgtApi.context.access_token, SgtApi.context.openid];
                 SgtApi.doRPC(name, data, _url, callback);
