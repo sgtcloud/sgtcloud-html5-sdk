@@ -7048,9 +7048,20 @@
      * 再通过socketio的api进行交互
      */
     SgtApi.SocketService = function() {
-        var _url = SgtApi.context.server.socketUrl + SgtApi.context.appId + '/';
+        var socketUrl = null;
+        if (SgtApi.context.server.socketUrl.endsWith('/')) {
+            socketUrl = SgtApi.context.server.socketUrl;
+        } else {
+            socketUrl = SgtApi.context.server.socketUrl + '/';
+        }
+        var _url = socketUrl + SgtApi.context.appId;
         return {
             getSocket: function(nameSpace) {
+                if (nameSpace) {
+                    if (! nameSpace.endsWith('/')) {
+                    	nameSpace = '/' + nameSpace;
+                    }
+                }
                 return io(_url + (nameSpace ? nameSpace : ''));
             }
         };
