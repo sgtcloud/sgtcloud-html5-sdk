@@ -1,4 +1,4 @@
-jsonRPC =new Object({
+﻿jsonRPC =new Object({
     version: '2.0',
     endPoint: null,
     namespace: null,
@@ -2565,6 +2565,35 @@ jsonRPC =new Object({
          */
         SgtApi.Order.prototype.STATUS_OF_SUCESS = 0;
     };
+    /**
+     * 微信支付统一下单参数对象模型
+     */
+    SgtApi.WxPayOrderModel = function() {
+        /*
+        总金额
+         */
+        this.total_fee = null;
+        /**
+         * 交易类型
+         */
+        this.trade_type = 'JSAPI';
+        /**
+         * 用户标识
+         */
+        this.openid = null;
+        /**
+         * 服务器ID
+         */
+        this.serverId = null;
+        /**
+         * 角色ID
+         */
+        this.playerId = null;
+        /**
+         * 用户ID
+         */
+        this.userId = null;
+    };
 
     /**
      * 角色扩展信息公共父类，所有开发者扩展的角色信息要么继承这个类，要么在自己的扩展类中添加playerId字段
@@ -3273,8 +3302,28 @@ jsonRPC =new Object({
         // * @type {string}
         // * @default "zstfYB"
         // */
-        channelId: ''
+        channelId: '',
+        openid: null,
+        access_token: null
     };
+
+    //识别 MicroMessenger 这个关键字来确定是否微信内置的浏览器
+    function is_weixin() {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //获取url中的参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); //匹配目标参数
+        if (r !== null) return unescape(r[2]);
+        return null; //返回参数值
+    }
 
     /**
      * 初始化sdk配置
@@ -3294,8 +3343,30 @@ jsonRPC =new Object({
         }
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
-        SgtApi.WxCentralService = SgtApi.WxCentralService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
+        //初始化微信中控服务
+        if (wx) {
+            if (is_weixin()) {
+                SgtApi.WxCentralService = SgtApi.WxCentralService();
+                if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
+                    SgtApi.context.openid = localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid');
+                }
+                if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-access_token')) {
+                    SgtApi.context.access_token = localStorage.getItem('sgt-' + SgtApi.context.appId + '-access_token');
+                }
+                if (getUrlParam('code')) {
+                    SgtApi.WxCentralService.getUserAccessToken(getUrlParam('code'), function(result, data) {
+                        SgtApi.context.openid = data.openid;
+                        SgtApi.context.access_token = data.access_token;
+                        localStorage.setItem('sgt-' + SgtApi.context.appId + '-access_token', SgtApi.context.access_token);
+                        localStorage.setItem('sgt-' + SgtApi.context.appId + '-openid', SgtApi.context.openid);
+                    });
+                }
+            }
+            console.error('您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务');
+        } else {
+            console.error('您未导入wx-js-sdk, 所以没有为您初始化微信中控服务\r\n若您想了解更多详情, 可以访问微信公众平台开发者文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html');
+        }
     };
 
     /**
@@ -6934,7 +7005,6 @@ jsonRPC =new Object({
             }
         };
     };
-
     /**
      * 微信中控服务
      * @type {Object}
@@ -6978,13 +7048,71 @@ jsonRPC =new Object({
             /**
              * web端采用微信支付
              * @param  {string}   appId      用户表示
-             * @param  {Object}   paramModel 参数对象
+             * @param  {Object}   paramModel 参数对象  
+                      {
+						    body: 'JSAPI支付测试',
+						    total_fee: 1,
+						    trade_type: 'JSAPI',
+						    openid: 'oUpF8uMuAJO_M2pxb1Q9zNjWeS6o',
+						    serverId: '',
+							playerId: '',
+							userId: '',		
+						}
              * @param  {Function} callback   回调函数
              * @return {Object}              
              */
             getPayOrder: function(paramModel, callback) {
                 var name = 'getPayOrder';
                 var data = [SgtApi.context.appId, paramModel];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+
+            /**
+             * 通过code换取网页授权access_token
+             * 还有openid
+             * @param  {String}   appId    公众号的唯一标识
+             * @param  {String}   code     auth验证返回的code
+             * @param  {Function} callback 回调函数
+             * @return {Object}            {
+                                               "access_token":"ACCESS_TOKEN",
+                                               "expires_in":7200,
+                                               "refresh_token":"REFRESH_TOKEN",
+                                               "openid":"OPENID",
+                                               "scope":"SCOPE",
+                                               "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+                                            }
+             */
+            getUserAccessToken: function(code, callback) {
+                var name = 'getUserAccessToken';
+                var data = [SgtApi.context.appId, code];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+
+            /**
+             * 微信授权方法
+             * @param  {String} appid        微信的appid
+             * @param  {String} scope        可选
+             * @return {null}              
+             */
+            auth: function(appid, scope) {
+                var sVal = null;
+                if (scope) {
+                    sVal = scope;
+                } else {
+                    sVal = 'snsapi_base';
+                }
+                window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + encodeURIComponent(location.href.split('?')[0]) + '&response_type=code&scope=' + sVal + '&state=' + SgtApi.context.appId + '#wechat_redirect';
+            },
+
+            /**
+             * 登录获取微信用户信息
+             * 需要在auth带snsapi_userinfo 授权之后才能使用此方法
+             * @param  {Function} callback [description]
+             * @return {[type]}            [description]
+             */
+            getUserInfo: function(callback) {
+                var name = 'getUserInfo';
+                var data = [SgtApi.context.access_token, SgtApi.context.openid];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -7046,9 +7174,20 @@ jsonRPC =new Object({
      * 再通过socketio的api进行交互
      */
     SgtApi.SocketService = function() {
-        var _url = SgtApi.context.server.socketUrl + SgtApi.context.appId + '/';
+        var socketUrl = null;
+        if (SgtApi.context.server.socketUrl.endsWith('/')) {
+            socketUrl = SgtApi.context.server.socketUrl;
+        } else {
+            socketUrl = SgtApi.context.server.socketUrl + '/';
+        }
+        var _url = socketUrl + SgtApi.context.appId;
         return {
             getSocket: function(nameSpace) {
+                if (nameSpace) {
+                    if (! nameSpace.endsWith('/')) {
+                    	nameSpace = '/' + nameSpace;
+                    }
+                }
                 return io(_url + (nameSpace ? nameSpace : ''));
             }
         };
