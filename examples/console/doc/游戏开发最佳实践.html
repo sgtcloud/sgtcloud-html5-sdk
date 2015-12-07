@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>游戏开发最佳实践</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+body { font:80% Verdana,Tahoma,Arial,sans-serif; }
+h1, h2, h3, h4 {  font-family: "Trebuchet MS",Georgia,"Times New Roman",serif; }
+ul.toc { padding: 4px; margin-left: 0; }
+ul.toc li { list-style-type:none; }
+ul.toc li.heading2 { margin-left: 1em; }
+ul.toc li.heading3 { margin-left: 2em; }
+a.wiki-anchor { display: none; margin-left: 6px; text-decoration: none; }
+a.wiki-anchor:hover { color: #aaa !important; text-decoration: none; }
+h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display: inline; color: #ddd; }
+</style>
+</head>
+<body>
+<a name="游戏开发最佳实践"></a>
+<h1 >游戏开发最佳实践<a href="#游戏开发最佳实践" class="wiki-anchor">&para;</a></h1>
+
+
+	<a name="渐进式架构"></a>
+<h1 >渐进式架构<a href="#渐进式架构" class="wiki-anchor">&para;</a></h1>
+
+
+	<p>SGT使用了jsonrpc作为传输层的协议，主要是考虑rpc在编码层面上与本地调用保持了一个平滑重构的基础。</p>
+
+
+	<a name="渐进的阶段"></a>
+<h2 >渐进的阶段<a href="#渐进的阶段" class="wiki-anchor">&para;</a></h2>
+
+
+	<a name="抽象业务逻辑"></a>
+<h3 >抽象业务逻辑<a href="#抽象业务逻辑" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>为一个具体的业务抽象出一个接口来，定义好参数和返回值。</p>
+
+
+	<a name="本地实现"></a>
+<h3 >本地实现<a href="#本地实现" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>在本地实现这个方法</p>
+
+
+	<a name="混合实现"></a>
+<h3 >混合实现<a href="#混合实现" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>在本地实现内调用一部分sgt现有的业务接口</p>
+
+
+	<a name="rpc实现"></a>
+<h3 >rpc实现<a href="#rpc实现" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>把这个本地实现移动到服务器端，通过rpc框架（也就是sdk）调用这个接口的rpc实现</p>
+
+
+	<a name="例子"></a>
+<h2 >例子<a href="#例子" class="wiki-anchor">&para;</a></h2>
+
+
+	<a name="需求"></a>
+<h3 >需求<a href="#需求" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>仙魔剑系列游戏中好友有几个相对比较重要的功能：踢罐子，挑战好友，携带好友出战。由于这些功能都需要冷却，所以必须记录好友的id和发起时间。</p>
+
+
+	<a name="抽象业务逻辑-2"></a>
+<h3 >抽象业务逻辑<a href="#抽象业务逻辑-2" class="wiki-anchor">&para;</a></h3>
+
+
+针对一个功能抽象两个方法，一个是列举，一个是挑战。
+	<ul>
+	<li>实体XMJFriend包含冷却时间这个字段</li>
+		<li>接口ChallengeService<br />+ List&lt;XMJFriend&gt; listMyFriends(...)<br />+ ... ChallengeFriend(XMJFriend xmjFriend)</li>
+	</ul>
+
+
+	<a name="混合实现-2"></a>
+<h3 >混合实现<a href="#混合实现-2" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>因为这个业务中的好友信息是从sgt获取的，所以不存在本地实现。<br />ChallengeServiceImpl.listMyFriends方法中包含了客户端用一个k-v（map）来保存好友的id和挑战发起时间，例如某个好友被挑战过了，那么在本地保存一个“冷却前缀+好友id：当前时间戳”，如果下次从服务器重新拉取好友列表（通过sgt的FriendshipService），那么从map中获取这个好友上次被邀请的时间戳，减去冷却时间，如果超过，则移除这个时间戳，如果没超过，则把剩余的冷却时间复制到XMJFriend这个实体中，然后再展示到界面上。<br />ChallengeServiceImpl.ChallengeFriend更新本地保存的“冷却前缀+好友id：当前时间戳”。</p>
+
+
+	<a name="rpc实现-2"></a>
+<h3 >rpc实现<a href="#rpc实现-2" class="wiki-anchor">&para;</a></h3>
+
+
+	<p>服务器端也导入XMJFriend这个实体，并且把ChallengeService实现ChallengeServiceImpl移动到了服务器端。<br />ChallengeServiceImpl.listMyFriends方法中使用redis的hash结构来保存好友的id和挑战发起时间，例如某个好友被挑战过了，那么在在对应的hash中保存一个“冷却前缀+好友id：当前时间戳”，如果listMyFriends被调用时，从hash中获取这个好友id上次被邀请的时间戳，减去冷却时间，如果超过，则移除这个时间戳，如果没超过，则把剩余的冷却时间复制到XMJFriend这个实体中，然后再返回给客户端。客户端直接把这个方法返回的对象或者对象集合展示到界面上。<br />ChallengeServiceImpl.ChallengeFriend更新redis中保存的“冷却前缀+好友id：当前时间戳”。</p>
+
+
+	<p>以上的例子中谈到的实现仅供参考，请根据自己项目的情况来决定实际的实现方案。</p>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>如何利用签到版实现周签到和月份签到？</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+body { font:80% Verdana,Tahoma,Arial,sans-serif; }
+h1, h2, h3, h4 {  font-family: "Trebuchet MS",Georgia,"Times New Roman",serif; }
+ul.toc { padding: 4px; margin-left: 0; }
+ul.toc li { list-style-type:none; }
+ul.toc li.heading2 { margin-left: 1em; }
+ul.toc li.heading3 { margin-left: 2em; }
+a.wiki-anchor { display: none; margin-left: 6px; text-decoration: none; }
+a.wiki-anchor:hover { color: #aaa !important; text-decoration: none; }
+h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display: inline; color: #ddd; }
+</style>
+</head>
+<body>
+<a name="如何利用签到版实现周签到和月份签到"></a>
+<h1 >如何利用签到版实现周签到和月份签到？<a href="#如何利用签到版实现周签到和月份签到" class="wiki-anchor">&para;</a></h1>
+
+
+	<p>周签到<br />一块签到板，有开始时间，无结束时间，奖励固定，需要按照一个周期（目前决定重用最大签到次数实现，原来的根据最大签到次数实现单个用户重置次数的逻辑废弃）从开始时间计算，在指定的时间（小时）重置签到板上的所有用户数据。</p>
+
+
+	<p>月签到<br />12块签到板，每个月对应一块签到板，每个月第一天作为开始时间，每个月最后一天作为结束时间，每块签到板设置不同的奖品，在结束时间自动重置签到板上的所有数据。</p>
+</body>
+</html>

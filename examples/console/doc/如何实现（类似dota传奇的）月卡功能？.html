@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>如何实现（类似dota传奇的）月卡功能？</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+body { font:80% Verdana,Tahoma,Arial,sans-serif; }
+h1, h2, h3, h4 {  font-family: "Trebuchet MS",Georgia,"Times New Roman",serif; }
+ul.toc { padding: 4px; margin-left: 0; }
+ul.toc li { list-style-type:none; }
+ul.toc li.heading2 { margin-left: 1em; }
+ul.toc li.heading3 { margin-left: 2em; }
+a.wiki-anchor { display: none; margin-left: 6px; text-decoration: none; }
+a.wiki-anchor:hover { color: #aaa !important; text-decoration: none; }
+h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display: inline; color: #ddd; }
+</style>
+</head>
+<body>
+<a name="如何实现类似dota传奇的月卡功能"></a>
+<h1 >如何实现（类似dota传奇的）月卡功能？<a href="#如何实现类似dota传奇的月卡功能" class="wiki-anchor">&para;</a></h1>
+
+
+	<p>通过时间戳服务TImestampService和每日任务DailyTaskService来实现</p>
+
+
+	<ol>
+	<li>客户端发起购买月卡</li>
+		<li>服务器端根据购买成功的回调，为该角色创建一个key（例如month_subscriber_[playerId]）的时间戳服务，值为当前时间加一个月（如果有效期为一个月）</li>
+		<li>把领取月卡奖励作为一种特殊类型的每日任务在console后台添加</li>
+		<li>客户端发起请求当前可用的每日任务</li>
+		<li>当任务中包含月卡奖励类型的任务时，发起对之前步骤创建的时间戳的查询</li>
+		<li>如果在有效期内，则领取该奖励，并且更新该任务进度，变更该任务状态为已领取；如果超过了有效期则无法领取该奖励</li>
+	</ol>
+
+
+	<p>月卡续费逻辑同上</p>
+</body>
+</html>

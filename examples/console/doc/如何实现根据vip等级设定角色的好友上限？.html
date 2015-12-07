@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>如何实现根据vip等级设定角色的好友上限？</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+body { font:80% Verdana,Tahoma,Arial,sans-serif; }
+h1, h2, h3, h4 {  font-family: "Trebuchet MS",Georgia,"Times New Roman",serif; }
+ul.toc { padding: 4px; margin-left: 0; }
+ul.toc li { list-style-type:none; }
+ul.toc li.heading2 { margin-left: 1em; }
+ul.toc li.heading3 { margin-left: 2em; }
+a.wiki-anchor { display: none; margin-left: 6px; text-decoration: none; }
+a.wiki-anchor:hover { color: #aaa !important; text-decoration: none; }
+h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display: inline; color: #ddd; }
+</style>
+</head>
+<body>
+<a name="如何实现根据vip等级设定角色的好友上限"></a>
+<h1 >如何实现根据vip等级设定角色的好友上限？<a href="#如何实现根据vip等级设定角色的好友上限" class="wiki-anchor">&para;</a></h1>
+
+
+	<p>通过用户角色服务SGPPlayerService和充值升级vip相关逻辑来实现</p>
+
+
+	<ol>
+	<li>客户端发起充值成功</li>
+		<li>根据充值金额累计得到vip等级</li>
+		<li>根据策划数值文档，设置vip等级对应的player里的好友上限值</li>
+		<li>如果角色添加好友时会检查已经存在的好友关系，如果超出的话会抛出异常，添加好友关系失败</li>
+	</ol>
+</body>
+</html>
