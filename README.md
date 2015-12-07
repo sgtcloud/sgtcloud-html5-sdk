@@ -72,7 +72,7 @@ sgt.UserService.quickLogin(function(result, data) {
 - [排行榜教程](http://www.sgtcloud.cn/tutorials) 
 - [微信中控教程](http://www.sgtcloud.cn/tutorials/tutorial-wx)
 - [聊天室Demo](http://www.sgtcloud.cn/tutorials/demo-lobby-room)
-- [开发者后台使用教程](http://www.sgtcloud.cn/tutorials/console)
+- [开发者后台使用教程](http://www.sgtcloud.cn/tutorials/console){:target="_blank"}
 	+ 公告，公共消息和私有消息应该怎么使用？
 	+ 如何利用签到版实现周签到和月份签到？
 	+ 如何利用sgt开发充值功能？
