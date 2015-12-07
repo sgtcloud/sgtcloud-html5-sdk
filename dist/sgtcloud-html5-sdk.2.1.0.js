@@ -59,7 +59,12 @@ jsonRPC =new Object({
                 }
             }
         };
-        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), false);
+        if(options["async"]===false){
+            xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]),false);
+        }else {
+            xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]));
+        }
+
 
         var headers=[
             {"name":"Accept","type":"application/json, text/javascript, */*;"},
