@@ -66,13 +66,20 @@ sgt.UserService.quickLogin(function(result, data) {
 
 ### 文档
 
-* [官网](http://www.sgtcloud.cn)
-* [API](http://www.sgtcloud.cn/api) 
-* [用户指南](https://www.gitbook.com/book/sgtcloud/sgtcloud-html5-sdk/details) 
-* [排行榜教程](http://www.sgtcloud.cn/tutorials) 
-* [微信中控教程](http://www.sgtcloud.cn/tutorials/tutorial-wx)
-* [聊天室Demo](http://www.sgtcloud.cn/tutorials/demo-lobby-room)
-* [开发者后台使用教程](http://www.sgtcloud.cn/tutorials/console)
+- [官网](http://www.sgtcloud.cn)
+- [API](http://www.sgtcloud.cn/api) 
+- [用户指南](https://www.gitbook.com/book/sgtcloud/sgtcloud-html5-sdk/details) 
+- [排行榜教程](http://www.sgtcloud.cn/tutorials) 
+- [微信中控教程](http://www.sgtcloud.cn/tutorials/tutorial-wx)
+- [聊天室Demo](http://www.sgtcloud.cn/tutorials/demo-lobby-room)
+- [开发者后台使用教程](http://www.sgtcloud.cn/tutorials/console)
+	+ 公告，公共消息和私有消息应该怎么使用？
+	+ 如何利用签到版实现周签到和月份签到？
+	+ 如何利用sgt开发充值功能？
+	+ 如何实现（类似dota传奇的）月卡功能？
+	+ 如何实现根据vip等级设定角色的好友上限？
+	+ 游戏开发最佳实践
+	+ SGTCloud后台操作手册(Word版)
 
 ### 技术架构
 
