@@ -1,36 +1,374 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>开发者后台使用教程</title>
-    <style type="text/css">
-        li{
-            padding:10px;
-            background: #ececec;
-            border: #cccccc 1px solid ;
-            list-style-position:inside;
-            margin-bottom:1px;
-        }
-        a{
-            text-decoration:none;
-            display:block;
-        }
-        li:hover{
-            background: #cccccc;
-        }
-
-    </style>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5全屏两列布局网页模板|DEMO_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+    <link href='http://fonts.useso.com/css?family=Source+Sans+Pro:400,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+    <script src="js/modernizr.js"></script> <!-- Modernizr -->
+    <!--[if IE]>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<ol>
-    <li><a href="doc/公告，公共消息和私有消息应该怎么使用？.html">公告，公共消息和私有消息应该怎么使用？</a></li>
-    <li><a href="doc/如何利用签到版实现周签到和月份签到？.html">如何利用签到版实现周签到和月份签到？</a></li>
-    <li><a href="doc/如何利用sgt开发充值功能？">如何利用sgt开发充值功能？</a></li>
-    <li><a href="doc/如何实现（类似dota传奇的）月卡功能？.html">如何实现（类似dota传奇的）月卡功能？</a></li>
-    <li><a href="doc/如何实现根据vip等级设定角色的好友上限？.html">如何实现根据vip等级设定角色的好友上限？</a></li>
-    <li><a href="doc/游戏开发最佳实践.html">游戏开发最佳实践</a></li>
-    <li><a href="doc/SGTCloud后台操作手册.doc">SGTCloud后台操作手册(Word版)</a></li>
-</ol>
+<main>
+    <div class="cd-image-block">
+        <ul class="cd-images-list">
+            <li class="is-selected">
+                <a href="#0">
+                    <h2>开发者后台使用教程</h2>
+                </a>
+            </li>
+
+            <li>
+                <a href="#0">
+                    <h2>公告，公共消息和私有消息应该怎么使用？</h2>
+                </a>
+            </li>
+
+            <li>
+                <a href="#0">
+                    <h2>如何利用签到版实现周签到和月份签到？</h2>
+                </a>
+            </li>
+
+            <li>
+                <a href="#0">
+                    <h2>如何利用sgt开发充值功能？</h2>
+                </a>
+            </li>
+            <li>
+                <a href="#0">
+                    <h2>如何实现（类似dota传奇的）月卡功能？</h2>
+                </a>
+            </li>
+            <li>
+                <a href="#0">
+                    <h2>如何实现根据vip等级设定角色的好友上限？</h2>
+                </a>
+            </li>
+            <li>
+                <a href="#0">
+                    <h2>游戏开发最佳实践</h2>
+                </a>
+            </li>
+        </ul> <!-- .cd-images-list -->
+    </div> <!-- .cd-image-block -->
+
+    <div class="cd-content-block">
+        <ul>
+            <li class="is-selected">
+                <div>
+                    <h2>开发者使用教程</h2>
+                   SGTCloud后台操作手册(Word版)下载，<a href="doc/SGTCloud后台操作手册.doc">点击下载</a>
+                </div>
+            </li>
+
+            <li>
+                <div>
+                    <h2>公告，公共消息和私有消息应该怎么使用？</h2>
+
+                    <ul>
+                        <li>公告是在分服之前展示，针对一个appid维度的所有服务器的信息。只有一条（多个版本展示最高的）；所有用户看到的都是一样的；只能在console后台编辑修改。</li>
+                        <li>
+                            公共消息是在单个服务器上的“公告”，分服之后展示，也可以理解成为一般游戏的世界喊话。可以有多条；这个服务器上的用户看到的都是一样的；每个角色都能提交修改；也可以服务器来操作这个通道；多个通道可以放置不同的内容，比如一个聊天室或者一个帮派的聊天信息。
+                        </li>
+                        <li>私有消息是特定角色的信息通知，一般只有这个角色才关心的重要程度不高的临时信息（重要的需要保存的请使用邮件，之间差别参看最后一段描述
+                            ）。可以有多条；每个角色看到的是不一样的；一般来讲是角色自己提交的修改，或者点对点的另外一方来操作，比如异步的聊天，服务器来操作，提示特定时间的活动，例如武林大会；多个通道可以处理不同类型的消息。
+                        </li>
+                    </ul>
+
+                    <div style="font-size:9px;font-weight: 800;">
+                        <div>消息通道和邮件的区别</div>
+                        <div>邮件相当于永久持久化的私有通道，多一些字段的约束，私有消息通道一般只存活指定时长
+                            邮件的业务表达能力更强一些（比如有收件人），私有消息通道只有内容（字符串）
+                            邮件有更完善的查询功能
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div>
+                    <h2>如何利用签到版实现周签到和月份签到？</h2>
+
+                    <p>周签到<br/>一块签到板，有开始时间，无结束时间，奖励固定，需要按照一个周期（目前决定重用最大签到次数实现，原来的根据最大签到次数实现单个用户重置次数的逻辑废弃）从开始时间计算，在指定的时间（小时）重置签到板上的所有用户数据。
+                    </p>
+
+                    <p>月签到<br/>12块签到板，每个月对应一块签到板，每个月第一天作为开始时间，每个月最后一天作为结束时间，每块签到板设置不同的奖品，在结束时间自动重置签到板上的所有数据。</p>
+                </div>
+            </li>
+
+            <li>
+                <div>
+                    <h2>如何利用sgt开发充值功能</h2>
+
+                    <h2>主流程<a href="#主流程" class="wiki-anchor">&para;</a></h2>
+
+
+                    <p>目前使用did的回调功能来实现服务器的充值结果这个流程似乎还是有很多同学不明白，特此一并解说。<br/>此流程适用于所有的支付sdk！</p>
+
+
+                    <ol>
+                        <li>客户端从did服务获取到自定义订单号</li>
+                        <li>客户端使用自定义订单号进入计费流程</li>
+                        <li>客户端计费成功</li>
+                        <li>支付服务器端回调支付结果到sgt服务器</li>
+                        <li>sgt服务器把支付结果入库</li>
+                    </ol>
+
+
+                    <p>以上流程结束！</p>
+
+
+                    <p>接下来的大家的疑问主要是如果把这些支付结果和游戏内的逻辑结合到一起，目前来讲有两种模式。</p>
+
+
+                    <a name="Pull模式已经实现"></a>
+
+                    <h3>Pull模式（已经实现）<a href="#Pull模式已经实现" class="wiki-anchor">&para;</a></h3>
+
+
+                    <ol>
+                        <li>客户端发送自定义订单号（用来查询单次充值结果）或者发送自己的playerid（用来查询累计充值金额）到游戏服务器（node）</li>
+                        <li>游戏服务器把查询条件发送sgt服务器（datacenter）查询</li>
+                        <li>sgt服务器返回查询结果给游戏服务器</li>
+                        <li>游戏服务器把结果返回给客户端<br/>这个模式逻辑比较简单易懂，需要对游戏内进行一些优化设计，比如刷新元宝，或者查询单次充值的结果，都需要在游戏服务器开发对应的功能或者接口。</li>
+                    </ol>
+
+
+                    <a name="Push模式还未实现"></a>
+
+                    <h3>Push模式（还未实现）<a href="#Push模式还未实现" class="wiki-anchor">&para;</a></h3>
+
+
+                    <ol>
+                        <li>sgt服务器（datacenter）在接受到回调时修改支付结果</li>
+                        <li>sgt服务器根据支付结果中的serverid去（console？）查询游戏服务器（node）地址</li>
+                        <li>sgt服务器发起一次回调到游戏服务器的指定接口</li>
+                        <li>游戏服务器根据回调修改对应的数据<br/>这个模式基本上都是在后台完成，基本上不需要开发额外的接口，缺点是后台的调用比较多，复杂度比较高，比较容易出问题，出了问题还不排查……目前还没实现。
+                        </li>
+                    </ol>
+
+
+                    <p>理论上两种方法是等价的，目前推荐用pull模式，如果实在觉得无法接受，我可以安排尽快推进push模式的开发。</p>
+
+
+                    <a name="注意事项"></a>
+
+                    <h3>注意事项<a href="#注意事项" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>如果游戏内需要用到服务器端回调的，申请的tp的时候务必记得添加商户号和配置回调地址！（找对应的运营）<br/>mm等其他的回调，需要在ten上面配置回调到sgt的地址！<br/>不然就是瞎折腾！切记切记。
+                    </p>
+
+
+                    <a name="mm支付"></a>
+
+                    <h2>mm支付<a href="#mm支付" class="wiki-anchor">&para;</a></h2>
+
+
+                    <p>续totalpay以后，现在sgt需要开发与mm弱联网短信回调的功能，流程如下。</p>
+
+
+                    <ol>
+                        <li>客户端从sgt获取到did，作为自定义订单号orderid</li>
+                        <li>
+                            Androidbox的mmiapsms插件短信内容格式变更，从原来的直接发送paycode，修改为“paycode:::orderid”，例如“102392818273794:::393817620102923”。原来直接发送paycode的包仍然可以正常计费，只是无法使用这个功能。（已经更新，发到测试服了，重新打包即可）
+                        </li>
+                        <li>客户端通过mm弱联网sdk发送短信，携带这个orderid信息</li>
+                        <li>mm网关收到短信发起回调到ten</li>
+                        <li>ten回调给sgt的gateway</li>
+                        <li>gateway回调给datacenter</li>
+                        <li>datacenter存储回调</li>
+                        <li>node发送did主动的查询回调结果</li>
+                        <li>node执行相应的业务逻辑</li>
+                    </ol>
+
+
+                    <a name="支付宝问题记录"></a>
+
+                    <h2>支付宝问题记录<a href="#支付宝问题记录" class="wiki-anchor">&para;</a></h2>
+
+
+                    <p>首先说一下仙魔剑1的情况</p>
+
+                    <ol>
+                        <li>客户端发起一次tp支付请求</li>
+                        <li>客户端得到支付结果</li>
+                        <li>客户端给用户发元宝</li>
+                    </ol>
+
+                    <p>仙魔剑2</p>
+
+                    <ol>
+                        <li>客户端发起一次tp支付请求</li>
+                        <li>客户端得到支付结果</li>
+                        <li>客户端通知tp服务器端支付结果</li>
+                        <li>tp服务器端给仙魔剑2服务器端（sgt）通知支付结果</li>
+                        <li>仙魔剑2服务器端（sgt）给用户发元宝</li>
+                    </ol>
+
+
+                    <p>两者最大的不同是给用户发元宝的发起者不同，1是客户端，2是服务器端。</p>
+
+
+                    <p>那么延迟是如何发生的。<br/>tp在最初的设计阶段支持离线的支付，鉴于网络情况的不稳定和离线类似，都会把结果通知缓存起来，等到网络情况好转的时候在发送到服务器，也就是步骤3会因为一些不确定的原因延迟甚至丢失（如果用户删除了游戏）。
+                    </p>
+
+
+                    <p>现在怎么解决的。<br/>3替换成了“支付宝服务器通知tp服务器端支付结果”，其他如常。完全避免了之前的问题。</p>
+                </div>
+            </li>
+
+
+            <li>
+                <div>
+                    <h2>如何实现（类似dota传奇的）月卡功能？</h2>
+
+                    <p>通过时间戳服务TImestampService和每日任务DailyTaskService来实现</p>
+                    <ol>
+                        <li>客户端发起购买月卡</li>
+                        <li>服务器端根据购买成功的回调，为该角色创建一个key（例如month_subscriber_[playerId]）的时间戳服务，值为当前时间加一个月（如果有效期为一个月）</li>
+                        <li>把领取月卡奖励作为一种特殊类型的每日任务在console后台添加</li>
+                        <li>客户端发起请求当前可用的每日任务</li>
+                        <li>当任务中包含月卡奖励类型的任务时，发起对之前步骤创建的时间戳的查询</li>
+                        <li>如果在有效期内，则领取该奖励，并且更新该任务进度，变更该任务状态为已领取；如果超过了有效期则无法领取该奖励</li>
+                    </ol>
+
+
+                    <p>月卡续费逻辑同上</p>
+                </div>
+            </li>
+
+            <li>
+                <div>
+                    <h2>如何实现根据vip等级设定角色的好友上限？</h2>
+
+                    <p>通过用户角色服务SGPPlayerService和充值升级vip相关逻辑来实现</p>
+                    <ol>
+                        <li>客户端发起充值成功</li>
+                        <li>根据充值金额累计得到vip等级</li>
+                        <li>根据策划数值文档，设置vip等级对应的player里的好友上限值</li>
+                        <li>如果角色添加好友时会检查已经存在的好友关系，如果超出的话会抛出异常，添加好友关系失败</li>
+                    </ol>
+                </div>
+            </li>
+
+            <li>
+                <div>
+                    <h2>游戏开发最佳实践</h2>
+
+                    <h3>渐进式架构<a href="#渐进式架构" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>SGT使用了jsonrpc作为传输层的协议，主要是考虑rpc在编码层面上与本地调用保持了一个平滑重构的基础。</p>
+
+
+                    <a name="渐进的阶段"></a>
+
+                    <h2>渐进的阶段<a href="#渐进的阶段" class="wiki-anchor">&para;</a></h2>
+
+
+                    <a name="抽象业务逻辑"></a>
+
+                    <h3>抽象业务逻辑<a href="#抽象业务逻辑" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>为一个具体的业务抽象出一个接口来，定义好参数和返回值。</p>
+
+
+                    <a name="本地实现"></a>
+
+                    <h3>本地实现<a href="#本地实现" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>在本地实现这个方法</p>
+
+
+                    <a name="混合实现"></a>
+
+                    <h3>混合实现<a href="#混合实现" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>在本地实现内调用一部分sgt现有的业务接口</p>
+
+
+                    <a name="rpc实现"></a>
+
+                    <h3>rpc实现<a href="#rpc实现" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>把这个本地实现移动到服务器端，通过rpc框架（也就是sdk）调用这个接口的rpc实现</p>
+
+
+                    <a name="例子"></a>
+
+                    <h2>例子<a href="#例子" class="wiki-anchor">&para;</a></h2>
+
+
+                    <a name="需求"></a>
+
+                    <h3>需求<a href="#需求" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>仙魔剑系列游戏中好友有几个相对比较重要的功能：踢罐子，挑战好友，携带好友出战。由于这些功能都需要冷却，所以必须记录好友的id和发起时间。</p>
+
+                    <a name="抽象业务逻辑-2"></a>
+
+                    <h3>抽象业务逻辑<a href="#抽象业务逻辑-2" class="wiki-anchor">&para;</a></h3>
+
+
+                    针对一个功能抽象两个方法，一个是列举，一个是挑战。
+                    <ul>
+                        <li>实体XMJFriend包含冷却时间这个字段</li>
+                        <li>接口ChallengeService<br/>+ List&lt;XMJFriend&gt; listMyFriends(...)<br/>+ ...
+                            ChallengeFriend(XMJFriend xmjFriend)
+                        </li>
+                    </ul>
+
+
+                    <a name="混合实现-2"></a>
+
+                    <h3>混合实现<a href="#混合实现-2" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>因为这个业务中的好友信息是从sgt获取的，所以不存在本地实现。<br/>ChallengeServiceImpl.listMyFriends方法中包含了客户端用一个k-v（map）来保存好友的id和挑战发起时间，例如某个好友被挑战过了，那么在本地保存一个“冷却前缀+好友id：当前时间戳”，如果下次从服务器重新拉取好友列表（通过sgt的FriendshipService），那么从map中获取这个好友上次被邀请的时间戳，减去冷却时间，如果超过，则移除这个时间戳，如果没超过，则把剩余的冷却时间复制到XMJFriend这个实体中，然后再展示到界面上。<br/>ChallengeServiceImpl.ChallengeFriend更新本地保存的“冷却前缀+好友id：当前时间戳”。
+                    </p>
+
+
+                    <a name="rpc实现-2"></a>
+
+                    <h3>rpc实现<a href="#rpc实现-2" class="wiki-anchor">&para;</a></h3>
+
+
+                    <p>服务器端也导入XMJFriend这个实体，并且把ChallengeService实现ChallengeServiceImpl移动到了服务器端。<br/>ChallengeServiceImpl.listMyFriends方法中使用redis的hash结构来保存好友的id和挑战发起时间，例如某个好友被挑战过了，那么在在对应的hash中保存一个“冷却前缀+好友id：当前时间戳”，如果listMyFriends被调用时，从hash中获取这个好友id上次被邀请的时间戳，减去冷却时间，如果超过，则移除这个时间戳，如果没超过，则把剩余的冷却时间复制到XMJFriend这个实体中，然后再返回给客户端。客户端直接把这个方法返回的对象或者对象集合展示到界面上。<br/>ChallengeServiceImpl.ChallengeFriend更新redis中保存的“冷却前缀+好友id：当前时间戳”。
+                    </p>
+
+
+                    <p>以上的例子中谈到的实现仅供参考，请根据自己项目的情况来决定实际的实现方案。</p></div>
+            </li>
+        </ul>
+
+        <button class="cd-close">Close</button>
+    </div> <!-- .cd-content-block -->
+
+    <ul class="block-navigation">
+        <li>
+            <button class="cd-prev inactive">&larr; 上一页</button>
+        </li>
+        <li>
+            <button class="cd-next">下一页 &rarr;</button>
+        </li>
+    </ul> <!-- .block-navigation -->
+</main>    <!-- .cd-main -->
+
+<script src="http://libs.useso.com/js/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="js/main.js"></script> <!-- Resource jQuery -->
 </body>
 </html>
