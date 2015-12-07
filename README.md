@@ -72,15 +72,16 @@ sgt.UserService.quickLogin(function(result, data) {
 - [排行榜教程](http://www.sgtcloud.cn/tutorials) 
 - [微信中控教程](http://www.sgtcloud.cn/tutorials/tutorial-wx)
 - [聊天室Demo](http://www.sgtcloud.cn/tutorials/demo-lobby-room)
-- [开发者后台使用教程](http://www.sgtcloud.cn/tutorials/console){:target="_blank"}
-	+ 公告，公共消息和私有消息应该怎么使用？
-	+ 如何利用签到版实现周签到和月份签到？
-	+ 如何利用sgt开发充值功能？
-	+ 如何实现（类似dota传奇的）月卡功能？
-	+ 如何实现根据vip等级设定角色的好友上限？
-	+ 游戏开发最佳实践
-	+ SGTCloud后台操作手册(Word版)
-
+- <a href="http://www.sgtcloud.cn/tutorials/console" target="_blank">开发者后台使用教程</a>
+	+ <a href="doc/公告，公共消息和私有消息应该怎么使用？.html" target="_blank">公告，公共消息和私有消息应该怎么使用？</a>
+	+ <a href="doc/如何利用签到版实现周签到和月份签到？.html" target="_blank">如何利用签到版实现周签到和月份签到？</a>
+	+ <a href="doc/如何利用sgt开发充值功能？.html" target="_blank">如何利用sgt开发充值功能？</a>
+	+ <a href="doc/如何实现（类似dota传奇的）月卡功能？.html" target="_blank">如何实现（类似dota传奇的）月卡功能？</a>
+	+ <a href="doc/如何实现根据vip等级设定角色的好友上限？.html" target="_blank">如何实现根据vip等级设定角色的好友上限？</a>
+	+ <a href="doc/游戏开发最佳实践.html" target="_blank">游戏开发最佳实践</a>
+	+ <a href="doc/SGTCloud后台操作手册.doc">SGTCloud后台操作手册(Word版)</a>
+	
+	
 ### 技术架构
 
 sdk 采用了 [jsonrpc2.0](http://www.jsonrpc.org/) 的通讯协议

@@ -13,6 +13,28 @@
     <!--[if IE]>
     <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+        .is-selected   li {
+            padding: 10px;
+            background: #ececec;
+            border: #cccccc 1px solid;
+            list-style-position: inside;
+            margin-bottom: 1px;
+        }
+
+        a {
+            text-decoration: none;
+            display: block;
+        }
+
+       /* li:hover {
+            background: #cccccc;
+        }*/
+        .is-selected{
+          /*  letter-spacing: 2px;*/
+
+        }
+    </style>
 </head>
 <body>
 <main>
@@ -82,8 +104,8 @@
                         </li>
                     </ul>
 
-                    <div style="font-size:9px;font-weight: 800;">
-                        <div>消息通道和邮件的区别</div>
+                    <div style="font-size:9px;margin-top:50px;">
+                        <div style="margin-bottom:10px;font-weight:800">消息通道和邮件的区别</div>
                         <div>邮件相当于永久持久化的私有通道，多一些字段的约束，私有消息通道一般只存活指定时长
                             邮件的业务表达能力更强一些（比如有收件人），私有消息通道只有内容（字符串）
                             邮件有更完善的查询功能
@@ -107,7 +129,7 @@
                 <div>
                     <h2>如何利用sgt开发充值功能</h2>
 
-                    <h2>主流程<a href="#主流程" class="wiki-anchor">&para;</a></h2>
+                    <h2>主流程</h2>
 
 
                     <p>目前使用did的回调功能来实现服务器的充值结果这个流程似乎还是有很多同学不明白，特此一并解说。<br/>此流程适用于所有的支付sdk！</p>
@@ -128,9 +150,9 @@
                     <p>接下来的大家的疑问主要是如果把这些支付结果和游戏内的逻辑结合到一起，目前来讲有两种模式。</p>
 
 
-                    <a name="Pull模式已经实现"></a>
 
-                    <h3>Pull模式（已经实现）<a href="#Pull模式已经实现" class="wiki-anchor">&para;</a></h3>
+
+                    <h3>Pull模式（已经实现）</h3>
 
 
                     <ol>
@@ -141,9 +163,8 @@
                     </ol>
 
 
-                    <a name="Push模式还未实现"></a>
 
-                    <h3>Push模式（还未实现）<a href="#Push模式还未实现" class="wiki-anchor">&para;</a></h3>
+                    <h3>Push模式（还未实现）</h3>
 
 
                     <ol>
@@ -158,18 +179,16 @@
                     <p>理论上两种方法是等价的，目前推荐用pull模式，如果实在觉得无法接受，我可以安排尽快推进push模式的开发。</p>
 
 
-                    <a name="注意事项"></a>
 
-                    <h3>注意事项<a href="#注意事项" class="wiki-anchor">&para;</a></h3>
+                    <h3>注意事项</h3>
 
 
                     <p>如果游戏内需要用到服务器端回调的，申请的tp的时候务必记得添加商户号和配置回调地址！（找对应的运营）<br/>mm等其他的回调，需要在ten上面配置回调到sgt的地址！<br/>不然就是瞎折腾！切记切记。
                     </p>
 
 
-                    <a name="mm支付"></a>
 
-                    <h2>mm支付<a href="#mm支付" class="wiki-anchor">&para;</a></h2>
+                    <h2>mm支付</h2>
 
 
                     <p>续totalpay以后，现在sgt需要开发与mm弱联网短信回调的功能，流程如下。</p>
@@ -190,9 +209,9 @@
                     </ol>
 
 
-                    <a name="支付宝问题记录"></a>
 
-                    <h2>支付宝问题记录<a href="#支付宝问题记录" class="wiki-anchor">&para;</a></h2>
+
+                    <h2>支付宝问题记录</h2>
 
 
                     <p>首先说一下仙魔剑1的情况</p>
@@ -262,67 +281,21 @@
             <li>
                 <div>
                     <h2>游戏开发最佳实践</h2>
-
-                    <h3>渐进式架构<a href="#渐进式架构" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h3>渐进式架构</h3>
                     <p>SGT使用了jsonrpc作为传输层的协议，主要是考虑rpc在编码层面上与本地调用保持了一个平滑重构的基础。</p>
-
-
-                    <a name="渐进的阶段"></a>
-
-                    <h2>渐进的阶段<a href="#渐进的阶段" class="wiki-anchor">&para;</a></h2>
-
-
-                    <a name="抽象业务逻辑"></a>
-
-                    <h3>抽象业务逻辑<a href="#抽象业务逻辑" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h2>渐进的阶段</h2>
+                    <h3>抽象业务逻辑</h3>
                     <p>为一个具体的业务抽象出一个接口来，定义好参数和返回值。</p>
-
-
-                    <a name="本地实现"></a>
-
-                    <h3>本地实现<a href="#本地实现" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h3>本地实现</h3>
                     <p>在本地实现这个方法</p>
-
-
-                    <a name="混合实现"></a>
-
-                    <h3>混合实现<a href="#混合实现" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h3>混合实现</h3>
                     <p>在本地实现内调用一部分sgt现有的业务接口</p>
-
-
-                    <a name="rpc实现"></a>
-
-                    <h3>rpc实现<a href="#rpc实现" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h3>rpc实现</h3>
                     <p>把这个本地实现移动到服务器端，通过rpc框架（也就是sdk）调用这个接口的rpc实现</p>
-
-
-                    <a name="例子"></a>
-
-                    <h2>例子<a href="#例子" class="wiki-anchor">&para;</a></h2>
-
-
-                    <a name="需求"></a>
-
-                    <h3>需求<a href="#需求" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h2>例子</h2>
+                    <h3>需求</h3>
                     <p>仙魔剑系列游戏中好友有几个相对比较重要的功能：踢罐子，挑战好友，携带好友出战。由于这些功能都需要冷却，所以必须记录好友的id和发起时间。</p>
-
-                    <a name="抽象业务逻辑-2"></a>
-
-                    <h3>抽象业务逻辑<a href="#抽象业务逻辑-2" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h3>抽象业务逻辑</h3>
                     针对一个功能抽象两个方法，一个是列举，一个是挑战。
                     <ul>
                         <li>实体XMJFriend包含冷却时间这个字段</li>
@@ -330,33 +303,17 @@
                             ChallengeFriend(XMJFriend xmjFriend)
                         </li>
                     </ul>
-
-
-                    <a name="混合实现-2"></a>
-
-                    <h3>混合实现<a href="#混合实现-2" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h3>混合实现</h3>
                     <p>因为这个业务中的好友信息是从sgt获取的，所以不存在本地实现。<br/>ChallengeServiceImpl.listMyFriends方法中包含了客户端用一个k-v（map）来保存好友的id和挑战发起时间，例如某个好友被挑战过了，那么在本地保存一个“冷却前缀+好友id：当前时间戳”，如果下次从服务器重新拉取好友列表（通过sgt的FriendshipService），那么从map中获取这个好友上次被邀请的时间戳，减去冷却时间，如果超过，则移除这个时间戳，如果没超过，则把剩余的冷却时间复制到XMJFriend这个实体中，然后再展示到界面上。<br/>ChallengeServiceImpl.ChallengeFriend更新本地保存的“冷却前缀+好友id：当前时间戳”。
                     </p>
-
-
-                    <a name="rpc实现-2"></a>
-
-                    <h3>rpc实现<a href="#rpc实现-2" class="wiki-anchor">&para;</a></h3>
-
-
+                    <h3>rpc实现</h3>
                     <p>服务器端也导入XMJFriend这个实体，并且把ChallengeService实现ChallengeServiceImpl移动到了服务器端。<br/>ChallengeServiceImpl.listMyFriends方法中使用redis的hash结构来保存好友的id和挑战发起时间，例如某个好友被挑战过了，那么在在对应的hash中保存一个“冷却前缀+好友id：当前时间戳”，如果listMyFriends被调用时，从hash中获取这个好友id上次被邀请的时间戳，减去冷却时间，如果超过，则移除这个时间戳，如果没超过，则把剩余的冷却时间复制到XMJFriend这个实体中，然后再返回给客户端。客户端直接把这个方法返回的对象或者对象集合展示到界面上。<br/>ChallengeServiceImpl.ChallengeFriend更新redis中保存的“冷却前缀+好友id：当前时间戳”。
                     </p>
-
-
                     <p>以上的例子中谈到的实现仅供参考，请根据自己项目的情况来决定实际的实现方案。</p></div>
             </li>
         </ul>
-
         <button class="cd-close">Close</button>
     </div> <!-- .cd-content-block -->
-
     <ul class="block-navigation">
         <li>
             <button class="cd-prev inactive">&larr; 上一页</button>
