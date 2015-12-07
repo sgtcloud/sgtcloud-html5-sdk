@@ -66,20 +66,20 @@ sgt.UserService.quickLogin(function(result, data) {
 
 ### 文档
 
-- [官网](http://www.sgtcloud.cn)
-- [API](http://www.sgtcloud.cn/api) 
-- [用户指南](https://www.gitbook.com/book/sgtcloud/sgtcloud-html5-sdk/details) 
-- [排行榜教程](http://www.sgtcloud.cn/tutorials) 
-- [微信中控教程](http://www.sgtcloud.cn/tutorials/tutorial-wx)
-- [聊天室Demo](http://www.sgtcloud.cn/tutorials/demo-lobby-room)
+- <a href="http://www.sgtcloud.cn" target="_blank">官网</a>
+- <a href="http://www.sgtcloud.cn/api" target="_blank">API</a> 
+- <a href="https://www.gitbook.com/book/sgtcloud/sgtcloud-html5-sdk/details" target="_blank">用户指南</a>
+- <a href="http://www.sgtcloud.cn/tutorials" target="_blank">排行榜教程</a>
+- <a href="http://www.sgtcloud.cn/tutorials/tutorial-wx" target="_blank">微信中控教程</a>
+- <a href="http://www.sgtcloud.cn/tutorials/demo-lobby-room" target="_blank">聊天室Demo</a>
 - <a href="http://www.sgtcloud.cn/tutorials/console" target="_blank">开发者后台使用教程</a>
-	+ <a href="doc/公告，公共消息和私有消息应该怎么使用？.html" target="_blank">公告，公共消息和私有消息应该怎么使用？</a>
-	+ <a href="doc/如何利用签到版实现周签到和月份签到？.html" target="_blank">如何利用签到版实现周签到和月份签到？</a>
-	+ <a href="doc/如何利用sgt开发充值功能？.html" target="_blank">如何利用sgt开发充值功能？</a>
-	+ <a href="doc/如何实现（类似dota传奇的）月卡功能？.html" target="_blank">如何实现（类似dota传奇的）月卡功能？</a>
-	+ <a href="doc/如何实现根据vip等级设定角色的好友上限？.html" target="_blank">如何实现根据vip等级设定角色的好友上限？</a>
-	+ <a href="doc/游戏开发最佳实践.html" target="_blank">游戏开发最佳实践</a>
-	+ <a href="doc/SGTCloud后台操作手册.doc">SGTCloud后台操作手册(Word版)</a>
+	+ <a href="http://www.sgtcloud.cn/tutorials/console/doc/公告，公共消息和私有消息应该怎么使用？.html" target="_blank">公告，公共消息和私有消息应该怎么使用？</a>
+	+ <a href="http://www.sgtcloud.cn/tutorials/console/doc/如何利用签到版实现周签到和月份签到？.html" target="_blank">如何利用签到版实现周签到和月份签到？</a>
+	+ <a href="http://www.sgtcloud.cn/tutorials/console/doc/如何利用sgt开发充值功能？.html" target="_blank">如何利用sgt开发充值功能？</a>
+	+ <a href="http://www.sgtcloud.cn/tutorials/console/doc/如何实现（类似dota传奇的）月卡功能？.html" target="_blank">如何实现（类似dota传奇的）月卡功能？</a>
+	+ <a href="http://www.sgtcloud.cn/tutorials/console/doc/如何实现根据vip等级设定角色的好友上限？.html" target="_blank">如何实现根据vip等级设定角色的好友上限？</a>
+	+ <a href="http://www.sgtcloud.cn/tutorials/console/doc/游戏开发最佳实践.html" target="_blank">游戏开发最佳实践</a>
+	+ <a href="http://www.sgtcloud.cn/tutorials/console/doc/SGTCloud后台操作手册.doc">SGTCloud后台操作手册(Word版)</a>
 	
 	
 ### 技术架构
