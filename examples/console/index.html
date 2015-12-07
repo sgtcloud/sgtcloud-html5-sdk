@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <title>开发者后台使用教程</title>
     <style type="text/css">
-        li{
-            padding:10px;
+        li {
+            padding: 10px;
             background: #ececec;
-            border: #cccccc 1px solid ;
-            list-style-position:inside;
-            margin-bottom:1px;
+            border: #cccccc 1px solid;
+            list-style-position: inside;
+            margin-bottom: 1px;
         }
-        a{
-            text-decoration:none;
-            display:block;
+
+        a {
+            text-decoration: none;
+            display: block;
         }
-        li:hover{
+
+        li:hover {
             background: #cccccc;
         }
 
@@ -24,12 +26,36 @@
 </head>
 <body>
 <ol>
-    <li><a href="doc/公告，公共消息和私有消息应该怎么使用？.html">公告，公共消息和私有消息应该怎么使用？</a></li>
-    <li><a href="doc/如何利用签到版实现周签到和月份签到？.html">如何利用签到版实现周签到和月份签到？</a></li>
-    <li><a href="doc/如何利用sgt开发充值功能？">如何利用sgt开发充值功能？</a></li>
-    <li><a href="doc/如何实现（类似dota传奇的）月卡功能？.html">如何实现（类似dota传奇的）月卡功能？</a></li>
-    <li><a href="doc/如何实现根据vip等级设定角色的好友上限？.html">如何实现根据vip等级设定角色的好友上限？</a></li>
-    <li><a href="doc/游戏开发最佳实践.html">游戏开发最佳实践</a></li>
+    <li><a href="doc/公告，公共消息和私有消息应该怎么使用？.html" target="_blank">公告，公共消息和私有消息应该怎么使用？</a>
+<!--        <ul>
+            <li>公告是在分服之前展示，针对一个appid维度的所有服务器的信息。只有一条（多个版本展示最高的）；所有用户看到的都是一样的；只能在console后台编辑修改。</li>
+            <li>
+                公共消息是在单个服务器上的“公告”，分服之后展示，也可以理解成为一般游戏的世界喊话。可以有多条；这个服务器上的用户看到的都是一样的；每个角色都能提交修改；也可以服务器来操作这个通道；多个通道可以放置不同的内容，比如一个聊天室或者一个帮派的聊天信息。
+            </li>
+            <li>私有消息是特定角色的信息通知，一般只有这个角色才关心的重要程度不高的临时信息（重要的需要保存的请使用邮件，之间差别参看这里
+                ）。可以有多条；每个角色看到的是不一样的；一般来讲是角色自己提交的修改，或者点对点的另外一方来操作，比如异步的聊天，服务器来操作，提示特定时间的活动，例如武林大会；多个通道可以处理不同类型的消息。
+            </li>
+        </ul>-->
+
+    </li>
+    <li><a href="doc/如何利用签到版实现周签到和月份签到？.html" target="_blank">如何利用签到版实现周签到和月份签到？</a>
+      <!--  <ul>
+            <li>
+                <div>周签到</div>
+                <div>
+                    一块签到板，有开始时间，无结束时间，奖励固定，需要按照一个周期（目前决定重用最大签到次数实现，原来的根据最大签到次数实现单个用户重置次数的逻辑废弃）从开始时间计算，在指定的时间（小时）重置签到板上的所有用户数据。
+                </div>
+            </li>
+            <li>
+                <div>月签到</div>
+                <div>12块签到板，每个月对应一块签到板，每个月第一天作为开始时间，每个月最后一天作为结束时间，每块签到板设置不同的奖品，在结束时间自动重置签到板上的所有数据。</div>
+            </li>
+        </ul>-->
+    </li>
+    <li><a href="doc/如何利用sgt开发充值功能？.html" target="_blank">如何利用sgt开发充值功能？</a></li>
+    <li><a href="doc/如何实现（类似dota传奇的）月卡功能？.html" target="_blank">如何实现（类似dota传奇的）月卡功能？</a></li>
+    <li><a href="doc/如何实现根据vip等级设定角色的好友上限？.html" target="_blank">如何实现根据vip等级设定角色的好友上限？</a></li>
+    <li><a href="doc/游戏开发最佳实践.html" target="_blank">游戏开发最佳实践</a></li>
     <li><a href="doc/SGTCloud后台操作手册.doc">SGTCloud后台操作手册(Word版)</a></li>
 </ol>
 </body>
