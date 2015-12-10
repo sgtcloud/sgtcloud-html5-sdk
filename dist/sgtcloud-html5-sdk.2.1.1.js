@@ -59,7 +59,7 @@ jsonRPC =new Object({
                 }
             }
         };
-        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), false);
+        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]));
 
         var headers=[
             {"name":"Accept","type":"application/json, text/javascript, */*;"},
@@ -240,20 +240,29 @@ jsonRPC =new Object({
     /**
      * 系统自动匹配注册（根据IMEI，ICCID，mac）
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.User
      */
-    SgtApi.User.AUTO = 0;
+    SgtApi.User.AUTO = 2;
 
     /**
      * 注册类型，普通注册，使用用户名和密码注册
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.User
      */
     SgtApi.User.MANUAL = 0;
 
     /**
      * 使用手机号码注册
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.User
      */
-    SgtApi.User.PHONENUMBER = 0;
+    SgtApi.User.PHONENUMBER = 1;
 
     /**
      * 玩家角色接口
@@ -408,12 +417,18 @@ jsonRPC =new Object({
     /**
      * 允许下载
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Save
      */
-    SgtApi.Save.ALLOW_DOWN = 0;
+    SgtApi.Save.ALLOW_DOWN = 1;
 
     /**
      * 不允许下载
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Save
      */
     SgtApi.Save.DENY_DOWN = 0;
     /**
@@ -517,54 +532,81 @@ jsonRPC =new Object({
     /**
      * 删除状态 已经删除 -1
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.DELETED = -1;
 
     /**
      * 已读状态 值为1
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.READ = 1;
 
     /**
      * 附件未领取
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.STATUS_ATTACH_NO_PICK = 0;
 
     /**
      * 附件已经领取
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.STATUS_ATTACH_PICKED = 1;
 
     /**
      * 邮件类型：好友邀请邮件 值为3
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.TYPE_INVITATE_FRIENDSHIP = 3;
 
     /**
      * 邮件类型：普通邮件 值为 0
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.TYPE_NORMAL = 0;
 
     /**
      * 邮件类型：系统通知邮件 值为1
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.TYPE_SYSTEM = 1;
 
     /**
      * 邮件类型：系统奖励邮件 值为2
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.TYPE_SYSTEM_REWARD = 2;
 
     /**
      * 未读状态 值为0
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Mail
      */
     SgtApi.Mail.UNREAD = 0;
 
@@ -652,20 +694,29 @@ jsonRPC =new Object({
     /**
      * 待处理
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Ticket
      */
-    SgtApi.Ticket.STATUS_OF_PENDING = 0;
+    SgtApi.Ticket.STATUS_OF_PENDING = 1;
 
     /**
      * 已处理
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Ticket
      */
-    SgtApi.Ticket.STATUS_OF_PROCESSED = 0;
+    SgtApi.Ticket.STATUS_OF_PROCESSED = 2;
 
     /**
      * 一般类型
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Ticket
      */
-    SgtApi.Ticket.TYPE_OF_NORMAL = 0;
+    SgtApi.Ticket.TYPE_OF_NORMAL = 1;
 
     /**
      * 成就
@@ -764,47 +815,70 @@ jsonRPC =new Object({
 
 
     };
+
+
     /**
      * 已达成
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Achievement
      */
-    SgtApi.Achievement.PROGRESS_DONE = 0;
+    SgtApi.Achievement.PROGRESS_DONE = 2;
 
     /**
      * 已经领取奖励
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Achievement
      */
-    SgtApi.Achievement.PROGRESS_GOT_REWARD = 0;
+    SgtApi.Achievement.PROGRESS_GOT_REWARD = 3;
 
     /**
      * 未达成
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Achievement
      */
-    SgtApi.Achievement.PROGRESS_NOT_ACHIEVED = 0;
+    SgtApi.Achievement.PROGRESS_NOT_ACHIEVED = 1;
 
     /**
      * 不可用
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Achievement
      */
     SgtApi.Achievement.STATUS_DISABLE = 0;
 
     /**
      * 可用，开启状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Achievement
      */
-    SgtApi.Achievement.STATUS_ENABLE = 0;
+    SgtApi.Achievement.STATUS_ENABLE = 1;
 
     /**
      * 成就不可见
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Achievement
      */
     SgtApi.Achievement.VISIBILITY_INVISIBLE = 0;
 
     /**
      * 成就可见
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Achievement
      */
-    SgtApi.Achievement.VISIBILITY_VISIBLE = 0;
+    SgtApi.Achievement.VISIBILITY_VISIBLE = 1;
     /**
      * 公告
      * @constructor
@@ -864,18 +938,27 @@ jsonRPC =new Object({
     /**
      * 公告类型 活动公告（1）
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Announcement
      */
     SgtApi.Announcement.ACTIVITY = 1;
 
     /**
      * 公告类型 商城公告（2）
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Announcement
      */
     SgtApi.Announcement.BULLETIN = 2;
 
     /**
      * 公告类型 维护公告（3）
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Announcement
      */
     SgtApi.Announcement.MAINTAIN = 3;
 
@@ -926,14 +1009,20 @@ jsonRPC =new Object({
     /**
      * 正常
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Blacklist
      */
-    SgtApi.Blacklist.TYPE_OF_NORMAL = 0;
+    SgtApi.Blacklist.TYPE_OF_NORMAL = 1;
 
     /**
      * 路由黑名单
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Blacklist
      */
-    SgtApi.Blacklist.TYPE_OF_ROUTE = 0;
+    SgtApi.Blacklist.TYPE_OF_ROUTE = 2;
 
     /**
      * BOSS
@@ -982,12 +1071,18 @@ jsonRPC =new Object({
     /**
      * 私有boss，只能自己打
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Boss
      */
     SgtApi.Boss.PRIVATE = 0;
 
     /**
      * 公共 、世界boss
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Boss
      */
     SgtApi.Boss.PUBLIC = 0;
 
@@ -1393,44 +1488,49 @@ jsonRPC =new Object({
     /**
      * 日历签到
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.CheckinBoard
      */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_CALENDAR = 0;
+    SgtApi.CheckinBoard.CHECKIN_TYPE_CALENDAR = 5;
 
     /**
      * 每日签到
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.CheckinBoard
      */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_DAILY = 0;
+    SgtApi.CheckinBoard.CHECKIN_TYPE_DAILY = 2;
 
     /**
      * 月签到，每月一次
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.CheckinBoard
      */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_MONTH = 0;
+    SgtApi.CheckinBoard.CHECKIN_TYPE_MONTH = 4;
 
     /**
      * 一般签到
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.CheckinBoard
      */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_NORMAL = 0;
+    SgtApi.CheckinBoard.CHECKIN_TYPE_NORMAL = 1;
 
     /**
      * 周签到，每周一次
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.CheckinBoard
      */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_WEEKS = 0;
+    SgtApi.CheckinBoard.CHECKIN_TYPE_WEEKS = 3;
 
-    /**
-     * 同 CHECKIN_TYPE_DAILY 每日签到
-     * @type {number}
-     */
-    SgtApi.CheckinBoard.DAILY = 0;
 
-    /**
-     * 同 CHECKIN_TYPE_NORMAL 一般签到
-     * @type {number}
-     */
-    SgtApi.CheckinBoard.NOMARL = 0;
     /**
      * 签到返回VO
      * @constructor
@@ -1588,30 +1688,45 @@ jsonRPC =new Object({
     /**
      * 任务进度状态，已经完成，还未领取奖励的状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.DailyTask
      */
-    SgtApi.DailyTask.STATUS_PROGRESS_COMPLETED = 0;
+    SgtApi.DailyTask.STATUS_PROGRESS_COMPLETED = 1;
 
     /**
      * 任务进度状态，已经完成，并且已经领取奖励的状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.DailyTask
      */
-    SgtApi.DailyTask.STATUS_PROGRESS_GOT_REWARD = 0;
+    SgtApi.DailyTask.STATUS_PROGRESS_GOT_REWARD = 2;
 
     /**
      * 任务进度状态，未完成，在任务进行中的状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.DailyTask
      */
     SgtApi.DailyTask.STATUS_PROGRESS_UNFINISHED = 0;
 
     /**
      * 任务状态，可用的
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.DailyTask
      */
-    SgtApi.DailyTask.STATUS_TASK_AVAILABLE = 0;
+    SgtApi.DailyTask.STATUS_TASK_AVAILABLE = 1;
 
     /**
      * 任务状态，不可用的
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.DailyTask
      */
     SgtApi.DailyTask.STATUS_TASK_UNAVAILABLE = 0;
 
@@ -1790,24 +1905,36 @@ jsonRPC =new Object({
     /**
      * 好友关系状态 好友(1)
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Friendship
      */
     SgtApi.Friendship.FRIEND = 1;
 
     /**
      * 拒绝添加好友的状态(2)
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Friendship
      */
     SgtApi.Friendship.REFUSE = 2;
 
     /**
      * STATE_DELETE
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Friendship
      */
-    SgtApi.Friendship.STATE_DELETE = 0;
+    SgtApi.Friendship.STATE_DELETE = -1;
 
     /**
      * 好友关系状态 未确认(0)
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Friendship
      */
     SgtApi.Friendship.UN_CONFIRM = 0;
 
@@ -2187,86 +2314,128 @@ jsonRPC =new Object({
     /**
      * 状态：禁用
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
     SgtApi.Item.DISABLED = 0;
 
     /**
      * 状态：启用
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
     SgtApi.Item.ENABLED = 1;
 
     /**
      * 物品类型：充值
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.TYPE_OF_CHARGE = null;
+    SgtApi.Item.TYPE_OF_CHARGE = "TYPE_CHARGE";
 
     /**
      * 物品类型：内容关卡
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.TYPE_OF_LEVEL = null;
+    SgtApi.Item.TYPE_OF_LEVEL = "TYPE_LEVEL";
 
     /**
      * 物品类型：默认货币
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.TYPE_OF_MONEY = null;
+    SgtApi.Item.TYPE_OF_MONEY = "TYPE_MONEY";
 
     /**
      * 物品类型：道具
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.TYPE_OF_PROPS = null;
+    SgtApi.Item.TYPE_OF_PROPS = "TYPE_PROPS";
 
     /**
      * 物品类型：复活
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.TYPE_OF_RESURRECTION = null;
+    SgtApi.Item.TYPE_OF_RESURRECTION = "TYPE_RESURRECTION";
 
     /**
      * 物品类型：VIP资格
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.TYPE_OF_VIP = null;
+    SgtApi.Item.TYPE_OF_VIP = "TYPE_VIP";
 
     /**
      * 价格单位：人民币
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.UNIT_OF_CN_YUAN = null;
+    SgtApi.Item.UNIT_OF_CN_YUAN = "UNIT_CN_YUAN";
 
     /**
      * 价格单位：钻石
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.UNIT_OF_DIAMOND = null;
+    SgtApi.Item.UNIT_OF_DIAMOND = "UNIT_DIAMOND";
 
     /**
      * 价格单位：金币
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.UNIT_OF_GOLDENCOIN = null;
+    SgtApi.Item.UNIT_OF_GOLDENCOIN = "UNIT_GOLDENCOIN";
 
     /**
      * 价格单位：日元
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.UNIT_OF_JP_YUAN = null;
+    SgtApi.Item.UNIT_OF_JP_YUAN = "UNIT_JP_YUAN";
 
     /**
      * 价格单位：默认货币
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.UNIT_OF_MONEY = null;
+    SgtApi.Item.UNIT_OF_MONEY = "UNIT_MONEY";
 
     /**
      * 价格单位：美元
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.Item
      */
-    SgtApi.Item.UNIT_OF_US_DOLLAR = null;
+    SgtApi.Item.UNIT_OF_US_DOLLAR = "UNIT_US_DOLLAR";
 
     /**
      * 排行榜
@@ -2344,13 +2513,13 @@ jsonRPC =new Object({
 
         /**
          * 奖品名称
-         * @type {null}
+         * @type {String}
          */
         this.name = null;
 
         /**
          * 奖品内容
-         * @type {null}
+         * @type {String}
          */
         this.prize = null;
 
@@ -2381,13 +2550,13 @@ jsonRPC =new Object({
 
         /**
          * 已读邮件集合
-         * @type {null}
+         * @type {mail[]}
          */
         this.readedMails = null;
 
         /**
          * 未读邮件集合
-         * @type {null}
+         * @type {mail[]}
          */
         this.unreadMails = null;
     };
@@ -2400,25 +2569,25 @@ jsonRPC =new Object({
 
         /**
          * 附件
-         * @type {null}
+         * @type {String}
          */
         this.attachment = null;
 
         /**
          * 内容
-         * @type {null}
+         * @type {String}
          */
         this.content = null;
 
         /**
          * 自定义ID，用于关联
-         * @type {null}
+         * @type {String}
          */
         this.customId = null;
 
         /**
          * 模板说明
-         * @type {null}
+         * @type {String}
          */
         this.description = null;
 
@@ -2430,7 +2599,7 @@ jsonRPC =new Object({
 
         /**
          * 标题
-         * @type {null}
+         * @type {String}
          */
         this.title = null;
     };
@@ -2568,28 +2737,42 @@ jsonRPC =new Object({
     /**
      * 交易中，如调用第三方计费接口还没有返回成功提示之前的状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Order
      */
     SgtApi.Order.STATUS_OF_DEALING = 0;
 
     /**
      * 购买结果：异常
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Order
      */
     SgtApi.Order.STATUS_OF_EXCEPTION = 0;
 
     /**
      * 购买结果：失败
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Order
      */
     SgtApi.Order.STATUS_OF_FAILURE = 0;
 
     /**
      * 购买结果：成功
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Order
      */
     SgtApi.Order.STATUS_OF_SUCESS = 0;
     /**
      * 微信支付统一下单参数对象模型
+     * @class WxPayOrderModel
+     * @constructor
      */
     SgtApi.WxPayOrderModel = function () {
         /**
@@ -2697,30 +2880,45 @@ jsonRPC =new Object({
     /**
      * 良好
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Server
      */
     SgtApi.Server.GOOD = 0;
 
     /**
      * 满载
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Server
      */
     SgtApi.Server.HEAVY = 0;
 
     /**
      * 顺畅
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Server
      */
     SgtApi.Server.LIGHT = 0;
 
     /**
      * 维护
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Server
      */
     SgtApi.Server.MAINTAIN = 0;
 
     /**
      * 一般
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Server
      */
     SgtApi.Server.ORDINARY = 0;
 
@@ -2783,30 +2981,45 @@ jsonRPC =new Object({
     /**
      * 默认折扣
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Store
      */
-    SgtApi.Store.DEFAULT_DISCOUNT = 0;
+    SgtApi.Store.DEFAULT_DISCOUNT = 100;
 
     /**
      * 状态：禁用
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Store
      */
     SgtApi.Store.DISABLED = 0;
 
     /**
      * 状态：启用
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Store
      */
     SgtApi.Store.ENABLED = 1;
 
     /**
      * 更新标志：关闭
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Store
      */
     SgtApi.Store.UPDATE_FLAG_CLOSE = 0;
 
     /**
      * 更新标志：打开
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Store
      */
     SgtApi.Store.UPDATE_FLAG_OPEN = 1;
 
@@ -2844,37 +3057,52 @@ jsonRPC =new Object({
     };
     /**
      * 表示值为list的数据结构
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.StructuredData
      */
-    SgtApi.StructuredData.TYPE_OF_LIST = null;
+    SgtApi.StructuredData.TYPE_OF_LIST = "list";
 
     /**
      * 表示职位map键值对的数据结构
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.StructuredData
      */
-    SgtApi.StructuredData.TYPE_OF_MAP = null;
+    SgtApi.StructuredData.TYPE_OF_MAP = "map";
 
     /**
      * 表示值为set的数据结构
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.StructuredData
      */
-    SgtApi.StructuredData.TYPE_OF_SET = null;
+    SgtApi.StructuredData.TYPE_OF_SET = "set";
 
     /**
      * 表示值为value的数据结构
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.StructuredData
      */
-    SgtApi.StructuredData.TYPE_OF_VALUE = null;
+    SgtApi.StructuredData.TYPE_OF_VALUE = "value";
 
     /**
      * 表示值为zset的数据结构
-     * @type {null}
+     * @type {String}
+     * @static
+     * @constant
+     * @memberof SgtApi.StructuredData
      */
-    SgtApi.StructuredData.TYPE_OF_ZSET = null;
+    SgtApi.StructuredData.TYPE_OF_ZSET = "zset";
 
 
     /**
-     * 通用任务
+     * 通用任务(预留)
      * @constructor
      */
     SgtApi.Task = function () {
@@ -3008,54 +3236,81 @@ jsonRPC =new Object({
     /**
      * Task状态(available)：不可用，禁用状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.AVAILABLE_DISABLE = 0;
 
     /**
      * Task状态(available)：可用，开启状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.AVAILABLE_ENABLE = 0;
 
     /**
      * Task进度状态(Status):已经完成，还未领取奖励的状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.STATUS_PROGRESS_COMPLETED = 0;
 
     /**
      * Task进度状态(Status):已经完成，并且已经领取奖励的状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.STATUS_PROGRESS_GOT_REWARD = 0;
 
     /**
      * Task进度状态(Status):未完成，在任务进行中的状态
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.STATUS_PROGRESS_UNFINISHED = 0;
 
     /**
      * taskType:成就
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.TASKTYPE_ACHIEVEMENT = null;
 
     /**
      * taskType:日常任务
      * @type {null}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.TASKTYPE_DAILYTASK = null;
 
     /**
      * Task可见性：不可见
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.VISIBILITY_INVISIBLE = 0;
 
     /**
      * Task可见性：可见
      * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Task
      */
     SgtApi.Task.VISIBILITY_VISIBLE = 0;
 
@@ -3210,6 +3465,10 @@ jsonRPC =new Object({
          */
         this.versionName = null;
     };
+    /**
+     * 用户留存信息类
+     * @constructor
+     */
     SgtApi.UserLeaveInfo = function () {
         /**
          * 主键id
@@ -3245,12 +3504,6 @@ jsonRPC =new Object({
         this.appId = null;
     };
 
-    /**
-     * @param name
-     * @param data
-     * @param url
-     * @param callback
-     */
     SgtApi.doRPC = function (name, data, url, callback) {
         jsonRPC.setup({
             endPoint: url,
@@ -3301,14 +3554,21 @@ jsonRPC =new Object({
     /**
      * Sgt  上下文
      * @type {{user: null, server: null, playerData: null}}
+     * @global
+     * @memberof SgtApi
+     * @static
      */
     SgtApi.context = {
         /**
          * 当前用户数据信息
+         * @memberof SgtApi.context
+         * @static
          */
         user: null,
         /**
          * 当前使用服务器信息
+         * @memberof SgtApi.context
+         * @static
          */
         server: null,
 
@@ -3316,7 +3576,8 @@ jsonRPC =new Object({
          * 应用唯一标识
          * @property appId
          * @type {string}
-         * @default ""
+         * @memberof SgtApi.context
+         * @static
          */
         appId: null,
 
@@ -3325,6 +3586,8 @@ jsonRPC =new Object({
          * @property appGateway
          * @type {string}
          * @default http://sgp.gallme.com.cn/gateway
+         * @memberof SgtApi.context
+         * @static
          */
         appGateway: 'http://gw.sgtcloud.cn/gateway',
 
@@ -3332,7 +3595,8 @@ jsonRPC =new Object({
          * 渠道标识
          * @property channelId
          * @type {string}
-         * @default "zstfYB"
+         * @memberof SgtApi.context
+         * @static
          */
         channelId: '',
         openid: null,
@@ -3354,7 +3618,7 @@ jsonRPC =new Object({
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
         var r = window.location.search.substr(1).match(reg); //匹配目标参数
         if (r !== null) return unescape(r[2]);
-        SgtApi.UserService.prototype = null; //返回参数值
+       // SgtApi.UserService.prototype = null; //返回参数值
     }
 
     /**
@@ -3403,6 +3667,7 @@ jsonRPC =new Object({
 
     /**
      * 用户相关业务接口
+     * @module UserService
      */
     SgtApi.UserService = function () {
         var _appGateway = SgtApi.context.appGateway;
@@ -4556,7 +4821,7 @@ jsonRPC =new Object({
     };
 
     /**
-     * 通用任务模块业务接口
+     * 通用任务模块业务接口（预留）
      * @module  TaskService
      * @type {{}|*}
      */
@@ -7024,12 +7289,12 @@ jsonRPC =new Object({
             socketUrl = SgtApi.context.server.socketUrl + '/';
         }
         socketUrl += SgtApi.context.appId;
-       return {
-           /**
-            * 获取socketio实例
-            * @param {String}nameSpace - 命名空间
-            * @returns {SocketIO}SocketIO实例
-            */
+        return {
+            /**
+             * 获取socketio实例
+             * @param {String}nameSpace - 命名空间
+             * @returns {SocketIO}SocketIO实例
+             */
             getSocket: function (nameSpace) {
                 if (nameSpace) {
                     if (!nameSpace.endsWith('/')) {
