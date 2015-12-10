@@ -183,6 +183,9 @@ RandomNameGroupService
 * Socketio服务
 SocketService
 
+### 定制sdk
+
+我们目前版本的sdk经过uglify+gzip后约40kb，如果开发者觉得仍然太大的话，可以通过裁剪源码的方式来构建更小的sdk。我们所有的服务都是以模块化来构建的，开发者可以通过删除源码中没用到的模块，然后按照手册中的方式构建自己的sdk。目前的核心模块包含jsonrpc，init(上下文)，常量和用户模块(UserService)和路由模块(RouterService)，经过uglify+gzip后一共约10kb，是必须保留的，其他的服务模块可以根据自己的需要进行裁剪，更多的需求和技术支持请直接联系我们。
 
 ### 贡献
 
