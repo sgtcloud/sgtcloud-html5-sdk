@@ -13,7 +13,7 @@ var options = {
 	//要编译的文件名集合
     compileFileNames: ['./src/jsonrpc.js', './src/sgtcloud-html5-sdk.js'],
     //编译后的文件名
-    compiledFileName:'sgtcloud-html5-sdk.2.1.0.js',
+    compiledFileName:'sgtcloud-html5-sdk.2.1.1.js',
     lintPaths: [
         './src/*.js'
     ]
@@ -39,10 +39,12 @@ gulp.task('development', function() {
 });
 
 gulp.task('generateApi', function() {
-    gulp.src('./src/sgtcloud-html5-sdk.2.0.3.js').
+    gulp.src('./src/sgtcloud-html5-sdk.js').
     pipe(jsdoc('./api/'));
 });
-
+gulp.task('watch',function(){
+	gulp.watch('./src/sgtcloud-html5-sdk.js',['generateApi']);
+});
 gulp.task('npm:publish', function() {
     exec('npm publish', function() {
 
