@@ -126,22 +126,17 @@ jsonRPC =new Object({
 
 
 /**
- * @description sgt html5 api
- * @index
- * @auth SGTCloudTeam
+ * sgt html5 api
+ * 开发者 by zhcy
  */
-(function () {
-    /**
-     * @namespace
-     * @alias SgtApi
-     */
+(function() {
     var SgtApi = {};
     /**
      * User 对象
      * @class User
      * @constructor
      */
-    SgtApi.User = function () {
+    SgtApi.User = function() {
         /**
          * 昵称
          * @property nickName
@@ -234,43 +229,31 @@ jsonRPC =new Object({
          */
         this.updateTime = null;
 
+        /**
+         * 系统自动匹配注册（根据IMEI，ICCID，mac）
+         * @type {number}
+         */
+        SgtApi.User.prototype.AUTO = 0;
+
+        /**
+         * 注册类型，普通注册，使用用户名和密码注册
+         * @type {number}
+         */
+        SgtApi.User.prototype.MANUAL = 0;
+
+        /**
+         * 使用手机号码注册
+         * @type {number}
+         */
+        SgtApi.User.prototype.PHONENUMBER = 0;
     };
-
-
-    /**
-     * 系统自动匹配注册（根据IMEI，ICCID，mac）
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.User
-     */
-    SgtApi.User.AUTO = 2;
-
-    /**
-     * 注册类型，普通注册，使用用户名和密码注册
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.User
-     */
-    SgtApi.User.MANUAL = 0;
-
-    /**
-     * 使用手机号码注册
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.User
-     */
-    SgtApi.User.PHONENUMBER = 1;
-
     /**
      * 玩家角色接口
      *
      * @class Player
      * @constructor
      */
-    SgtApi.Player = function () {
+    SgtApi.Player = function() {
         /**
          * 自定义ID
          * @property customId
@@ -375,7 +358,7 @@ jsonRPC =new Object({
      * @class save
      * @constructor
      */
-    SgtApi.Save = function () {
+    SgtApi.Save = function() {
         /**
          * 存档内容
          * @property content
@@ -411,32 +394,24 @@ jsonRPC =new Object({
          * @default null
          */
         this.playerId = null;
+        /**
+         * 允许下载
+         * @type {number}
+         */
+        SgtApi.Save.prototype.ALLOW_DOWN = 0;
 
+        /**
+         * 不允许下载
+         * @type {number}
+         */
+        SgtApi.Save.prototype.DENY_DOWN = 0;
     };
-
-    /**
-     * 允许下载
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Save
-     */
-    SgtApi.Save.ALLOW_DOWN = 1;
-
-    /**
-     * 不允许下载
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Save
-     */
-    SgtApi.Save.DENY_DOWN = 0;
     /**
      * mail 对象
      * @class mail
      * @constructor
      */
-    SgtApi.Mail = function () {
+    SgtApi.Mail = function() {
         /**
          * 附件
          * @property attachment
@@ -527,95 +502,68 @@ jsonRPC =new Object({
          */
         this.type = null;
 
+        /**
+         * 删除状态 已经删除 -1
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.DELETED = 0;
 
+        /**
+         * 已读状态 值为1
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.READ = 0;
+
+        /**
+         * 附件未领取
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.STATUS_ATTACH_NO_PICK = 0;
+
+        /**
+         * 附件已经领取
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.STATUS_ATTACH_PICKED = 0;
+
+        /**
+         * 邮件类型：好友邀请邮件 职位3
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.TYPE_INVITATE_FRIENDSHIP = 0;
+
+        /**
+         * 邮件类型：普通邮件 值为 0
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.TYPE_NORMAL = 0;
+
+        /**
+         * 邮件类型：系统通知邮件 值为1
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.TYPE_SYSTEM = 0;
+
+        /**
+         * 邮件类型：系统奖励邮件 值为2
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.TYPE_SYSTEM_REWARD = 0;
+
+        /**
+         * 未读状态 值为0
+         * @type {number}
+         */
+        SgtApi.Mail.prototype.UNREAD = 0;
     };
-    /**
-     * 删除状态 已经删除 -1
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.DELETED = -1;
 
-    /**
-     * 已读状态 值为1
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.READ = 1;
-
-    /**
-     * 附件未领取
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.STATUS_ATTACH_NO_PICK = 0;
-
-    /**
-     * 附件已经领取
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.STATUS_ATTACH_PICKED = 1;
-
-    /**
-     * 邮件类型：好友邀请邮件 值为3
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.TYPE_INVITATE_FRIENDSHIP = 3;
-
-    /**
-     * 邮件类型：普通邮件 值为 0
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.TYPE_NORMAL = 0;
-
-    /**
-     * 邮件类型：系统通知邮件 值为1
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.TYPE_SYSTEM = 1;
-
-    /**
-     * 邮件类型：系统奖励邮件 值为2
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.TYPE_SYSTEM_REWARD = 2;
-
-    /**
-     * 未读状态 值为0
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Mail
-     */
-    SgtApi.Mail.UNREAD = 0;
 
     /**
      * Ticket 对象
      * @class Ticket
      * @constructor
      */
-    SgtApi.Ticket = function () {
+    SgtApi.Ticket = function() {
         /**
          * 反馈给后台的内容
          * @property content
@@ -688,41 +636,30 @@ jsonRPC =new Object({
          */
         this.type = null;
 
+        /**
+         * 待处理
+         * @type {number}
+         */
+        SgtApi.Ticket.prototype.STATUS_OF_PENDING = 0;
 
+        /**
+         * 已处理
+         * @type {number}
+         */
+        SgtApi.Ticket.prototype.STATUS_OF_PROCESSED = 0;
+
+        /**
+         * 一般类型
+         * @type {number}
+         */
+        SgtApi.Ticket.prototype.TYPE_OF_NORMAL = 0;
     };
-
-    /**
-     * 待处理
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Ticket
-     */
-    SgtApi.Ticket.STATUS_OF_PENDING = 1;
-
-    /**
-     * 已处理
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Ticket
-     */
-    SgtApi.Ticket.STATUS_OF_PROCESSED = 2;
-
-    /**
-     * 一般类型
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Ticket
-     */
-    SgtApi.Ticket.TYPE_OF_NORMAL = 1;
 
     /**
      * 成就
      * @constructor
      */
-    SgtApi.Achievement = function () {
+    SgtApi.Achievement = function() {
         /**
          * 当前进度
          * @type {number}
@@ -813,77 +750,55 @@ jsonRPC =new Object({
          */
         this.visibility = 0;
 
+        /**
+         * 已达成
+         * @type {number}
+         */
+        SgtApi.Achievement.prototype.PROGRESS_DONE = 0;
+
+        /**
+         * 已经领取奖励
+         * @type {number}
+         */
+        SgtApi.Achievement.prototype.PROGRESS_GOT_REWARD = 0;
+
+        /**
+         * 未达成
+         * @type {number}
+         */
+        SgtApi.Achievement.prototype.PROGRESS_NOT_ACHIEVED = 0;
+
+        /**
+         * 不可用
+         * @type {number}
+         */
+        SgtApi.Achievement.prototype.STATUS_DISABLE = 0;
+
+        /**
+         * 可用，开启状态
+         * @type {number}
+         */
+        SgtApi.Achievement.prototype.STATUS_ENABLE = 0;
+
+        /**
+         * 成就不可见
+         * @type {number}
+         */
+        SgtApi.Achievement.prototype.VISIBILITY_INVISIBLE = 0;
+
+        /**
+         * 成就可见
+         * @type {number}
+         */
+        SgtApi.Achievement.prototype.VISIBILITY_VISIBLE = 0;
 
     };
 
-
-    /**
-     * 已达成
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Achievement
-     */
-    SgtApi.Achievement.PROGRESS_DONE = 2;
-
-    /**
-     * 已经领取奖励
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Achievement
-     */
-    SgtApi.Achievement.PROGRESS_GOT_REWARD = 3;
-
-    /**
-     * 未达成
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Achievement
-     */
-    SgtApi.Achievement.PROGRESS_NOT_ACHIEVED = 1;
-
-    /**
-     * 不可用
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Achievement
-     */
-    SgtApi.Achievement.STATUS_DISABLE = 0;
-
-    /**
-     * 可用，开启状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Achievement
-     */
-    SgtApi.Achievement.STATUS_ENABLE = 1;
-
-    /**
-     * 成就不可见
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Achievement
-     */
-    SgtApi.Achievement.VISIBILITY_INVISIBLE = 0;
-
-    /**
-     * 成就可见
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Achievement
-     */
-    SgtApi.Achievement.VISIBILITY_VISIBLE = 1;
     /**
      * 公告
      * @constructor
      */
-    SgtApi.Announcement = function () {
+    SgtApi.Announcement = function() {
         /**
          * 公告内容
          * @type {null}
@@ -932,41 +847,30 @@ jsonRPC =new Object({
          */
         this.version = null;
 
+        /**
+         * 公告类型 活动公告（1）
+         * @type {number}
+         */
+        SgtApi.Announcement.prototype.ACTIVITY = 0;
 
+        /**
+         * 公告类型 商城公告（2）
+         * @type {number}
+         */
+        SgtApi.Announcement.prototype.BULLETIN = 0;
+
+        /**
+         * 公告类型 维护公告（3）
+         * @type {number}
+         */
+        SgtApi.Announcement.prototype.MAINTAIN = 0;
     };
-
-    /**
-     * 公告类型 活动公告（1）
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Announcement
-     */
-    SgtApi.Announcement.ACTIVITY = 1;
-
-    /**
-     * 公告类型 商城公告（2）
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Announcement
-     */
-    SgtApi.Announcement.BULLETIN = 2;
-
-    /**
-     * 公告类型 维护公告（3）
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Announcement
-     */
-    SgtApi.Announcement.MAINTAIN = 3;
 
     /**
      * 黑名单
      * @constructor
      */
-    SgtApi.Blacklist = function () {
+    SgtApi.Blacklist = function() {
 
         /**
          * 自定义黑名单ID
@@ -1004,31 +908,24 @@ jsonRPC =new Object({
          */
         this.type = null;
 
+        /**
+         * 正常
+         * @type {number}
+         */
+        SgtApi.Blacklist.prototype.TYPE_OF_NORMAL = 0;
 
+        /**
+         * 路由黑名单
+         * @type {number}
+         */
+        SgtApi.Blacklist.prototype.TYPE_OF_ROUTE = 0;
     };
-    /**
-     * 正常
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Blacklist
-     */
-    SgtApi.Blacklist.TYPE_OF_NORMAL = 1;
-
-    /**
-     * 路由黑名单
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Blacklist
-     */
-    SgtApi.Blacklist.TYPE_OF_ROUTE = 2;
 
     /**
      * BOSS
      * @constructor
      */
-    SgtApi.Boss = function () {
+    SgtApi.Boss = function() {
 
         /**
          * 血量
@@ -1066,31 +963,24 @@ jsonRPC =new Object({
          */
         this.type = null;
 
+        /**
+         * 私有boss，只能自己打
+         * @type {number}
+         */
+        SgtApi.Boss.prototype.PRIVATE = 0;
 
+        /**
+         * 公共 、世界boss
+         * @type {number}
+         */
+        SgtApi.Boss.prototype.PUBLIC = 0;
     };
-    /**
-     * 私有boss，只能自己打
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Boss
-     */
-    SgtApi.Boss.PRIVATE = 0;
-
-    /**
-     * 公共 、世界boss
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Boss
-     */
-    SgtApi.Boss.PUBLIC = 0;
 
     /**
      * 活动
      * @constructor
      */
-    SgtApi.Campaign = function () {
+    SgtApi.Campaign = function() {
 
         /**
          * 关联的boss
@@ -1169,7 +1059,7 @@ jsonRPC =new Object({
      * 活动详情
      * @constructor
      */
-    SgtApi.CampaignDetail = function () {
+    SgtApi.CampaignDetail = function() {
 
         /**
          * 关联的活动
@@ -1206,7 +1096,7 @@ jsonRPC =new Object({
      * 公共通道
      * @constructor
      */
-    SgtApi.Channel = function () {
+    SgtApi.Channel = function() {
 
         /**
          * 通道ID
@@ -1231,7 +1121,7 @@ jsonRPC =new Object({
      * 充值记录
      * @constructor
      */
-    SgtApi.ChargeLog = function () {
+    SgtApi.ChargeLog = function() {
 
         /**
          * 充值金额
@@ -1316,7 +1206,7 @@ jsonRPC =new Object({
      * 计费点
      * @constructor
      */
-    SgtApi.ChargePoint = function () {
+    SgtApi.ChargePoint = function() {
 
         /**
          * 充值获得的物品数量
@@ -1419,7 +1309,7 @@ jsonRPC =new Object({
      * 签到板
      * @constructor
      */
-    SgtApi.CheckinBoard = function () {
+    SgtApi.CheckinBoard = function() {
 
         /**
          * 自定义签到板ID
@@ -1481,61 +1371,54 @@ jsonRPC =new Object({
          */
         this.type = null;
 
+        /**
+         * 日历签到
+         * @type {number}
+         */
+        SgtApi.CheckinBoard.prototype.CHECKIN_TYPE_CALENDAR = 0;
 
+        /**
+         * 每日签到
+         * @type {number}
+         */
+        SgtApi.CheckinBoard.prototype.CHECKIN_TYPE_DAILY = 0;
+
+        /**
+         * 月签到，每月一次
+         * @type {number}
+         */
+        SgtApi.CheckinBoard.prototype.CHECKIN_TYPE_MONTH = 0;
+
+        /**
+         * 一般签到
+         * @type {number}
+         */
+        SgtApi.CheckinBoard.prototype.CHECKIN_TYPE_NORMAL = 0;
+
+        /**
+         * 周签到，每周一次
+         * @type {number}
+         */
+        SgtApi.CheckinBoard.prototype.CHECKIN_TYPE_WEEKS = 0;
+
+        /**
+         * 同 CHECKIN_TYPE_DAILY 每日签到
+         * @type {number}
+         */
+        SgtApi.CheckinBoard.protptype.DAILY = 0;
+
+        /**
+         * 同 CHECKIN_TYPE_NORMAL 一般签到
+         * @type {number}
+         */
+        SgtApi.CheckinBoard.prototype.NOMARL = 0;
     };
-
-
-    /**
-     * 日历签到
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.CheckinBoard
-     */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_CALENDAR = 5;
-
-    /**
-     * 每日签到
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.CheckinBoard
-     */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_DAILY = 2;
-
-    /**
-     * 月签到，每月一次
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.CheckinBoard
-     */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_MONTH = 4;
-
-    /**
-     * 一般签到
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.CheckinBoard
-     */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_NORMAL = 1;
-
-    /**
-     * 周签到，每周一次
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.CheckinBoard
-     */
-    SgtApi.CheckinBoard.CHECKIN_TYPE_WEEKS = 3;
-
 
     /**
      * 签到返回VO
      * @constructor
      */
-    SgtApi.CheckinResult = function () {
+    SgtApi.CheckinResult = function() {
 
         /**
          * 最大累计次数
@@ -1572,7 +1455,7 @@ jsonRPC =new Object({
      * 日常任务
      * @constructor
      */
-    SgtApi.DailyTask = function () {
+    SgtApi.DailyTask = function() {
 
         /**
          * 任务可用状态，1为可用，0为不可用，默认为1
@@ -1682,59 +1565,42 @@ jsonRPC =new Object({
          */
         this.updateUnfinished = false;
 
+        /**
+         * 任务进度状态，已经完成，还未领取奖励的状态
+         * @type {number}
+         */
+        SgtApi.DailyTask.prototype.STATUS_PROGRESS_COMPLETED = 0;
 
+        /**
+         * 任务进度状态，已经完成，并且已经领取奖励的状态
+         * @type {number}
+         */
+        SgtApi.DailyTask.prototype.STATUS_PROGRESS_GOT_REWARD = 0;
+
+        /**
+         * 任务进度状态，未完成，在任务进行中的状态
+         * @type {number}
+         */
+        SgtApi.DailyTask.prototype.STATUS_PROGRESS_UNFINISHED = 0;
+
+        /**
+         * 任务状态，可用的
+         * @type {number}
+         */
+        SgtApi.DailyTask.prototype.STATUS_TASK_AVAILABLE = 0;
+
+        /**
+         * 任务状态，不可用的
+         * @type {number}
+         */
+        SgtApi.DailyTask.prototype.STATUS_TASK_UNAVAILABLE = 0;
     };
-
-    /**
-     * 任务进度状态，已经完成，还未领取奖励的状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.DailyTask
-     */
-    SgtApi.DailyTask.STATUS_PROGRESS_COMPLETED = 1;
-
-    /**
-     * 任务进度状态，已经完成，并且已经领取奖励的状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.DailyTask
-     */
-    SgtApi.DailyTask.STATUS_PROGRESS_GOT_REWARD = 2;
-
-    /**
-     * 任务进度状态，未完成，在任务进行中的状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.DailyTask
-     */
-    SgtApi.DailyTask.STATUS_PROGRESS_UNFINISHED = 0;
-
-    /**
-     * 任务状态，可用的
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.DailyTask
-     */
-    SgtApi.DailyTask.STATUS_TASK_AVAILABLE = 1;
-
-    /**
-     * 任务状态，不可用的
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.DailyTask
-     */
-    SgtApi.DailyTask.STATUS_TASK_UNAVAILABLE = 0;
 
     /**
      * 第三方回调封装bean
      * @constructor
      */
-    SgtApi.ExternalCallbackBean = function () {
+    SgtApi.ExternalCallbackBean = function() {
 
         /**
          * appId
@@ -1813,7 +1679,7 @@ jsonRPC =new Object({
      * 文件的基本属性
      * @constructor
      */
-    SgtApi.FileItem = function () {
+    SgtApi.FileItem = function() {
 
         /**
          * 文件名
@@ -1874,7 +1740,7 @@ jsonRPC =new Object({
      * 好友
      * @constructor
      */
-    SgtApi.Friendship = function () {
+    SgtApi.Friendship = function() {
 
         /**
          * 主键
@@ -1900,49 +1766,36 @@ jsonRPC =new Object({
          */
         this.status = null;
 
+        /**
+         * 好友关系状态 好友(1)
+         * @type {number}
+         */
+        SgtApi.Friendship.prototype.FRIEND = 0;
 
+        /**
+         * 拒绝添加好友的状态(2)
+         * @type {number}
+         */
+        SgtApi.Friendship.prototype.REFUSE = 0;
+
+        /**
+         * STATE_DELETE
+         * @type {number}
+         */
+        SgtApi.Friendship.prototype.STATE_DELETE = 0;
+
+        /**
+         * 好友关系状态 未确认(0)
+         * @type {number}
+         */
+        SgtApi.Friendship.prototype.UN_CONFIRM = 0;
     };
-    /**
-     * 好友关系状态 好友(1)
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Friendship
-     */
-    SgtApi.Friendship.FRIEND = 1;
-
-    /**
-     * 拒绝添加好友的状态(2)
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Friendship
-     */
-    SgtApi.Friendship.REFUSE = 2;
-
-    /**
-     * STATE_DELETE
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Friendship
-     */
-    SgtApi.Friendship.STATE_DELETE = -1;
-
-    /**
-     * 好友关系状态 未确认(0)
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Friendship
-     */
-    SgtApi.Friendship.UN_CONFIRM = 0;
 
     /**
      * 好友关系扩展
      * @constructor
      */
-    SgtApi.FriendshipExtra = function () {
+    SgtApi.FriendshipExtra = function() {
 
         /**
          * 扩展数据
@@ -1967,7 +1820,7 @@ jsonRPC =new Object({
      * 抽奖
      * @constructor
      */
-    SgtApi.GachaBox = function () {
+    SgtApi.GachaBox = function() {
 
         /**
          * 连抽价格
@@ -2070,7 +1923,7 @@ jsonRPC =new Object({
      *
      * @constructor
      */
-    SgtApi.GachaBoxResult = function () {
+    SgtApi.GachaBoxResult = function() {
 
         /**
          *
@@ -2089,7 +1942,7 @@ jsonRPC =new Object({
      * 礼包、兑换码
      * @constructor
      */
-    SgtApi.Gift = function () {
+    SgtApi.Gift = function() {
 
         /**
          * 兑换码集合key，可以是redis中的key
@@ -2168,7 +2021,7 @@ jsonRPC =new Object({
      * 礼包/兑换码 兑换记录
      * @constructor
      */
-    SgtApi.GiftRecord = function () {
+    SgtApi.GiftRecord = function() {
 
         /**
          * 兑换码
@@ -2205,7 +2058,7 @@ jsonRPC =new Object({
      * 商城物品
      * @constructor
      */
-    SgtApi.Item = function () {
+    SgtApi.Item = function() {
 
 
         /**
@@ -2309,139 +2162,96 @@ jsonRPC =new Object({
          */
         this.weight = null;
 
+        /**
+         * 状态：禁用
+         * @type {number}
+         */
+        SgtApi.Item.prototype.DISABLED = 0;
+
+        /**
+         * 状态：启用
+         * @type {number}
+         */
+        SgtApi.Item.prototype.ENABLED = 0;
+
+        /**
+         * 物品类型：充值
+         * @type {null}
+         */
+        SgtApi.Item.prototype.TYPE_OF_CHARGE = null;
+
+        /**
+         * 物品类型：内容关卡
+         * @type {null}
+         */
+        SgtApi.Item.prototype.TYPE_OF_LEVEL = null;
+
+        /**
+         * 物品类型：默认货币
+         * @type {null}
+         */
+        SgtApi.Item.prototype.TYPE_OF_MONEY = null;
+
+        /**
+         * 物品类型：道具
+         * @type {null}
+         */
+        SgtApi.Item.prototype.TYPE_OF_PROPS = null;
+
+        /**
+         * 物品类型：复活
+         * @type {null}
+         */
+        SgtApi.Item.prototype.TYPE_OF_RESURRECTION = null;
+
+        /**
+         * 物品类型：VIP资格
+         * @type {null}
+         */
+        SgtApi.Item.prototype.TYPE_OF_VIP = null;
+
+        /**
+         * 价格单位：人民币
+         * @type {null}
+         */
+        SgtApi.Item.prototype.UNIT_OF_CN_YUAN = null;
+
+        /**
+         * 价格单位：钻石
+         * @type {null}
+         */
+        SgtApi.Item.prototype.UNIT_OF_DIAMOND = null;
+
+        /**
+         * 价格单位：金币
+         * @type {null}
+         */
+        SgtApi.Item.prototype.UNIT_OF_GOLDENCOIN = null;
+
+        /**
+         * 价格单位：日元
+         * @type {null}
+         */
+        SgtApi.Item.prototype.UNIT_OF_JP_YUAN = null;
+
+        /**
+         * 价格单位：默认货币
+         * @type {null}
+         */
+        SgtApi.Item.prototype.UNIT_OF_MONEY = null;
+
+        /**
+         * 价格单位：美元
+         * @type {null}
+         */
+        SgtApi.Item.prototype.UNIT_OF_US_DOLLAR = null;
     };
-
-    /**
-     * 状态：禁用
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.DISABLED = 0;
-
-    /**
-     * 状态：启用
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.ENABLED = 1;
-
-    /**
-     * 物品类型：充值
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.TYPE_OF_CHARGE = "TYPE_CHARGE";
-
-    /**
-     * 物品类型：内容关卡
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.TYPE_OF_LEVEL = "TYPE_LEVEL";
-
-    /**
-     * 物品类型：默认货币
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.TYPE_OF_MONEY = "TYPE_MONEY";
-
-    /**
-     * 物品类型：道具
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.TYPE_OF_PROPS = "TYPE_PROPS";
-
-    /**
-     * 物品类型：复活
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.TYPE_OF_RESURRECTION = "TYPE_RESURRECTION";
-
-    /**
-     * 物品类型：VIP资格
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.TYPE_OF_VIP = "TYPE_VIP";
-
-    /**
-     * 价格单位：人民币
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.UNIT_OF_CN_YUAN = "UNIT_CN_YUAN";
-
-    /**
-     * 价格单位：钻石
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.UNIT_OF_DIAMOND = "UNIT_DIAMOND";
-
-    /**
-     * 价格单位：金币
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.UNIT_OF_GOLDENCOIN = "UNIT_GOLDENCOIN";
-
-    /**
-     * 价格单位：日元
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.UNIT_OF_JP_YUAN = "UNIT_JP_YUAN";
-
-    /**
-     * 价格单位：默认货币
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.UNIT_OF_MONEY = "UNIT_MONEY";
-
-    /**
-     * 价格单位：美元
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.Item
-     */
-    SgtApi.Item.UNIT_OF_US_DOLLAR = "UNIT_US_DOLLAR";
 
     /**
      * 排行榜
      * @constructor
      */
-    SgtApi.LeaderBoard = function () {
+    SgtApi.LeaderBoard = function() {
 
         /**
          * 活动ID
@@ -2472,7 +2282,7 @@ jsonRPC =new Object({
      * 排行榜详情
      * @constructor
      */
-    SgtApi.LeaderBoardScore = function () {
+    SgtApi.LeaderBoardScore = function() {
 
         /**
          * 排位
@@ -2497,7 +2307,7 @@ jsonRPC =new Object({
      * 奖品
      * @constructor
      */
-    SgtApi.Lottery = function () {
+    SgtApi.Lottery = function() {
 
         /**
          * 修正值
@@ -2513,13 +2323,13 @@ jsonRPC =new Object({
 
         /**
          * 奖品名称
-         * @type {String}
+         * @type {null}
          */
         this.name = null;
 
         /**
          * 奖品内容
-         * @type {String}
+         * @type {null}
          */
         this.prize = null;
 
@@ -2546,17 +2356,17 @@ jsonRPC =new Object({
      *
      * @constructor
      */
-    SgtApi.MailsCollection = function () {
+    SgtApi.MailsCollection = function() {
 
         /**
          * 已读邮件集合
-         * @type {mail[]}
+         * @type {null}
          */
         this.readedMails = null;
 
         /**
          * 未读邮件集合
-         * @type {mail[]}
+         * @type {null}
          */
         this.unreadMails = null;
     };
@@ -2565,29 +2375,29 @@ jsonRPC =new Object({
      * 邮件模板
      * @constructor
      */
-    SgtApi.MailTemplate = function () {
+    SgtApi.MailTemplate = function() {
 
         /**
          * 附件
-         * @type {String}
+         * @type {null}
          */
         this.attachment = null;
 
         /**
          * 内容
-         * @type {String}
+         * @type {null}
          */
         this.content = null;
 
         /**
          * 自定义ID，用于关联
-         * @type {String}
+         * @type {null}
          */
         this.customId = null;
 
         /**
          * 模板说明
-         * @type {String}
+         * @type {null}
          */
         this.description = null;
 
@@ -2599,7 +2409,7 @@ jsonRPC =new Object({
 
         /**
          * 标题
-         * @type {String}
+         * @type {null}
          */
         this.title = null;
     };
@@ -2608,7 +2418,7 @@ jsonRPC =new Object({
      * 公共消息
      * @constructor
      */
-    SgtApi.Message = function () {
+    SgtApi.Message = function() {
 
         /**
          * 所属通道ID
@@ -2651,7 +2461,7 @@ jsonRPC =new Object({
      * 用户商城购买记录
      * @constructor
      */
-    SgtApi.Order = function () {
+    SgtApi.Order = function() {
 
         /**
          * 订单总金额
@@ -2731,51 +2541,35 @@ jsonRPC =new Object({
          */
         this.storeId = null;
 
+        /**
+         * 交易中，如调用第三方计费接口还没有返回成功提示之前的状态
+         * @type {number}
+         */
+        SgtApi.Order.prototype.STATUS_OF_DEALING = 0;
 
+        /**
+         * 购买结果：异常
+         * @type {number}
+         */
+        SgtApi.Order.prototype.STATUS_OF_EXCEPTION = 0;
+
+        /**
+         * 购买结果：失败
+         * @type {number}
+         */
+        SgtApi.Order.prototype.STATUS_OF_FAILURE = 0;
+
+        /**
+         * 购买结果：成功
+         * @type {number}
+         */
+        SgtApi.Order.prototype.STATUS_OF_SUCESS = 0;
     };
-
-    /**
-     * 交易中，如调用第三方计费接口还没有返回成功提示之前的状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Order
-     */
-    SgtApi.Order.STATUS_OF_DEALING = 0;
-
-    /**
-     * 购买结果：异常
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Order
-     */
-    SgtApi.Order.STATUS_OF_EXCEPTION = 0;
-
-    /**
-     * 购买结果：失败
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Order
-     */
-    SgtApi.Order.STATUS_OF_FAILURE = 0;
-
-    /**
-     * 购买结果：成功
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Order
-     */
-    SgtApi.Order.STATUS_OF_SUCESS = 0;
     /**
      * 微信支付统一下单参数对象模型
-     * @class WxPayOrderModel
-     * @constructor
      */
-    SgtApi.WxPayOrderModel = function () {
-        /**
+    SgtApi.WxPayOrderModel = function() {
+        /*
          总金额
          */
         this.total_fee = null;
@@ -2805,7 +2599,7 @@ jsonRPC =new Object({
      * 角色扩展信息公共父类，所有开发者扩展的角色信息要么继承这个类，要么在自己的扩展类中添加playerId字段
      * @constructor
      */
-    SgtApi.PlayerExtra = function () {
+    SgtApi.PlayerExtra = function() {
         /**
          * 角色ID，即sgpPlayerId
          * @type {null}
@@ -2817,11 +2611,11 @@ jsonRPC =new Object({
      *
      * @constructor
      */
-    SgtApi.Reward = function () {
+    SgtApi.Reward = function() {
 
         /**
          * 奖励内容
-         * @type {String}
+         * @type {null}
          */
         this.content = null;
 
@@ -2836,17 +2630,17 @@ jsonRPC =new Object({
      * 服务器信息
      * @constructor
      */
-    SgtApi.Server = function () {
+    SgtApi.Server = function() {
 
         /**
          * address
-         * @type {String}
+         * @type {null}
          */
         this.address = null;
 
         /**
          * id
-         * @type {String}
+         * @type {null}
          */
         this.id = null;
 
@@ -2864,7 +2658,7 @@ jsonRPC =new Object({
 
         /**
          * name
-         * @type {String}
+         * @type {null}
          */
         this.name = null;
 
@@ -2874,59 +2668,42 @@ jsonRPC =new Object({
          */
         this.state = null;
 
+        /**
+         * 良好
+         * @type {number}
+         */
+        SgtApi.Server.prototype.GOOD = 0;
 
+        /**
+         * 满载
+         * @type {number}
+         */
+        SgtApi.Server.prototype.HEAVY = 0;
+
+        /**
+         * 顺畅
+         * @type {number}
+         */
+        SgtApi.Server.prototype.LIGHT = 0;
+
+        /**
+         * 维护
+         * @type {number}
+         */
+        SgtApi.Server.prototype.MAINTAIN = 0;
+
+        /**
+         * 一般
+         * @type {number}
+         */
+        SgtApi.Server.prototype.ORDINARY = 0;
     };
-
-    /**
-     * 良好
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Server
-     */
-    SgtApi.Server.GOOD = 0;
-
-    /**
-     * 满载
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Server
-     */
-    SgtApi.Server.HEAVY = 0;
-
-    /**
-     * 顺畅
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Server
-     */
-    SgtApi.Server.LIGHT = 0;
-
-    /**
-     * 维护
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Server
-     */
-    SgtApi.Server.MAINTAIN = 0;
-
-    /**
-     * 一般
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Server
-     */
-    SgtApi.Server.ORDINARY = 0;
 
     /**
      * 商城
      * @constructor
      */
-    SgtApi.Store = function () {
+    SgtApi.Store = function() {
 
         /**
          * 商城描述
@@ -2976,58 +2753,42 @@ jsonRPC =new Object({
          */
         this.version = null;
 
+        /**
+         * 默认折扣
+         * @type {number}
+         */
+        SgtApi.Store.prototype.DEFAULT_DISCOUNT = 0;
 
+        /**
+         * 状态：禁用
+         * @type {number}
+         */
+        SgtApi.Store.prototype.DISABLED = 0;
+
+        /**
+         * 状态：启用
+         * @type {number}
+         */
+        SgtApi.Store.prototype.ENABLED = 0;
+
+        /**
+         * 更新标志：关闭
+         * @type {number}
+         */
+        SgtApi.Store.prototype.UPDATE_FLAG_CLOSE = 0;
+
+        /**
+         * 更新标志：打开
+         * @type {number}
+         */
+        SgtApi.Store.prototype.UPDATE_FLAG_OPEN = 0;
     };
-    /**
-     * 默认折扣
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Store
-     */
-    SgtApi.Store.DEFAULT_DISCOUNT = 100;
-
-    /**
-     * 状态：禁用
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Store
-     */
-    SgtApi.Store.DISABLED = 0;
-
-    /**
-     * 状态：启用
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Store
-     */
-    SgtApi.Store.ENABLED = 1;
-
-    /**
-     * 更新标志：关闭
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Store
-     */
-    SgtApi.Store.UPDATE_FLAG_CLOSE = 0;
-
-    /**
-     * 更新标志：打开
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Store
-     */
-    SgtApi.Store.UPDATE_FLAG_OPEN = 1;
 
     /**
      * 自定义数据结构
      * @constructor
      */
-    SgtApi.StructuredData = function () {
+    SgtApi.StructuredData = function() {
 
         /**
          * 主键
@@ -3053,59 +2814,43 @@ jsonRPC =new Object({
          */
         this.type = null;
 
+        /**
+         * 表示值为list的数据结构
+         * @type {null}
+         */
+        SgtApi.StructuredData.prototype.TYPE_OF_LIST = null;
+
+        /**
+         * 表示职位map键值对的数据结构
+         * @type {null}
+         */
+        SgtApi.StructuredData.prototype.TYPE_OF_MAP = null;
+
+        /**
+         * 表示值为set的数据结构
+         * @type {null}
+         */
+        SgtApi.StructuredData.prototype.TYPE_OF_SET = null;
+
+        /**
+         * 表示值为value的数据结构
+         * @type {null}
+         */
+        SgtApi.StructuredData.prototype.TYPE_OF_VALUE = null;
+
+        /**
+         * 表示值为zset的数据结构
+         * @type {null}
+         */
+        SgtApi.StructuredData.prototype.TYPE_OF_ZSET = null;
 
     };
-    /**
-     * 表示值为list的数据结构
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.StructuredData
-     */
-    SgtApi.StructuredData.TYPE_OF_LIST = "list";
 
     /**
-     * 表示职位map键值对的数据结构
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.StructuredData
-     */
-    SgtApi.StructuredData.TYPE_OF_MAP = "map";
-
-    /**
-     * 表示值为set的数据结构
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.StructuredData
-     */
-    SgtApi.StructuredData.TYPE_OF_SET = "set";
-
-    /**
-     * 表示值为value的数据结构
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.StructuredData
-     */
-    SgtApi.StructuredData.TYPE_OF_VALUE = "value";
-
-    /**
-     * 表示值为zset的数据结构
-     * @type {String}
-     * @static
-     * @constant
-     * @memberof SgtApi.StructuredData
-     */
-    SgtApi.StructuredData.TYPE_OF_ZSET = "zset";
-
-
-    /**
-     * 通用任务(预留)
+     * 通用任务
      * @constructor
      */
-    SgtApi.Task = function () {
+    SgtApi.Task = function() {
 
         /**
          * Task的actiontype类型-与计数器中的type相关联
@@ -3232,93 +2977,67 @@ jsonRPC =new Object({
          * @type {number}
          */
         this.visibility = null;
+
+        /**
+         * Task状态(available)：不可用，禁用状态
+         * @type {number}
+         */
+        SgtApi.Task.prototype.AVAILABLE_DISABLE = 0;
+
+        /**
+         * Task状态(available)：可用，开启状态
+         * @type {number}
+         */
+        SgtApi.Task.prototype.AVAILABLE_ENABLE = 0;
+
+        /**
+         * Task进度状态(Status):已经完成，还未领取奖励的状态
+         * @type {number}
+         */
+        SgtApi.Task.prototype.STATUS_PROGRESS_COMPLETED = 0;
+
+        /**
+         * Task进度状态(Status):已经完成，并且已经领取奖励的状态
+         * @type {number}
+         */
+        SgtApi.Task.prototype.STATUS_PROGRESS_GOT_REWARD = 0;
+
+        /**
+         * Task进度状态(Status):未完成，在任务进行中的状态
+         * @type {number}
+         */
+        SgtApi.Task.prototype.STATUS_PROGRESS_UNFINISHED = 0;
+
+        /**
+         * taskType:成就
+         * @type {number}
+         */
+        SgtApi.Task.prototype.TASKTYPE_ACHIEVEMENT = null;
+
+        /**
+         * taskType:日常任务
+         * @type {null}
+         */
+        SgtApi.Task.prototype.TASKTYPE_DAILYTASK = null;
+
+        /**
+         * Task可见性：不可见
+         * @type {number}
+         */
+        SgtApi.Task.prototype.VISIBILITY_INVISIBLE = 0;
+
+        /**
+         * Task可见性：可见
+         * @type {number}
+         */
+        SgtApi.Task.prototype.VISIBILITY_VISIBLE = 0;
     };
-    /**
-     * Task状态(available)：不可用，禁用状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.AVAILABLE_DISABLE = 0;
-
-    /**
-     * Task状态(available)：可用，开启状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.AVAILABLE_ENABLE = 0;
-
-    /**
-     * Task进度状态(Status):已经完成，还未领取奖励的状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.STATUS_PROGRESS_COMPLETED = 0;
-
-    /**
-     * Task进度状态(Status):已经完成，并且已经领取奖励的状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.STATUS_PROGRESS_GOT_REWARD = 0;
-
-    /**
-     * Task进度状态(Status):未完成，在任务进行中的状态
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.STATUS_PROGRESS_UNFINISHED = 0;
-
-    /**
-     * taskType:成就
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.TASKTYPE_ACHIEVEMENT = null;
-
-    /**
-     * taskType:日常任务
-     * @type {null}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.TASKTYPE_DAILYTASK = null;
-
-    /**
-     * Task可见性：不可见
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.VISIBILITY_INVISIBLE = 0;
-
-    /**
-     * Task可见性：可见
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Task
-     */
-    SgtApi.Task.VISIBILITY_VISIBLE = 0;
 
     /**
      * 定时器任务
      * @constructor
      */
-    SgtApi.TimerTask = function () {
+    SgtApi.TimerTask = function() {
 
         /**
          * className
@@ -3397,7 +3116,7 @@ jsonRPC =new Object({
      * 版本详情
      * @constructor
      */
-    SgtApi.VersionDetail = function () {
+    SgtApi.VersionDetail = function() {
 
         /**
          * 应用标识
@@ -3465,11 +3184,7 @@ jsonRPC =new Object({
          */
         this.versionName = null;
     };
-    /**
-     * 用户留存信息类
-     * @constructor
-     */
-    SgtApi.UserLeaveInfo = function () {
+    SgtApi.UserLeaveInfo = function() {
         /**
          * 主键id
          */
@@ -3504,19 +3219,25 @@ jsonRPC =new Object({
         this.appId = null;
     };
 
-    SgtApi.doRPC = function (name, data, url, callback) {
+    /**
+     * @param name
+     * @param data
+     * @param url
+     * @param callback
+     */
+    SgtApi.doRPC = function(name, data, url, callback) {
         jsonRPC.setup({
             endPoint: url,
             namespace: ''
         });
         jsonRPC.request(name, {
             params: data,
-            success: function (data) {
+            success: function(data) {
                 if (callback) {
                     return callback(true, data.result);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 if (callback) {
                     return callback(false, SgtApi.errorMessage(data) + '.\nat: ' + name + '()');
                 }
@@ -3525,7 +3246,7 @@ jsonRPC =new Object({
     };
 
     //错误信息
-    SgtApi.errorMessage = function (data) {
+    SgtApi.errorMessage = function(data) {
 
         if (data.error.data) {
             //开发者自定义
@@ -3543,7 +3264,7 @@ jsonRPC =new Object({
     };
 
     //自定义异常
-    SgtApi.customException = function (exceptionConfig) {
+    SgtApi.customException = function(exceptionConfig) {
         var custome = {};
         for (var i in exceptionConfig) {
             custome.i = exceptionConfig[i];
@@ -3554,50 +3275,33 @@ jsonRPC =new Object({
     /**
      * Sgt  上下文
      * @type {{user: null, server: null, playerData: null}}
-     * @global
-     * @memberof SgtApi
-     * @static
      */
     SgtApi.context = {
-        /**
-         * 当前用户数据信息
-         * @memberof SgtApi.context
-         * @static
-         */
-        user: null,
-        /**
-         * 当前使用服务器信息
-         * @memberof SgtApi.context
-         * @static
-         */
-        server: null,
+        user: null, //当前用户数据信息
+        server: null, //当前使用服务器信息
 
-        /**
-         * 应用唯一标识
-         * @property appId
-         * @type {string}
-         * @memberof SgtApi.context
-         * @static
-         */
+        ///**
+        // * 应用标识
+        // * @property appId
+        // * @type {string}
+        // * @default ""
+        // */
         appId: null,
 
-        /**
-         * 网关地址
-         * @property appGateway
-         * @type {string}
-         * @default http://sgp.gallme.com.cn/gateway
-         * @memberof SgtApi.context
-         * @static
-         */
+        ///**
+        // * 网关
+        // * @property appGateway
+        // * @type {string}
+        // * @default http://sgp.gallme.com.cn/gateway
+        // */
         appGateway: 'http://gw.sgtcloud.cn/gateway',
 
-        /**
-         * 渠道标识
-         * @property channelId
-         * @type {string}
-         * @memberof SgtApi.context
-         * @static
-         */
+        ///**
+        // * 渠道标识
+        // * @property channelId
+        // * @type {string}
+        // * @default "zstfYB"
+        // */
         channelId: '',
         openid: null,
         access_token: null
@@ -3618,7 +3322,7 @@ jsonRPC =new Object({
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
         var r = window.location.search.substr(1).match(reg); //匹配目标参数
         if (r !== null) return unescape(r[2]);
-       // SgtApi.UserService.prototype = null; //返回参数值
+        return null; //返回参数值
     }
 
     /**
@@ -3627,7 +3331,7 @@ jsonRPC =new Object({
      * @param json{json} 配置文件
      * @constructor
      */
-    SgtApi.init = function (config) {
+    SgtApi.init = function(config) {
         if (config.appId) {
             SgtApi.context.appId = config.appId;
         }
@@ -3641,7 +3345,7 @@ jsonRPC =new Object({
         SgtApi.RouterService = SgtApi.RouterService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
         //初始化微信中控服务
-        if (wx) {
+        if (typeof wx == 'Function') {
             if (is_weixin()) {
                 SgtApi.WxCentralService = SgtApi.WxCentralService();
                 if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
@@ -3651,7 +3355,7 @@ jsonRPC =new Object({
                     SgtApi.context.access_token = localStorage.getItem('sgt-' + SgtApi.context.appId + '-access_token');
                 }
                 if (getUrlParam('code')) {
-                    SgtApi.WxCentralService.getUserAccessToken(getUrlParam('code'), function (result, data) {
+                    SgtApi.WxCentralService.getUserAccessToken(getUrlParam('code'), function(result, data) {
                         SgtApi.context.openid = data.openid;
                         SgtApi.context.access_token = data.access_token;
                         localStorage.setItem('sgt-' + SgtApi.context.appId + '-access_token', SgtApi.context.access_token);
@@ -3667,9 +3371,8 @@ jsonRPC =new Object({
 
     /**
      * 用户相关业务接口
-     * @module UserService
      */
-    SgtApi.UserService = function () {
+    SgtApi.UserService = function() {
         var _appGateway = SgtApi.context.appGateway;
         var _appId = SgtApi.context.appId;
         var _url = _appGateway + '/user';
@@ -3677,7 +3380,7 @@ jsonRPC =new Object({
         /**
          * 创建Service 实例
          */
-        var _createServices = function () {
+        var _createServices = function() {
             if (!_doneInit) {
                 SgtApi.PlayerService = SgtApi.PlayerService();
                 SgtApi.PlayerExtraService = SgtApi.PlayerExtraService();
@@ -3718,15 +3421,16 @@ jsonRPC =new Object({
         /**
          * 获取服务器信息并解锁其他服务
          */
-        var _getPlayServer = function (callback) {
-            SgtApi.RouterService.route(_appId, {
+        var _getPlayServer = function(callback) {
+            SgtApi.RouterService.route({
                 'userId': SgtApi.context.user.userid,
                 'createTime': SgtApi.context.user.createTime,
                 'channelId': SgtApi.context.channelId
-            }, function (result, data) {
+            }, function(result, data) {
+                console.log("aa:"+result+" , "+data);
                 if (result) {
                     SgtApi.context.server = data;
-                    console.log(data);
+
                     _createServices();
                     callback(true, SgtApi.context.user);
                 } else {
@@ -3742,7 +3446,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {string}            是否验证成功结果
              */
-            isMatch: function (smobile, captcha, callback) {
+            isMatch: function(smobile, captcha, callback) {
                 var name = 'isMatcher';
                 var data = [smobile, captcha];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3755,10 +3459,10 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {User}              登录后的user对象
              */
-            login: function (userName, password, callback) {
+            login: function(userName, password, callback) {
                 var name = 'login';
                 var data = [userName, password];
-                SgtApi.doRPC(name, data, _url, function (result, data) {
+                SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         SgtApi.context.user = data;
                         _getPlayServer(callback);
@@ -3774,10 +3478,10 @@ jsonRPC =new Object({
              * @param  {Function}   callback 回调函数
              * @return {User}       注册后的user对象
              */
-            regist: function (user, callback) {
+            regist: function(user, callback) {
                 var name = 'register';
                 var data = [user];
-                SgtApi.doRPC(name, data, _url, function (result, data) {
+                SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         SgtApi.context.user = data;
                         _getPlayServer(callback);
@@ -3793,11 +3497,12 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {null}
              */
-            resetPassword: function (userName, callback) {
+            resetPassword: function(userName, callback) {
                 var name = 'resetPassword';
                 var data = [userName];
                 SgtApi.doRPC(name, data, _url, callback);
             },
+
 
 
             /**
@@ -3807,7 +3512,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {boolean}            true发送成功, false发送失败
              */
-            sendCaptchaMessage: function (smobile, appName, callback) {
+            sendCaptchaMessage: function(smobile, appName, callback) {
                 var name = 'SendMessage';
                 var data = [smobile, appName];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3820,11 +3525,11 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {null}
              */
-            updatePasswordByUserName: function (userName, password, callback) {
+            updatePasswordByUserName: function(userName, password, callback) {
                 var name = 'updatePasswordByUserName';
                 var data = [userName, password];
                 var that = this;
-                SgtApi.doRPC(name, data, _url, function (result, data) {
+                SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         that.saveLocalStorage(userName, password);
                         callback(true, data);
@@ -3840,11 +3545,11 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {User}            更新之后的User
              */
-            updateUser: function (user, callback) {
+            updateUser: function(user, callback) {
                 var name = 'updateUser';
                 var data = [user];
                 var that = this;
-                SgtApi.doRPC(name, data, _url, function (result, data) {
+                SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (resilt) {
                         that.saveLocalStorage(user.userName, user.password);
                         callback(true, data);
@@ -3863,11 +3568,11 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {boolean}            true更新成功 false更新失败
              */
-            updateUserByUserId: function (userId, userName, password, email, callback) {
+            updateUserByUserId: function(userId, userName, password, email, callback) {
                 var name = 'updateUserByUserId';
                 var data = [userId, userName, password, email];
                 var that = this;
-                SgtApi.doRPC(name, data, _url, function (result, data) {
+                SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         that.saveLocalStorage(userName, password);
                         callback(true, data);
@@ -3885,11 +3590,11 @@ jsonRPC =new Object({
              * @param  {Function} callback "回调函数"
              * @return {boolean}            true更新成功 false更新失败
              */
-            updateUserNameAndPassword: function (userId, userName, password, callback) {
+            updateUserNameAndPassword: function(userId, userName, password, callback) {
                 var name = 'updateUserNameAndPassword';
                 var data = [userId, userName, password];
                 var that = this;
-                SgtApi.doRPC(name, data, _url, function (result, data) {
+                SgtApi.doRPC(name, data, _url, function(result, data) {
                     if (result) {
                         that.saveLocalStorage(userName, password);
                         callback(true, data);
@@ -3906,7 +3611,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {boolean}            true合法，false不合法
              */
-            validationToken: function (userName, token, callback) {
+            validationToken: function(userName, token, callback) {
                 var name = 'validationToken';
                 var data = [userName, token];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -3917,7 +3622,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {User}            登录后的User对象
              */
-            quickLogin: function (callback) {
+            quickLogin: function(callback) {
                 var username = localStorage.getItem("sgt-" + _appId + "-username");
                 var password = localStorage.getItem("sgt-" + _appId + "-password");
                 if (username && password) {
@@ -3942,7 +3647,7 @@ jsonRPC =new Object({
                     var user = new SgtApi.User();
                     user.userName = name;
                     user.password = 'yoedge2014';
-                    this.regist(user, function (result, data) {
+                    this.regist(user, function(result, data) {
                         if (result) {
                             localStorage.setItem('sgt-' + _appId + '-username', user.userName);
                             localStorage.setItem('sgt-' + _appId + '-password', user.password);
@@ -3958,7 +3663,7 @@ jsonRPC =new Object({
              * @param  {string} userName 用户名
              * @param  {string} password 密码
              */
-            saveLocalStorage: function (userName, password) {
+            saveLocalStorage: function(userName, password) {
                 localStorage.setItem('sgt-' + _appId + '-username', userName);
                 localStorage.setItem('sgt-' + _appId + '-password', password);
             },
@@ -3967,7 +3672,7 @@ jsonRPC =new Object({
              * 删除localStorage中的当前应用标识的用户名和密码
              * @return {[type]} [description]
              */
-            removeLocalStorage: function () {
+            removeLocalStorage: function() {
                 localStorage.removeItem('sgt-' + _appId + '-username');
                 localStorage.removeItem('sgt-' + _appId + '-password');
             }
@@ -3979,16 +3684,17 @@ jsonRPC =new Object({
      * @module  PlayerService
      * @type {{}|*}
      */
-    SgtApi.PlayerService = function () {
+    SgtApi.PlayerService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/sgpplayer.do';
         return {
             /**
              * 创建一个角色
+             * @method create
              * @param player{player} 角色对象
              * @param callback{function}
              * @return player
              */
-            create: function (player, callback) {
+            create: function(player, callback) {
                 player.lastLoginTime = SgtApi.context.user.lastLoginTime;
                 player.serverId = SgtApi.context.server.id;
                 player.userId = SgtApi.context.user.userid;
@@ -3999,11 +3705,12 @@ jsonRPC =new Object({
 
             /**
              * 通过playerId删除角色及相关信息
+             * @method deleteSgpPlayerByPlayerId
              * @param playerId{string} 角色id
              * @param callback{Function} 回调函数
              * @return null
              */
-            deletePlayerByPlayerId: function (playerId, callback) {
+            deletePlayerByPlayerId: function(playerId, callback) {
                 var name = 'deleteSgpPlayerByPlayerId';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4011,11 +3718,12 @@ jsonRPC =new Object({
 
             /**
              * 下载存档
+             * @method downloadSave
              * @param playerId{string} 角色ID
              * @param callback{function} 回调函数
              * @return Save 存档
              */
-            downloadSave: function (playerId, callback) {
+            downloadSave: function(playerId, callback) {
                 var name = 'downloadSave';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4023,13 +3731,14 @@ jsonRPC =new Object({
 
             /**
              * 根据最后登陆时间查找角色
+             * @method getByLastLoginTime
              * @param lastLoginTime{number} 最后登陆时间
              * @param start{int} 开始页
              * @param limit{int} 每页数量
              * @param callback{Function} 回调函数
              * @return Player[] 角色列表
              */
-            getByLastLoginTime: function (lastLoginTime, start, limit, callback) {
+            getByLastLoginTime: function(lastLoginTime, start, limit, callback) {
                 var name = 'getByLastLoginTime';
                 var data = [lastLoginTime, start, limit];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4037,13 +3746,14 @@ jsonRPC =new Object({
 
             /**
              *根据角色名查找角色
+             * @method getByName
              * @param playerName{string} 角色名
              * @param start{int} 开始页
              * @param limit{int} 每页数量
              * @param callback{Function} 回调函数
              * @return Player[] 角色列表
              */
-            getByName: function (playerName, start, limit, callback) {
+            getByName: function(playerName, start, limit, callback) {
                 var name = 'getByName';
                 var data = [playerName, start, limit];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4051,11 +3761,12 @@ jsonRPC =new Object({
 
             /**
              * 根据用户ID查找角色
+             * @method getByUserId
              * @param userId{String} 用户ID
              * @param callback{Function} 回调函数
              * @return Player[] 角色列表
              */
-            getByUserId: function (userId, callback) {
+            getByUserId: function(userId, callback) {
                 var name = 'getByUserId';
                 var data = [userId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4063,11 +3774,12 @@ jsonRPC =new Object({
 
             /**
              * 获取指定角色的好友上限
+             * @method getFriendsMaxNumber
              * @param playerId{string} 角色ID
              * @param callback{Function} 回调函数
              * @return number 返回好友上限，0表示无上限
              */
-            getFriendsMaxNumber: function (playerId, callback) {
+            getFriendsMaxNumber: function(playerId, callback) {
                 var name = 'getFriendsMaxNumber';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4075,11 +3787,12 @@ jsonRPC =new Object({
 
             /**
              * 通过用户ID查找其中的一个角色
+             * @method getOneByuserId
              * @param userId{string} 用户ID
              * @param callback{Function} 回调函数
              * @return Player 单一角色
              */
-            getOneByUserId: function (userId, callback) {
+            getOneByUserId: function(userId, callback) {
                 var name = 'getOneByUserId';
                 var data = [userId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4087,11 +3800,12 @@ jsonRPC =new Object({
 
             /**
              * 通过自定义ID获取角色信息
+             * @method getSgpPlayerByCustomId
              * @param customId{string} 自定义ID
              * @param callback{Function} 回调函数
              * @return Player
              */
-            getPlayerByCustomId: function (customId, callback) {
+            getPlayerByCustomId: function(customId, callback) {
                 var name = 'getSgpPlayerByCustomId';
                 var data = [customId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4099,11 +3813,12 @@ jsonRPC =new Object({
 
             /**
              * 通过角色id获取角色信息
+             * @method getSgpPlayerById
              * @param playerId{string} 主键ID
              * @param callback{Function} 回调函数
              * @return player
              */
-            getPlayerById: function (playerId, callback) {
+            getPlayerById: function(playerId, callback) {
                 var name = 'getSgpPlayerById';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4111,11 +3826,12 @@ jsonRPC =new Object({
 
             /**
              * 随机返回若干个最近登录的player
+             * @method searchPlayersByLastLogin
              * @param limit{int} 限制数量
              * @param callback{Function} 回调函数
              * @return player[]
              */
-            searchPlayersByLastLogin: function (limit, callback) {
+            searchPlayersByLastLogin: function(limit, callback) {
                 var name = 'searchPlayersByLastLogin';
                 var data = [limit];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4129,7 +3845,7 @@ jsonRPC =new Object({
              * @param excludePlayerIds{string[]}
              * @param player[]
              */
-            searchPlayersByLastLoginCondition: function (lastLoginTime, limit, excludePlayerIds, callback) {
+            searchPlayersByLastLoginCondition: function(lastLoginTime, limit, excludePlayerIds, callback) {
                 var name = 'searchPlayersByLastLogin';
                 var data = [lastLoginTime, limit, excludePlayerIds];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4137,12 +3853,13 @@ jsonRPC =new Object({
 
             /**
              * 设置指定角色的好友上限
+             * @method setFriendsMaxNumber
              * @param sgpPlayerId{string} 角色ID
              * @param number{int} 好友上限
              * @param callback{Function} 回调函数
              * @return null
              */
-            setFriendsMaxNumber: function (playerId, number, callback) {
+            setFriendsMaxNumber: function(playerId, number, callback) {
                 var name = 'setFriendsMaxNumber';
                 var data = [playerId, number];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4150,11 +3867,12 @@ jsonRPC =new Object({
 
             /**
              * 更新角色信息
+             * @method update
              * @param playerinfo{Player} 角色对象
              * @param callback{Function} 回调函数
              * @return player
              */
-            update: function (player, callback) {
+            update: function(player, callback) {
                 var name = 'update';
                 var data = [player];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4163,11 +3881,12 @@ jsonRPC =new Object({
 
             /**
              * 上传存档
+             * @method uploadSave
              * @param saveinfo{save} 存档实例
              * @param callback{Function} 回调函数
              * @return Save 保存后的存档
              */
-            uploadSave: function (save, callback) {
+            uploadSave: function(save, callback) {
                 var name = 'uploadSave';
                 var data = [save];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4181,7 +3900,7 @@ jsonRPC =new Object({
      * @module PlayerExtraService
      * @type {{}|*}
      */
-    SgtApi.PlayerExtraService = function () {
+    SgtApi.PlayerExtraService = function() {
 
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/playerExtraService.do';
 
@@ -4193,7 +3912,7 @@ jsonRPC =new Object({
              * @param {Function} callback    回调函数
              * @return null
              */
-            addPlayerExtra: function (playerExtra, callback) {
+            addPlayerExtra: function(playerExtra, callback) {
                 var name = 'addPlayer';
                 var data = [playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4205,7 +3924,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return null
              */
-            deletePlayerExtraById: function (playerId, callback) {
+            deletePlayerExtraById: function(playerId, callback) {
                 var name = 'deletePlayerById';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4213,12 +3932,13 @@ jsonRPC =new Object({
 
             /**
              * 分页查询所有角色扩展信息列表
+             * @method findAll
              * @param pageNumber{int} 页码
              * @param pageSize{int} 每页返回的数据条数
              * @param callback{Function} 回调函数
              * @return Object
              */
-            findAll: function (pageNumber, pageSize, callback) {
+            findAll: function(pageNumber, pageSize, callback) {
                 var name = 'findAll';
                 var data = [pageNumber, pageSize];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4226,34 +3946,37 @@ jsonRPC =new Object({
 
             /**
              * 根据条件查询角色扩展信息列表，支持分页
+             * @method findAllByCondition
              * @param condition{map} 条件列表 key 字段名称 value 字段值
              * @param pageNumber{int} 页码
              * @param pageSize{int} 每页返回的数据条数
              * @param callback{Function} 回调函数
              * @return Object
              */
-            findAllByCondition: function (condition, pageNumber, pageSize, callback) {
+            findAllByCondition: function(condition, pageNumber, pageSize, callback) {
                 var name = 'findAll';
                 var data = [condition, pageNumber, pageSize];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 根据角色ID查找角色扩展信息
-             * @param {Function} callback 回调函数
+             * @method getPlayerById
+             * @param callback{Function} 回调函数
              * @return Object
              */
-            getPlayerExtraById: function (playerId, callback) {
+            getPlayerExtraById: function(playerId, callback) {
                 var name = 'getPlayerById';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 根据条件查询角色列表
-             * @param {Map<String,String>|JSON} condition 查询条件 key 字段名称 value 字段值
-             * @param {Function} callback 回调函数
-             * @return {Json[]}Object 角色列表
+             * @method getPlayerList
+             * @param condition{Map<String,String>} 查询条件 key 字段名称 value 字段值
+             * @param callback 回调函数
+             * @return Object 角色列表
              */
-            getPlayerExtraList: function (condition, callback) {
+            getPlayerExtraList: function(condition, callback) {
                 var name = 'getPlayerList';
                 var data = [condition];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4262,11 +3985,12 @@ jsonRPC =new Object({
 
             /**
              * 修改角色扩展信息
-             * @param {Map<String,Object>|JSON} player  角色扩展信息
-             * @param {Function} callback 回调函数
+             * @method updatePlayerMap
+             * @param player{Map<String,Object>} 角色扩展信息
+             * @param callback{Function} 回调函数
              * @return null
              */
-            updatePlayerExtraMap: function (playerExtra, callback) {
+            updatePlayerExtraMap: function(playerExtra, callback) {
                 var name = 'updatePlayer';
                 var data = [playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4274,11 +3998,12 @@ jsonRPC =new Object({
 
             /**
              * 根据角色ID修改角色扩展信息
-             * @param {Object} player 角色扩展信息
-             * @param {Function}callback  回调函数
+             * @method updatePlayer
+             * @param player{Object} 角色扩展信息
+             * @param callback{Function} 回调函数
              * @return null
              */
-            updatePlayerExtra: function (playerId, playerExtra, callback) {
+            updatePlayerExtra: function(playerId, playerExtra, callback) {
                 var name = 'updatePlayer';
                 var data = [playerId, playerExtra];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4292,18 +4017,19 @@ jsonRPC =new Object({
      * @module AchievementService
      * @type {{}|*}
      */
-    SgtApi.AchievementService = function () {
+    SgtApi.AchievementService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/achievement.do';
         return {
 
             /**
              * 达成成就
-             *
-             * @param {string}playerId 角色ID
-             * @param {string}achievmentId  成就ID
-             * @param {Function} callback 回调函数
+             * @method achieve
+             * @param playerId{string} 角色ID
+             * @param achievmentId{string} 成就ID
+             * @param callback{Function} 回调函数
+             * @return null
              */
-            achieve: function (playerId, achievmentId, callback) {
+            achieve: function(playerId, achievmentId, callback) {
                 var name = 'achieve';
                 var data = [playerId, achievmentId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4311,13 +4037,13 @@ jsonRPC =new Object({
 
             /**
              * 领取成就奖励
-             *
-             * @param {string}playerId 角色ID
-             * @param {string}achievmentId 成就ID
-             * @param {Function}callback 回调函数
+             * @method complete
+             * @param playerId{string} 角色ID
+             * @param achievmentId{string} 成就ID
+             * @param callback{Function} 回调函数
              * @return string 奖励
              */
-            complete: function (playerId, achievmentId, callback) {
+            complete: function(playerId, achievmentId, callback) {
                 var name = 'complete';
                 var data = [playerId, achievmentId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4325,12 +4051,13 @@ jsonRPC =new Object({
 
             /**
              * 通过type提交成就 进度数自动+1
-             * @param {string} type  任务的type类型
-             * @param {string} playerId  角色ID
-             * @param {Function} callback  回调函数
-             * @return achievement[]  相同类型成就集合
+             * @method excuteAchievementsByType
+             * @param type{string} 任务的type类型
+             * @param playerId{string} 角色ID
+             * @param callback{Function} 回调函数
+             * @return achievement[] 相同类型成就集合
              */
-            excuteAchievementsByType: function (type, playerId, callback) {
+            excuteAchievementsByType: function(type, playerId, callback) {
                 var name = 'excuteAchievementsByType';
                 var data = [type, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4338,13 +4065,13 @@ jsonRPC =new Object({
 
             /**
              * 通过成就type累加指定进度
-             * @param {string} type 自定义成就类型
-             * @param {string} playerId 角色ID
-             * @param {number} progress 进度
-             * @param {function} callback 回调函数
+             * @param type{string}
+             * @param playerId{string}
+             * @param progress{number}
+             * @param callback{function}
              * @return achievement[]
              */
-            customAchievementsByType: function (type, playerId, progress, callback) {
+            customAchievementsByType: function(type, playerId, progress, callback) {
                 var name = 'excuteAchievementsByType';
                 var data = [type, playerId, progress];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4352,11 +4079,12 @@ jsonRPC =new Object({
 
             /**
              * 根据成就ID获取成就信息
-             * @param {string} achievementId 成就ID
-             * @param {Function} callback 回调函数
+             * @method getAchievementById
+             * @param achievementId{string} 成就ID
+             * @param callback{Function} 回调函数
              * @return object 成就详情
              */
-            getAchievementById: function (achievementId, callback) {
+            getAchievementById: function(achievementId, callback) {
                 var name = 'getAchievementById';
                 var data = [achievementId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4364,12 +4092,13 @@ jsonRPC =new Object({
 
             /**
              * 通过类型获取指定角色可以进行的任务
-             * @param {string} playerId 角色ID
-             * @param {string}type  任务的type类型
-             * @param {Function}callback 回调函数
+             * @method getAchievementsByType
+             * @param playerId{string} 角色ID
+             * @param type{string} 任务的type类型
+             * @param callback{Function} 回调函数
              * @return object
              */
-            getAchievementsByType: function (playerId, type, callback) {
+            getAchievementsByType: function(playerId, type, callback) {
                 var name = 'getAchievementsByType';
                 var data = [playerId, type];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4377,10 +4106,11 @@ jsonRPC =new Object({
 
             /**
              * 获取可用的成就
-             * @param {Function}callback 回调函数
+             * @method getAllAchievements
+             * @param callback{Function} 回调函数
              * @return object 成就集合
              */
-            getAllAchievements: function (callback) {
+            getAllAchievements: function(callback) {
                 var name = 'getAllAchievements';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4388,11 +4118,12 @@ jsonRPC =new Object({
 
             /**
              * 获取指定角色未达成的成就
-             * @param {string}playerId 角色ID
-             * @param {Function}callback 回调函数
+             * @method getAvailableAchievements
+             * @param playerId{string} 角色ID
+             * @param callback{Function} 回调函数
              * @return object 未达成成就集合
              */
-            getAvailableAchievements: function (playerId, callback) {
+            getAvailableAchievements: function(playerId, callback) {
                 var name = 'getAvailableAchievements';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4400,11 +4131,12 @@ jsonRPC =new Object({
 
             /**
              * 获取指定角色已领取奖励的成就
-             * @param {string}playerId 角色ID
-             * @param {Function}callback 回调函数
+             * @method getCompleteAchievements
+             * @param playerId{string} 角色ID
+             * @param callback{Function} 回调函数
              * @return object 已领取奖励成就集合
              */
-            getCompleteAchievements: function (playerId, callback) {
+            getCompleteAchievements: function(playerId, callback) {
                 var name = 'getCompleteAchievements';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4412,11 +4144,12 @@ jsonRPC =new Object({
 
             /**
              * 获取指定角色已经达成的成就
-             * @param {String}playerId 角色ID
-             * @param {Function}callback 回调函数
+             * @method getDoneAchievements
+             * @param playerId{String} 角色ID
+             * @param callback{Function} 回调函数
              * @return object 已达成成就集合
              */
-            getDoneAchievements: function (playerId, callback) {
+            getDoneAchievements: function(playerId, callback) {
                 var name = 'getDoneAchievements';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4424,26 +4157,28 @@ jsonRPC =new Object({
 
             /**
              * 提交指定成就进度
-             * @param {string}PlayerId 角色ID
-             * @param {string}achievementId 任务ID
-             * @param {int} progress 进度
-             * @param {Function}callback  回调函数
+             * @method setAchievementProgress
+             * @param PlayerId{string} 角色ID
+             * @param achievementId{string} 任务ID
+             * @param progress{int} 进度
+             * @param callback{Function} 回调函数
              * @return object
              */
-            setAchievementProgress: function (playerId, achievementId, progress, callback) {
+            setAchievementProgress: function(playerId, achievementId, progress, callback) {
                 var name = 'setAchievementProgress';
                 var data = [playerId, achievementId, progress];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 设置指定类型的成就进度
-             * @param {string}type 任务的type类型
-             * @param {string}playerId 角色ID
-             * @param {int}progress 进度
-             * @param {Function}callback 回调函数
+             * @method setAchievementsProgressByType
+             * @param type{string} 任务的type类型
+             * @param playerId{string} 角色ID
+             * @param progress{int} 进度
+             * @param callback{Function} 回调函数
              * @return object
              */
-            setAchievementsProgressByType: function (type, playerId, progress, callback) {
+            setAchievementsProgressByType: function(type, playerId, progress, callback) {
                 var name = 'setAchievementsProgressByType';
                 var data = [type, playerId, progress];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4457,16 +4192,17 @@ jsonRPC =new Object({
      * @module  AnnouncementService
      * @type {{}|*}
      */
-    SgtApi.AnnouncementService = function () {
+    SgtApi.AnnouncementService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/announcement.do';
         return {
             /**
              * 通过公告类型获取最新公告 （获取版本号最大的）
-             * @param {int}type 公告类型
-             * @param {Function}callback 回调函数
+             * @method getAnnounceByType
+             * @param type{int} 公告类型
+             * @param callback{Function} 回调函数
              * @return Announcement
              */
-            getAnnounceByType: function (type, callback) {
+            getAnnounceByType: function(type, callback) {
                 var name = 'getAnnounceByType';
                 var data = [type];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4480,16 +4216,17 @@ jsonRPC =new Object({
      * @module  CampaignService
      * @type {{}|*}
      */
-    SgtApi.CampaignService = function () {
+    SgtApi.CampaignService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/campaign.do';
         return {
 
             /**
              * 获取当前已经激活的活动
+             * @method getAvailableCampaigns
              * @param callback 回调函数
              * @return campaign[]
              */
-            getAvailableCampaigns: function (callback) {
+            getAvailableCampaigns: function(callback) {
                 var name = 'getAvailableCampaigns';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4498,23 +4235,25 @@ jsonRPC =new Object({
 
             /**
              * 通过时间区间获取活动
+             * @method getByTimeZone
              * @param startTime{number} 开始时间
              * @param endTime{number} 结束时间
              * @param callback 回调函数
              * @return campaign[]
              */
-            getByTimeZone: function (startTime, endTime, callback) {
+            getByTimeZone: function(startTime, endTime, callback) {
                 var name = 'getByTimeZone';
                 var data = [startTime, endTime];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 通过活动ID获取活动
+             * @method getCampaignById
              * @param id{int} 活动ID
              * @param callback 回调函数
              * @return campaign
              */
-            getCampaignById: function (campaignId, callback) {
+            getCampaignById: function(campaignId, callback) {
                 var name = 'getCampaignById';
                 var data = [campaignId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4522,11 +4261,12 @@ jsonRPC =new Object({
 
             /**
              * 通过活动ID获取活动详情数据
+             * @method getCampaignDetaiByCId
              * @param id{int} 活动id
              * @param callback 回调函数
              * @return callback
              */
-            getCampaignDetailByCampaignId: function (campaignId, callback) {
+            getCampaignDetailByCampaignId: function(campaignId, callback) {
                 var name = 'getCampaignDetaiByCId';
                 var data = [campaignId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4534,11 +4274,12 @@ jsonRPC =new Object({
 
             /**
              * 通过活动详情ID获取活动详情数据
+             * @method getCampaignDetaiById
              * @param id{int} 活动详情ID
              * @param callback 回调函数
              * @return campaignDetail
              */
-            getCampaignDetailByCampaignDetailId: function (campaignDetailId, callback) {
+            getCampaignDetailByCampaignDetailId: function(campaignDetailId, callback) {
                 var name = 'getCampaignDetaiById';
                 var data = [campaignDetailId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4546,12 +4287,13 @@ jsonRPC =new Object({
 
             /**
              * 获取进度
+             * @method getCampaignProgress
              * @param campaignId{int} 活动id
              * @param playerId{string}
              * @param callback 回调函数
              * @return number
              */
-            getCampaignProgress: function (campaignId, playerId, callback) {
+            getCampaignProgress: function(campaignId, playerId, callback) {
                 var name = 'getCampaignProgress';
                 var data = [campaignId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4560,13 +4302,14 @@ jsonRPC =new Object({
 
             /**
              * 更新进度
+             * @method updateProgress
              * @param campaignId{int} 活动id
              * @param playerId{string}
              * @param progress{int} 进度
              * @param callback 回调函数
              * @return number
              */
-            updateProgress: function (campaignId, playerId, progress, callback) {
+            updateProgress: function(campaignId, playerId, progress, callback) {
                 var name = 'updateProgress';
                 var data = [campaignId, playerId, progress];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4579,49 +4322,49 @@ jsonRPC =new Object({
      * @module  CheckinBoardService
      * @type {{}|*}
      */
-    SgtApi.CheckinBoardService = function () {
+    SgtApi.CheckinBoardService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/checkinboard.do';
         return {
             /**
              * 签到
-             *
+             * @method checkin
              * @param callback
              * @return callback
              */
-            checkin: function (playerId, checkinBoardId, callback) {
+            checkin: function(playerId, checkinBoardId, callback) {
                 var name = 'checkin';
                 var data = [playerId, checkinBoardId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取最大累计签到数
-             *
+             * @method accumlateCount
              * @param callback
              * @return callback
              */
-            accumulateCount: function (playerId, checkinBoardId, callback) {
+            accumulateCount: function(playerId, checkinBoardId, callback) {
                 var name = 'accumlateCount';
                 var data = [playerId, checkinBoardId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取连续签到数
-             *
+             * @method countinuousCount
              * @param callback
              * @return callback
              */
-            continuousCount: function (playerId, checkinBoardId, callback) {
+            continuousCount: function(playerId, checkinBoardId, callback) {
                 var name = 'countinuousCount';
                 var data = [playerId, checkinBoardId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 通过CheckInBoardId获取签到板实体数据
-             *
+             * @method getByChekinboardId
              * @param callback
              * @return callback
              */
-            getCheckinBoardByCheckinBoardId: function (checkinBoardId, callback) {
+            getCheckinBoardByCheckinBoardId: function(checkinBoardId, callback) {
                 var name = 'getCheckinboardByChekinboardId';
                 var data = [checkinBoardId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4629,10 +4372,11 @@ jsonRPC =new Object({
 
             /**
              * 获取最后签到时间
+             * @method getLastCheckinTime
              * @param callback
              * @return callback
              */
-            getLastCheckinTime: function (playerId, checkinBoardId, callback) {
+            getLastCheckinTime: function(playerId, checkinBoardId, callback) {
                 var name = 'getLastCheckinTime';
                 var data = [playerId, checkinBoardId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4640,61 +4384,67 @@ jsonRPC =new Object({
 
             /**
              * 获取奖励
+             * @method getRewardByChekinboardId
              * @param callback
              * @return callback
              */
-            getRewardByCheckinBoardId: function (checkinBoardId, callback) {
+            getRewardByCheckinBoardId: function(checkinBoardId, callback) {
                 var name = 'getRewardByChekinboardId';
                 var data = [checkinBoardId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 补签
+             * @method setCheckinTimes
              * @param times{int} 补签次数
              * @param callback
              */
-            setCheckinTimes: function (playerId, checkinBoardId, times, callback) {
+            setCheckinTimes: function(playerId, checkinBoardId, times, callback) {
                 var name = 'setCheckinTimes';
                 var data = [playerId, checkinBoardId, times];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 判断是否可以签到
+             * @method validateCheckin
              * @param callback
              * @return callback
              */
-            validateCheckin: function (playerId, checkinBoardId, callback) {
+            validateCheckin: function(playerId, checkinBoardId, callback) {
                 var name = 'validateCheckin';
                 var data = [playerId, checkinBoardId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取当前可用（有效时间内）的签到板
+             * @method getAvailableChekinboards
              * @param callback
              * @return callback
              */
-            getAvailableCheckinBoards: function (callback) {
+            getAvailableCheckinBoards: function(callback) {
                 var name = 'getAvailableChekinboards';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 根据自定义标签获取当前可用（有效时间内）的签到板
+             * @method getAvailableChekinboardsByTag
              * @param tag{string} 自定义标签
              * @param callback
              */
-            getAvailableCheckinBoardsByTag: function (tag, callback) {
+            getAvailableCheckinBoardsByTag: function(tag, callback) {
                 var name = 'getAvailableChekinboardsByTag';
                 var data = [tag];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 根据类型获取当前可用（有效时间内）的签到板
+             * @method getAvailableChekinboardsByType
              * @param type
              * @param callback
              * @return callback
              */
-            getAvailableCheckinBoardsByType: function (type, callback) {
+            getAvailableCheckinBoardsByType: function(type, callback) {
                 var name = 'getAvailableChekinboardsByType';
                 var data = [type];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4707,17 +4457,18 @@ jsonRPC =new Object({
      * @module  DailyTaskService
      * @type {{}|*}
      */
-    SgtApi.DailyTaskService = function () {
+    SgtApi.DailyTaskService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/dailytask.do';
         return {
             /**
              * 提交任务进度，每提交一次，任务进度+1
+             * @method excuteTask
              * @param taskId{string} 任务ID
              * @param playerId{string}
              * @param callback 回调函数
              * @return dailyTask
              */
-            executeTask: function (taskId, playerId, callback) {
+            executeTask: function(taskId, playerId, callback) {
                 var name = 'excuteTask';
                 var data = [taskId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4725,12 +4476,13 @@ jsonRPC =new Object({
 
             /**
              * 通过type提交任务，每提交一次，任务进度+1 type只能对应1或0个任务
+             * @method excuteTaskByType
              * @param type{string} 任务的type类型
              * @param playerId{String}
              * @param callback 回调函数
              * @return dailyTask[]
              */
-            executeTasksByType: function (type, playerId, callback) {
+            executeTasksByType: function(type, playerId, callback) {
                 var name = 'excuteTasksByType';
                 var data = [type, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4738,13 +4490,14 @@ jsonRPC =new Object({
 
             /**
              * 增加指定类型的任务进度
+             * @method addexcuteTasksByType
              * @param type{string} 任务类型
              * @param playerId{String}
              * @param progress{int} 任务进度
              * @param callback 回调函数
              * @return dailyTask[]
              */
-            addExecuteTasksByType: function (type, playerId, progress, callback) {
+            addExecuteTasksByType: function(type, playerId, progress, callback) {
                 var name = 'excuteTasksByType';
                 var data = [type, playerId, progress];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4752,11 +4505,12 @@ jsonRPC =new Object({
 
             /**
              * 获取每天的日常任务
+             * @method getDailyTasks
              * @param playerId{string}
              * @param callback 回调函数
              * @return dailyTask[]
              */
-            getDailyTasks: function (playerId, callback) {
+            getDailyTasks: function(playerId, callback) {
                 var name = 'getDailyTasks';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4764,11 +4518,12 @@ jsonRPC =new Object({
 
             /**
              * 通过类型获取指定角色可以进行的任务
+             * @method getDailyTasksByType
              * @param type{string} 任务类型
              * @param callback 回调函数
              * @return dailyTask[]
              */
-            getDailyTasksByType: function (playerId, type, callback) {
+            getDailyTasksByType: function(playerId, type, callback) {
                 var name = 'getDailyTasksByType';
                 var data = [playerId, type];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4777,12 +4532,13 @@ jsonRPC =new Object({
 
             /**
              * 根据任务ID获取奖励 获取奖励时会先校验完成任务的进度
+             * @method getReward
              * @param taskId{string} 任务ID
              * @param playerId{string}
              * @param callback 回调函数
              * @return string
              */
-            getReward: function (taskId, playerId, callback) {
+            getReward: function(taskId, playerId, callback) {
                 var name = 'getReward';
                 var data = [taskId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4791,13 +4547,14 @@ jsonRPC =new Object({
 
             /**
              * 提交指定任务进度
+             * @method
              * @param playerId{string}
              * @param taskId{string} 任务ID
              * @param progress{number} 进度
              * @param callback 回调函数
              * @return dailyTask
              */
-            setTaskProgress: function (playerId, taskId, progress, callback) {
+            setTaskProgress: function(playerId, taskId, progress, callback) {
                 var name = 'setTaskProgress';
                 var data = [playerId, taskId, progress];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4805,13 +4562,14 @@ jsonRPC =new Object({
 
             /**
              * 设置指定类型的任务进度
+             * @method setTasksProgressByType
              * @param type{string} 任务类型
              * @param playerId{string}
              * @param progress{number} 任务进度
              * @param callback 回调函数
              * @return dailyTask
              */
-            setTasksProgressByType: function (type, playerId, progress, callback) {
+            setTasksProgressByType: function(type, playerId, progress, callback) {
                 var name = 'setTasksProgressByType';
                 var data = [type, playerId, progress];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4821,11 +4579,11 @@ jsonRPC =new Object({
     };
 
     /**
-     * 通用任务模块业务接口（预留）
+     * 通用任务模块业务接口
      * @module  TaskService
      * @type {{}|*}
      */
-    SgtApi.TaskService = function () {
+    SgtApi.TaskService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/task.do';
         return {
             /**
@@ -4835,7 +4593,7 @@ jsonRPC =new Object({
              * @param callback{function} 回调函数
              * @return object
              */
-            addActionCount: function (playerId, actionType, callback) {
+            addActionCount: function(playerId, actionType, callback) {
                 var name = 'addActionCount';
                 var data = [playerId, actionType];
 
@@ -4850,7 +4608,7 @@ jsonRPC =new Object({
              * @param addtodayTimes{number}
              * @param object
              */
-            addActionCountTime: function (playerId, actionType, addtodayTimes, callback) {
+            addActionCountTime: function(playerId, actionType, addtodayTimes, callback) {
                 var name = 'addActionCount';
                 var data = [playerId, actionType, addtodayTimes];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4858,12 +4616,13 @@ jsonRPC =new Object({
 
             /**
              * 根据任务ID完成任务 仅完成任务，并不获得奖励
+             * @method complete
              * @param playerId{string}
              * @param taskId{string} 任务id
              * @param callback{function] 回调函数
              * @return null
              */
-            complete: function (playerId, taskId, callback) {
+            complete: function(playerId, taskId, callback) {
                 var name = 'complete';
                 var data = [playerId, taskId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4871,11 +4630,12 @@ jsonRPC =new Object({
 
             /**
              * 根据成就ID获取成就信息
+             * @method getAchievementById
              * @param achievementId{string} 成就ID
              * @param callback{function} 回调函数
              * @return task
              */
-            getAchievementById: function (achievementId, callback) {
+            getAchievementById: function(achievementId, callback) {
                 var name = 'getAchievementById';
                 var data = [achievementId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4883,12 +4643,13 @@ jsonRPC =new Object({
 
             /**
              * 根据playerid获取所有可用的成就 若任务设置了做完后不显示则不会被返回
+             * @method getAchievements
              * @param playerId{string}
              * @param actiontype{string}
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getAchievements: function (playerId, actionType, callback) {
+            getAchievements: function(playerId, actionType, callback) {
                 var name = 'getAchievements';
                 var data = [playerId, actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4896,11 +4657,12 @@ jsonRPC =new Object({
 
             /**
              * 获取所有可用的成就 若任务设置了做完后不显示则不会被返回
+             * @method getAchievementsByType
              * @param actiontype{string}
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getAchievementsByType: function (actionType, callback) {
+            getAchievementsByType: function(actionType, callback) {
                 var name = 'getAchievementsByType';
                 var data = [actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4908,12 +4670,13 @@ jsonRPC =new Object({
 
             /**
              * 根据指定的playerid获取特定的actiontype的任务
+             * @method getActionCount
              * @param playerId{string}
              * @param actiontype{string} 与计数器type相对应，不能为空
              * @param callback
              * @return object
              */
-            getActionCount: function (playerId, actiontype, callback) {
+            getActionCount: function(playerId, actiontype, callback) {
                 var name = 'getActionCount';
                 var data = [playerId, actiontype];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4921,10 +4684,11 @@ jsonRPC =new Object({
 
             /**
              * 获取所有可用的成就 若任务设置了做完后不显示则不会被返回
+             * @method getAllAchievements
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getAllAchievements: function (callback) {
+            getAllAchievements: function(callback) {
                 var name = 'getAllAchievements';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4932,10 +4696,11 @@ jsonRPC =new Object({
 
             /**
              * 获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
+             * @method getAllDailyTasks
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getAllDailyTasks: function (callback) {
+            getAllDailyTasks: function(callback) {
                 var name = 'getAllDailyTasks';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4943,11 +4708,12 @@ jsonRPC =new Object({
 
             /**
              * 获取所有可用的task 若任务设置了做完后不显示则不会被返回
+             * @method getAllTasks
              * @param taskType{int}  0-成就，1-日常任
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getAllTasks: function (taskType, callback) {
+            getAllTasks: function(taskType, callback) {
                 var name = 'getAllTasks';
                 var data = [taskType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4955,11 +4721,12 @@ jsonRPC =new Object({
 
             /**
              * 获取指定角色已领取奖励的成就
+             * @method getCompleteAchievements
              * @param playerId{string}
              * @param actiontype{string}
              * @param task[]
              */
-            getCompleteAchievements: function (playerId, actionType, callback) {
+            getCompleteAchievements: function(playerId, actionType, callback) {
                 var name = 'getCompleteAchievements';
                 var data = [playerId, actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4967,12 +4734,13 @@ jsonRPC =new Object({
 
             /**
              * 获取指定角色已领取奖励的日常任务
+             * @method getCompleteDailyTasks
              * @param playerId{string}
              * @param actiontype{string} 传入null时将不对type进行筛选
              * @param callback
              * @return callback
              */
-            getCompleteDailyTasks: function (playerId, actionType, callback) {
+            getCompleteDailyTasks: function(playerId, actionType, callback) {
                 var name = 'getCompleteDailyTasks';
                 var data = [playerId, actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4980,13 +4748,14 @@ jsonRPC =new Object({
 
             /**
              * 获取指定类型该角色已经完成且还未领取奖励的Task 若任务设置了做完后不显示则不会被返回
+             * @method getCompleteTasks
              * @param taskType{string} 传入null时将不对tasktype进行筛选
              * @param playerId{string} 角色id
              * @param actiontype{string} 传入null时将不对actiontype进行筛选
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getCompleteTasks: function (taskType, playerId, actionType, callback) {
+            getCompleteTasks: function(taskType, playerId, actionType, callback) {
                 var name = 'getCompleteTasks';
                 var data = [taskType, playerId, actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -4994,11 +4763,12 @@ jsonRPC =new Object({
 
             /**
              * 根据成就ID获取成就信息
+             * @method getDailyTaskById
              * @param dailyTaskId{string} 成就ID
              * @param callback{function} 回调函数
              * @return task
              */
-            getDailyTaskById: function (dailyTaskId, callback) {
+            getDailyTaskById: function(dailyTaskId, callback) {
                 var name = 'getDailyTaskById';
                 var data = [dailyTaskId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5006,12 +4776,13 @@ jsonRPC =new Object({
 
             /**
              * 根据playerid获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
+             * @method getDailyTasks
              * @param playerId{string} 角色id
              * @param actiontype{string}
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getDailyTasks: function (playerId, actionType, callback) {
+            getDailyTasks: function(playerId, actionType, callback) {
                 var name = 'getDailyTasks';
                 var data = [playerId, actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5019,11 +4790,12 @@ jsonRPC =new Object({
 
             /**
              * 获取所有可用的日常任务 若任务设置了做完后不显示则不会被返回
+             * @method getDailyTasksByType
              * @param actiontype{string}
              * @param callback
              * @return task[]
              */
-            getDailyTasksByType: function (actionType, callback) {
+            getDailyTasksByType: function(actionType, callback) {
                 var name = 'getDailyTasksByType';
                 var data = [actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5031,12 +4803,13 @@ jsonRPC =new Object({
 
             /**
              * 获取指定角色已经达成的成就
+             * @method getDoneAchievements
              * @param playerId{string} 角色id
              * @param actiontype{string}
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getDoneAchievements: function (playerId, actionType, callback) {
+            getDoneAchievements: function(playerId, actionType, callback) {
                 var name = 'getDoneAchievements';
                 var data = [playerId, actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5044,12 +4817,13 @@ jsonRPC =new Object({
 
             /**
              * 获取指定角色已经达成的日常任务
+             * @method getDoneDailyTasks
              * @param playerId{string} 角色id
              * @param actiontype{string}
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getDoneDailyTasks: function (playerId, actionType, callback) {
+            getDoneDailyTasks: function(playerId, actionType, callback) {
                 var name = 'getDoneDailyTasks';
                 var data = [playerId, actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5057,13 +4831,14 @@ jsonRPC =new Object({
 
             /**
              * 获取指定类型该角色已经领取过奖励的Task
+             * @method getDoneTasks
              * @param taskType{string} 传入null时将不对tasktype进行筛选
              * @param playerId{string} 角色id
              * @param actiontype{string} 传入null时将不对actiontype进行筛选
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getDoneTasks: function (taskType, playerId, actionType, callback) {
+            getDoneTasks: function(taskType, playerId, actionType, callback) {
                 var name = 'getDoneTasks';
                 var data = [taskType, playerId, actionType];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5071,12 +4846,13 @@ jsonRPC =new Object({
 
             /**
              * 根据任务ID获取奖励 获取奖励时会先校验完成任务的进度
+             * @method getReward
              * @param playerId{string} 角色id
              * @param taskId{string} 任务ID
              * @param callback{function} 回调函数
              * @return string
              */
-            getReward: function (playerId, taskId, callback) {
+            getReward: function(playerId, taskId, callback) {
                 var name = 'getReward';
                 var data = [playerId, taskId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5084,11 +4860,12 @@ jsonRPC =new Object({
 
             /**
              * 根据ID获取指定Task
+             * @method getTaskById
              * @param taskId{string} 任务id
              * @param callback{function} 回调函数
              * @return task
              */
-            getTaskById: function (taskId, callback) {
+            getTaskById: function(taskId, callback) {
                 var name = 'getTaskById';
                 var data = [taskId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5101,7 +4878,7 @@ jsonRPC =new Object({
              * @param actiontype{string}
              * @return task[]
              */
-            getTasks: function (taskType, playerId, actiontype, callback) {
+            getTasks: function(taskType, playerId, actiontype, callback) {
                 var name = 'getTasks';
                 var data = [taskType, playerId, actiontype];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5116,7 +4893,7 @@ jsonRPC =new Object({
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getTasksStatus: function (taskType, playerId, actiontype, status, callback) {
+            getTasksStatus: function(taskType, playerId, actiontype, status, callback) {
                 var name = 'getTasks';
                 var data = [taskType, playerId, actiontype, status];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5124,12 +4901,13 @@ jsonRPC =new Object({
 
             /**
              * 获取所有可用的task 若任务设置了做完后不显示则不会被返回
+             * @method getTasksByType
              * @param taskType{string} 传入null时将不对tasktype进行筛选
              * @param actiontype{string} 传入null时将不对actiontype进行筛选
              * @param callback{function} 回调函数
              * @return task[]
              */
-            getTasksByType: function (taskType, actiontype, callback) {
+            getTasksByType: function(taskType, actiontype, callback) {
                 var name = 'getTasksByType';
                 var data = [taskType, actiontype];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5142,7 +4920,7 @@ jsonRPC =new Object({
      * @module  FriendshipService
      * @type {{}|*}
      */
-    SgtApi.FriendshipService = function () {
+    SgtApi.FriendshipService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/friendship.do';
         return {
             /**
@@ -5152,7 +4930,7 @@ jsonRPC =new Object({
              * @param callback{function} 回调函数
              * @return null
              */
-            acceptInvite: function (sendIds, receiveId, callback) {
+            acceptInvite: function(sendIds, receiveId, callback) {
                 var name = 'acceptInvite';
                 var data = [sendIds, receiveId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5165,7 +4943,7 @@ jsonRPC =new Object({
              * @param mail{email}
              * @return null
              */
-            acceptInviteByMail: function (sendIds, receiveId, mail, callback) {
+            acceptInviteByMail: function(sendIds, receiveId, mail, callback) {
                 var name = 'acceptInvite';
                 var data = [sendIds, receiveId, mail];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5173,13 +4951,14 @@ jsonRPC =new Object({
 
             /**
              * 获取拒绝自己的请求
+             * @method getDenied
              * @param page{int} 页码，1表示第一页
              * @param limit{int} 每页显示数量
              * @param myId{string} 自己的角色ID
              * @param callback
              * @return player[]
              */
-            getDenied: function (page, limit, myId, callback) {
+            getDenied: function(page, limit, myId, callback) {
                 var name = 'getDenied';
                 var data = [page, limit, myId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5187,11 +4966,12 @@ jsonRPC =new Object({
 
             /**
              * 通过playerId获取该角色的好友数量
+             * @method getFrindsCount
              * @param playerId{string} 角色id
              * @param callback
              * @return callback
              */
-            getFrindsCount: function (playerId, callback) {
+            getFrindsCount: function(playerId, callback) {
                 var name = 'getFrindsCount';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5199,11 +4979,12 @@ jsonRPC =new Object({
 
             /**
              * 获取邀请自己的player
+             * @method getInvite
              * @param receiveId{string}
              * @param callback{function} 回调函数
              * @return player[]
              */
-            getInvite: function (receiveId, callback) {
+            getInvite: function(receiveId, callback) {
                 var name = 'getInvite';
                 var data = [receiveId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5211,13 +4992,14 @@ jsonRPC =new Object({
 
             /**
              * 获取指定用户的好友(已确认)列表
+             * @method getMyFriends
              * @param page{int} 页码 1为第一页
              * @param limit{int} 每页显示的数量
              * @param playerId{string} 角色id
              * @param callback{function} 回调函数
              * @return player[]
              */
-            getMyFriends: function (page, limit, playerId, callback) {
+            getMyFriends: function(page, limit, playerId, callback) {
                 var name = 'getMyFriends';
                 var data = [page, limit, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5225,11 +5007,12 @@ jsonRPC =new Object({
 
             /**
              * 获取还未确认邀请的player
+             * @method getNotConfirm
              * @param sendId{string}
              * @param callback
              * @return player[]
              */
-            getNotConfirm: function (sendId, callback) {
+            getNotConfirm: function(sendId, callback) {
                 var name = 'getNotConfirm';
                 var data = [sendId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5242,7 +5025,7 @@ jsonRPC =new Object({
              * @param callback
              * @return null
              */
-            invite: function (sendId, receiveId, callback) {
+            invite: function(sendId, receiveId, callback) {
                 var name = 'invite';
                 var data = [sendId, receiveId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5255,7 +5038,7 @@ jsonRPC =new Object({
              * @param mails{mail[]}
              * @param callback
              */
-            inviteByMails: function (sendId, receiveId, mails, callback) {
+            inviteByMails: function(sendId, receiveId, mails, callback) {
                 var name = 'invite';
                 var data = [sendId, receiveId, mails];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5263,12 +5046,13 @@ jsonRPC =new Object({
 
             /**
              * 判断对方是否是自己的好友
+             * @method isMyfriend
              * @param myId{string}
              * @param otherId{string[]}
              * @param callback
              * @return boolean
              */
-            isMyfriend: function (myId, otherId, callback) {
+            isMyfriend: function(myId, otherId, callback) {
                 var name = 'isMyfriend';
                 var data = [myId, otherId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5276,12 +5060,13 @@ jsonRPC =new Object({
 
             /**
              * 拒绝好友申请
+             * @method refuse
              * @param sendId{string[]} 邀请者的角色ID集合
              * @param receiveId{string} 被邀请者的ID（一般为自己的ID）
              * @param callback{function} 回调函数
              * @return boolean
              */
-            refuse: function (sendId, receiveId, callback) {
+            refuse: function(sendId, receiveId, callback) {
                 var name = 'refuse';
                 var data = [sendId, receiveId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5289,12 +5074,13 @@ jsonRPC =new Object({
 
             /**
              * 批量解除好友关系
+             * @method unfriend
              * @param playerId{string} 发起请求的角色ID
              * @param unfriendId{string/string[]} 要解除好友关系的角色IDs
              * @param callback{function} 回调函数
              * @return null
              */
-            unfriend: function (playerId, unfriendId, callback) {
+            unfriend: function(playerId, unfriendId, callback) {
                 var name = 'unfriend';
                 var data = [playerId, unfriendId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5304,15 +5090,16 @@ jsonRPC =new Object({
 
     /**
      * 好友关系扩展业务
-     * @module  FriendshipExtraService
+     * @module  FriendshipExtra
      * @type {{}|*}
      */
-    SgtApi.FriendshipExtraService = function () {
+    SgtApi.FriendshipExtraService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/friendshipextra.do';
         return {
 
             /**
              * 枚举自己（发起者）的（已验证）好友和key对应的扩展数据,支持分页
+             * @method getAllMyFriendsAndExt
              * @param myPlayerId{string}
              * @param key{string} 扩展数据中的Key
              * @param start{int}
@@ -5320,51 +5107,55 @@ jsonRPC =new Object({
              * @param callback
              * @return friendshipExtra[]
              */
-            getAllMyFriendsAndExt: function (myPlayerId, key, start, limit, callback) {
+            getAllMyFriendsAndExt: function(myPlayerId, key, start, limit, callback) {
                 var name = 'getAllMyFriendsAndExt';
                 var data = [myPlayerId, key, start, limit];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取自己指定好友和扩展数据
+             * @method getMyFriendAndExt
              * @param myPlayerId
              * @param friendId{string} 好友id
              * @param callback
              * @return friendshipExtra
              */
-            getMyFriendAndExt: function (myPlayerId, friendId, callback) {
+            getMyFriendAndExt: function(myPlayerId, friendId, callback) {
                 var name = 'getMyFriendAndExt';
                 var data = [myPlayerId, friendId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 批量修改自己（发起者）所有好友关系扩展数据中key对应的value的值
+             * @method updateAllMyFriendExt
              * @param myPlayerId
              * @param key{string} 扩展数据Key
              * @param value{string} 扩展数据的值
              * @param callback
              * @return null
              */
-            updateAllMyFriendExt: function (myPlayerId, key, value, callback) {
+            updateAllMyFriendExt: function(myPlayerId, key, value, callback) {
                 var name = 'updateAllMyFriendExt';
                 var data = [myPlayerId, key, value];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 批量修改指定好友关系的扩展数据,中key对应的值将会替换现有value
+             * @method updateMyFriendAllExt
              * @param myPlayerId
              * @param friendId{string} 好友id
              * @param newExt｛map<String,String>｝map
              * @param callback
              * @return null
              */
-            updateMyFriendAllExt: function (myPlayerId, friendId, newExt, callback) {
+            updateMyFriendAllExt: function(myPlayerId, friendId, newExt, callback) {
                 var name = 'updateMyFriendAllExt';
                 var data = [myPlayerId, friendId, newExt];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 修改自己（发起者）某个好友关系扩展数据中key对应的value的值
+             * @method updateMyFriendExt
              * @param myPlayerId
              * @param friendId{string} 好友id
              * @param key{string} 扩展数据Key
@@ -5372,7 +5163,7 @@ jsonRPC =new Object({
              * @param callback
              * @return null
              */
-            updateMyFriendExt: function (myPlayerId, friendId, key, value, callback) {
+            updateMyFriendExt: function(myPlayerId, friendId, key, value, callback) {
                 var name = 'updateMyFriendExt';
                 var data = [myPlayerId, friendId, key, value];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5385,29 +5176,31 @@ jsonRPC =new Object({
      * @module  BlackListService
      * @type {{}|*}
      */
-    SgtApi.BlacklistService = function () {
+    SgtApi.BlacklistService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/blacklist.do';
         return {
             /**
              * 将player添加到黑名单那
+             * @method addPlayerIntoBlackList
              * @param blackListId{string} 黑名单ID
              * @param playerId{string} 角色ID
              * @param callback
              * @return boolean
              */
-            addPlayerIntoBlacklist: function (blacklistId, playerId, callback) {
+            addPlayerIntoBlacklist: function(blacklistId, playerId, callback) {
                 var name = 'addPlayerIntoBlacklist';
                 var data = [blacklistId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 判断是否在黑名单之中
+             * @method isInBlackList
              * @param blacklistId{string} 黑名单自定义ID
              * @param playerId{string} 玩家的角色ID
              * @param callback
              * @return boolean
              */
-            isInBlacklist: function (blacklistId, playerId, callback) {
+            isInBlacklist: function(blacklistId, playerId, callback) {
                 var name = 'isInBlacklist';
                 var data = [blacklistId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5420,20 +5213,21 @@ jsonRPC =new Object({
      * @module  GachaBoxService
      * @type {{}|*}
      */
-    SgtApi.GachaBoxService = function () {
+    SgtApi.GachaBoxService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/gachabox.do';
         return {
 
 
             /**
              * 有自动修正的连抽
+             * @method autobalanceDraw
              * @param playerId
              * @param gachaBoxId{int} 抽奖ID
              * @param num{int} 抽奖次数
              * @param callback
              * @return string[]
              */
-            autoBalanceDraw: function (playerId, gachaBoxId, num, callback) {
+            autoBalanceDraw: function(playerId, gachaBoxId, num, callback) {
                 var name = 'autobalanceDraw';
                 var data = [playerId, gachaBoxId, num];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5441,6 +5235,7 @@ jsonRPC =new Object({
 
             /**
              * 指定初始品质的自动修正连抽
+             * @method autobalanceDraw
              * @param playerId
              * @param gachaBoxId{int} 抽奖ID
              * @param num{int} 抽奖次数
@@ -5448,7 +5243,7 @@ jsonRPC =new Object({
              * @param callback
              * @return gachaBoxResult
              */
-            autoBalanceDrawQuality: function (playerId, gachaBoxId, num, quality, callback) {
+            autoBalanceDrawQuality: function(playerId, gachaBoxId, num, quality, callback) {
                 var name = 'autobalanceDraw';
                 var data = [playerId, gachaBoxId, num, quality];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5456,6 +5251,7 @@ jsonRPC =new Object({
 
             /**
              * 指定初始品质和最大品质的自动修正连抽
+             * @method autobalanceDraw
              * @param playerId
              * @param gachaBoxId{int} 抽奖ID
              * @param num{int} 抽奖次数
@@ -5464,7 +5260,7 @@ jsonRPC =new Object({
              * @param callback
              * @return gachaBoxResult
              */
-            autoBalanceDrawMaxQuality: function (playerId, gachaBoxId, num, quality, maxQuality, callback) {
+            autoBalanceDrawMaxQuality: function(playerId, gachaBoxId, num, quality, maxQuality, callback) {
                 var name = 'autobalanceDraw';
                 var data = [playerId, gachaBoxId, num, quality, maxQuality];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5473,13 +5269,14 @@ jsonRPC =new Object({
 
             /**
              * 连续抽奖N次，N为数组qualities的元素个数，一个qualities元素对应一次抽奖
+             * @method draw
              * @param playerId
              * @param gachaBoxId{int} 抽奖ID
              * @param quality{int/Array} 品质/品质数组
              * @param callback
              * @return string[]
              */
-            draw: function (playerId, gachaBoxId, quality, callback) {
+            draw: function(playerId, gachaBoxId, quality, callback) {
                 var name = 'draw';
                 var data = [playerId, gachaBoxId, quality];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5487,10 +5284,11 @@ jsonRPC =new Object({
 
             /**
              * 获取当前所有有效的GachaBox
+             * @method getAvailableGachaBox
              * @param callback
              * @return gachaBox[]
              */
-            getAvailableGachaBox: function (callback) {
+            getAvailableGachaBox: function(callback) {
                 var name = 'getAvailableGachaBox';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5498,10 +5296,11 @@ jsonRPC =new Object({
 
             /**
              * 获取指定名称的GachaBox
+             * @method getGachaBoxByName
              * @param gachaBoxname{String} GachaBoxName
              * @param gachaBox
              */
-            getGachaBoxByName: function (gachaBoxName, callback) {
+            getGachaBoxByName: function(gachaBoxName, callback) {
                 var name = 'getGachaBoxByName';
                 var data = [gachaBoxName];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5509,11 +5308,12 @@ jsonRPC =new Object({
 
             /**
              * 获取指定gachaBox的奖品
+             * @method getLotteriesByGachaBoxId
              * @param gachaBoxId{string} 抽奖ID
              * @param callback
              * @return lottery[]
              */
-            getLotteriesByGachaBoxId: function (gachaBoxId, callback) {
+            getLotteriesByGachaBoxId: function(gachaBoxId, callback) {
                 var name = 'getLotteriesByGachaBoxId';
                 var data = [gachaBoxId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5521,12 +5321,13 @@ jsonRPC =new Object({
 
             /**
              * 指定奖品品质总值的连抽
+             * @method limitDraw
              * @param playerId
              * @param gachaBoxId{int} 抽奖ID
              * @param limitQuality{int} 指定奖品品质
              * @param callback
              */
-            limitDraw: function (playerId, gachaBoxId, limitQuality, callback) {
+            limitDraw: function(playerId, gachaBoxId, limitQuality, callback) {
                 var name = 'limitDraw';
                 var data = [playerId, gachaBoxId, limitQuality];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5538,18 +5339,19 @@ jsonRPC =new Object({
      * @module  LeaderboardService
      * @type {{}|*}
      */
-    SgtApi.LeaderBoardService = function () {
+    SgtApi.LeaderBoardService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/leaderboard.do';
         return {
             /**
              * 增加分数值
+             * @method addUpLeaderBoardScore
              * @param leaderId{String} 排行榜ID
              * @param playerId{string/string[]}
              * @param score{number/number[]} 增加的分数值
              * @param callback
              * @return boolean/boolean[]
              */
-            addUpLeaderBoardScore: function (leaderId, playerId, score, callback) {
+            addUpLeaderBoardScore: function(leaderId, playerId, score, callback) {
                 var name = 'addUpLeaderBoardScore';
                 var data = [leaderId, playerId, score];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5557,11 +5359,12 @@ jsonRPC =new Object({
 
             /**
              * 通过排行榜的leaderBoardID获取leaderBoard信息
+             * @method getLeaderBoardByLeaderId
              * @param leaderId{String} 排行榜LeaderBoardId
              * @param callback
              * @return leaderBoard
              */
-            getLeaderBoardByLeaderId: function (leaderId, callback) {
+            getLeaderBoardByLeaderId: function(leaderId, callback) {
                 var name = 'getLeaderBoardByLeaderId';
                 var data = [leaderId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5569,12 +5372,13 @@ jsonRPC =new Object({
 
             /**
              * 通过排行榜ID和角色ID获取该角色的排行榜（返回集合）
+             * @method getLeaderBoardScoreByExample
              * @param leaderId{string} 排行榜ID
              * @param player
              * @param callback
              * @return leaderBoardScore[]
              */
-            getLeaderBoardScoreByExample: function (leaderId, player, callback) {
+            getLeaderBoardScoreByExample: function(leaderId, player, callback) {
                 var name = 'getLeaderBoardScoreByExample';
                 var data = [leaderId, player];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5582,12 +5386,13 @@ jsonRPC =new Object({
 
             /**
              * 通过排行榜ID和角色ID获取该角色的排行榜
+             * @method getLeaderBoardScoreByLeaderIdAndPlayerId
              * @param leaderId{string} 排行榜ID
              * @param playerId{string} 角色ID
              * @param callback
              * @return leaderBoardScore
              */
-            getLeaderBoardScoreByLeaderIdAndPlayerId: function (leaderId, playerId, callback) {
+            getLeaderBoardScoreByLeaderIdAndPlayerId: function(leaderId, playerId, callback) {
                 var name = 'getLeaderBoardScoreByLeaderIdAndPlayerId';
                 var data = [leaderId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5595,12 +5400,13 @@ jsonRPC =new Object({
 
             /**
              * 如果我是第一名则返回我和后面4位 如果不是第一名则返回我前面一位+我+后面3位 如果我是最后一名则返回我前面四位+我
+             * @method getLeaderBoardScoresByLeaderIdAndPlayerId
              * @param leaderId
              * @param playerId
              * @param callback
              * return leaderBoardScore[]
              */
-            getLeaderBoardScoresByLeaderIdAndPlayerId: function (leaderId, playerId, callback) {
+            getLeaderBoardScoresByLeaderIdAndPlayerId: function(leaderId, playerId, callback) {
                 var name = 'getLeaderBoardScoresByLeaderIdAndPlayerId';
                 var data = [leaderId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5608,13 +5414,14 @@ jsonRPC =new Object({
 
             /**
              * 通过排行榜ID和排名获取排行榜集合 start从0开始，第一名的值是0 取前两名的则 start为0，limit为2 取第二名到第五名则start为1，limit为4 即：start的值为排名减1 如果取该排行榜中所有的排名 start和limit的值分别为：0 , -1
+             * @method getTopLeaderBoardScoreByLeaderId
              * @param leaderId{String} 排行榜ID
              * @param start{int} 排名的起始位置（从0开始，第一位是0）
              * @param limit{int} 排名的结束位置
              * @param callback
              * @return leaderBoardScore[]
              */
-            getTopLeaderBoardScoreByLeaderId: function (leaderId, start, limit, callback) {
+            getTopLeaderBoardScoreByLeaderId: function(leaderId, start, limit, callback) {
                 var name = 'getTopLeaderBoardScoreByLeaderId';
                 var data = [leaderId, start, limit];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5622,13 +5429,14 @@ jsonRPC =new Object({
 
             /**
              * 更新排行榜数值
+             * @method submitLeaderBoardScore
              * @param leaderId{String} 排行榜ID
              * @param playerId{string/string[]}
              * @param score{number/number[]} 分数值
              * @param callback
              * @return boolean/boolean[]
              */
-            submitLeaderBoardScore: function (leaderId, playerId, score, callback) {
+            submitLeaderBoardScore: function(leaderId, playerId, score, callback) {
                 var name = 'submitLeaderBoardScore';
                 var data = [leaderId, playerId, score];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5641,18 +5449,19 @@ jsonRPC =new Object({
      * @module  MailService
      * @type {{}|*}
      */
-    SgtApi.MailService = function () {
+    SgtApi.MailService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/mail.do';
         return {
 
 
             /**
              * 发送一封邮件
+             * @method sendMail
              * @param mail{mail} mail对象
              * @param callback
              * @return callback
              */
-            sendMail: function (player, mail, callback) {
+            sendMail: function(player, mail, callback) {
                 if (mail.title === '' || mail.title === null) {
                     return callback(false, 'Excepti邮件标题不能为空！');
                 }
@@ -5671,13 +5480,14 @@ jsonRPC =new Object({
             },
             /**
              * 接收邮件
+             * @method receive
              * @param start{int} 开始页
              * @param limit{int} 每页显示的条数
              * @param status{int} 邮件状态
              * @param callback
              * @return callback
              */
-            receive: function (start, limit, playerId, status, callback) {
+            receive: function(start, limit, playerId, status, callback) {
                 if (start < 0 || start === null) {
                     start = 1;
                 }
@@ -5691,10 +5501,11 @@ jsonRPC =new Object({
             },
             /**
              * 接收未读取的邮件
+             * @method receiveUnread
              * @param callback
              * @return callback
              */
-            receiveUnread: function (callback) {
+            receiveUnread: function(callback) {
                 // var timestamp = 0;
                 // var localS = null;
                 // if (cc.sys) {
@@ -5723,11 +5534,12 @@ jsonRPC =new Object({
             },
             /**
              * 阅读邮件/批量阅读邮件
+             * @method readMail
              * @param id{int} 邮件ID/邮件ID集合[int]
              * @param callback
              * @return callback
              */
-            readMail: function (mailId, callback) {
+            readMail: function(mailId, callback) {
                 if (mailId === null) {
                     return callback(false, 'ID为空！');
                 }
@@ -5737,22 +5549,24 @@ jsonRPC =new Object({
             },
             /**
              * 阅读一封邮件并领取附件
+             * @method readAndPickAttachment
              * @param mailId{int} 邮件ID
              * @param callback
              * @return callback
              */
-            readAndPickAttachment: function (mailId, callback) {
+            readAndPickAttachment: function(mailId, callback) {
                 var name = 'readAndPickAttachment';
                 var data = [mailId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 删除封邮件/批量删除邮件
+             * @method deleteMail
              * @param mailId{int} 邮件ID/邮件ID集合[int]
              * @param callback
              * @return callback
              */
-            deleteMail: function (mailId, callback) {
+            deleteMail: function(mailId, callback) {
                 if (mailId === null) {
                     return callback(false, 'ID为空！');
                 }
@@ -5762,20 +5576,22 @@ jsonRPC =new Object({
             },
             /**
              * 获取所有未读和已读的邮件集合
+             * @method getReadedAndUnreadedMails
              * @param callback
              * @return callback
              */
-            getReadedAndUnreadedMails: function (playerId, callback) {
+            getReadedAndUnreadedMails: function(playerId, callback) {
                 var name = 'getReadedAndUnreadedMails';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 领取邮件附件
+             * @method pickAttachment
              * @param mailId{int} 邮件ID
              * @param callback
              */
-            pickAttachment: function (mailId, callback) {
+            pickAttachment: function(mailId, callback) {
                 var name = 'pickAttachment';
                 var data = [mailId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5785,13 +5601,13 @@ jsonRPC =new Object({
 
     /**
      * 通知模块业务
-     * @module  NotificationService
+     * @module  Notification
      * @type {{}|*}
      */
-    SgtApi.NotificationService = function () {
+    SgtApi.NotificationService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/notification.do';
         return {
-            getLatestNotification: function (playerId, callback) {
+            getLatestNotification: function(playerId, callback) {
                 var name = 'getLatestNotification';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5799,11 +5615,12 @@ jsonRPC =new Object({
 
             /**
              * 获取最新状态的通知/获取某时间之后的通知
+             * @method getLatestNotification
              * @param [time]{long} 时间戳（可选）
              * @param callback
              * @return callback
              */
-            getLatestNotificationByTime: function (playerId, time, callback) {
+            getLatestNotificationByTime: function(playerId, time, callback) {
                 var name = 'getLatestNotification';
                 var data = [playerId, time];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5813,27 +5630,29 @@ jsonRPC =new Object({
 
     /**
      * 充值业务逻辑
-     * @module  PurchaseService
+     * @module  Purchase
      * @type {{}|*}
      */
-    SgtApi.PurchaseService = function () {
+    SgtApi.PurchaseService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/purchase.do';
         return {
             /**
              * 获取服务器支持的支付渠道
+             * @method getSupportedStores
              * @param callback
              * @return callback
              */
-            getSupportedStores: function (callback) {
+            getSupportedStores: function(callback) {
                 var name = 'getSupportedStores';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取玩家当前可用的充值信息，不包括不可见或达到购买次数限制的充值信息
+             * @method getAvailableChargePoints
              * @param callback
              */
-            getAvailableChargePoints: function (playerId, callback) {
+            getAvailableChargePoints: function(playerId, callback) {
                 var name = 'getAvailableChargePoints';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5842,43 +5661,47 @@ jsonRPC =new Object({
              * 获取充值结果，该接口负责去第三方查询支付结果或获取第三方回调信息，根据支付结果，来调用游戏业务逻辑
              * 支付成功，会调用PaymentCallback.doCallback执行游戏的业务逻辑（如加元宝、积分等）
              * 同时，sgt还记录了玩家的充值记录ChargeLog，充值次数等信息
+             * @method getPaymentResult
              * @param transaction
              * @param callback
              * @return callback
              */
-            getPaymentResult: function (playerId, transaction, callback) {
+            getPaymentResult: function(playerId, transaction, callback) {
                 var name = 'getPaymentResult';
                 var data = [playerId, transaction];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取玩家的累计充值金额，若玩家未充值过，则返回0
+             * @method getTotalChargeCost
              * @param callback
              * @return callback
              */
-            getTotalChargeCost: function (playerId, callback) {
+            getTotalChargeCost: function(playerId, callback) {
                 var name = 'getTotalChargeCost';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 判断玩家某个计费点是否是首冲
+             * @method isFirstCharge
              * @param customChargePointId{string} 自定义的计费点ID
              * @param callback
              * @return callback
              */
-            isFirstCharge: function (playerId, customChargePointId, callback) {
+            isFirstCharge: function(playerId, customChargePointId, callback) {
                 var name = 'isFirstCharge';
                 var data = [playerId, customChargePointId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取玩家某个计费点的充值次数
+             * @method getChargeTimes
              * @param customChargePointId{string} 自定义计费点ID
              * @param callback
              * @return callback
              */
-            getChargeTimes: function (playerId, customChargePointId, callback) {
+            getChargeTimes: function(playerId, customChargePointId, callback) {
                 var name = 'getChargeTimes';
                 var data = [playerId, customChargePointId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5891,32 +5714,35 @@ jsonRPC =new Object({
      * @module  StoreService
      * @type {{}|*}
      */
-    SgtApi.StoreService = function () {
+    SgtApi.StoreService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/store.do';
         return {
             /**
              * 获取默认的商城
+             * @method getDefaultStore
              * @param callback
              * @return callback
              */
-            getDefaultStore: function (playerId, callback) {
+            getDefaultStore: function(playerId, callback) {
                 var name = 'getDefaultStore';
                 var data = [playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 根据商城ID获得商城，包含了商城中的所有物品，但物品购买冷却时间未设置
+             * @method getStore
              * @param storeId{String} 商城ID
              * @param callback
              * @return callback
              */
-            getStore: function (storeId, playerId, callback) {
+            getStore: function(storeId, playerId, callback) {
                 var name = 'getStore';
                 var data = [storeId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 购买指定的商品，如果使用游戏币购买，那么在购买前需要同步服务器端的游戏币
+             * @method purchase
              * @param {string} palyerId 角色信息
              * @param storeId{string} 商城ID
              * @param itemId{int} 物品ID
@@ -5925,66 +5751,71 @@ jsonRPC =new Object({
              * @param callback
              * @return callback
              */
-            purchase: function (playerId, storeId, itemId, amounts, ckret, callback) {
+            purchase: function(playerId, storeId, itemId, amounts, ckret, callback) {
                 var name = 'purchase';
                 var data = [playerId, storeId, itemId, amounts, ckret];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取角色在指定商店的购买次数
+             * @method countStoreOrdersByPlayerId
              * @param storeId{string} 商城ID
              * @param callback
              * @return callback
              */
-            countStoreOrdersByPlayerId: function (playerId, storeId, callback) {
+            countStoreOrdersByPlayerId: function(playerId, storeId, callback) {
                 var name = 'countStoreOrdersByPlayerId';
                 var data = [playerId, storeId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取角色购买某个商品的次数
+             * @method countItemOrdersByPlayerId
              * @param storeId{string} 商城ID
              * @param itemId{int} 物品ID
              * @param callback
              * @return callback
              */
-            countItemOrdersByPlayerId: function (playerId, storeId, itemId, callback) {
+            countItemOrdersByPlayerId: function(playerId, storeId, itemId, callback) {
                 var name = 'countItemOrdersByPlayerId';
                 var data = [playerId, storeId, itemId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 查询购买记录
+             * @method getOrderById
              * @param storeId{int} 记录ID
              * @param callback
              * @return callback
              */
-            getOrderById: function (storeId, callback) {
+            getOrderById: function(storeId, callback) {
                 var name = 'getOrderById';
                 var data = [storeId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取角色最近购买某个商品的时间的毫秒数
+             * @method getLastPurchaseTimeMillis
              * @param storeId{string} 商城ID
              * @param itemId{int} 物品ID
              * @param callback
              * @return callback
              */
-            getLastPurchaseTimeMillis: function (playerId, storeId, itemId, callback) {
+            getLastPurchaseTimeMillis: function(playerId, storeId, itemId, callback) {
                 var name = 'getLastPurchaseTimeMillis';
                 var data = [playerId, storeId, itemId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 支付回调接口，对订单状态进行更新
+             * @method updateOrderStatus
              * @param did{string} DID
              * @param success{bool} 支付是否成功 [true 成功 false 失败]
              * @param callbackMessage{string} 回调信息，可选
              * @param callback
              * @return callback
              */
-            updateOrderStatus: function (did, success, callbackMessage, callback) {
+            updateOrderStatus: function(did, success, callbackMessage, callback) {
                 var name = 'updateOrderStatus';
                 var data = [did, success, callbackMessage];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -5994,10 +5825,10 @@ jsonRPC =new Object({
 
     /**
      * 计费点业务
-     * @module  ChargePointService
+     * @module  ChargePoint
      * @type {{}|*}
      */
-    SgtApi.ChargePointService = function () {
+    SgtApi.ChargePointService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/chargepoint.do';
         return {
             /**
@@ -6005,7 +5836,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {ChargePoint[]}
              */
-            getAllChargePoints: function (callback) {
+            getAllChargePoints: function(callback) {
                 var name = 'getAllChargePoints';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6015,7 +5846,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {ChargePoint[]}
              */
-            getAvailableChargePoints: function (callback) {
+            getAvailableChargePoints: function(callback) {
                 var name = 'getAvailableChargePoints';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6028,72 +5859,78 @@ jsonRPC =new Object({
      * @module  BossService
      * @type {{}|*}
      */
-    SgtApi.BossService = function () {
+    SgtApi.BossService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/boss.do';
         return {
             /**
              * 通过id字符串获取boss数组
+             * @method getByBossIdstr
              * @param ids{string} 若干个id拼成的字符串，用逗号隔开
              * @param callback
              * @return callback
              */
-            getByBossIdstr: function (ids, callback) {
+            getByBossIdstr: function(ids, callback) {
                 var name = 'getByBossIds';
                 var data = [ids];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 批量获取boss数据
+             * @method getByBossIdint
              * @param id{int}  bossId数组[int]
              * @param callback
              * @return callback
              */
-            getByBossIdint: function (id, callback) {
+            getByBossIdint: function(id, callback) {
                 var name = 'getByBossIds';
                 var data = [id];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 通过bossId获取Boss实体
+             * @method getByBossId
              * @param id{int} BossId
              * @param callback
              * @return callback
              */
-            getByBossId: function (id, callback) {
+            getByBossId: function(id, callback) {
                 var name = 'getByBossId';
                 var data = [id];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 更新boss血量
+             * @method attack
              * @param bossId{int} BossId
              * @param damage{int} 伤害量
              * @param callback
              * @return callback
              */
-            attack: function (bossId, damage, playerId, callback) {
+            attack: function(bossId, damage, playerId, callback) {
                 var name = 'attack';
                 var data = [bossId, damage, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取boss当前血量
+             * @method getCurrentHP
              * @param bossId{int} BossId
              * @param callback
              * @return callback
              */
-            getCurrentHP: function (bossId, playerId, callback) {
+            getCurrentHP: function(bossId, playerId, callback) {
                 var name = 'getCurrentHP';
                 var data = [bossId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取最后击杀人
+             * @method getLastAttackPlayer
              * @param bossId{int} BossId
              * @param callback
              * @return callback
              */
-            getLastAttackPlayer: function (bossId, callback) {
+            getLastAttackPlayer: function(bossId, callback) {
                 var name = 'getLastAttackPlayer';
                 var data = [bossId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6103,10 +5940,10 @@ jsonRPC =new Object({
 
     /**
      * 文件分发存储业务 此业务不提供创建/上传文件接口， 如有需要请在客户端中访问客户端sdk提供的接口
-     * @module  FileStorageService
+     * @module  FileStorage
      * @type {{}|*}
      */
-    SgtApi.FileStorageService = function () {
+    SgtApi.FileStorageService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/filestorage.do';
         return {
             /**
@@ -6115,7 +5952,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {string}
              */
-            getUrl: function (fileName, callback) {
+            getUrl: function(fileName, callback) {
                 var name = 'getUrl';
                 var data = [fileName];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6126,7 +5963,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {boolean}            删除成功true,否则返回false
              */
-            delete: function (fileName, callback) {
+            delete: function(fileName, callback) {
                 var name = 'delete';
                 var data = [fileName];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6136,10 +5973,10 @@ jsonRPC =new Object({
 
     /**
      * 礼包/兑换码业务接口
-     * @module  GiftCodeService
+     * @module  GiftCode
      * @type {{}|*}
      */
-    SgtApi.GiftCodeService = function () {
+    SgtApi.GiftCodeService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/giftcode.do';
         return {
             /**
@@ -6148,7 +5985,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {Gift}            礼包详情
              */
-            getGiftByCode: function (code, callback) {
+            getGiftByCode: function(code, callback) {
                 var name = 'getGiftByCode';
                 var data = [code];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6159,7 +5996,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {Gift[]}            有效的礼包集合
              */
-            getGifts: function (callback) {
+            getGifts: function(callback) {
                 var name = 'getGifts';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6174,7 +6011,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {GiftRecord[]}            GiftRecord 集合
              */
-            getRecord: function (playerId, giftId, start, limit, callback) {
+            getRecord: function(playerId, giftId, start, limit, callback) {
                 var name = 'getRecord';
                 var data = [playerId, giftId, start, limit];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6188,7 +6025,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {string}            奖品
              */
-            redeem: function (playerId, giftId, code, callback) {
+            redeem: function(playerId, giftId, code, callback) {
                 var name = 'redeem';
                 var data = [playerId, giftId, code];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6201,7 +6038,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {Gift}            成功返回gift，失败返回null
              */
-            redeemGiftByCodeOverMail: function (playerId, code, callback) {
+            redeemGiftByCodeOverMail: function(playerId, code, callback) {
                 var name = 'redeemGiftByCodeOverMail';
                 var data = [playerId, code];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6215,7 +6052,7 @@ jsonRPC =new Object({
              * @param  {Function} callback 回调函数
              * @return {null}
              */
-            redeemOverMail: function (playerId, giftId, code, callback) {
+            redeemOverMail: function(playerId, giftId, code, callback) {
                 var name = 'redeemOverMail';
                 var data = [playerId, giftId, code];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6224,68 +6061,73 @@ jsonRPC =new Object({
     };
     /**
      * 个人通道业务接口
-     * @module  PrivateChannelService
+     * @module  PrivateChannel
      * @type {{}|*}
      */
-    SgtApi.PrivateChannelService = function () {
+    SgtApi.PrivateChannelService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/privatechannel.do';
         return {
             /**
              * 压入消息，同时会更新通道的ttl，如果ttl为0，则默认为一周
+             * @method pushMessage
              * @param key{string} 通道key
              * @param message{string} 压入的消息
              * @param ttl{long} 存活时间，毫秒数
              * @param callback
              * @return callback
              */
-            pushMessage: function (key, playerId, message, ttl, callback) {
+            pushMessage: function(key, playerId, message, ttl, callback) {
                 var name = 'pushMessage';
                 var data = [key, playerId, message, ttl];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 批量压入消息，同时会更新通道的ttl，如果ttl为0，则默认为一周
+             * @method pushMessages
              * @param key{string} 通道key
              * @param message{Array} 压入的消息[string]
              * @param ttl{long} 存活时间，毫秒数
              * @param callback
              */
-            pushMessages: function (key, playerId, message, ttl, callback) {
+            pushMessages: function(key, playerId, message, ttl, callback) {
                 var name = 'pushMessages';
                 var data = [key, playerId, message, ttl];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取消息，默认情况下消息在获取后会被删除
+             * @method popMessage
              * @param key{string} 通道key
              * @param callback
              * @return callback
              */
-            popMessage: function (key, playerId, callback) {
+            popMessage: function(key, playerId, callback) {
                 var name = 'popMessage';
                 var data = [key, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取消息，可指定是否删除已获取的消息
+             * @method popMessageBy
              * @param key{string} 通道key
              * @param clear{bool} 是否清空消息， 清空消息 true 清空 false
              * @param ttl{long] 存活时间，毫秒数
              * @param callback
              * @return callback
              */
-            popMessageBy: function (key, playerId, clear, ttl, callback) {
+            popMessageBy: function(key, playerId, clear, ttl, callback) {
                 var name = 'popMessage';
                 var data = [key, playerId, clear, ttl];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 清空指定通道内的消息
+             * @method clearChannel
              * @param key{string} 通道key
              * @param callback
              * @return callback
              */
-            clearChannel: function (key, playerId, callback) {
+            clearChannel: function(key, playerId, callback) {
                 var name = 'clearChannel';
                 var data = [key, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6298,71 +6140,77 @@ jsonRPC =new Object({
      * @module  PublicChannelService
      * @type {{}|*}
      */
-    SgtApi.PublicChannelService = function () {
+    SgtApi.PublicChannelService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/publicchannel.do';
         return {
             /**
              * 创建公共通道
+             * @method createChannel
              * @param channelId{string} 通道ID
              * @param name{string} 通道名称
              * @param callback
              * @return callback
              */
-            createChannel: function (channelId, channelName, callback) {
+            createChannel: function(channelId, channelName, callback) {
                 var name = 'createChannel';
                 var data = [channelId, channelName];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 压入消息
+             * @method pushMessage
              * @param channelId{string} 通道ID
              * @param type{string} 消息类型
              * @param content{string} 消息内容
              * @param callback
              * @return callback
              */
-            pushMessage: function (channelId, type, content, callback) {
+            pushMessage: function(channelId, type, content, callback) {
                 var name = 'pushMessage';
                 var data = [channelId, type, content];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取所有消息
+             * @method popAllMessage
              * @param channelId{string} 通道ID
              * @param callback
              * @return callback
              */
-            popAllMessage: function (channelId, callback) {
+            popAllMessage: function(channelId, callback) {
                 var name = 'popAllMessage';
                 var data = [channelId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取从指定时间到当前时间的消息/获取从指定时间区间的消息
+             * @method popMessage
              * @param channelId{string} 通道ID
              * @param createTimeStart{long} 消息创建时间
              * @param createTimeEnd{long} 消息创建截止时间(可选 null)
              * @param callback
              * @return callback
              */
-            popMessage: function (channelId, createTimeStart, createTimeEnd, callback) {
+            popMessage: function(channelId, createTimeStart, createTimeEnd, callback) {
                 var name = 'popMessage';
                 var data = [channelId, createTimeStart, createTimeEnd];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 返回最近创建的消息条数，如果要取的消息条数不够指定的条数，则返回实际的条数
+             * @method popMessageOrnum
              * @param mssgnum{int} 要取的消息的条数
              * @param channelId{string} 通道ID
              * @param callback
              */
-            popMessageOrnum: function (mssgnum, channelId, callback) {
+            popMessageOrnum: function(mssgnum, channelId, callback) {
                 var name = 'popMessage';
                 var data = [mssgnum, channelId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取从指定时间区间的消息，如果要取的消息条数不够指定的条数，则返回实际的条数
+             * @method popMessageOrnumtim
              * @param channelId{string} 通道ID
              * @param createTimeStart{long} 消息创建开始时间
              * @param createTimeEnd{long} 消息创建截止时间
@@ -6370,41 +6218,44 @@ jsonRPC =new Object({
              * @param callback
              * @return callback
              */
-            popMessageOrnumtim: function (channelId, createTimeStart, createTimeEnd, mssgnum, callback) {
+            popMessageOrnumtim: function(channelId, createTimeStart, createTimeEnd, mssgnum, callback) {
                 var name = 'popMessage';
                 var data = [channelId, createTimeStart, createTimeEnd, mssgnum];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 清空指定通道内的消息
+             * @method clearChannel
              * @param channelId{string} 通道ID
              * @param callback
              * @return callback
              */
-            clearChannel: function (channelId, callback) {
+            clearChannel: function(channelId, callback) {
                 var name = 'clearChannel';
                 var data = [channelId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 删除指定通道内的指定消息
+             * @method deleteMessage
              * @param channelId{string} 通道ID
              * @param messageIds{int} 消息ID
              * @param callback
              * @return callback
              */
-            deleteMessage: function (channelId, messageIds, callback) {
+            deleteMessage: function(channelId, messageIds, callback) {
                 var name = 'deleteMessage';
                 var data = [channelId, messageIds];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取指定消息的内容
+             * @method getMessageContent
              * @param messageIds{int} 消息ID
              * @param callback
              * @return callback
              */
-            getMessageContent: function (messageIds, callback) {
+            getMessageContent: function(messageIds, callback) {
                 var name = 'getMessageContent';
                 var data = [messageIds];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6413,41 +6264,43 @@ jsonRPC =new Object({
     };
     /**
      * 第三方回调接口
-     * @module  DelegateDidService
+     * @module  DelegateDid
      * @type {{}|*}
      */
-    SgtApi.DelegateDidService = function () {
+    SgtApi.DelegateDidService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/delegatedid.do';
         return {
             /**
              * 创建代理id（did）
-             * @param appId{string} appId
+             * @method createDid
              * @param serverId{string} 服务器ID
              * @param callback
              * @return callback
              */
-            createDid: function (playerId, callback) {
+            createDid: function(playerId, callback) {
                 var name = 'createDid';
                 var data = [SgtApi.context.server.id, SgtApi.context.user.userId, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 根据DID查询订单信息
+             * @method queryByDid
              * @param did{string} 代理ID
              * @param callback
              * @return callback
              */
-            queryByDid: function (did, callback) {
+            queryByDid: function(did, callback) {
                 var name = 'queryByDid';
                 var data = [did];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 查找角色的历史订单
+             * @method queryByCondition
              * @param callback
              * @return callback
              */
-            queryByCondition: function (playerId, callback) {
+            queryByCondition: function(playerId, callback) {
                 var name = 'queryByCondition';
                 var data = [SgtApi.context.server.id, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6460,178 +6313,193 @@ jsonRPC =new Object({
      * @module  StructuredDataService
      * @type {{}|*}
      */
-    SgtApi.StructuredDataService = function () {
+    SgtApi.StructuredDataService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/structureddata.do';
         return {
             /**
              * 获取普通的StringValue
+             * @method getValue
              * @param key{string} key
              * @param callback
              * @return callback
              */
-            getValue: function (key, callback) {
+            getValue: function(key, callback) {
                 var name = 'getValue';
                 var data = [key];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 添加或保存StringValue
+             * @method saveOrUpdateValue
              * @param key{string}
              * @param value{string}
              * @param callback
              * @return callback
              */
-            saveOrUpdateValue: function (key, value, callback) {
+            saveOrUpdateValue: function(key, value, callback) {
                 var name = 'saveOrUpdateValue';
                 var data = [key, value];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取ListValue，返回数组
+             * @method getListValue
              * @param key{string}
              * @param callback
              * @return callback
              */
-            getListValue: function (key, callback) {
+            getListValue: function(key, callback) {
                 var name = 'getListValue';
                 var data = [key];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 向List中添加一个值
+             * @method addListValue
              * @param key{string}
              * @param value{string}
              * @param callback
              * @return callback
              */
-            addListValue: function (key, value, callback) {
+            addListValue: function(key, value, callback) {
                 var name = 'addListValue';
                 var data = [key, value];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 更新list中的一个值
+             * @method updateListValue
              * @param key{string} key
              * @param newValue{string} 新值
              * @param oldValue{string} 老值
              * @param callback
              * @return callback
              */
-            updateListValue: function (key, newValue, oldValue, callback) {
+            updateListValue: function(key, newValue, oldValue, callback) {
                 var name = 'updateListValue';
                 var data = [key, newValue, oldValue];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取Map
+             * @method getMapValue
              * @param key{string} key
              * @param callback
              * @return callback
              */
-            getMapValue: function (key, callback) {
+            getMapValue: function(key, callback) {
                 var name = 'getHashValue';
                 var data = [key];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取Map中的Value
+             * @method getMapValue
              * @param key{string} key
              * @param hashKey{string} Map中的key
              * @param callback
              * @return callback
              */
-            getMapValueByHashKey: function (key, hashKey, callback) {
+            getMapValueByHashKey: function(key, hashKey, callback) {
                 var name = 'getHashValue';
                 var data = [key, hashKey];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 保存或修改 Map
+             * @method saveOrUpdateMap
              * @param key{string} key
              * @param map{json}  Map
              * @param callback
              * @return callback
              */
-            saveOrUpdateMap: function (key, map, callback) {
+            saveOrUpdateMap: function(key, map, callback) {
                 var name = 'saveOrUpdateHashValue';
                 var data = [key, map];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 保存或修改 Map
+             * @method setOrUpdateHashValue
              * @param key{string} redis中的key
              * @param hashKey{string} Map中的key
              * @param value{string} Map中的key
              * @param callback
              * @return callback
              */
-            setOrUpdateHashValue: function (key, hashKey, value, callback) {
+            setOrUpdateHashValue: function(key, hashKey, value, callback) {
                 var name = 'saveOrUpdateHashValue';
                 var data = [key, hashKey, value];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取set
+             * @method getSetValue
              * @param key{string} key
              * @param callback
              * @return callback
              */
-            getSetValue: function (key, callback) {
+            getSetValue: function(key, callback) {
                 var name = 'getSetValue';
                 var data = [key];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 向set添加一个value
+             * @method addSetValue
              * @param key{string}
              * @param value{string}
              * @param callback
              * @return callback
              */
-            addSetValue: function (key, value, callback) {
+            addSetValue: function(key, value, callback) {
                 var name = 'addSetValue';
                 var data = [key, value];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 修改set中的一个值
+             * @method updateSetValue
              * @param key{string} key
              * @param newValue{string} 新的值
              * @param oldValue{string} 待修改老值
              * @param callback
              * @return callback
              */
-            updateSetValue: function (key, newValue, oldValue, callback) {
+            updateSetValue: function(key, newValue, oldValue, callback) {
                 var name = 'updateSetValue';
                 var data = [key, newValue, oldValue];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取ZSet（默认正序排列）
+             * @method getZSetValue
              * @param key{string} key
              * @param callback
              * @return callback
              */
-            getZSetValue: function (key, callback) {
+            getZSetValue: function(key, callback) {
                 var name = 'getZSetValue';
                 var data = [key];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 添加一个值到ZSet
+             * @method addZSetValue
              * @param key{string} key
              * @param value{string} 值
              * @param weight{double} 权值
              * @param callback
              * @return callback
              */
-            addZSetValue: function (key, value, weight, callback) {
+            addZSetValue: function(key, value, weight, callback) {
                 var name = 'addZSetValue';
                 var data = [key, value, weight];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 更新一个ZSet的老值
+             * @method updateZSetValue
              * @param key{string} key
              * @param value{string} 新值
              * @param weight{double} 权值
@@ -6639,103 +6507,111 @@ jsonRPC =new Object({
              * @param callback
              * @return callback
              */
-            updateZSetValue: function (key, value, weight, oldValue, callback) {
+            updateZSetValue: function(key, value, weight, oldValue, callback) {
                 var name = 'updateZSetValue';
                 var data = [key, value, weight, oldValue];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 通过权值获取 Zset
+             * @method getZSetRangByScore
              * @param key{string} key
              * @param min{double} 最小值
              * @param max{double} 最大值
              * @param callback
              * @return callback
              */
-            getZSetRangByScore: function (key, min, max, callback) {
+            getZSetRangByScore: function(key, min, max, callback) {
                 var name = 'getZSetRangByScore';
                 var data = [key, min, max];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 通过List索引位置获取集合，返回数组
+             * @method getListByIndex
              * @param key{string} key
              * @param start{long} 开始
              * @param end{long} 结束
              * @param callback
              * @return callback
              */
-            getListByIndex: function (key, start, end, callback) {
+            getListByIndex: function(key, start, end, callback) {
                 var name = 'getListByIndex';
                 var data = [key, start, end];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 从redis中删除一个key
+             * @method remove
              * @param key{string} key
              * @param callback
              * @return callback
              */
-            remove: function (key, callback) {
+            remove: function(key, callback) {
                 var name = 'remove';
                 var data = [key];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 从指定key的set中删除一个value
+             * @method removeFromSet
              * @param key{string} key
              * @param value{string} value
              * @param callback
              * @return callback
              */
-            removeFromSet: function (key, value, callback) {
+            removeFromSet: function(key, value, callback) {
                 var name = 'removeFromSet';
                 var data = [key, value];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 从hash中删除指定key的hashkey
+             * @method removeFromHash
              * @param key{string} key
              * @param hashKey{string} hash的key值
              * @param callback
              * @return callback
              */
-            removeFromHash: function (key, hashKey, callback) {
+            removeFromHash: function(key, hashKey, callback) {
                 var name = 'removeFromHash';
                 var data = [key, hashKey];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 判断value是否在指定key的set列表中
+             * @method containtSet
              * @param key{string} hashKey
              * @param value{string} value
              * @param callback
              * @return callback
              */
-            containtSet: function (key, value, callback) {
+            containtSet: function(key, value, callback) {
                 var name = 'containtSet';
                 var data = [key, value];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 判断hashKey是否在指定key的hash散列中
+             * @method containsHash
              * @param key{string} key
              * @param hashKey{string} hashKey
              * @param callback
              * @return callback
              */
-            containsHash: function (key, hashKey, callback) {
+            containsHash: function(key, hashKey, callback) {
                 var name = 'containsHash';
                 var data = [key, hashKey];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 判断redis中是否存在指定key
+             * @method containsKey
              * @param key{string} key
              * @param callback
              * @return callback
              */
-            containsKey: function (key, callback) {
+            containsKey: function(key, callback) {
                 var name = 'containsKey';
                 var data = [key];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6749,29 +6625,31 @@ jsonRPC =new Object({
      * @module  TicketService
      * @type {{}|*}
      */
-    SgtApi.TicketService = function () {
+    SgtApi.TicketService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/ticket.do';
         return {
             /**
              * 通过反馈者playerId获取 自己发起的反馈信息
+             * @method getTicketsById
              * @param page{int} 页码
              * @param size{int} 每页显示的条目数
              * @param status{int} 状态
              * @param callback
              * @return callback
              */
-            getTicketsById: function (playerId, page, size, status, callback) {
+            getTicketsById: function(playerId, page, size, status, callback) {
                 var name = 'getTicketsBySenderPlayerId';
                 var data = [playerId, page, size, status];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 提交反馈
+             * @method sendTicket
              * @param ticket{Ticket}
              * @param callback
              * @return callback
              */
-            sendTicket: function (ticket, callback) {
+            sendTicket: function(ticket, callback) {
                 var name = 'sendTicket';
                 var data = [ticket];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6785,17 +6663,18 @@ jsonRPC =new Object({
      * @module  ErrorReportService
      * @type {{}|*}
      */
-    SgtApi.ErrorReportService = function () {
+    SgtApi.ErrorReportService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/errorreport.do';
         return {
             /**
              * 发送错误自定义事件
+             * @method sendErrorReport
              * @param type{string} 错误类型
              * @param customId{string} 自定义的ID，如战报ID
              * @param content{string} 自定义数据内容
              * @return callback
              */
-            sendErrorReport: function (playerId, type, customId, content, callback) {
+            sendErrorReport: function(playerId, type, customId, content, callback) {
                 var name = 'sendErrorReport';
                 var data = [playerId, type, customId, content];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6806,15 +6685,16 @@ jsonRPC =new Object({
      * @module InvitationCodeService
      * @type {{}|*}
      */
-    SgtApi.InvitationCodeService = function () {
+    SgtApi.InvitationCodeService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/invitationcode.do';
         return {
             /**
              * 获取邀请码
+             * @method getInvitationCode
              * @param playerId{string} 角色ID
              * @return callback
              */
-            getInvitationCode: function (callback) {
+            getInvitationCode: function(callback) {
                 var name = 'getInvitationCode';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6822,11 +6702,12 @@ jsonRPC =new Object({
 
             /**
              * 被邀请人领取奖励
+             * @method getInviteeReward
              * @param inviteePlayerId {string} 被邀请人角色ID
              * @param invitationCode{string}  邀请码
              * @return callback
              */
-            getInviteeReward: function (inviteePlayerId, invitationCode, callback) {
+            getInviteeReward: function(inviteePlayerId, invitationCode, callback) {
                 var name = 'getInviteeReward';
                 var data = [inviteePlayerId, invitationCode];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6834,10 +6715,11 @@ jsonRPC =new Object({
 
             /**
              * 邀请人领取奖励
+             * @method getInviterReward
              * @param inviterPlayerId  {string} 邀请人角色ID
              * @return callback
              */
-            getInviterReward: function (inviterPlayerId, callback) {
+            getInviterReward: function(inviterPlayerId, callback) {
                 var name = 'getInviterReward';
                 var data = [inviterPlayerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6847,12 +6729,13 @@ jsonRPC =new Object({
             /**
              * 兑换邀请码奖励
              * 该方法会给被邀请人和邀请人都发放奖励
+             * @method redeemReward
              * @param invitationCode  {string} 邀请码
              * @param inviterPlayerId   {string}  邀请人角色ID
              * @param inviteePlayerId    {string} 被邀请人角色ID
              * @return callback
              */
-            redeemReward: function (invitationCode, inviterPlayerId, inviteePlayerId, callback) {
+            redeemReward: function(invitationCode, inviterPlayerId, inviteePlayerId, callback) {
                 var name = 'redeemReward';
                 var data = [invitationCode, inviterPlayerId, inviteePlayerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6861,10 +6744,11 @@ jsonRPC =new Object({
 
             /**
              * 获取指定玩家邀请数量
+             * @method getInviteCount
              * @param inviterPlayerId   {string}
              * @return callback
              */
-            getInviteCount: function (inviterPlayerId, callback) {
+            getInviteCount: function(inviterPlayerId, callback) {
                 var name = 'getInviteCount';
                 var data = [inviterPlayerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6872,10 +6756,11 @@ jsonRPC =new Object({
 
             /**
              * 给指定玩家的邀请人发放奖励
+             * @method redeemInviterReward
              * @param inviteePlayerId    {string}   被邀请人角色ID
              * @return callback
              */
-            redeemInviterReward: function (inviteePlayerId, callback) {
+            redeemInviterReward: function(inviteePlayerId, callback) {
                 var name = 'redeemInviterReward';
                 var data = [inviteePlayerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6887,15 +6772,16 @@ jsonRPC =new Object({
      * @module PaymentCallbackService
      * @type {{}|*}
      */
-    SgtApi.PaymentCallbackService = function () {
+    SgtApi.PaymentCallbackService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/paymentcallback.do';
         return {
             /**
              * 充值业务回调
+             * @method doCallback
              * @param transaction
              * @param callback
              */
-            doCallback: function (transaction, callback) {
+            doCallback: function(transaction, callback) {
                 var name = 'doCallback';
                 var data = [transaction];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6907,15 +6793,16 @@ jsonRPC =new Object({
      * @module RouterService
      * @type {{}|*}
      */
-    SgtApi.RouterService = function () {
+    SgtApi.RouterService = function() {
         var _url = SgtApi.context.appGateway + "/route";
         return {
 
             /**
              * 获取当前服务器时间戳
+             * @method getCurrentTimestamp
              * @param callback
              */
-            getCurrentTimestamp: function (callback) {
+            getCurrentTimestamp: function(callback) {
                 var name = 'getCurrentTimestamp';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6923,34 +6810,34 @@ jsonRPC =new Object({
 
             /**
              * 获取注册或登录的服务器 （随机返回）
-             * @param appId
+             * @method getRegisterServer
              * @param callback
              */
-            getRegisterServer: function (appId, callback) {
+            getRegisterServer: function(callback) {
                 var name = 'getRegisterServer';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
             /**
              * 批量获取服务器信息
-             * @param appId
+             * @method getServerList
              * @param callback
              */
-            getServerList: function (appId, callback) {
+            getServerList: function(callback) {
                 var name = 'getServerList';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
             /**
              * 默认获取服务器信息方法（由策略决定）
-             * @param appId
+             * @method route
              * @param map
              */
-            route: function (appId, map, callback) {
+            route: function(map, callback) {
                 var name = 'route';
-                var data = [appId, map];
+                var data = [SgtApi.context.appId, map];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6961,14 +6848,15 @@ jsonRPC =new Object({
      * @module  TimestampService
      * @type {{}|*}
      */
-    SgtApi.TimestampService = function () {
+    SgtApi.TimestampService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/timestamp.do';
         return {
             /**
              * 获取当前节点服务器的时间戳
+             * @Method getCurrentTimestamp
              * @param callback
              */
-            getCurrentTimestamp: function (callback) {
+            getCurrentTimestamp: function(callback) {
                 var name = 'getCurrentTimestamp';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6976,11 +6864,12 @@ jsonRPC =new Object({
 
             /**
              * 获取一个时间戳 返回key对应的时间戳
+             * @Method getTimestamp
              * @param sgpPlayerId
              * @param key
              * @param callback
              */
-            getTimestamp: function (sgpPlayerId, key, callback) {
+            getTimestamp: function(sgpPlayerId, key, callback) {
                 var name = 'getTimestamp';
                 var data = [sgpPlayerId, key];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6988,10 +6877,11 @@ jsonRPC =new Object({
 
             /**
              * 获取用户的所有时间戳 返回所有的时间戳
+             * @Method getTimestamps
              * @param sgpPlayerId
              * @param callback
              */
-            getTimestamps: function (sgpPlayerId, callback) {
+            getTimestamps: function(sgpPlayerId, callback) {
                 var name = 'getTimestamps';
                 var data = [sgpPlayerId];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -6999,11 +6889,12 @@ jsonRPC =new Object({
 
             /**
              * 移除一个时间戳
+             * @Method removeTimestamp
              * @param sgpPlayerId
              * @param key
              * @param callback
              */
-            removeTimestamp: function (sgpPlayerId, key, callback) {
+            removeTimestamp: function(sgpPlayerId, key, callback) {
                 var name = 'removeTimestamp';
                 var data = [sgpPlayerId, key];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7011,11 +6902,12 @@ jsonRPC =new Object({
 
             /**
              * 批量移除时间戳
+             * @Method removeTimestamps
              * @param sgpPlayerId
              * @param keys
              * @param callback
              */
-            removeTimestamps: function (sgpPlayerId, keys, callback) {
+            removeTimestamps: function(sgpPlayerId, keys, callback) {
                 var name = 'removeTimestamps';
                 var data = [sgpPlayerId, keys];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7023,12 +6915,13 @@ jsonRPC =new Object({
 
             /**
              * 添加时间戳
+             * @Method saveTimestamp
              * @param sgpPlayerId
              * @param key
              * @param timestamp
              * @param callback
              */
-            saveTimestamp: function (sgpPlayerId, key, timestamp, callback) {
+            saveTimestamp: function(sgpPlayerId, key, timestamp, callback) {
                 var name = 'saveTimestamp';
                 var data = [sgpPlayerId, key, timestamp];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7036,12 +6929,13 @@ jsonRPC =new Object({
 
             /**
              * 创建/更新一个带偏移的时间戳 创建/更新成功则返回时间戳，失败则抛出异常
+             * @Method updateTimestamp
              * @param sgpPlayerId
              * @param key
              * @param offset
              * @param callback
              */
-            updateTimestamp: function (sgpPlayerId, key, offset, callback) {
+            updateTimestamp: function(sgpPlayerId, key, offset, callback) {
                 var name = 'updateTimestamp';
                 var data;
                 if (arguments.length == 3) {
@@ -7055,12 +6949,13 @@ jsonRPC =new Object({
 
             /**
              * 批量创建/更新带偏移的时间戳 创建/更新成功则返回时间戳，失败则抛出异常
+             * @Method updateTimestamps
              * @param sgpPlayerId
              * @param keys
              * @param offset
              * @param callback
              */
-            updateTimestamps: function (sgpPlayerId, keys, offset, callback) {
+            updateTimestamps: function(sgpPlayerId, keys, offset, callback) {
                 var name = 'updateTimestamps';
                 var data;
                 if (arguments.length == 3) {
@@ -7079,28 +6974,28 @@ jsonRPC =new Object({
      * @module  VersionDetailService
      * @type {{}|*}
      */
-    SgtApi.VersionDetailService = function () {
-        var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/versiondetail.do';
+    SgtApi.VersionDetailService = function() {
+        var _url = SgtApi.context.appGateway + '/versionDetail';
         return {
             /**
-             * 根据appId和当前版本信息获取升级信息
-             * @param appId
+             * 根据当前版本信息获取升级信息
+             * @Method checkUpdate
              * @param currentVersion
              * @param callback
              */
-            checkUpdate: function (appId, currentVersion, callback) {
+            checkUpdate: function(currentVersion, callback) {
                 var name = 'checkUpdate';
-                var data = [appId, currentVersion];
+                var data = [SgtApi.context.appId, currentVersion];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取某个appId所有的版本信息
-             * @param appId
+             * @Method getAllVersions
              * @param callback
              */
-            getAllVersions: function (appId, callback) {
+            getAllVersions: function(callback) {
                 var name = 'getAllVersions';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -7109,30 +7004,27 @@ jsonRPC =new Object({
     /**
      * 微信中控服务
      * @type {Object}
-     * @module WxCentralService
      */
-    SgtApi.WxCentralService = function () {
+    SgtApi.WxCentralService = function() {
         var _url = SgtApi.context.appGateway + '/wxcentral';
         return {
             /**
              * 获取微信的accessToken，每一小时刷新一次
-             * @param appId {string} SGT中的appid
              * @return {WxResult } 含有accessToken的WxResult
              */
-            getAccessToken: function (appId, callback) {
+            getAccessToken: function(callback) {
                 var name = 'getAccessToken';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取微信的jsapi_ticket
-             * @param  {string}   appId    SGT中的appid
              * @param  {Function} callback 回调函数
              * @return {WxResult}            含有jsapi_ticket的WxResult
              */
-            getJSTicket: function (appId, callback) {
+            getJSTicket: function(callback) {
                 var name = 'getJSTicket';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
@@ -7141,7 +7033,7 @@ jsonRPC =new Object({
              * @return {WxResult }  WxResult:{ result: 处理正常result有值{"signature":"签名","timestamp":"计算时用到的时间戳，单位秒","noncestr":"计算签名的随机字符串","wxAppId":"微信appid","appSecret":"微信的凭证密钥"}
         ,error:"计算失败时返回的错误信息"
              */
-            getSignature: function (callback) {
+            getSignature: function(callback) {
                 var name = 'getSignature';
                 var data = [SgtApi.context.appId, window.location.href.split('#')[0]];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7149,30 +7041,43 @@ jsonRPC =new Object({
 
             /**
              * web端采用微信支付
-             * @param  {string}   appId      用户表示
-             * @param  {Object}   paramModel 参数对象
-             {
-                   body: 'JSAPI支付测试',
-                   total_fee: 1,
-                   trade_type: 'JSAPI',
-                   openid: 'oUpF8uMuAJO_M2pxb1Q9zNjWeS6o',
-                   serverId: '',
-                   playerId: '',
-                   userId: '',
-               }
+             * @param  {String}   商品描述
+             * @param  {String}   订单总金额，单位为分，详见 <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_2" target="_blank">支付金额</a>
+             * @param  {String}   角色id
              * @param  {Function} callback   回调函数
              * @return {Object}
              */
-            getPayOrder: function (paramModel, callback) {
+            getPayOrder: function(body,total_fee,playerId,callback) {
                 var name = 'getPayOrder';
-                var data = [SgtApi.context.appId, paramModel];
-                SgtApi.doRPC(name, data, _url, callback);
+                var data = [{
+                    body: body,
+                    total_fee: total_fee,
+                    trade_type: 'JSAPI',
+                    serverId: SgtApi.context.server.address,
+                    openid: SgtApi.context.openid,
+                    playerId:playerId,
+                    userId:SgtApi.context.user.userid
+                }];
+                SgtApi.doRPC(name, data, _url, function(result,order){
+                    //微信支付
+                    wx.chooseWXPay({
+                        timestamp: order.time_start, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                        nonceStr: order.nonce_str, // 支付签名随机串，不长于 32 位
+                        package: 'prepay_id=' + order.prepay_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                        signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                        paySign: order.paySign, // 支付签名
+                        success: function(res) {
+                            // 支付成功后的回调函数
+                            callback(true,res);
+                        },
+                        fail: function(res) {callback(false,res);}
+                    });
+                });
             },
 
             /**
              * 通过code换取网页授权access_token
              * 还有openid
-             * @param  {String}   appId    公众号的唯一标识
              * @param  {String}   code     auth验证返回的code
              * @param  {Function} callback 回调函数
              * @return {Object}            {
@@ -7184,7 +7089,7 @@ jsonRPC =new Object({
                                                "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
                                             }
              */
-            getUserAccessToken: function (code, callback) {
+            getUserAccessToken: function(code, callback) {
                 var name = 'getUserAccessToken';
                 var data = [SgtApi.context.appId, code];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7196,7 +7101,7 @@ jsonRPC =new Object({
              * @param  {String} scope        可选
              * @return {null}
              */
-            auth: function (appid, scope) {
+            auth: function(appid, scope) {
                 var sVal = null;
                 if (scope) {
                     sVal = scope;
@@ -7212,7 +7117,7 @@ jsonRPC =new Object({
              * @param  {Function} callback [description]
              * @return {[type]}            [description]
              */
-            getUserInfo: function (callback) {
+            getUserInfo: function(callback) {
                 var name = 'getUserInfo';
                 var data = [SgtApi.context.access_token, SgtApi.context.openid];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7222,9 +7127,8 @@ jsonRPC =new Object({
 
     /**
      * 留资模块:提供用户留存资料接口
-     * @module UserLeaveInfoService
      */
-    SgtApi.UserLeaveInfoService = function () {
+    SgtApi.UserLeaveInfoService = function() {
         var _url = SgtApi.context.appGateway + '/userleaveinfo';
         return {
             /**
@@ -7233,7 +7137,7 @@ jsonRPC =new Object({
              * @param  {Function} callback      回调函数
              * @return {UserLeaveInfo}                 用户留资对象
              */
-            saveLeaveInfo: function (userLeaveInfo, callback) {
+            saveLeaveInfo: function(userLeaveInfo, callback) {
                 var name = 'saveLeaveInfo';
                 var data = [userLeaveInfo];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7244,17 +7148,16 @@ jsonRPC =new Object({
     /**
      * 随机角色名生成模块
      * 提供了生成随机角色名接口，可以使用默认的姓和名文本库生成角色名，还可以通过开发者管理后台自定义上传姓和名文本库生成角色名。
-     * @module RandomNameGroupService
      */
-    SgtApi.RandomNameGroupService = function () {
+    SgtApi.RandomNameGroupService = function() {
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/randomnamegroup.do';
         return {
             /**
              * 从默认的文本内容 生成随机名字
-             * @param {Function} callback  回调函数
+             * @param {Function} 回调函数
              * @return {string} 角色名
              */
-            defaultRandomName: function (callback) {
+            defaultRandomName: function(callback) {
                 var name = 'defaultRandomName';
                 var data = [];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7262,10 +7165,10 @@ jsonRPC =new Object({
             /**
              * 根据groupName 指定的库文本内容  生成随机名字
              * @param {string} groupName 库名（需通过开发者管理后台--数据管理--随机名称页面新增一条自定义文本库信息）
-             * @param {Function} callback - 回调函数
+             * @param {Function} callback 回调函数
              * @return {string} 角色名
              */
-            randomNameByGroupName: function (groupName, callback) {
+            randomNameByGroupName: function(groupName, callback) {
                 var name = 'randomNameByGroupName';
                 var data = [groupName];
                 SgtApi.doRPC(name, data, _url, callback);
@@ -7276,36 +7179,26 @@ jsonRPC =new Object({
     /**
      * Socketio服务, 需要主动在页面引入socketio包(https://cdn.socket.io/socket.io-1.3.7.js),
      * 再通过socketio的api进行交互
-     * @module SocketService
      */
-    SgtApi.SocketService = function () {
-        /**
-         * socketUrl链接地址
-         */
-        var socketUrl;
+    SgtApi.SocketService = function() {
+        var socketUrl = null;
         if (SgtApi.context.server.socketUrl.endsWith('/')) {
             socketUrl = SgtApi.context.server.socketUrl;
         } else {
             socketUrl = SgtApi.context.server.socketUrl + '/';
         }
-        socketUrl += SgtApi.context.appId;
+        var _url = socketUrl + SgtApi.context.appId;
         return {
-            /**
-             * 获取socketio实例
-             * @param {String}nameSpace - 命名空间
-             * @returns {SocketIO}SocketIO实例
-             */
-            getSocket: function (nameSpace) {
+            getSocket: function(nameSpace) {
                 if (nameSpace) {
-                    if (!nameSpace.endsWith('/')) {
+                    if (! nameSpace.endsWith('/')) {
                         nameSpace = '/' + nameSpace;
                     }
                 }
-                return io(socketUrl + (nameSpace ? nameSpace : ''));
+                return io(_url + (nameSpace ? nameSpace : ''));
             }
         };
     };
-
 
     // browser
     if (typeof navigator !== 'undefined') {

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-    <script type="text/javascript" src="./js/sgtcloud-html5-sdk.2.1.0.js"></script>
+    <script type="text/javascript" src="./js/sgtcloud-html5-sdk.2.0.7.js"></script>
     <script type="text/javascript" src="./js/jquery.1.11.1.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -17,7 +17,7 @@
         //订单
         var order = null;
 		
-		var playerid = null;
+		var playerid = '2222';
         //初始化sdk
         sgt.init({
             appId: 'xmj_sgp',
@@ -25,10 +25,11 @@
         });
 
         //登录用户
-        SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {});
-		SgtApi.PlayerService.getOneByUserId(sgt.context.user.userid,function(result,data){
-        	playerid = data.id;
-        });
+        SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {console.log(data);});
+		//SgtApi.PlayerService.getOneByUserId(sgt.context.user.userid,function(result,data){
+			//alert(data);
+        	//playerid = data.id;
+        //});
         sgt.WxCentralService.getSignature(function(result, data) {
             console.log(data);
             signature = data;
@@ -40,12 +41,12 @@
             timestamp: signature.result.timestamp, // 必填，生成签名的时间戳
             nonceStr: signature.result.noncestr, // 必填，生成签名的随机串
             signature: signature.result.signature, // 必填，签名，见附录1
-            jsApiList: ['onMenuShareAppMessage', 'chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
         wx.ready(function() {
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
             wx.checkJsApi({
-                jsApiList: ['onMenuShareAppMessage', 'chooseWXPay'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                jsApiList: ['chooseWXPay'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
                 success: function(res) {
                     // 以键值对的形式返回，可用的api值true，不可用为false
                     // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
@@ -97,31 +98,12 @@
 
         //支付逻辑
         $('#pay').click(function() {
-
-            //发起订单服务
-            sgt.WxCentralService.getPayOrder({
-                body: $('#good').val(),
-                total_fee: $('#money').val() * 100,
-                trade_type: 'JSAPI',
-                serverId: '',
-                openid: sgt.context.openid,
-				playerId:playerid,
-                userId:sgt.context.user.userid
-            }, function(result, data) {
-                order = data;
-            });
-
-            //微信支付
-            wx.chooseWXPay({
-                timestamp: order.time_start, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                nonceStr: order.nonce_str, // 支付签名随机串，不长于 32 位
-                package: 'prepay_id=' + order.prepay_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-                signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                paySign: order.paySign, // 支付签名
-                success: function(res) {
-                    // 支付成功后的回调函数
-                },
-                fail: function(res) {}
+        	sgt.WxCentralService.getPayOrder($('#good').val(),$('#money').val() * 100,playerid,function(result,res){
+             	if(result){
+             		// 支付成功后的回调函数
+             	}else{
+             		// 支付失败后的回调函数
+             	}
             });
         });
     });
