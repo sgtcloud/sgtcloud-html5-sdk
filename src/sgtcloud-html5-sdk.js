@@ -6688,7 +6688,7 @@
              */
             getRegisterServer: function(callback) {
                 var name = 'getRegisterServer';
-                var data = [SgtApi.context.appId];
+                var data = [appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -6699,7 +6699,7 @@
              */
             getServerList: function(callback) {
                 var name = 'getServerList';
-                var data = [SgtApi.context.appId];
+                var data = [appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -6711,7 +6711,7 @@
              */
             route: function(map, callback) {
                 var name = 'route';
-                var data = [SgtApi.context.appId, map];
+                var data = [appId, map];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6859,7 +6859,7 @@
              */
             checkUpdate: function(currentVersion, callback) {
                 var name = 'checkUpdate';
-                var data = [SgtApi.context.appId, currentVersion];
+                var data = [appId, currentVersion];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
@@ -6869,7 +6869,7 @@
              */
             getAllVersions: function(callback) {
                 var name = 'getAllVersions';
-                var data = [SgtApi.context.appId];
+                var data = [appId];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6884,21 +6884,23 @@
         return {
             /**
              * 获取微信的accessToken，每一小时刷新一次
+             * @param appId {string} SGT中的appid
              * @return {WxResult } 含有accessToken的WxResult
              */
             getAccessToken: function(callback) {
                 var name = 'getAccessToken';
-                var data = [SgtApi.context.appId];
+                var data = [appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取微信的jsapi_ticket
+             * @param  {string}   appId    SGT中的appid
              * @param  {Function} callback 回调函数
              * @return {WxResult}            含有jsapi_ticket的WxResult
              */
             getJSTicket: function(callback) {
                 var name = 'getJSTicket';
-                var data = [SgtApi.context.appId];
+                var data = [appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
@@ -6915,42 +6917,22 @@
 
             /**
              * web端采用微信支付
-             * @param  {String}   商品描述  
+             * @param  {String}   商品描述
              * @param  {String}   订单总金额，单位为分，详见 <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_2" target="_blank">支付金额</a>
-             * @param  {String}   角色id         
+             * @param  {String}   角色id
              * @param  {Function} callback   回调函数
              * @return {Object}              
              */
             getPayOrder: function(body,total_fee,playerId,callback) {
                 var name = 'getPayOrder';
-                var data = [SgtApi.context.appId, {
-				    body: body,
-				    total_fee: total_fee,
-				    trade_type: 'JSAPI',
-				    openid: sgt.context.openid,
-				    serverId: sgt.context.server.address,
-					playerId: playerId,
-					userId: sgt.context.user.userid,		
-				}];
-                SgtApi.doRPC(name, data, _url, function(result, order){
-                	wx.chooseWXPay({
-        	            timestamp: order.time_start, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-        	            nonceStr: order.nonce_str, // 支付签名随机串，不长于 32 位
-        	            package: 'prepay_id=' + order.prepay_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-        	            signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-        	            paySign: order.paySign, // 支付签名
-        	            success: function(res) {
-        	                // 支付成功后的回调函数
-        	            	callback(true,res);
-        	            },
-        	            fail: function(res) {callback(false,res);console.log("微信支付失败！");}
-        	        });
-                });
+                var data = [SgtApi.context.appId, paramModel];
+                SgtApi.doRPC(name, data, _url, callback);
             },
 
             /**
              * 通过code换取网页授权access_token
              * 还有openid
+             * @param  {String}   appId    公众号的唯一标识
              * @param  {String}   code     auth验证返回的code
              * @param  {Function} callback 回调函数
              * @return {Object}            {
