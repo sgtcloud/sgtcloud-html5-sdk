@@ -1,3 +1,130 @@
+jsonRPC =new Object({
+    version: '2.0',
+    endPoint: null,
+    namespace: null,
+    setup: function(params) {
+        this.endPoint = params["endPoint"];
+        this.namespace = params["namespace"];
+        this.cache = params["cache"] !== undefined ? params["cache"] : true;
+        return this;
+    },
+    request: function(method, options) {
+        if (options === undefined) {
+            options = {"id": 1};
+        }
+        if (options["id"] === undefined) {
+            options["id"] = 1;
+        }
+        if (options["cache"] === undefined) {
+            options["cache"] = this.cache;
+        }
+
+        this._doRequest(JSON.stringify(this._requestDataObj(method, options["params"], options["id"])), options);
+        return true;
+    },
+    // Creates an RPC suitable request object
+    _requestDataObj: function(method, params, id) {
+        var dataObj = {
+            "jsonrpc": this.version,
+            "method": this.namespace ? this.namespace +'.'+ method : method,
+            "id": id
+        }
+        if(params !== undefined) {
+            dataObj["params"] = params;
+        }
+        return dataObj;
+    },
+
+    _requestUrl: function(url, cache) {
+        url = url || this.endPoint;
+        if (!cache) {
+            if (url.indexOf("?") < 0) {
+                url += '?tm=' + new Date().getTime();
+            }
+            else {
+                url += "&tm=" + new Date().getTime();
+            }
+        }
+        return url;
+    },
+    _doRequest: function(data, options) {
+        var _that = this;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState==4) {
+                if (xmlhttp.status==200) {
+                    _that._requestSuccess.call(_that, xmlhttp.responseText, options["success"], options["error"]);
+                } else {
+                    _that._requestError.call(_that, xmlhttp.responseText, options["error"]);
+                }
+            }
+        };
+        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), false);
+
+        var headers=[
+            {"name":"Accept","type":"application/json, text/javascript, */*;"},
+            {"name":"Content-Type","type":"application/json-rpc"}
+        ];
+        for (var i=0;i<headers.length;i++) {
+            xmlhttp.setRequestHeader( headers[i]["name"], headers[i]["type"]);
+        }
+
+        xmlhttp.send(data);
+    },
+    // Handles calling of error callback function
+    _requestError: function(responseText, error) {
+        if (error !== undefined && typeof(error) === 'function') {
+            if(typeof(responseText) === 'string') {
+                try {
+                    error(eval ( '(' + responseText + ')' ));
+                }
+                catch(e) {
+                    error(this._response());
+                }
+            }
+            else {
+                error(this._response());
+            }
+        }
+    },
+    _requestSuccess: function(responseText, success, error) {
+        var response = this._response(responseText);
+
+        if(response.error && typeof(error) === 'function') {
+            error(response);
+            return;
+        }
+
+        // Otherwise, successful request, run the success request if it exists
+        if(typeof(success) === 'function') {
+            success(response);
+        }
+    },
+    _response: function(responseText) {
+        if (responseText === undefined) {
+            return {
+                error: 'Internal server error',
+                version: '2.0'
+            };
+        }
+        else {
+            try {
+                if(typeof(responseText) === 'string') {
+                    responseText = eval ( '(' + responseText + ')' );
+                }
+                return responseText;
+            }
+            catch (e) {
+                return {
+                    error: 'Internal server error: ' + e,
+                    version: '2.0'
+                }
+            }
+        }
+    }
+});
+
+
 /**
  * sgt html5 api
  * 开发者 by zhcy
@@ -2443,7 +2570,7 @@
      */
     SgtApi.WxPayOrderModel = function() {
         /*
-        总金额
+         总金额
          */
         this.total_fee = null;
         /**
@@ -3367,7 +3494,7 @@
              * 重置密码发送邮件
              * @param  {string}   userName 用户名
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             resetPassword: function(userName, callback) {
                 var name = 'resetPassword';
@@ -3395,7 +3522,7 @@
              * @param  {string}   userName 用户名
              * @param  {string}   password 密码
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             updatePasswordByUserName: function(userName, password, callback) {
                 var name = 'updatePasswordByUserName';
@@ -3782,7 +3909,7 @@
              * 添加角色扩展信息
              * @param {PlayerExtra}   playerExtra 角色扩展对象
              * @param {Function} callback    回调函数
-             * @return null          
+             * @return null
              */
             addPlayerExtra: function(playerExtra, callback) {
                 var name = 'addPlayer';
@@ -3794,7 +3921,7 @@
              * 根据角色ID删除角色扩展信息
              * @param  {String}   playerId 扩展角色id
              * @param  {Function} callback 回调函数
-             * @return null            
+             * @return null
              */
             deletePlayerExtraById: function(playerId, callback) {
                 var name = 'deletePlayerById';
@@ -5706,7 +5833,7 @@
             /**
              * 获取所有计费点
              * @param  {Function} callback 回调函数
-             * @return {ChargePoint[]}            
+             * @return {ChargePoint[]}
              */
             getAllChargePoints: function(callback) {
                 var name = 'getAllChargePoints';
@@ -5716,7 +5843,7 @@
             /**
              * 获取当前可用的计费点
              * @param  {Function} callback 回调函数
-             * @return {ChargePoint[]}            
+             * @return {ChargePoint[]}
              */
             getAvailableChargePoints: function(callback) {
                 var name = 'getAvailableChargePoints';
@@ -5822,7 +5949,7 @@
              * 获取指定文件路径可访问的url
              * @param  {string}   fileName 文件路径/key值
              * @param  {Function} callback 回调函数
-             * @return {string}            
+             * @return {string}
              */
             getUrl: function(fileName, callback) {
                 var name = 'getUrl';
@@ -5922,7 +6049,7 @@
              * @param  {string}   giftId   礼包ID
              * @param  {string}   code     兑换码
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             redeemOverMail: function(playerId, giftId, code, callback) {
                 var name = 'redeemOverMail';
@@ -6145,7 +6272,6 @@
             /**
              * 创建代理id（did）
              * @method createDid
-             * @param appId{string} appId
              * @param serverId{string} 服务器ID
              * @param callback
              * @return callback
@@ -6688,7 +6814,7 @@
              */
             getRegisterServer: function(callback) {
                 var name = 'getRegisterServer';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -6699,19 +6825,18 @@
              */
             getServerList: function(callback) {
                 var name = 'getServerList';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
             /**
              * 默认获取服务器信息方法（由策略决定）
              * @method route
-             * @param appId
              * @param map
              */
             route: function(map, callback) {
                 var name = 'route';
-                var data = [appId, map];
+                var data = [SgtApi.context.appId, map];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6852,14 +6977,14 @@
         var _url = SgtApi.context.appGateway + '/versionDetail';
         return {
             /**
-             * 根据appId和当前版本信息获取升级信息
+             * 根据当前版本信息获取升级信息
              * @Method checkUpdate
              * @param currentVersion
              * @param callback
              */
             checkUpdate: function(currentVersion, callback) {
                 var name = 'checkUpdate';
-                var data = [appId, currentVersion];
+                var data = [SgtApi.context.appId, currentVersion];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
@@ -6869,7 +6994,7 @@
              */
             getAllVersions: function(callback) {
                 var name = 'getAllVersions';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6884,23 +7009,21 @@
         return {
             /**
              * 获取微信的accessToken，每一小时刷新一次
-             * @param appId {string} SGT中的appid
              * @return {WxResult } 含有accessToken的WxResult
              */
             getAccessToken: function(callback) {
                 var name = 'getAccessToken';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取微信的jsapi_ticket
-             * @param  {string}   appId    SGT中的appid
              * @param  {Function} callback 回调函数
              * @return {WxResult}            含有jsapi_ticket的WxResult
              */
             getJSTicket: function(callback) {
                 var name = 'getJSTicket';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
@@ -6921,7 +7044,7 @@
              * @param  {String}   订单总金额，单位为分，详见 <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_2" target="_blank">支付金额</a>
              * @param  {String}   角色id
              * @param  {Function} callback   回调函数
-             * @return {Object}              
+             * @return {Object}
              */
             getPayOrder: function(body,total_fee,playerId,callback) {
                 var name = 'getPayOrder';
@@ -6932,7 +7055,6 @@
             /**
              * 通过code换取网页授权access_token
              * 还有openid
-             * @param  {String}   appId    公众号的唯一标识
              * @param  {String}   code     auth验证返回的code
              * @param  {Function} callback 回调函数
              * @return {Object}            {
@@ -6954,7 +7076,7 @@
              * 微信授权方法
              * @param  {String} appid        微信的appid
              * @param  {String} scope        可选
-             * @return {null}              
+             * @return {null}
              */
             auth: function(appid, scope) {
                 var sVal = null;
@@ -7047,7 +7169,7 @@
             getSocket: function(nameSpace) {
                 if (nameSpace) {
                     if (! nameSpace.endsWith('/')) {
-                    	nameSpace = '/' + nameSpace;
+                        nameSpace = '/' + nameSpace;
                     }
                 }
                 return io(_url + (nameSpace ? nameSpace : ''));
