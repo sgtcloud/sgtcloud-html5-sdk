@@ -5520,7 +5520,7 @@
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
-             * 获取玩家当前可用的充值信息，不包括不可见或达到购买次数限制的充值信息
+             * 获取玩家当前可用的充值信息2，不包括不可见或达到购买次数限制的充值信息
              * @method getAvailableChargePoints
              * @param callback
              */
