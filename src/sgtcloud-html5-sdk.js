@@ -1,130 +1,3 @@
-jsonRPC =new Object({
-    version: '2.0',
-    endPoint: null,
-    namespace: null,
-    setup: function(params) {
-        this.endPoint = params["endPoint"];
-        this.namespace = params["namespace"];
-        this.cache = params["cache"] !== undefined ? params["cache"] : true;
-        return this;
-    },
-    request: function(method, options) {
-        if (options === undefined) {
-            options = {"id": 1};
-        }
-        if (options["id"] === undefined) {
-            options["id"] = 1;
-        }
-        if (options["cache"] === undefined) {
-            options["cache"] = this.cache;
-        }
-
-        this._doRequest(JSON.stringify(this._requestDataObj(method, options["params"], options["id"])), options);
-        return true;
-    },
-    // Creates an RPC suitable request object
-    _requestDataObj: function(method, params, id) {
-        var dataObj = {
-            "jsonrpc": this.version,
-            "method": this.namespace ? this.namespace +'.'+ method : method,
-            "id": id
-        }
-        if(params !== undefined) {
-            dataObj["params"] = params;
-        }
-        return dataObj;
-    },
-
-    _requestUrl: function(url, cache) {
-        url = url || this.endPoint;
-        if (!cache) {
-            if (url.indexOf("?") < 0) {
-                url += '?tm=' + new Date().getTime();
-            }
-            else {
-                url += "&tm=" + new Date().getTime();
-            }
-        }
-        return url;
-    },
-    _doRequest: function(data, options) {
-        var _that = this;
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState==4) {
-                if (xmlhttp.status==200) {
-                    _that._requestSuccess.call(_that, xmlhttp.responseText, options["success"], options["error"]);
-                } else {
-                    _that._requestError.call(_that, xmlhttp.responseText, options["error"]);
-                }
-            }
-        };
-        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]), false);
-
-        var headers=[
-            {"name":"Accept","type":"application/json, text/javascript, */*;"},
-            {"name":"Content-Type","type":"application/json-rpc"}
-        ];
-        for (var i=0;i<headers.length;i++) {
-            xmlhttp.setRequestHeader( headers[i]["name"], headers[i]["type"]);
-        }
-
-        xmlhttp.send(data);
-    },
-    // Handles calling of error callback function
-    _requestError: function(responseText, error) {
-        if (error !== undefined && typeof(error) === 'function') {
-            if(typeof(responseText) === 'string') {
-                try {
-                    error(eval ( '(' + responseText + ')' ));
-                }
-                catch(e) {
-                    error(this._response());
-                }
-            }
-            else {
-                error(this._response());
-            }
-        }
-    },
-    _requestSuccess: function(responseText, success, error) {
-        var response = this._response(responseText);
-
-        if(response.error && typeof(error) === 'function') {
-            error(response);
-            return;
-        }
-
-        // Otherwise, successful request, run the success request if it exists
-        if(typeof(success) === 'function') {
-            success(response);
-        }
-    },
-    _response: function(responseText) {
-        if (responseText === undefined) {
-            return {
-                error: 'Internal server error',
-                version: '2.0'
-            };
-        }
-        else {
-            try {
-                if(typeof(responseText) === 'string') {
-                    responseText = eval ( '(' + responseText + ')' );
-                }
-                return responseText;
-            }
-            catch (e) {
-                return {
-                    error: 'Internal server error: ' + e,
-                    version: '2.0'
-                }
-            }
-        }
-    }
-});
-
-
 /**
  * sgt html5 api
  * 开发者 by zhcy
@@ -3345,7 +3218,7 @@ jsonRPC =new Object({
         SgtApi.RouterService = SgtApi.RouterService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
         //初始化微信中控服务
-        if (wx) {
+        if (typeof wx == 'Function') {
             if (is_weixin()) {
                 SgtApi.WxCentralService = SgtApi.WxCentralService();
                 if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
@@ -3422,14 +3295,15 @@ jsonRPC =new Object({
          * 获取服务器信息并解锁其他服务
          */
         var _getPlayServer = function(callback) {
-            SgtApi.RouterService.route(_appId, {
+            SgtApi.RouterService.route({
                 'userId': SgtApi.context.user.userid,
                 'createTime': SgtApi.context.user.createTime,
                 'channelId': SgtApi.context.channelId
             }, function(result, data) {
+                console.log("aa:"+result+" , "+data);
                 if (result) {
                     SgtApi.context.server = data;
-                    console.log(data);
+
                     _createServices();
                     callback(true, SgtApi.context.user);
                 } else {
@@ -7048,8 +6922,30 @@ jsonRPC =new Object({
              */
             getPayOrder: function(body,total_fee,playerId,callback) {
                 var name = 'getPayOrder';
-                var data = [SgtApi.context.appId, paramModel];
-                SgtApi.doRPC(name, data, _url, callback);
+                var data = [{
+                    body: body,
+                    total_fee: total_fee,
+                    trade_type: 'JSAPI',
+                    serverId: SgtApi.context.server.address,
+                    openid: SgtApi.context.openid,
+                    playerId:playerId,
+                    userId:SgtApi.context.user.userid
+                }];
+                SgtApi.doRPC(name, data, _url, function(result,order){
+                    //微信支付
+                    wx.chooseWXPay({
+                        timestamp: order.time_start, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                        nonceStr: order.nonce_str, // 支付签名随机串，不长于 32 位
+                        package: 'prepay_id=' + order.prepay_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                        signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                        paySign: order.paySign, // 支付签名
+                        success: function(res) {
+                            // 支付成功后的回调函数
+                            callback(true,res);
+                        },
+                        fail: function(res) {callback(false,res);}
+                    });
+                });
             },
 
             /**
