@@ -3218,7 +3218,7 @@
         SgtApi.RouterService = SgtApi.RouterService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
         //初始化微信中控服务
-        if (typeof wx == 'Function') {
+        if (typeof(wx) != 'undefined' ) {
             if (is_weixin()) {
                 SgtApi.WxCentralService = SgtApi.WxCentralService();
                 if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
