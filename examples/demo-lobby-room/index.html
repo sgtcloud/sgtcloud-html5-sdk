@@ -12,56 +12,56 @@
         padding: 20px;
         font-size: 20px;
     }
-    
+
     .container h1 {
         text-align: center;
         color: white;
         margin-top: 50px;
     }
-    
+
     #room {
         margin-top: 50px;
         border: 2px solid white;
         border-radius: 15px;
     }
-    
+
     #console {
         overflow: auto;
         height: 300px;
     }
-    
+
     #dashboard {}
-    
+
     #control {
         border: 2px solid white;
         border-radius: 15px;
         margin-top: 50px;
     }
-    
+
     #bar {
         margin-top: 10px;
     }
-    
+
     #dashboard {
         border-bottom: 1px solid #D2E1EC;
     }
-    
+
     .username-msg {
         color: orange;
     }
-    
+
     .connect-msg {
         color: green;
     }
-    
+
     .disconnect-msg {
         color: red;
     }
-    
+
     .send-msg {
         color: #888
     }
-    
+
     textarea {
         resize: none;
         width: 100%;
@@ -70,7 +70,7 @@
         /*没超出内容则不显示滚条*/
         /*overflow:hidden; 永远不显示滚动条*/
     }
-    
+
     .btn1 {
         background: rgba(139, 195, 74, 0.71);
         font-weight: 2px;
@@ -79,16 +79,16 @@
         color: #05B4CA;
         width: 100px;
     }
-    
+
     .btn1:hover {
         background: rgb(139, 195, 74);
         color: #03899A;
     }
-    
+
     .container {
         overflow: hidden;
     }
-    
+
     @media (max-width: 1600px) {
         body {
             font-size: 20x;
@@ -114,7 +114,7 @@
     <script src="./js/socket.io.js"></script>
     <script src="./js/moment.min.js"></script>
     <script src="./js/jquery.1.11.1.min.js"></script>
-    <script src="./js/sgtcloud-html5-sdk.2.1.1.min.js"></script>
+    <script src="./js/sgtcloud-html5-sdk.2.1.0.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script>
     $(function() {
@@ -205,7 +205,7 @@
     });
 
     sgt.UserService.login('Ak61E175', 'yoedge2014', function(result,data) {console.log("login:"+result+" , "+data);});
-
+   // sgt.SocketService = sgt.SocketService();
     var socket = sgt.SocketService.getSocket();
 
     var userName = 'user' + Math.floor((Math.random() * 1000) + 1);
@@ -290,8 +290,8 @@
         }
         $('#msg').val('');
 
-        // don't forget to define type field '@class' 
-        // it should equals to class name which used 
+        // don't forget to define type field '@class'
+        // it should equals to class name which used
         // to deserialize object on server side
         // via ...addJsonObjectListener() method
         //
