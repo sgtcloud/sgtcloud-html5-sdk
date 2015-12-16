@@ -114,7 +114,7 @@
     <script src="./js/socket.io.js"></script>
     <script src="./js/moment.min.js"></script>
     <script src="./js/jquery.1.11.1.min.js"></script>
-    <script src="./js/sgtcloud-html5-sdk.2.1.0.js"></script>
+    <script src="./js/sgtcloud-html5-sdk.2.1.1.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script>
     $(function() {
@@ -204,7 +204,7 @@
         appGateway: 'http://test.sgtcloud.cn/gateway'
     });
 
-    sgt.UserService.login('Ak61E175', 'yoedge2014', function() {});
+    sgt.UserService.login('Ak61E175', 'yoedge2014', function(result,data) {console.log("login:"+result+" , "+data);});
 
     var socket = sgt.SocketService.getSocket();
 
@@ -212,9 +212,9 @@
 
     var current = '大厅';
 
-
+	console.log("socket:"+socket);
     socket.on('leaveRoom', function(data) {
-        console.log(data);
+        console.log("leaveRoom:"+data);
     });
 
     socket.on('connect', function() {

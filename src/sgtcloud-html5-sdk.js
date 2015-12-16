@@ -2443,7 +2443,7 @@
      */
     SgtApi.WxPayOrderModel = function() {
         /*
-        总金额
+         总金额
          */
         this.total_fee = null;
         /**
@@ -3218,7 +3218,7 @@
         SgtApi.RouterService = SgtApi.RouterService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
         //初始化微信中控服务
-        if (wx) {
+        if (typeof(wx) != 'undefined' ) {
             if (is_weixin()) {
                 SgtApi.WxCentralService = SgtApi.WxCentralService();
                 if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
@@ -3295,14 +3295,15 @@
          * 获取服务器信息并解锁其他服务
          */
         var _getPlayServer = function(callback) {
-            SgtApi.RouterService.route(_appId, {
+            SgtApi.RouterService.route({
                 'userId': SgtApi.context.user.userid,
                 'createTime': SgtApi.context.user.createTime,
                 'channelId': SgtApi.context.channelId
             }, function(result, data) {
+                console.log("aa:"+result+" , "+data);
                 if (result) {
                     SgtApi.context.server = data;
-                    console.log(data);
+
                     _createServices();
                     callback(true, SgtApi.context.user);
                 } else {
@@ -3367,7 +3368,7 @@
              * 重置密码发送邮件
              * @param  {string}   userName 用户名
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             resetPassword: function(userName, callback) {
                 var name = 'resetPassword';
@@ -3395,7 +3396,7 @@
              * @param  {string}   userName 用户名
              * @param  {string}   password 密码
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             updatePasswordByUserName: function(userName, password, callback) {
                 var name = 'updatePasswordByUserName';
@@ -3782,7 +3783,7 @@
              * 添加角色扩展信息
              * @param {PlayerExtra}   playerExtra 角色扩展对象
              * @param {Function} callback    回调函数
-             * @return null          
+             * @return null
              */
             addPlayerExtra: function(playerExtra, callback) {
                 var name = 'addPlayer';
@@ -3794,7 +3795,7 @@
              * 根据角色ID删除角色扩展信息
              * @param  {String}   playerId 扩展角色id
              * @param  {Function} callback 回调函数
-             * @return null            
+             * @return null
              */
             deletePlayerExtraById: function(playerId, callback) {
                 var name = 'deletePlayerById';
@@ -5706,7 +5707,7 @@
             /**
              * 获取所有计费点
              * @param  {Function} callback 回调函数
-             * @return {ChargePoint[]}            
+             * @return {ChargePoint[]}
              */
             getAllChargePoints: function(callback) {
                 var name = 'getAllChargePoints';
@@ -5716,7 +5717,7 @@
             /**
              * 获取当前可用的计费点
              * @param  {Function} callback 回调函数
-             * @return {ChargePoint[]}            
+             * @return {ChargePoint[]}
              */
             getAvailableChargePoints: function(callback) {
                 var name = 'getAvailableChargePoints';
@@ -5822,7 +5823,7 @@
              * 获取指定文件路径可访问的url
              * @param  {string}   fileName 文件路径/key值
              * @param  {Function} callback 回调函数
-             * @return {string}            
+             * @return {string}
              */
             getUrl: function(fileName, callback) {
                 var name = 'getUrl';
@@ -5922,7 +5923,7 @@
              * @param  {string}   giftId   礼包ID
              * @param  {string}   code     兑换码
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             redeemOverMail: function(playerId, giftId, code, callback) {
                 var name = 'redeemOverMail';
@@ -6145,7 +6146,6 @@
             /**
              * 创建代理id（did）
              * @method createDid
-             * @param appId{string} appId
              * @param serverId{string} 服务器ID
              * @param callback
              * @return callback
@@ -6688,7 +6688,7 @@
              */
             getRegisterServer: function(callback) {
                 var name = 'getRegisterServer';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
@@ -6699,19 +6699,18 @@
              */
             getServerList: function(callback) {
                 var name = 'getServerList';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
             /**
              * 默认获取服务器信息方法（由策略决定）
              * @method route
-             * @param appId
              * @param map
              */
             route: function(map, callback) {
                 var name = 'route';
-                var data = [appId, map];
+                var data = [SgtApi.context.appId, map];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6852,14 +6851,14 @@
         var _url = SgtApi.context.appGateway + '/versionDetail';
         return {
             /**
-             * 根据appId和当前版本信息获取升级信息
+             * 根据当前版本信息获取升级信息
              * @Method checkUpdate
              * @param currentVersion
              * @param callback
              */
             checkUpdate: function(currentVersion, callback) {
                 var name = 'checkUpdate';
-                var data = [appId, currentVersion];
+                var data = [SgtApi.context.appId, currentVersion];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
@@ -6869,7 +6868,7 @@
              */
             getAllVersions: function(callback) {
                 var name = 'getAllVersions';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6884,23 +6883,21 @@
         return {
             /**
              * 获取微信的accessToken，每一小时刷新一次
-             * @param appId {string} SGT中的appid
              * @return {WxResult } 含有accessToken的WxResult
              */
             getAccessToken: function(callback) {
                 var name = 'getAccessToken';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 获取微信的jsapi_ticket
-             * @param  {string}   appId    SGT中的appid
              * @param  {Function} callback 回调函数
              * @return {WxResult}            含有jsapi_ticket的WxResult
              */
             getJSTicket: function(callback) {
                 var name = 'getJSTicket';
-                var data = [appId];
+                var data = [SgtApi.context.appId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
@@ -6921,18 +6918,39 @@
              * @param  {String}   订单总金额，单位为分，详见 <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_2" target="_blank">支付金额</a>
              * @param  {String}   角色id
              * @param  {Function} callback   回调函数
-             * @return {Object}              
+             * @return {Object}
              */
             getPayOrder: function(body,total_fee,playerId,callback) {
                 var name = 'getPayOrder';
-                var data = [SgtApi.context.appId, paramModel];
-                SgtApi.doRPC(name, data, _url, callback);
+                var data = [{
+                    body: body,
+                    total_fee: total_fee,
+                    trade_type: 'JSAPI',
+                    serverId: SgtApi.context.server.address,
+                    openid: SgtApi.context.openid,
+                    playerId:playerId,
+                    userId:SgtApi.context.user.userid
+                }];
+                SgtApi.doRPC(name, data, _url, function(result,order){
+                    //微信支付
+                    wx.chooseWXPay({
+                        timestamp: order.time_start, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                        nonceStr: order.nonce_str, // 支付签名随机串，不长于 32 位
+                        package: 'prepay_id=' + order.prepay_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                        signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                        paySign: order.paySign, // 支付签名
+                        success: function(res) {
+                            // 支付成功后的回调函数
+                            callback(true,res);
+                        },
+                        fail: function(res) {callback(false,res);}
+                    });
+                });
             },
 
             /**
              * 通过code换取网页授权access_token
              * 还有openid
-             * @param  {String}   appId    公众号的唯一标识
              * @param  {String}   code     auth验证返回的code
              * @param  {Function} callback 回调函数
              * @return {Object}            {
@@ -6954,7 +6972,7 @@
              * 微信授权方法
              * @param  {String} appid        微信的appid
              * @param  {String} scope        可选
-             * @return {null}              
+             * @return {null}
              */
             auth: function(appid, scope) {
                 var sVal = null;
@@ -7047,7 +7065,7 @@
             getSocket: function(nameSpace) {
                 if (nameSpace) {
                     if (! nameSpace.endsWith('/')) {
-                    	nameSpace = '/' + nameSpace;
+                        nameSpace = '/' + nameSpace;
                     }
                 }
                 return io(_url + (nameSpace ? nameSpace : ''));

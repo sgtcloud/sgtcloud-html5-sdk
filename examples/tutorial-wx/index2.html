@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>sgtcloud-html5-sdk--微信中控服务 微信分享的使用教程</title>
+<title>sgtcloud-html5-sdk 微信中控服务--微信支付的使用教程</title>
 <link rel="stylesheet" href="./lib/bootstrap.min.css">
 <link rel="stylesheet" href="./lib/default.min.css">
 <script src="./lib/highlight.min.js"></script>
@@ -35,7 +35,7 @@ a .hljs-comment {
 <body>
 	<div class="container">
 		<header>
-			<h1>sgtcloud-html5-sdk 微信中控服务--微信分享的使用教程</h1>
+			<h1>sgtcloud-html5-sdk 微信中控服务--微信支付的使用教程</h1>
 			<hr>
 		</header>
 		<section class="step-one">
@@ -53,8 +53,7 @@ a .hljs-comment {
 			<p>初始化sgtcloud-html5-sdk</p>
 			<pre>
         		<code>
-var appId = 'html5_demo2015'; //此appId仅供测试,请到<a target="_blank"
-						href="http://console.sgtcloud.cn/">sgtcloud开发者平台</a>申请试用
+var appId = 'html5_demo2015'; //此appId仅供测试,请到<a target="_blank" href="http://console.sgtcloud.cn/">sgtcloud开发者平台</a>申请试用
 sgt.init({
     appId: appId
 });
@@ -63,7 +62,7 @@ sgt.init({
 		</section>
 		<section class="step-three">
 			<h4>第三步</h4>
-			<p>设置微信中控服务配置参数<span style="padding-left: 50px;">小编提示：如果只做微信分享，字段“微信的APPID”、“微信的APPSecret”是必填，其他可不做了解</span></p>
+			<p>设置微信中控服务配置参数<span style="padding-left: 50px;">小编提示：微信支付需填写全部参数。</span></p>
 			<pre>
         	<code>
 登陆<a target="_blank" href="http://console.sgtcloud.cn/">sgtcloud开发者平台</a>打开 数据管理-微信中控页面 添加绑定。如下图：
@@ -73,6 +72,21 @@ sgt.init({
 		</section>
 		<section class="step-four">
 			<h4>第四步</h4>
+			<p>用户登陆</p>
+			<pre>
+        		<code>
+/**
+ * userName: string 用户名
+ * password: string 密码
+ * callback: Function 回调函数
+ * return: User 登录后的的user对象
+ * /
+sgt.UserService.login(userName, password, callback);
+        		</code>
+   	     	</pre>
+		</section>
+		<section class="step-five">
+			<h4>第五步</h4>
 			<p>使用微信中控服务,生成JS-SDK权限验证的签名<span style="padding-left: 50px;">小编提示：如需详细了解，请查看<a target="_blank" href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a>见附录1</span></p>
 			<pre>
         	<code>
@@ -92,9 +106,9 @@ sgt.WxCentralService.getSignature(function(result, data) {
         	</code>
         	</pre>
 		</section>
-		<section class="step-five">
-			<h4>第五步</h4>
-			<p>调用微信JS-SDK的Api，完成微信分享功能<span style="padding-left: 50px;">小编提示：如需了解详细微信api说明，请查看<a target="_blank" href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a></span></p>
+		<section class="step-six">
+			<h4>第六步</h4>
+			<p>调用微信JS-SDK的Api，完成微信授权<span style="padding-left: 50px;">小编提示：如需了解详细微信api说明，请查看<a target="_blank" href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a></span></p>
 			<pre>
         	<code>
 function doWxApi(data) {
@@ -105,57 +119,72 @@ function doWxApi(data) {
         timestamp: data.result.timestamp, // 必填，生成签名的时间戳
         nonceStr: data.result.noncestr, // 必填，生成签名的随机串
         signature: data.result.signature, // 必填，签名，详情查看<a  target="_blank" href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a>的附件1
-        jsApiList: ['onMenuShareAppMessage'] // 必填，需要使用到的JS接口列表,详情查看<a href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a>的附件2
+        jsApiList: ['chooseWXPay'] // 必填，需要使用到的JS接口列表,详情查看<a href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a>的附件2
     });
 
-    wx.ready(function() {
-        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-        wx.onMenuShareAppMessage({// 微信分享到朋友。更多关于分享详情，请查看<a target="_blank" href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a>的分享接口
-            title: '', // 分享标题
-            desc: '', // 分享描述
-            link: '', // 分享链接
-            imgUrl: '', // 分享图标
-            success: function() {
-                // 用户确认分享后执行的回调函数
-            },
-            cancel: function() {
-                // 用户取消分享后执行的回调函数
-            }
-        });
+wx.ready(function() {
+	
+	/**
+    * 微信授权方法
+    * @param  {String} appid        微信的appid
+    * @param  {String} scope        可选
+    * @return {null}              
+    */
+    sgt.WxCentralService.auth(data.result.wxAppId, '');
 
-        wx.checkJsApi({
-            jsApiList: ['onMenuShareAppMessage'], // 需要检测的JS接口列表，详情查看<a target="_blank" href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a>的附件2,
-            success: function(res) {
-                // 以键值对的形式返回，可用的api值true，不可用为false
-                // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-            }
-        });
-
-        wx.error(function(res) {
-            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-        });
+    wx.checkJsApi({
+        jsApiList: ['chooseWXPay'], // 需要检测的JS接口列表，详情查看<a target="_blank" href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a>的附件2,
+        success: function(res) {
+            // 以键值对的形式返回，可用的api值true，不可用为false
+            // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+        }
     });
+
+    wx.error(function(res) {
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+    });
+  });
 }
 			</code>
 	</pre>
 		</section>
-		<section class="step-five">
+		<section class="step-seven">
+			<h4>第七步</h4>
+			<p>调用微信JS-SDK的Api，完成微信支付<span style="padding-left: 50px;">小编提示：如需了解详细微信api说明，请查看<a target="_blank" href="http://mp.weixin.qq.com/wiki/7/1c97470084b73f8e224fe6d9bab1625b.html">微信JS-SDK说明文档</a></span></p>
+			<pre>
+        	<code>
+/**
+* web端采用微信支付 
+* @param  {String}   商品描述  
+* @param  {String}   订单总金额，单位为分，详见 <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_2" target="_blank">支付金额</a>
+* @param  {String}   当前角色id         
+* @param  {Function} callback   回调函数
+* @return {Object}              
+*/
+$("#pay").click(function(){
+	sgt.WxCentralService.getPayOrder(body,total_fee,playerId,function(result,res){
+	if(result){
+		// 支付成功后的回调函数
+	}else{
+		// 支付失败后的回调函数
+	}
+});
+})
+			</code>
+	</pre>
+		</section>
+		<section class="step-eight">
 			<h4>Demo页面</h4>
 			<br>
 			<br>
-			<img
-				src="data:image/png;base64,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" />
-			<br>
-			<br>
-			<p>微信分享朋友demo</p>
-			<!-- <div class="col-xs-6">
-						<img src="http://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=|1&chl=http%3A%2F%2Fwww.sgtcloud.cn%2Ftutorials%2Fwxpay%2F">
+			<div class="col-xs-6">
+				<!-- 		<img src="http://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=|1&chl=http%3A%2F%2Fwww.sgtcloud.cn%2Ftutorials%2Fwxpay%2F"> -->
 				<img
 					src="data:image/png;base64,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">
 				<br>
 				<br>
 				<p>微信支付demo</p>
-			</div> -->
+			</div>
 		</section>
 
 	</div>
