@@ -3472,7 +3472,7 @@ jsonRPC =new Object({
              * 重置密码发送邮件
              * @param  {string}   userName 用户名
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             resetPassword: function(userName, callback) {
                 var name = 'resetPassword';
@@ -3500,7 +3500,7 @@ jsonRPC =new Object({
              * @param  {string}   userName 用户名
              * @param  {string}   password 密码
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             updatePasswordByUserName: function(userName, password, callback) {
                 var name = 'updatePasswordByUserName';
@@ -3887,7 +3887,7 @@ jsonRPC =new Object({
              * 添加角色扩展信息
              * @param {PlayerExtra}   playerExtra 角色扩展对象
              * @param {Function} callback    回调函数
-             * @return null          
+             * @return null
              */
             addPlayerExtra: function(playerExtra, callback) {
                 var name = 'addPlayer';
@@ -3899,7 +3899,7 @@ jsonRPC =new Object({
              * 根据角色ID删除角色扩展信息
              * @param  {String}   playerId 扩展角色id
              * @param  {Function} callback 回调函数
-             * @return null            
+             * @return null
              */
             deletePlayerExtraById: function(playerId, callback) {
                 var name = 'deletePlayerById';
@@ -5811,7 +5811,7 @@ jsonRPC =new Object({
             /**
              * 获取所有计费点
              * @param  {Function} callback 回调函数
-             * @return {ChargePoint[]}            
+             * @return {ChargePoint[]}
              */
             getAllChargePoints: function(callback) {
                 var name = 'getAllChargePoints';
@@ -5821,7 +5821,7 @@ jsonRPC =new Object({
             /**
              * 获取当前可用的计费点
              * @param  {Function} callback 回调函数
-             * @return {ChargePoint[]}            
+             * @return {ChargePoint[]}
              */
             getAvailableChargePoints: function(callback) {
                 var name = 'getAvailableChargePoints';
@@ -5927,7 +5927,7 @@ jsonRPC =new Object({
              * 获取指定文件路径可访问的url
              * @param  {string}   fileName 文件路径/key值
              * @param  {Function} callback 回调函数
-             * @return {string}            
+             * @return {string}
              */
             getUrl: function(fileName, callback) {
                 var name = 'getUrl';
@@ -6027,7 +6027,7 @@ jsonRPC =new Object({
              * @param  {string}   giftId   礼包ID
              * @param  {string}   code     兑换码
              * @param  {Function} callback 回调函数
-             * @return {null}            
+             * @return {null}
              */
             redeemOverMail: function(playerId, giftId, code, callback) {
                 var name = 'redeemOverMail';
@@ -7027,7 +7027,7 @@ jsonRPC =new Object({
             /**
              * web端采用微信支付
              * @param  {string}   appId      用户表示
-             * @param  {Object}   paramModel 参数对象  
+             * @param  {Object}   paramModel 参数对象
                       {
 						    body: 'JSAPI支付测试',
 						    total_fee: 1,
@@ -7035,10 +7035,10 @@ jsonRPC =new Object({
 						    openid: 'oUpF8uMuAJO_M2pxb1Q9zNjWeS6o',
 						    serverId: '',
 							playerId: '',
-							userId: '',		
+							userId: '',
 						}
              * @param  {Function} callback   回调函数
-             * @return {Object}              
+             * @return {Object}
              */
             getPayOrder: function(paramModel, callback) {
                 var name = 'getPayOrder';
@@ -7071,7 +7071,7 @@ jsonRPC =new Object({
              * 微信授权方法
              * @param  {String} appid        微信的appid
              * @param  {String} scope        可选
-             * @return {null}              
+             * @return {null}
              */
             auth: function(appid, scope) {
                 var sVal = null;
@@ -7159,7 +7159,8 @@ jsonRPC =new Object({
         } else {
             socketUrl = SgtApi.context.server.socketUrl + '/';
         }
-        var _url = socketUrl + SgtApi.context.appId;
+        var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/randomnamegroup.do';
+         socketUrl=socketUrl + SgtApi.context.appId;
         return {
             getSocket: function(nameSpace) {
                 if (nameSpace) {
@@ -7167,7 +7168,41 @@ jsonRPC =new Object({
                     	nameSpace = '/' + nameSpace;
                     }
                 }
-                return io(_url + (nameSpace ? nameSpace : ''));
+                return io(socketUrl + (nameSpace ? nameSpace : ''));
+            },
+            /**
+             * 获取所有可用大厅
+             *
+             * @param callback
+             */
+            getAvaliableLobbies:function(callback){
+                var name = 'getAvaliableLobbies';
+                var data = [1,1000];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+            /**
+             * 根据大厅ID分页获取游戏房间列表
+             * @param {int}lobbyId 大厅ID
+             * @param {int}page 页码，第一页为1
+             * @param {int}size 每页显示多少房间
+             * @param callback 回调函数
+             */
+            getGameRoomsByLobbyId:function(lobbyId,page,size,callback){
+                var name = 'getGameRoomsByLobbyId';
+                var data = [lobbyId,page,size];
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+            /**
+             * 根据大厅ID分页获取未开始游戏房间列表
+             * @param {int}lobbyId 大厅ID
+             * @param {int}page 页码，第一页为1
+             * @param {int}size 每页显示多少房间
+             * @param callback 回调函数
+             */
+            getGameRoomsNotStarted:function(lobbyId,page,size,callback){
+                var name = 'getGameRoomsNotStarted';
+                var data = [lobbyId,page,size];
+                SgtApi.doRPC(name, data, _url, callback);
             }
         };
     };

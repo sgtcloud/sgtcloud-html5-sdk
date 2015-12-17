@@ -265,7 +265,7 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
             </div>
         </div>
     </div>
-    <script src="./lib/sgtcloud-html5-sdk.2.0.0.js"></script>
+    <script src="./lib/sgtcloud-html5-sdk.2.1.2.js"></script>
     <script src="./lib/jquery.1.11.1.min.js"></script>
     <script src="./lib/bootstrap.min.js"></script>
     <script src="./lib/jquery.fullpage.min.js"></script>
@@ -294,9 +294,7 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
         function init() {
 
             //初始化应用标识
-            SgtApi.init({
-                appId: 'html5_demo2015'
-            });
+            SgtApi.init( {appId:'html5_demo2015',async:false});
 
             //加载fullpage
             $('#fullpage').fullpage({
@@ -352,19 +350,26 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
 
         //自动登录业务
         function autoLoginService() {
-            user = autoLogin();
-            if (user !== null) {
+//            user = autoLogin();
+            SgtApi.UserService.quickLogin(function(result, data) {
+                if (result) {
+                    user = data;
+                    if (user !== null) {
 
-                //进入下一页
-                $.fn.fullpage.moveSectionDown();
+                        //进入下一页
+                        $.fn.fullpage.moveSectionDown();
 
-                //显示排行榜
-                showLeaderBoard();
+                        //显示排行榜
+                        showLeaderBoard();
 
-                //加入角色选择选项
-                $('#selectPlayer div ul').empty();
-                selectPlayer(user.userid);
-            }
+                        //加入角色选择选项
+                        $('#selectPlayer div ul').empty();
+                        selectPlayer(user.userid);
+                    }
+                }
+            });
+
+
         }
 
         // 自动登陆, 返回注册的user对象 
@@ -450,7 +455,7 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
         function createPlayer() {
 
             //创建角色实体
-            player = new SgtApi.entity.Player();
+            player = new SgtApi.Player();
             player.name = $('#playerName').val();
 
             //创建角色

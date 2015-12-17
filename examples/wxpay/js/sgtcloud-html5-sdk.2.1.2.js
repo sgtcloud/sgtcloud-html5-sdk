@@ -7439,7 +7439,7 @@ jsonRPC = new Object({
                 socketUrl = SgtApi.context.server.socketUrl + '/';
             }
         } else {
-            console.error("初始化大厅业务失败，socketUrl未设置！");
+            console.warn("%c初始化大厅业务失败，socketUrl未设置！","color:red");
         }
         socketUrl = socketUrl + SgtApi.context.appId;
         return {

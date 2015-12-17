@@ -2,386 +2,386 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Lobby-Room Chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <style>
-    body {
-        background: #337AB7;
-        padding: 20px;
-        font-size: 20px;
-    }
-
-    .container h1 {
-        text-align: center;
-        color: white;
-        margin-top: 50px;
-    }
-
-    #room {
-        margin-top: 50px;
-        border: 2px solid white;
-        border-radius: 15px;
-    }
-
-    #console {
-        overflow: auto;
-        height: 300px;
-    }
-
-    #dashboard {}
-
-    #control {
-        border: 2px solid white;
-        border-radius: 15px;
-        margin-top: 50px;
-    }
-
-    #bar {
-        margin-top: 10px;
-    }
-
-    #dashboard {
-        border-bottom: 1px solid #D2E1EC;
-    }
-
-    .username-msg {
-        color: orange;
-    }
-
-    .connect-msg {
-        color: green;
-    }
-
-    .disconnect-msg {
-        color: red;
-    }
-
-    .send-msg {
-        color: #888
-    }
-
-    textarea {
-        resize: none;
-        width: 100%;
-        height: 90px;
-        overflow: hidden;
-        /*没超出内容则不显示滚条*/
-        /*overflow:hidden; 永远不显示滚动条*/
-    }
-
-    .btn1 {
-        background: rgba(139, 195, 74, 0.71);
-        font-weight: 2px;
-        overflow: hidden;
-        margin: 10px 10px;
-        color: #05B4CA;
-        width: 100px;
-    }
-
-    .btn1:hover {
-        background: rgb(139, 195, 74);
-        color: #03899A;
-    }
-
-    .container {
-        overflow: hidden;
-    }
-
-    @media (max-width: 1600px) {
         body {
-            font-size: 20x;
+            background: #337AB7;
+            padding: 20px;
+            font-size: 20px;
         }
-        #room {
-            margin-top: 15px;
-        }
+
         .container h1 {
-            margin-top: 5px;
+            text-align: center;
+            color: white;
+            margin-top: 50px;
         }
+
+        #room {
+            margin-top: 50px;
+            border: 2px solid white;
+            border-radius: 15px;
+        }
+
         #console {
-            margin-top: 10px;
-            height: 200px;
+            overflow: auto;
+            height: 300px;
         }
+
+        #dashboard {
+        }
+
         #control {
+            border: 2px solid white;
+            border-radius: 15px;
+            margin-top: 50px;
+        }
+
+        #bar {
             margin-top: 10px;
         }
-        textarea {
-            height: 65px;
+
+        #dashboard {
+            border-bottom: 1px solid #D2E1EC;
         }
-    }
+
+        .username-msg {
+            color: orange;
+        }
+
+        .connect-msg {
+            color: green;
+        }
+
+        .disconnect-msg {
+            color: red;
+        }
+
+        .send-msg {
+            color: #888
+        }
+
+        textarea {
+            resize: none;
+            width: 100%;
+            height: 90px;
+            overflow: hidden;
+            /*没超出内容则不显示滚条*/
+            /*overflow:hidden; 永远不显示滚动条*/
+        }
+
+        .btn1 {
+            background: rgba(139, 195, 74, 0.71);
+            font-weight: 2px;
+            overflow: hidden;
+            margin: 10px 10px;
+            color: #05B4CA;
+            width: 100px;
+        }
+
+        .btn1:hover {
+            background: rgb(139, 195, 74);
+            color: #03899A;
+        }
+
+        .container {
+            overflow: hidden;
+        }
+
+        @media (max-width: 1600px) {
+            body {
+                font-size: 20x;
+            }
+
+            #room {
+                margin-top: 15px;
+            }
+
+            .container h1 {
+                margin-top: 5px;
+            }
+
+            #console {
+                margin-top: 10px;
+                height: 200px;
+            }
+
+            #control {
+                margin-top: 10px;
+            }
+
+            textarea {
+                height: 65px;
+            }
+        }
     </style>
     <script src="./js/socket.io.js"></script>
     <script src="./js/moment.min.js"></script>
     <script src="./js/jquery.1.11.1.min.js"></script>
-    <script src="./js/sgtcloud-html5-sdk.2.1.0.js"></script>
+    <script src="./js/sgtcloud-html5-sdk.2.1.2.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script>
-    $(function() {
+        $(function () {
 
-        $('#nickname').html('<span style="color:' + getUsernameColor(userName) + '">' + userName + '<span>');
+            $('#nickname').html('<span style="color:' + getUsernameColor(userName) + '">' + userName + '<span>');
 
-        var rename = function() {
-            var input = $('<input  id="rename_input" value="' + userName + '" maxlength="14">');
-            $('#nickname').html(input);
-            input.trigger('focus');
+            var rename = function () {
+                var input = $('<input  id="rename_input" value="' + userName + '" maxlength="14">');
+                $('#nickname').html(input);
+                input.trigger('focus');
 
-            input.click(function() {
-                return false;
+                input.click(function () {
+                    return false;
+                });
+                input.blur(function () {
+                    $('#nickname').html('<span style="color:' + getUsernameColor(input.val()) + '">' + input.val() + '<span>');
+                    userName = input.val();
+                });
+            };
+
+            $('#rename').on('click', rename);
+            $('#current').next().children().on('click', function () {
+                $('#current').html($(this).text());
+                $('#current').attr('send', $(this).attr('send'));
+
+                var send = $('#current').attr('send');
+                console.log(send);
+                if (send === 'lobbyId') {
+                    chat.socket.emit('joinRoom', lobbyId);
+                    console.log(lobbyId);
+                } else if (send === 'room1Id') {
+                    chat.socket.emit('joinRoom', room1Id);
+                    console.log(room1Id);
+                } else if (send === 'room2Id') {
+                    chat.socket.emit('joinRoom', room2Id);
+                    console.log(room2Id);
+                }
             });
-            input.blur(function() {
-                $('#nickname').html('<span style="color:' + getUsernameColor(input.val()) + '">' + input.val() + '<span>');
-                userName = input.val();
-            });
-        };
-
-        $('#rename').on('click', rename);
-
-
-        $('#current').next().children().on('click', function() {
-            $('#current').html($(this).text());
-            $('#current').attr('send', $(this).attr('send'));
-
-            var send = $('#current').attr('send');
-            console.log(send);
-            if (send === 'lobbyId') {
-                socket.emit('joinRoom', lobbyId);
-                console.log(lobbyId);
-            } else if (send === 'room1Id') {
-                socket.emit('joinRoom', room1Id);
-                console.log(room1Id);
-            } else if (send === 'room2Id') {
-                socket.emit('joinRoom', room2Id);
-                console.log(room2Id);
-            }
         });
-
-
-    });
     </script>
     <script>
-    lobbyId = '';
-    room1Id = '';
-    room2Id = '';
+        lobbyId = '';
+        room1Id = '';
+        room2Id = '';
 
-    var GameRoom = function() {
-        this.id = null;
-        this.name = null;
-        this.count = null;
-        this.createTime = null;
-        this.lastActiveTime = null;
-        this.customData = null;
-    };
+        var GameRoom = function () {
+            this.id = null;
+            this.name = null;
+            this.count = null;
+            this.createTime = null;
+            this.lastActiveTime = null;
+            this.customData = null;
+        };
 
-    var ChatObject = function() {
-        this.message = null;
-        this.roomId = null;
-        this.targetId = null;
-        this.sendId = null;
-    };
+        var ChatObject = function () {
+            this.message = null;
+            this.roomId = null;
+            this.targetId = null;
+            this.sendId = null;
+        };
 
-    var COLORS = [
-        '#e21400', '#91580f', '#f8a700', '#f78b00',
-        '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-        '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-    ];
+        var COLORS = [
+            '#e21400', '#91580f', '#f8a700', '#f78b00',
+            '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
+            '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+        ];
 
-    // Gets the color of a username through our hash function
-    function getUsernameColor(username) {
-        // Compute hash code
-        var hash = 7;
-        for (var i = 0; i < username.length; i++) {
-            hash = username.charCodeAt(i) + (hash << 5) - hash;
+        // Gets the color of a username through our hash function
+        function getUsernameColor(username) {
+            // Compute hash code
+            var hash = 7;
+            for (var i = 0; i < username.length; i++) {
+                hash = username.charCodeAt(i) + (hash << 5) - hash;
+            }
+            // Calculate color
+            var index = Math.abs(hash % COLORS.length);
+            return COLORS[index];
         }
-        // Calculate color
-        var index = Math.abs(hash % COLORS.length);
-        return COLORS[index];
-    }
 
-    // var socket = io.connect('http://127.0.0.1:1337/wodog');
-    sgt.init({
-        appId: 'xmj_sgp',
-        appGateway: 'http://test.sgtcloud.cn/gateway'
-    });
+        // var socket = io.connect('http://127.0.0.1:1337/wodog');
+        sgt.init({
+            appId: 'xmj_sgp',
+            appGateway: 'http://test.sgtcloud.cn/gateway'
+        });
+        // sgt.SocketService = sgt.SocketService();
+        var userName = 'user' + Math.floor((Math.random() * 1000) + 1);
+        var current = '大厅';
+        var chat={};
+        chat.init = function () {
+            chat.socket = sgt.LobbyService.getSocket();
+            console.log("socket:" + chat.socket);
+            chat.socket.on('leaveRoom', function (data) {
+                console.log("leaveRoom:" + data);
+            });
 
-    sgt.UserService.login('Ak61E175', 'yoedge2014', function(result,data) {console.log("login:"+result+" , "+data);});
-   // sgt.SocketService = sgt.SocketService();
-    var socket = sgt.SocketService.getSocket();
+            chat.socket.on('connect', function () {
+                output('<span class="connect-msg">Client has connected to the server!</span>');
 
-    var userName = 'user' + Math.floor((Math.random() * 1000) + 1);
+                var gameRoom1 = new GameRoom();
+                gameRoom1.name = '大厅';
+                gameRoom1.id = '001';
+                chat.socket.emit('createRoom', gameRoom1);
 
-    var current = '大厅';
+                var gameRoom2 = new GameRoom();
+                gameRoom2.name = '房间1';
+                gameRoom2.id = '002';
+                chat.socket.emit('createRoom', gameRoom2);
 
-	console.log("socket:"+socket);
-    socket.on('leaveRoom', function(data) {
-        console.log("leaveRoom:"+data);
-    });
+                var gameRoom3 = new GameRoom();
+                gameRoom3.name = '房间2';
+                gameRoom3.id = '003';
+                chat.socket.emit('createRoom', gameRoom3);
+            });
+            var times = 1;
+            chat.socket.on('createRoom', function (data) {
+                if (times === 1) {
+                    lobbyId = data.id;
+                    times++;
+                    chat.socket.emit('joinRoom', lobbyId);
+                } else if (times === 2) {
+                    room1Id = data.id;
+                    times++;
+                } else if (times === 3) {
+                    room2Id = data.id;
+                    times++;
+                }
+            });
 
-    socket.on('connect', function() {
-        output('<span class="connect-msg">Client has connected to the server!</span>');
+            chat.socket.on('roomMass', function (data) {
 
-        var gameRoom1 = new GameRoom();
-        gameRoom1.name = '大厅';
-        gameRoom1.id = '001';
-        socket.emit('createRoom', gameRoom1);
+                output('<span class="username-msg" style="color:' + getUsernameColor(data.sendId) + '"><strong>' + data.sendId + '</strong></span> ' + data.message);
+                console.log(data);
+            });
 
-        var gameRoom2 = new GameRoom();
-        gameRoom2.name = '房间1';
-        gameRoom2.id = '002';
-        socket.emit('createRoom', gameRoom2);
+            chat.socket.on('joinRoom', function (data) {
+                console.log('im join');
+                console.log(data);
+            });
 
-        var gameRoom3 = new GameRoom();
-        gameRoom3.name = '房间2';
-        gameRoom3.id = '003';
-        socket.emit('createRoom', gameRoom3);
+            chat.socket.on('disconnect', function () {
+                output('<span class="disconnect-msg">The client has disconnected!</span>');
+            });
 
-    });
+            chat.socket.on('clientsNum', function (data) {
+                $('#num').html(data);
+            });
 
-    var times = 1;
-    socket.on('createRoom', function(data) {
-        if (times === 1) {
-            lobbyId = data.id;
-            times++;
-            socket.emit('joinRoom', lobbyId);
-        } else if (times === 2) {
-            room1Id = data.id;
-            times++;
-        } else if (times === 3) {
-            room2Id = data.id;
-            times++;
+            /*chat.socket.on('disconnectNum', function (data) {
+                $('#num').html(data);
+            });*/
+
+            function sendConnect() {
+
+            }
         }
-    });
-
-    socket.on('roomMass', function(data) {
-
-        output('<span class="username-msg" style="color:' + getUsernameColor(data.sendId) + '"><strong>' + data.sendId + '</strong></span> ' + data.message);
-        console.log(data);
-    });
-
-    socket.on('joinRoom', function(data) {
-        console.log('im join');
-        console.log(data);
-    });
-
-    socket.on('disconnect', function() {
-        output('<span class="disconnect-msg">The client has disconnected!</span>');
-    });
-
-    socket.on('connectNum', function(data) {
-        $('#num').html(data);
-    });
-
-    socket.on('disconnectNum', function(data) {
-        $('#num').html(data);
-    });
-
-    function sendConnect() {
-
-    }
-
-    function sendDisconnect() {
-        socket.disconnect();
-    }
-
-    function sendMessage() {
-        var message = $('#msg').val();
-        if (!message) {
-            return false;
+        function sendDisconnect() {
+            chat.socket.disconnect();
         }
-        $('#msg').val('');
+        function sendMessage() {
+            var message = $('#msg').val();
+            if (!message) {
+                return false;
+            }
+            $('#msg').val('');
 
-        // don't forget to define type field '@class'
-        // it should equals to class name which used
-        // to deserialize object on server side
-        // via ...addJsonObjectListener() method
-        //
-        // TIP: you can customize type name field
-        // via Configuration.jsonTypeFieldName property
+            // don't forget to define type field '@class'
+            // it should equals to class name which used
+            // to deserialize object on server side
+            // via ...addJsonObjectListener() method
+            //
+            // TIP: you can customize type name field
+            // via Configuration.jsonTypeFieldName property
 
-        // var jsonObject = {
-        //     userName: userName,
-        //     message: message
-        // };
+            // var jsonObject = {
+            //     userName: userName,
+            //     message: message
+            // };
 
 
-        var chatObject = new ChatObject();
-        chatObject.sendId = userName;
-        chatObject.message = message;
+            var chatObject = new ChatObject();
+            chatObject.sendId = userName;
+            chatObject.message = message;
 
-        var send = $('#current').attr('send');
-        if (send === 'lobbyId') {
-            chatObject.roomId = lobbyId;
-        } else if (send === 'room1Id') {
-            chatObject.roomId = room1Id;
-        } else if (send === 'room2Id') {
-            chatObject.roomId = room2Id;
+            var send = $('#current').attr('send');
+            if (send === 'lobbyId') {
+                chatObject.roomId = lobbyId;
+            } else if (send === 'room1Id') {
+                chatObject.roomId = room1Id;
+            } else if (send === 'room2Id') {
+                chatObject.roomId = room2Id;
+            }
+            console.log(chatObject.roomId);
+            chat.socket.emit('roomMass', chatObject);
         }
-        console.log(chatObject.roomId);
-        socket.emit('roomMass', chatObject);
-
-    }
-
-    function output(message) {
-        var currentTime = "<span class='time'>" + moment().format('HH:mm:ss') + "</span>";
-        var element = $("<div>" + currentTime + " " + message + "</div>");
-        $('#console').append(element);
-        document.getElementById('console').scrollTop = document.getElementById('console').scrollHeight;
-    }
-
-    $(window).keydown(function(event) {
-    	if($('#rename_input')){
-    		return;
-    	}
-        // Auto-focus the current input when a key is typed
-        if (!(event.ctrlKey || event.metaKey || event.altKey)) {
-            $('#msg').focus();
+        sgt.UserService.login('Ak61E175', 'yoedge2014', function (result, data) {
+            console.log("login:" + result + " , " + data);
+            chat.init();
+        });
+        function output(message) {
+            var currentTime = "<span class='time'>" + moment().format('HH:mm:ss') + "</span>";
+            var element = $("<div>" + currentTime + " " + message + "</div>");
+            $('#console').append(element);
+            document.getElementById('console').scrollTop = document.getElementById('console').scrollHeight;
         }
-        // When the client hits ENTER on their keyboard
-        if (event.which === 13) {
-            sendMessage();
-            return false;
-        }
-    });
+
+        $(window).keydown(function (event) {
+            if ($('#rename_input')) {
+                return;
+            }
+            // Auto-focus the current input when a key is typed
+            if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+                $('#msg').focus();
+            }
+            // When the client hits ENTER on their keyboard
+            if (event.which === 13) {
+                sendMessage();
+                return false;
+            }
+        });
     </script>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Lobby-Room Chat</h1>
-        <div id="room" class="well">
-            <div id="dashboard" class="row">
-                <div class="col-xs-6">
-                    <p>在线人数 <span id="num"></span></p>
-                </div>
-                <div class="col-xs-offset-10 dropdown">
-                    <div id="current" type="button" data-toggle="dropdown" send="lobbyId">
-                        <div style="text-align:right;">
-                            大厅
-                        </div>
-                    </div>
-                    <ul class="dropdown-menu">
-                        <li send="lobbyId"><a>大厅</a></li>
-                        <li send="room1Id"><a>房间1</a></li>
-                        <li send="room2Id"><a>房间2</a></li>
-                    </ul>
-                </div>
+<div class="container">
+    <h1>Lobby-Room Chat</h1>
+
+    <div id="room" class="well">
+        <div id="dashboard" class="row">
+            <div class="col-xs-6">
+                <p>在线人数 <span id="num"></span></p>
             </div>
-            <div id="console">
+            <div class="col-xs-offset-10 dropdown">
+                <div id="current" type="button" data-toggle="dropdown" send="lobbyId">
+                    <div style="text-align:right;">
+                        大厅
+                    </div>
+                </div>
+                <ul class="dropdown-menu">
+                    <li send="lobbyId"><a>大厅</a></li>
+                    <li send="room1Id"><a>房间1</a></li>
+                    <li send="room2Id"><a>房间2</a></li>
+                </ul>
             </div>
         </div>
-        <div id="control" class="well">
-            <div>
-                <p>昵称: <strong id="nickname"></strong></p>
-            </div>
-            <textarea id="msg" placeholder="Type something..."></textarea>
-            <div id="bar" class="row">
-                <div class="text-right">
-                    <button type="button" onClick="sendMessage()" class="btn btn-lg btn1">Send</button>
-                    <button type="button" id="rename" class="btn btn-lg btn1">Rename</button>
-                </div>
+        <div id="console">
+        </div>
+    </div>
+    <div id="control" class="well">
+        <div>
+            <p>昵称: <strong id="nickname"></strong></p>
+        </div>
+        <textarea id="msg" placeholder="Type something..."></textarea>
+
+        <div id="bar" class="row">
+            <div class="text-right">
+                <button type="button" onClick="sendMessage()" class="btn btn-lg btn1">Send</button>
+                <button type="button" id="rename" class="btn btn-lg btn1">Rename</button>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
