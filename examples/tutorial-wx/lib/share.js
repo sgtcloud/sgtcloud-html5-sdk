@@ -1,8 +1,8 @@
 sgt.init({
 	appId: 'xmj_sgp',
-    appGateway: 'http://test.sgtcloud.cn/gateway'
+    appGateway: 'http://test.sgtcloud.cn/gateway',
+    async:false
 });
-
 sgt.WxCentralService.getSignature(function(result, data) {
     if (result) {
         wx.config({

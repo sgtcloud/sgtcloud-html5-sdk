@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-    <script type="text/javascript" src="./js/sgtcloud-html5-sdk.2.1.1.min.js"></script>
+    <script type="text/javascript" src="./js/sgtcloud-html5-sdk.2.1.3.js"></script>
     <script type="text/javascript" src="./js/jquery.1.11.1.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -21,11 +21,12 @@
         //初始化sdk
         sgt.init({
             appId: 'xmj_sgp',
-            appGateway: 'http://test.sgtcloud.cn/gateway'
+            appGateway: 'http://test.sgtcloud.cn/gateway',
+            async:false
         });
 
         //登录用户
-        SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {console.log(data);});
+       // SgtApi.UserService.login('Ak61E175', 'yoedge2014', function(result, data) {console.log(data);});
 		//SgtApi.PlayerService.getOneByUserId(sgt.context.user.userid,function(result,data){
 			//alert(data);
         	//playerid = data.id;
@@ -90,10 +91,27 @@
                 alert(JSON.stringify(data));
             });
         });
-
-        if (localStorage.getItem('sgt-' + SgtApi.context.appId + '-openid')) {
+        if (SgtApi.context.openid) {
             $('#other').css('display', 'block');
             $('#auth').css('display', 'none');
+            SgtApi.UserService.login3rd(SgtApi.User.WECHAT_MP,function(result,data){
+                if (!result) {
+                    sgt.WxCentralService.getUserInfo(function(result, data) {
+                        if(result){
+                            var user = new SgtApi.User();
+                            user.userName = data.openid;
+                            user.nickName = data.nickname;
+                            user.registryType = SgtApi.User.WECHAT_MP;//注册类型
+                            SgtApi.UserService.regist(user, function (result, data) {
+                                console.log(data);
+                            });
+                        }else{
+                            //重现授权
+                            sgt.WxCentralService.auth('wx9e1986fc11ecbd89', 'snsapi_userinfo');
+                        }
+                    });
+                }
+            });
         }
 
         //支付逻辑
