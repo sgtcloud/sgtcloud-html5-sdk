@@ -7442,7 +7442,7 @@ jsonRPC = new Object({
         var socketUrl = null;
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/lobby.do';
         if (SgtApi.context.server.socketUrl) {
-            if (SgtApi.context.server.socketUrl.endsWith('/')) {
+            if (SgtApi.context.server.socketUrl.lastIndexOf('/')==SgtApi.context.server.socketUrl.length-1) {//微信浏览器中居然没有endsWith方法
                 socketUrl = SgtApi.context.server.socketUrl;
             } else {
                 socketUrl = SgtApi.context.server.socketUrl + '/';

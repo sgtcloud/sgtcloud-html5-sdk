@@ -129,6 +129,10 @@ jsonRPC = new Object({
     version: '2.0',
     endPoint: null,
     namespace: null,
+    /**
+     * 是否异步请求，true异步，false同步，默认为true
+     */
+    async:true,
     setup: function (params) {
         this.endPoint = params["endPoint"];
         this.namespace = params["namespace"];
@@ -186,7 +190,10 @@ jsonRPC = new Object({
                 }
             }
         };
-        xmlhttp.open("POST", this._requestUrl((this.endPoint || options["url"]), options["cache"]));
+        if(typeof options["async"]=='undefined'){
+            options["async"]=jsonRPC.async;
+        }
+        xmlhttp.open("POST", this._requestUrl((this.endPoint || options["url"]), options["cache"]),options["async"]);
 
         var headers = [
             {"name": "Accept", "type": "application/json, text/javascript, */*;"},
@@ -3767,6 +3774,9 @@ jsonRPC = new Object({
             if (config.channelId) {
                 SgtApi.context.channelId = config.channelId;
             }
+            if(typeof  config["async"] !='undefined'){
+                jsonRPC.async=config["async"];
+            }
         }
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
@@ -3857,7 +3867,6 @@ jsonRPC = new Object({
             }, function (result, data) {
                 if (result) {
                     SgtApi.context.server = data;
-                    console.log(data);
                     _createServices();
                     callback(true, SgtApi.context.user);
                 } else {
@@ -7433,13 +7442,14 @@ jsonRPC = new Object({
         var socketUrl = null;
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/lobby.do';
         if (SgtApi.context.server.socketUrl) {
-            if (SgtApi.context.server.socketUrl.endsWith('/')) {
+            if (SgtApi.context.server.socketUrl.lastIndexOf('/')==SgtApi.context.server.socketUrl.length-1) {//微信浏览器中居然没有endsWith方法
                 socketUrl = SgtApi.context.server.socketUrl;
             } else {
                 socketUrl = SgtApi.context.server.socketUrl + '/';
             }
         } else {
-            console.warn("%c初始化大厅业务失败，socketUrl未设置！","color:red");
+            console.log("%c初始化大厅业务失败，socketUrl未设置！","color:red");
+            return {};
         }
         socketUrl = socketUrl + SgtApi.context.appId;
         return {
