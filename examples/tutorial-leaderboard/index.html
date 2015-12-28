@@ -511,8 +511,10 @@ SgtApi<span style='color:#d2cd86; '>.</span>init<span style='color:#d2cd86; '>(<
             SgtApi.LeaderBoardService.getLeaderBoardScoreByLeaderIdAndPlayerId('longhubang', playerId, function(result, data) {
                 if (result) {
                     $('#detail').empty();
-                    var detail_html = $('<p>您更新的角色 ' + data.player.name + ' 分数 ' + data.score + ' 排名 ' + (data.index + 1) + ' </p>');
-                    $('#detail').append(detail_html);
+                    if(data) {
+                        var detail_html = $('<p>您更新的角色 ' + data.player.name + ' 分数 ' + data.score + ' 排名 ' + (data.index + 1) + ' </p>');
+                        $('#detail').append(detail_html);
+                    }
                 }
             });
         }
