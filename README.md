@@ -22,12 +22,12 @@ A html5 out-of-box sdk for damn cool mbaas.
 将 sdk 引入到项目中 :
 
 ```javascript
-<script src="sgtcloud-html5-sdk.2.1.2.min.js"></script>
+<script src="sgtcloud-html5-sdk.2.1.3.min.js"></script>
 ```
 
 或则使用CDN的方式 :
 ```javascript
-<script src="http://www.sgtcloud.cn/dist/sgtcloud-html5-sdk.2.1.2.min.js"></script>
+<script src="http://www.sgtcloud.cn/dist/sgtcloud-html5-sdk.2.1.3.min.js"></script>
 ```
 
 点击 **[申请应用标识](http://wj.qq.com/survey.html?type=survey&id=136756&hash=233f)**  
