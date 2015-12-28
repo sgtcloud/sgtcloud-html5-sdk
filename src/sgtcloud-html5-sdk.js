@@ -7217,7 +7217,7 @@
              */
             getSocket: function (nameSpace) {
                 if (nameSpace) {
-                    if (!nameSpace.endsWith('/')) {
+                    if (!nameSpace.indexOf('/')==0) {
                         nameSpace = '/' + nameSpace;
                     }
                 }
