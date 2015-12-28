@@ -1,14 +1,18 @@
-jsonRPC =new Object({
+jsonRPC = new Object({
     version: '2.0',
     endPoint: null,
     namespace: null,
-    setup: function(params) {
+    /**
+     * 是否异步请求，true异步，false同步，默认为true
+     */
+    async:true,
+    setup: function (params) {
         this.endPoint = params["endPoint"];
         this.namespace = params["namespace"];
         this.cache = params["cache"] !== undefined ? params["cache"] : true;
         return this;
     },
-    request: function(method, options) {
+    request: function (method, options) {
         if (options === undefined) {
             options = {"id": 1};
         }
@@ -23,19 +27,19 @@ jsonRPC =new Object({
         return true;
     },
     // Creates an RPC suitable request object
-    _requestDataObj: function(method, params, id) {
+    _requestDataObj: function (method, params, id) {
         var dataObj = {
             "jsonrpc": this.version,
-            "method": this.namespace ? this.namespace +'.'+ method : method,
+            "method": this.namespace ? this.namespace + '.' + method : method,
             "id": id
         }
-        if(params !== undefined) {
+        if (params !== undefined) {
             dataObj["params"] = params;
         }
         return dataObj;
     },
 
-    _requestUrl: function(url, cache) {
+    _requestUrl: function (url, cache) {
         url = url || this.endPoint;
         if (!cache) {
             if (url.indexOf("?") < 0) {
@@ -47,38 +51,41 @@ jsonRPC =new Object({
         }
         return url;
     },
-    _doRequest: function(data, options) {
+    _doRequest: function (data, options) {
         var _that = this;
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState==4) {
-                if (xmlhttp.status==200) {
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
                     _that._requestSuccess.call(_that, xmlhttp.responseText, options["success"], options["error"]);
                 } else {
                     _that._requestError.call(_that, xmlhttp.responseText, options["error"]);
                 }
             }
         };
-        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]));
+        if(typeof options["async"]=='undefined'){
+            options["async"]=jsonRPC.async;
+        }
+        xmlhttp.open("POST", this._requestUrl((this.endPoint || options["url"]), options["cache"]),options["async"]);
 
-        var headers=[
-            {"name":"Accept","type":"application/json, text/javascript, */*;"},
-            {"name":"Content-Type","type":"application/json-rpc"}
+        var headers = [
+            {"name": "Accept", "type": "application/json, text/javascript, */*;"},
+            {"name": "Content-Type", "type": "application/json-rpc"}
         ];
-        for (var i=0;i<headers.length;i++) {
-            xmlhttp.setRequestHeader( headers[i]["name"], headers[i]["type"]);
+        for (var i = 0; i < headers.length; i++) {
+            xmlhttp.setRequestHeader(headers[i]["name"], headers[i]["type"]);
         }
 
         xmlhttp.send(data);
     },
     // Handles calling of error callback function
-    _requestError: function(responseText, error) {
+    _requestError: function (responseText, error) {
         if (error !== undefined && typeof(error) === 'function') {
-            if(typeof(responseText) === 'string') {
+            if (typeof(responseText) === 'string') {
                 try {
-                    error(eval ( '(' + responseText + ')' ));
+                    error(eval('(' + responseText + ')'));
                 }
-                catch(e) {
+                catch (e) {
                     error(this._response());
                 }
             }
@@ -87,20 +94,20 @@ jsonRPC =new Object({
             }
         }
     },
-    _requestSuccess: function(responseText, success, error) {
+    _requestSuccess: function (responseText, success, error) {
         var response = this._response(responseText);
 
-        if(response.error && typeof(error) === 'function') {
+        if (response.error && typeof(error) === 'function') {
             error(response);
             return;
         }
 
         // Otherwise, successful request, run the success request if it exists
-        if(typeof(success) === 'function') {
+        if (typeof(success) === 'function') {
             success(response);
         }
     },
-    _response: function(responseText) {
+    _response: function (responseText) {
         if (responseText === undefined) {
             return {
                 error: 'Internal server error',
@@ -108,19 +115,18 @@ jsonRPC =new Object({
             };
         }
         else {
-          try {
-              if(typeof(responseText) === 'string') {
-                  responseText = eval ( '(' + responseText + ')' );
-              }
-              return responseText;
-          }
-          catch (e) {
-              return {
-                  error: 'Internal server error: ' + e,
-                  version: '2.0'
-              }
-          }
+            try {
+                if (typeof(responseText) === 'string') {
+                    responseText = eval('(' + responseText + ')');
+                }
+                return responseText;
+            }
+            catch (e) {
+                return {
+                    error: 'Internal server error: ' + e,
+                    version: '2.0'
+                }
+            }
         }
     }
 });
-

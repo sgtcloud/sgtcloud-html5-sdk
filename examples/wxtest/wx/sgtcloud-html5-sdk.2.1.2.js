@@ -1,3 +1,257 @@
+jsonRPC =new Object({
+    version: '2.0',
+    endPoint: null,
+    namespace: null,
+    setup: function(params) {
+        this.endPoint = params["endPoint"];
+        this.namespace = params["namespace"];
+        this.cache = params["cache"] !== undefined ? params["cache"] : true;
+        return this;
+    },
+    request: function(method, options) {
+        if (options === undefined) {
+            options = {"id": 1};
+        }
+        if (options["id"] === undefined) {
+            options["id"] = 1;
+        }
+        if (options["cache"] === undefined) {
+            options["cache"] = this.cache;
+        }
+
+        this._doRequest(JSON.stringify(this._requestDataObj(method, options["params"], options["id"])), options);
+        return true;
+    },
+    // Creates an RPC suitable request object
+    _requestDataObj: function(method, params, id) {
+        var dataObj = {
+            "jsonrpc": this.version,
+            "method": this.namespace ? this.namespace +'.'+ method : method,
+            "id": id
+        }
+        if(params !== undefined) {
+            dataObj["params"] = params;
+        }
+        return dataObj;
+    },
+
+    _requestUrl: function(url, cache) {
+        url = url || this.endPoint;
+        if (!cache) {
+            if (url.indexOf("?") < 0) {
+                url += '?tm=' + new Date().getTime();
+            }
+            else {
+                url += "&tm=" + new Date().getTime();
+            }
+        }
+        return url;
+    },
+    _doRequest: function(data, options) {
+        var _that = this;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState==4) {
+                if (xmlhttp.status==200) {
+                    _that._requestSuccess.call(_that, xmlhttp.responseText, options["success"], options["error"]);
+                } else {
+                    _that._requestError.call(_that, xmlhttp.responseText, options["error"]);
+                }
+            }
+        };
+        xmlhttp.open("POST",this._requestUrl((this.endPoint || options["url"]), options["cache"]));
+
+        var headers=[
+            {"name":"Accept","type":"application/json, text/javascript, */*;"},
+            {"name":"Content-Type","type":"application/json-rpc"}
+        ];
+        for (var i=0;i<headers.length;i++) {
+            xmlhttp.setRequestHeader( headers[i]["name"], headers[i]["type"]);
+        }
+
+        xmlhttp.send(data);
+    },
+    // Handles calling of error callback function
+    _requestError: function(responseText, error) {
+        if (error !== undefined && typeof(error) === 'function') {
+            if(typeof(responseText) === 'string') {
+                try {
+                    error(eval ( '(' + responseText + ')' ));
+                }
+                catch(e) {
+                    error(this._response());
+                }
+            }
+            else {
+                error(this._response());
+            }
+        }
+    },
+    _requestSuccess: function(responseText, success, error) {
+        var response = this._response(responseText);
+
+        if(response.error && typeof(error) === 'function') {
+            error(response);
+            return;
+        }
+
+        // Otherwise, successful request, run the success request if it exists
+        if(typeof(success) === 'function') {
+            success(response);
+        }
+    },
+    _response: function(responseText) {
+        if (responseText === undefined) {
+            return {
+                error: 'Internal server error',
+                version: '2.0'
+            };
+        }
+        else {
+          try {
+              if(typeof(responseText) === 'string') {
+                  responseText = eval ( '(' + responseText + ')' );
+              }
+              return responseText;
+          }
+          catch (e) {
+              return {
+                  error: 'Internal server error: ' + e,
+                  version: '2.0'
+              }
+          }
+        }
+    }
+});
+
+
+jsonRPC = new Object({
+    version: '2.0',
+    endPoint: null,
+    namespace: null,
+    setup: function (params) {
+        this.endPoint = params["endPoint"];
+        this.namespace = params["namespace"];
+        this.cache = params["cache"] !== undefined ? params["cache"] : true;
+        return this;
+    },
+    request: function (method, options) {
+        if (options === undefined) {
+            options = {"id": 1};
+        }
+        if (options["id"] === undefined) {
+            options["id"] = 1;
+        }
+        if (options["cache"] === undefined) {
+            options["cache"] = this.cache;
+        }
+
+        this._doRequest(JSON.stringify(this._requestDataObj(method, options["params"], options["id"])), options);
+        return true;
+    },
+    // Creates an RPC suitable request object
+    _requestDataObj: function (method, params, id) {
+        var dataObj = {
+            "jsonrpc": this.version,
+            "method": this.namespace ? this.namespace + '.' + method : method,
+            "id": id
+        }
+        if (params !== undefined) {
+            dataObj["params"] = params;
+        }
+        return dataObj;
+    },
+
+    _requestUrl: function (url, cache) {
+        url = url || this.endPoint;
+        if (!cache) {
+            if (url.indexOf("?") < 0) {
+                url += '?tm=' + new Date().getTime();
+            }
+            else {
+                url += "&tm=" + new Date().getTime();
+            }
+        }
+        return url;
+    },
+    _doRequest: function (data, options) {
+        var _that = this;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
+                    _that._requestSuccess.call(_that, xmlhttp.responseText, options["success"], options["error"]);
+                } else {
+                    _that._requestError.call(_that, xmlhttp.responseText, options["error"]);
+                }
+            }
+        };
+        xmlhttp.open("POST", this._requestUrl((this.endPoint || options["url"]), options["cache"]));
+
+        var headers = [
+            {"name": "Accept", "type": "application/json, text/javascript, */*;"},
+            {"name": "Content-Type", "type": "application/json-rpc"}
+        ];
+        for (var i = 0; i < headers.length; i++) {
+            xmlhttp.setRequestHeader(headers[i]["name"], headers[i]["type"]);
+        }
+
+        xmlhttp.send(data);
+    },
+    // Handles calling of error callback function
+    _requestError: function (responseText, error) {
+        if (error !== undefined && typeof(error) === 'function') {
+            if (typeof(responseText) === 'string') {
+                try {
+                    error(eval('(' + responseText + ')'));
+                }
+                catch (e) {
+                    error(this._response());
+                }
+            }
+            else {
+                error(this._response());
+            }
+        }
+    },
+    _requestSuccess: function (responseText, success, error) {
+        var response = this._response(responseText);
+
+        if (response.error && typeof(error) === 'function') {
+            error(response);
+            return;
+        }
+
+        // Otherwise, successful request, run the success request if it exists
+        if (typeof(success) === 'function') {
+            success(response);
+        }
+    },
+    _response: function (responseText) {
+        if (responseText === undefined) {
+            return {
+                error: 'Internal server error',
+                version: '2.0'
+            };
+        }
+        else {
+            try {
+                if (typeof(responseText) === 'string') {
+                    responseText = eval('(' + responseText + ')');
+                }
+                return responseText;
+            }
+            catch (e) {
+                return {
+                    error: 'Internal server error: ' + e,
+                    version: '2.0'
+                }
+            }
+        }
+    }
+});
+
+
 /**
  * @description sgt html5 api
  * @index
@@ -137,14 +391,6 @@
      */
     SgtApi.User.PHONENUMBER = 1;
 
-    /**
-     * 通过微信公众平台注册
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.User
-     */
-    SgtApi.User.WECHAT_MP = 4;
     /**
      * 玩家角色接口
      *
@@ -3521,9 +3767,6 @@
             if (config.channelId) {
                 SgtApi.context.channelId = config.channelId;
             }
-            if(typeof  config["async"] !='undefined'){
-                jsonRPC.async=config["async"];
-            }
         }
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
@@ -3546,8 +3789,8 @@
                         localStorage.setItem('sgt-' + SgtApi.context.appId + '-openid', SgtApi.context.openid);
                     });
                 }
-            }else
-                console.error('您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务');
+            }
+            console.error('您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务');
         } else {
             console.error('您未导入wx-js-sdk, 所以没有为您初始化微信中控服务\r\n若您想了解更多详情, 可以访问微信公众平台开发者文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html');
         }
@@ -3614,6 +3857,7 @@
             }, function (result, data) {
                 if (result) {
                     SgtApi.context.server = data;
+                    console.log(data);
                     _createServices();
                     callback(true, SgtApi.context.user);
                 } else {
@@ -3634,24 +3878,7 @@
                 var data = [smobile, captcha];
                 SgtApi.doRPC(name, data, _url, callback);
             },
-            /**
-             * 第三方登录
-             * @param  {string} type 登陆类型
-             * @param  {Function} callback 回调函数
-             * @return {User}              登录后的user对象
-             */
-            login3rd: function (type,callback) {
-                var name = 'login3rd';
-                var data = [SgtApi.context.openid,type];
-                SgtApi.doRPC(name, data, _url, function (result, data) {
-                    if (result) {
-                        SgtApi.context.user = data;
-                        _getPlayServer(callback);
-                    } else {
-                        callback(false, data);
-                    }
-                });
-            },
+
             /**
              * 手动登录
              * @param  {string}   username 用户名
@@ -7051,15 +7278,22 @@
 
             /**
              * web端采用微信支付
-             * @param {String} body 商品描述
-             * @param {String} total_fee 商品价格
-             * @param {String} playerId 角色id
-             * @param {Function} callback   回调函数
+             * @param  {Object}   paramModel 参数对象
+             {
+                   body: 'JSAPI支付测试',
+                   total_fee: 1,
+                   trade_type: 'JSAPI',
+                   openid: 'oUpF8uMuAJO_M2pxb1Q9zNjWeS6o',
+                   serverId: '',
+                   playerId: '',
+                   userId: '',
+               }
+             * @param  {Function} callback   回调函数
              * @return {Object}
              */
-            getPayOrder: function (body,total_fee,playerId, callback) {
+            getPayOrder: function (paramModel, callback) {
                 var name = 'getPayOrder';
-                var data = [SgtApi.context.appId,{
+                var data = [{
                     body: body,
                     total_fee: total_fee,
                     trade_type: 'JSAPI',
@@ -7199,14 +7433,13 @@
         var socketUrl = null;
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/lobby.do';
         if (SgtApi.context.server.socketUrl) {
-            if (SgtApi.context.server.socketUrl.lastIndexOf('/')==SgtApi.context.server.socketUrl.length-1) {//微信浏览器中居然没有endsWith方法
+            if (SgtApi.context.server.socketUrl.endsWith('/')) {
                 socketUrl = SgtApi.context.server.socketUrl;
             } else {
                 socketUrl = SgtApi.context.server.socketUrl + '/';
             }
         } else {
-            console.log("%c初始化大厅业务失败，socketUrl未设置！","color:red");
-            return {};
+            console.warn("%c初始化大厅业务失败，socketUrl未设置！","color:red");
         }
         socketUrl = socketUrl + SgtApi.context.appId;
         return {
