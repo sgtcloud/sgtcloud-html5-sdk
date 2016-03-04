@@ -5731,32 +5731,10 @@ jsonRPC = new Object({
              * @param callback
              * @return callback
              */
-            receiveUnread: function (callback) {
-                // var timestamp = 0;
-                // var localS = null;
-                // if (cc.sys) {
-                //     localS = cc.sys.localStorage;
-                // } else {
-                //     localS = window.localStorage;
-                // }
-                // var otimestamp = localS.getItem("receiveUnread");
-                // if (typeof(otimestamp) != "undefined" && otimestamp && otimestamp !== "") {
-                //     timestamp = parseInt(otimestamp);
-                // }
-                // var backClient = new $JsonRpc({
-                //     ajax_Url: this._url
-                // });
-                // backClient.call(
-                //     'receiveUnread', [timestamp, this.playerData.id],
-                //     function(result) {
-                //         localS.setItem('receiveUnread', Math.round(new Date().getTime() / 1000));
-                //         return callback(true, result.result);
-                //     },
-                //     function(error) {
-                //         console.log('There was an error.error:', error.error);
-                //         return callback(false, error.error.message);
-                //     }
-                // );
+            receiveUnread: function (timestamp,playerId,callback) {
+                var name = 'receiveUnread';
+                var data = [timestamp,playerId];
+                SgtApi.doRPC(name, data, _url, callback);
             },
             /**
              * 阅读邮件/批量阅读邮件
