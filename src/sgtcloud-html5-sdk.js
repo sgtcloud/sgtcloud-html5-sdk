@@ -7056,7 +7056,7 @@
                         paySign: order.paySign, // 支付签名
                         success: function (res) {
                             // 支付成功后的回调函数
-                            callback(true, res);
+                            callback(true, order);
                         },
                         fail: function (res) {
                             callback(false, res);
