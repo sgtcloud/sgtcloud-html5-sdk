@@ -162,8 +162,25 @@ wx.ready(function() {
 * @return {Object}              
 */
 $("#pay").click(function(){
-	sgt.WxCentralService.getPayOrder(body,total_fee,playerId,function(result,res){
+	sgt.WxCentralService.getPayOrder(body,total_fee,playerId,function(result,order){
 	if(result){
+		//微信支付
+		wx.chooseWXPay({
+		timestamp: order.time_start, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+		nonceStr: order.nonce_str, // 支付签名随机串，不长于 32 位
+		package: 'prepay_id=' + order.prepay_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+		signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+		paySign: order.paySign, // 支付签名
+		success: function (res) {
+		// 支付成功后的回调函数验证是否支付成功
+		SgtApi.DelegateDidService.queryByDid(res.did, function (result1, data) {
+		console.log(data);
+		})
+		},
+		fail: function (res) {
+		console.log(data);
+		}
+		});
 		// 支付成功后的回调函数
 	}else{
 		// 支付失败后的回调函数
