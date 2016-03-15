@@ -5556,9 +5556,9 @@
              * @param callback
              * @return callback
              */
-            sendMail: function (player, mail, callback) {
+            sendMail: function (mail, callback) {
                 if (mail.title === '' || mail.title === null) {
-                    return callback(false, 'Excepti邮件标题不能为空！');
+                    return callback(false, '邮件标题不能为空！');
                 }
                 if (mail.toId === '' || mail.toId === null) {
                     return callback(false, '收邮件人ID不能为空！');
@@ -5566,9 +5566,12 @@
                 if (mail.toName === '' || mail.toName === null) {
                     return callback(false, '收邮件人名字不能为空！');
                 }
-                mail.fromId = player.id; //String 发送者ID
-                mail.fromName = player.name; //String 发送者名称
-
+                if (mail.fromId === '' || mail.fromId === null) {
+                    return callback(false, '发件人ID不能为空！');
+                }
+                if (mail.type != SgtApi.Mail.TYPE_SYSTEM && (mail.fromName === '' || mail.fromName === null)) {
+                    return callback(false, '发件人名字不能为空！');
+                }
                 var name = 'sendMail';
                 var data = [mail];
                 SgtApi.doRPC(name, data, _url, callback);
