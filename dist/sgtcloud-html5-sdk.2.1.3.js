@@ -5705,7 +5705,7 @@ jsonRPC = new Object({
                 if (mail.type != SgtApi.Mail.TYPE_SYSTEM && (mail.fromName === '' || mail.fromName === null)) {
                     return callback(false, '发件人名字不能为空！');
                 }
-                var name = 'sendMail';
+                var name = 'send';
                 var data = [mail];
                 SgtApi.doRPC(name, data, _url, callback);
             },
