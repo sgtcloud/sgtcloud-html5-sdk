@@ -3547,9 +3547,9 @@
                     });
                 }
             } else
-                console.error('您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务');
+                console.warn('%c您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务','color:red');
         } else {
-            console.error('您未导入wx-js-sdk, 所以没有为您初始化微信中控服务\r\n若您想了解更多详情, 可以访问微信公众平台开发者文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html');
+            console.warn('%c您未导入wx-js-sdk, 所以没有为您初始化微信中控服务\r\n若您想了解更多详情, 可以访问微信公众平台开发者文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html','color:red');
         }
     };
 
@@ -7163,31 +7163,7 @@
     SgtApi.LobbyService = function () {
         var socketUrl = null;
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/lobby.do';
-        if (SgtApi.context.server.socketUrl) {
-            if (SgtApi.context.server.socketUrl.lastIndexOf('/') == SgtApi.context.server.socketUrl.length - 1) {//微信浏览器中居然没有endsWith方法
-                socketUrl = SgtApi.context.server.socketUrl;
-            } else {
-                socketUrl = SgtApi.context.server.socketUrl + '/';
-            }
-        } else {
-            console.log("%c初始化大厅业务失败，socketUrl未设置！", "color:red");
-            return {};
-        }
-        socketUrl = socketUrl + SgtApi.context.appId;
-        return {
-            /**
-             * 获取指定大厅的socketio实例
-             * @param {String}nameSpace 命名空间，大厅路径Lobby#path,不传则会连接默认大厅
-             * @returns {socketio} socketio实例
-             */
-            getSocket: function (nameSpace) {
-                if (nameSpace) {
-                    if (!nameSpace.indexOf('/') == 0) {
-                        nameSpace = '/' + nameSpace;
-                    }
-                }
-                return io(socketUrl + (nameSpace ? nameSpace : ''));
-            },
+        var result= {
             /**
              * 获取所有可用大厅
              *
@@ -7223,7 +7199,39 @@
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
+
+
+        if (SgtApi.context.server.socketUrl) {
+            if (SgtApi.context.server.socketUrl.lastIndexOf('/') == SgtApi.context.server.socketUrl.length - 1) {//微信浏览器中居然没有endsWith方法
+                socketUrl = SgtApi.context.server.socketUrl;
+            } else {
+                socketUrl = SgtApi.context.server.socketUrl + '/';
+            }
+            socketUrl = socketUrl + SgtApi.context.appId;
+            /**
+             * 获取指定大厅的socketio实例
+             * @param {String}nameSpace 命名空间，大厅路径Lobby#path,不传则会连接默认大厅
+             * @returns {socketio} socketio实例
+             */
+            result.getSocket= function (nameSpace) {
+                if (nameSpace) {
+                    if (!nameSpace.indexOf('/') == 0) {
+                        nameSpace = '/' + nameSpace;
+                    }
+                }
+                return io(socketUrl + (nameSpace ? nameSpace : ''));
+            }
+        } else {
+            console.warn("%csocketUrl未设置！无法建立socket通讯", "color:red");
+        }
+        return result;
     };
+    /**
+     * 获取自定义业务实例
+     * @param {string}service 自定义业务类名(不是全名称)
+     * @param {array}methods 方法名集合
+     * @returns {object} 返回业务实例。{method:function([param1,param2,]callback){}}
+     */
     SgtApi.getService = function (service,methods) {
         if (!service)throw  '第一个参数service不能为空';
         var serviceName;
@@ -7235,6 +7243,12 @@
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/' + serviceName + '.do';
         return _processCustomService(_url,serviceName,methods);
     };
+    /**
+     * 获取自定义业务实例
+     * @param {string}serviceName 自定义的业务名
+     * @param {array}methods 方法名集合
+     * @returns {object} 返回业务实例。{method:function([param1,param2,]callback){}}
+     */
     SgtApi.getCustomService = function (serviceName, methods) {
         if (!serviceName)throw  '第一个参数serviceName不能为空';
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/' + serviceName + '.do';
