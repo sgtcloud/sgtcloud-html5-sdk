@@ -7374,7 +7374,7 @@ jsonRPC = new Object({
         }else serviceName=service;
         serviceName=serviceName.toLowerCase();
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/' + serviceName + '.do';
-        return _processCustomService(_url,serviceName,methods);
+        return _processCustomService(_url,methods);
     };
     /**
      * 获取自定义业务实例
@@ -7385,9 +7385,9 @@ jsonRPC = new Object({
     SgtApi.getCustomService = function (serviceName, methods) {
         if (!serviceName)throw  '第一个参数serviceName不能为空';
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/' + serviceName + '.do';
-        return _processCustomService(_url,serviceName,methods);
+        return _processCustomService(_url,methods);
     };
-    function _processCustomService(_url,serviceName,methods){
+    function _processCustomService(_url,methods){
         var methodFunc = {};
         if (methods) {
             var _method = [];
@@ -7397,8 +7397,8 @@ jsonRPC = new Object({
                 _method.push(methods);
             }
             for (var i in _method) {
-                (function (p) {
-                    methodFunc[p] = function () {
+                (function (methodName) {
+                    methodFunc[methodName] = function () {
                         var params=Array.prototype.slice.call(arguments,0);
                         var len=params.length,_cb,data=params.slice(0,-1);
                         if(len>1){
@@ -7406,7 +7406,7 @@ jsonRPC = new Object({
                         }else if(len===1&&typeof params[0] === 'function') {
                             _cb= params[0];
                         }
-                        SgtApi.doRPC(serviceName, data, _url, _cb);
+                        SgtApi.doRPC(methodName, data, _url, _cb);
                     }
                 })(_method[i])
             }
