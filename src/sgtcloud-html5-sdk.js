@@ -3521,8 +3521,8 @@
             if (config.channelId) {
                 SgtApi.context.channelId = config.channelId;
             }
-            if(typeof  config["async"] !='undefined'){
-                jsonRPC.async=config["async"];
+            if (typeof  config["async"] != 'undefined') {
+                jsonRPC.async = config["async"];
             }
         }
         SgtApi.UserService = SgtApi.UserService();
@@ -3546,7 +3546,7 @@
                         localStorage.setItem('sgt-' + SgtApi.context.appId + '-openid', SgtApi.context.openid);
                     });
                 }
-            }else
+            } else
                 console.error('您当前未在微信环境的客户端, 所以没有为您初始化微信中控服务');
         } else {
             console.error('您未导入wx-js-sdk, 所以没有为您初始化微信中控服务\r\n若您想了解更多详情, 可以访问微信公众平台开发者文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html');
@@ -3640,9 +3640,9 @@
              * @param  {Function} callback 回调函数
              * @return {User}              登录后的user对象
              */
-            login3rd: function (type,callback) {
+            login3rd: function (type, callback) {
                 var name = 'login3rd';
-                var data = [SgtApi.context.openid,type];
+                var data = [SgtApi.context.openid, type];
                 SgtApi.doRPC(name, data, _url, function (result, data) {
                     if (result) {
                         SgtApi.context.user = data;
@@ -5601,9 +5601,9 @@
              * @param callback
              * @return callback
              */
-            receiveUnread: function (timestamp,playerId,callback) {
+            receiveUnread: function (timestamp, playerId, callback) {
                 var name = 'receiveUnread';
-                var data = [timestamp,playerId];
+                var data = [timestamp, playerId];
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
@@ -7038,9 +7038,9 @@
              * @param {Function} callback   回调函数
              * @return {Object}
              */
-            getPayOrder: function (body,total_fee,playerId, callback) {
+            getPayOrder: function (body, total_fee, playerId, callback) {
                 var name = 'getPayOrder';
-                var data = [SgtApi.context.appId,{
+                var data = [SgtApi.context.appId, {
                     body: body,
                     total_fee: total_fee,
                     trade_type: 'JSAPI',
@@ -7164,13 +7164,13 @@
         var socketUrl = null;
         var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/lobby.do';
         if (SgtApi.context.server.socketUrl) {
-            if (SgtApi.context.server.socketUrl.lastIndexOf('/')==SgtApi.context.server.socketUrl.length-1) {//微信浏览器中居然没有endsWith方法
+            if (SgtApi.context.server.socketUrl.lastIndexOf('/') == SgtApi.context.server.socketUrl.length - 1) {//微信浏览器中居然没有endsWith方法
                 socketUrl = SgtApi.context.server.socketUrl;
             } else {
                 socketUrl = SgtApi.context.server.socketUrl + '/';
             }
         } else {
-            console.log("%c初始化大厅业务失败，socketUrl未设置！","color:red");
+            console.log("%c初始化大厅业务失败，socketUrl未设置！", "color:red");
             return {};
         }
         socketUrl = socketUrl + SgtApi.context.appId;
@@ -7182,7 +7182,7 @@
              */
             getSocket: function (nameSpace) {
                 if (nameSpace) {
-                    if (!nameSpace.indexOf('/')==0) {
+                    if (!nameSpace.indexOf('/') == 0) {
                         nameSpace = '/' + nameSpace;
                     }
                 }
@@ -7224,7 +7224,48 @@
             }
         };
     };
-
+    SgtApi.getService = function (service,methods) {
+        if (!service)throw  '第一个参数service不能为空';
+        var serviceName;
+        var suffix=service.lastIndexOf('Service')>-1?'Service':service.lastIndexOf('Manager')>-1?'Manager':'';
+        if(suffix.length>0){
+            serviceName=service.substring(0,service.lastIndexOf(suffix));
+        }else serviceName=service;
+        serviceName=serviceName.toLowerCase();
+        var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/' + serviceName + '.do';
+        return _processCustomService(_url,serviceName,methods);
+    };
+    SgtApi.getCustomService = function (serviceName, methods) {
+        if (!serviceName)throw  '第一个参数serviceName不能为空';
+        var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/' + serviceName + '.do';
+        return _processCustomService(_url,serviceName,methods);
+    };
+    function _processCustomService(_url,serviceName,methods){
+        var methodFunc = {};
+        if (methods) {
+            var _method = [];
+            if (methods instanceof Array) {
+                Array.prototype.push.apply(_method, methods);
+            } else {
+                _method.push(methods);
+            }
+            for (var i in _method) {
+                (function (p) {
+                    methodFunc[p] = function () {
+                        var params=Array.prototype.slice.call(arguments,0);
+                        var len=params.length,_cb,data=params.slice(0,-1);
+                        if(len>1){
+                            _cb= params[len-1];
+                        }else if(len===1&&typeof params[0] === 'function') {
+                            _cb= params[0];
+                        }
+                        SgtApi.doRPC(serviceName, data, _url, _cb);
+                    }
+                })(_method[i])
+            }
+        }
+        return methodFunc;
+    }
 
     // browser
     if (typeof navigator !== 'undefined') {
