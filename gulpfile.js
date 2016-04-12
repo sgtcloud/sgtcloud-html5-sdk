@@ -13,7 +13,7 @@ var options = {
 	//要编译的文件名集合
     compileFileNames: ['./src/jsonrpc.js', './src/sgtcloud-html5-sdk.js'],
     //编译后的文件名
-    compiledFileName:'sgtcloud-html5-sdk.2.1.4.2.js',
+    compiledFileName:'sgtcloud-html5-sdk.2.1.5.js',
     lintPaths: [
         './src/*.js'
     ]
