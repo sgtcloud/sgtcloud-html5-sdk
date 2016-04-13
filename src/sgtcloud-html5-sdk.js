@@ -4402,7 +4402,7 @@
              */
             getAllServerAnnounceByType: function (type, callback) {
                 var name = 'getAnnounceByType';
-                var data = [type];
+                var data = [SgtApi.context.appId , type];
                 _url = this.getRequestUrlByServerType(SgtApi.Announcement.ALLSERVER);
                 SgtApi.doRPC(name, data, _url, callback);
             },

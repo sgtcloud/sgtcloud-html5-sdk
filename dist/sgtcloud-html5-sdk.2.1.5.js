@@ -977,6 +977,22 @@ jsonRPC = new Object({
     SgtApi.Announcement.MAINTAIN = 3;
 
     /**
+     * 公告服务器类型 全服
+     * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Announcement
+     */
+    SgtApi.Announcement.ALLSERVER = 1;
+    /**
+     * 公告服务器类型 当前服务器
+     * @type {number}
+     * @static
+     * @constant
+     * @memberof SgtApi.Announcement
+     */
+    SgtApi.Announcement.SINGLESERVER = 2;
+    /**
      * 黑名单
      * @constructor
      */
@@ -4504,7 +4520,7 @@ jsonRPC = new Object({
              */
             getRequestUrlByServerType: function(serverType){
 
-                if(typeof(serverType) != 'undefined' && serverType === 2){
+                if(typeof(serverType) != 'undefined' && serverType === SgtApi.Announcement.ALLSERVER){
                     _url = SgtApi.context.appGateway + '/' + SgtApi.context.appId + '/announcement.do';
                 }else{
                     _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/announcement.do';
@@ -4512,16 +4528,27 @@ jsonRPC = new Object({
                 return _url;
             },
             /**
-             * 通过公告类型获取最新公告 （获取版本号最大的）
-             * @param {int} serverType 1.全服2.当前服务器
+             * 通过公告类型获取最新全服公告 （获取版本号最大的）
              * @param {int}type 公告类型
              * @param {Function}callback 回调函数
              * @return Announcement
              */
-            getAnnounceByType: function (serverType,type, callback) {
+            getAllServerAnnounceByType: function (type, callback) {
+                var name = 'getAnnounceByType';
+                var data = [SgtApi.context.appId , type];
+                _url = this.getRequestUrlByServerType(SgtApi.Announcement.ALLSERVER);
+                SgtApi.doRPC(name, data, _url, callback);
+            },
+            /**
+             * 通过公告类型获取当前服务器最新公告 （获取版本号最大的）
+             * @param {int}type 公告类型
+             * @param {Function}callback 回调函数
+             * @return Announcement
+             */
+            getAnnounceByType: function (type, callback) {
                 var name = 'getAnnounceByType';
                 var data = [type];
-                _url = this.getRequestUrlByServerType(serverType);
+                _url = this.getRequestUrlByServerType(SgtApi.Announcement.SINGLESERVER);
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
