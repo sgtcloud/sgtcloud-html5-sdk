@@ -4521,7 +4521,7 @@ jsonRPC = new Object({
             getRequestUrlByServerType: function(serverType){
 
                 if(typeof(serverType) != 'undefined' && serverType === SgtApi.Announcement.ALLSERVER){
-                    _url = SgtApi.context.appGateway + '/' + SgtApi.context.appId + '/announcement.do';
+                    _url = SgtApi.context.appGateway  + '/announcement';
                 }else{
                     _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/announcement.do';
                 }
@@ -4535,7 +4535,7 @@ jsonRPC = new Object({
              */
             getAllServerAnnounceByType: function (type, callback) {
                 var name = 'getAnnounceByType';
-                var data = [SgtApi.context.appId , type];
+                var data = [type , SgtApi.context.appId];
                 _url = this.getRequestUrlByServerType(SgtApi.Announcement.ALLSERVER);
                 SgtApi.doRPC(name, data, _url, callback);
             },
