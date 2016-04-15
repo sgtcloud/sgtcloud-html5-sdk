@@ -3939,7 +3939,7 @@
                 var username = localStorage.getItem("sgt-" + _appId + "-username");
                 var password = localStorage.getItem("sgt-" + _appId + "-password");
                 if (username && password) {
-                    this.login(username, password, callback);
+                    this.login_manual(username, password, callback);
                 } else {
                     var num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
                     var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
