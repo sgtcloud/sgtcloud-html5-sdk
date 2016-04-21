@@ -3756,7 +3756,7 @@
                 var data = [user];
                 SgtApi.doRPC(name, data, _url, function (result, data) {
                     if (result) {
-                        SgtApi.context.user = data;
+                        //SgtApi.context.user = data;
                         callback(true, data);
                     } else {
                         callback(false, data);
