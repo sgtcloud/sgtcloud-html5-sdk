@@ -3415,7 +3415,7 @@
             },
             error: function (data) {
                 if (callback) {
-                    return callback(false, SgtApi.errorMessage(data) + '.\nat: ' + name + '()');
+                    return callback(false, SgtApi.errorMessage(data) /*+ '.\nat: ' + name + '()'*/);
                 }
             }
         });
