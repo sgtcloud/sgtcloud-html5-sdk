@@ -1,3 +1,136 @@
+jsonRPC = new Object({
+    version: '2.0',
+    endPoint: null,
+    namespace: null,
+    /**
+     * 是否异步请求，true异步，false同步，默认为true
+     */
+    async:true,
+    setup: function (params) {
+        this.endPoint = params["endPoint"];
+        this.namespace = params["namespace"];
+        this.cache = params["cache"] !== undefined ? params["cache"] : true;
+        return this;
+    },
+    request: function (method, options) {
+        if (options === undefined) {
+            options = {"id": 1};
+        }
+        if (options["id"] === undefined) {
+            options["id"] = 1;
+        }
+        if (options["cache"] === undefined) {
+            options["cache"] = this.cache;
+        }
+
+        this._doRequest(JSON.stringify(this._requestDataObj(method, options["params"], options["id"])), options);
+        return true;
+    },
+    // Creates an RPC suitable request object
+    _requestDataObj: function (method, params, id) {
+        var dataObj = {
+            "jsonrpc": this.version,
+            "method": this.namespace ? this.namespace + '.' + method : method,
+            "id": id
+        }
+        if (params !== undefined) {
+            dataObj["params"] = params;
+        }
+        return dataObj;
+    },
+
+    _requestUrl: function (url, cache) {
+        url = url || this.endPoint;
+        if (!cache) {
+            if (url.indexOf("?") < 0) {
+                url += '?tm=' + new Date().getTime();
+            }
+            else {
+                url += "&tm=" + new Date().getTime();
+            }
+        }
+        return url;
+    },
+    _doRequest: function (data, options) {
+        var _that = this;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
+                    _that._requestSuccess.call(_that, xmlhttp.responseText, options["success"], options["error"]);
+                } else {
+                    _that._requestError.call(_that, xmlhttp.responseText, options["error"]);
+                }
+            }
+        };
+        if(typeof options["async"]=='undefined'){
+            options["async"]=jsonRPC.async;
+        }
+        xmlhttp.open("POST", this._requestUrl((this.endPoint || options["url"]), options["cache"]),options["async"]);
+
+        var headers = [
+            {"name": "Accept", "type": "application/json, text/javascript, */*;"},
+            {"name": "Content-Type", "type": "application/json-rpc"}
+        ];
+        for (var i = 0; i < headers.length; i++) {
+            xmlhttp.setRequestHeader(headers[i]["name"], headers[i]["type"]);
+        }
+
+        xmlhttp.send(data);
+    },
+    // Handles calling of error callback function
+    _requestError: function (responseText, error) {
+        if (error !== undefined && typeof(error) === 'function') {
+            if (typeof(responseText) === 'string') {
+                try {
+                    error(eval('(' + responseText + ')'));
+                }
+                catch (e) {
+                    error(this._response());
+                }
+            }
+            else {
+                error(this._response());
+            }
+        }
+    },
+    _requestSuccess: function (responseText, success, error) {
+        var response = this._response(responseText);
+
+        if (response.error && typeof(error) === 'function') {
+            error(response);
+            return;
+        }
+
+        // Otherwise, successful request, run the success request if it exists
+        if (typeof(success) === 'function') {
+            success(response);
+        }
+    },
+    _response: function (responseText) {
+        if (responseText === undefined) {
+            return {
+                error: 'Internal server error',
+                version: '2.0'
+            };
+        }
+        else {
+            try {
+                if (typeof(responseText) === 'string') {
+                    responseText = eval('(' + responseText + ')');
+                }
+                return responseText;
+            }
+            catch (e) {
+                return {
+                    error: 'Internal server error: ' + e,
+                    version: '2.0'
+                }
+            }
+        }
+    }
+});
+
 /**
  * @description sgt html5 api
  * @index
@@ -843,22 +976,6 @@
      */
     SgtApi.Announcement.MAINTAIN = 3;
 
-    /**
-     * 公告服务器类型 全服
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Announcement
-     */
-    SgtApi.Announcement.ALLSERVER = 1;
-    /**
-     * 公告服务器类型 当前服务器
-     * @type {number}
-     * @static
-     * @constant
-     * @memberof SgtApi.Announcement
-     */
-    SgtApi.Announcement.SINGLESERVER = 2;
     /**
      * 黑名单
      * @constructor
@@ -3415,7 +3532,7 @@
             },
             error: function (data) {
                 if (callback) {
-                    return callback(false, SgtApi.errorMessage(data) /*+ '.\nat: ' + name + '()'*/);
+                    return callback(false, SgtApi.errorMessage(data) + '.\nat: ' + name + '()');
                 }
             }
         });
@@ -3544,7 +3661,6 @@
         SgtApi.UserService = SgtApi.UserService();
         SgtApi.RouterService = SgtApi.RouterService();
         SgtApi.UserLeaveInfoService = SgtApi.UserLeaveInfoService();
-        SgtApi.AnnouncementService = SgtApi.AnnouncementService();
         //初始化微信中控服务
         if (typeof wx != "undefined") {
             if (is_weixin()) {
@@ -3569,48 +3685,7 @@
             console.warn('%c您未导入wx-js-sdk, 所以没有为您初始化微信中控服务\r\n若您想了解更多详情, 可以访问微信公众平台开发者文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html','color:red');
         }
     };
-    /**
-     * 创建Service 实例
-     */
-    SgtApi.CreateServices = function(){
 
-        if (!SgtApi._doneInit) {
-            SgtApi.PlayerService = SgtApi.PlayerService();
-            SgtApi.PlayerExtraService = SgtApi.PlayerExtraService();
-            SgtApi.AchievementService = SgtApi.AchievementService();
-            //SgtApi.AnnouncementService = SgtApi.AnnouncementService();
-            SgtApi.CampaignService = SgtApi.CampaignService();
-            SgtApi.CheckinBoardService = SgtApi.CheckinBoardService();
-            SgtApi.DailyTaskService = SgtApi.DailyTaskService();
-            SgtApi.TaskService = SgtApi.TaskService();
-            SgtApi.FriendshipService = SgtApi.FriendshipService();
-            SgtApi.FriendshipExtraService = SgtApi.FriendshipExtraService();
-            SgtApi.BlacklistService = SgtApi.BlacklistService();
-            SgtApi.GachaBoxService = SgtApi.GachaBoxService();
-            SgtApi.LeaderBoardService = SgtApi.LeaderBoardService();
-            SgtApi.MailService = SgtApi.MailService();
-            SgtApi.NotificationService = SgtApi.NotificationService();
-            SgtApi.PurchaseService = SgtApi.PurchaseService();
-            SgtApi.StoreService = SgtApi.StoreService();
-            SgtApi.ChargePointService = SgtApi.ChargePointService();
-            SgtApi.BossService = SgtApi.BossService();
-            SgtApi.FileStorageService = SgtApi.FileStorageService();
-            SgtApi.GiftCodeService = SgtApi.GiftCodeService();
-            SgtApi.PrivateChannelService = SgtApi.PrivateChannelService();
-            SgtApi.PublicChannelService = SgtApi.PublicChannelService();
-            SgtApi.DelegateDidService = SgtApi.DelegateDidService();
-            SgtApi.StructuredDataService = SgtApi.StructuredDataService();
-            SgtApi.TicketService = SgtApi.TicketService();
-            SgtApi.ErrorReportService = SgtApi.ErrorReportService();
-            SgtApi.InvitationCodeService = SgtApi.InvitationCodeService();
-            SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
-            SgtApi.TimestampService = SgtApi.TimestampService();
-            SgtApi.VersionDetailService = SgtApi.VersionDetailService();
-            SgtApi.RandomNameGroupService = SgtApi.RandomNameGroupService();
-            SgtApi.LobbyService = SgtApi.LobbyService();
-            SgtApi._doneInit = true;
-        }
-    };
     /**
      * 用户相关业务接口
      * @module UserService
@@ -3619,7 +3694,48 @@
         var _appGateway = SgtApi.context.appGateway;
         var _appId = SgtApi.context.appId;
         var _url = _appGateway + '/user';
-
+        var _doneInit = false;
+        /**
+         * 创建Service 实例
+         */
+        var _createServices = function () {
+            if (!_doneInit) {
+                SgtApi.PlayerService = SgtApi.PlayerService();
+                SgtApi.PlayerExtraService = SgtApi.PlayerExtraService();
+                SgtApi.AchievementService = SgtApi.AchievementService();
+                SgtApi.AnnouncementService = SgtApi.AnnouncementService();
+                SgtApi.CampaignService = SgtApi.CampaignService();
+                SgtApi.CheckinBoardService = SgtApi.CheckinBoardService();
+                SgtApi.DailyTaskService = SgtApi.DailyTaskService();
+                SgtApi.TaskService = SgtApi.TaskService();
+                SgtApi.FriendshipService = SgtApi.FriendshipService();
+                SgtApi.FriendshipExtraService = SgtApi.FriendshipExtraService();
+                SgtApi.BlacklistService = SgtApi.BlacklistService();
+                SgtApi.GachaBoxService = SgtApi.GachaBoxService();
+                SgtApi.LeaderBoardService = SgtApi.LeaderBoardService();
+                SgtApi.MailService = SgtApi.MailService();
+                SgtApi.NotificationService = SgtApi.NotificationService();
+                SgtApi.PurchaseService = SgtApi.PurchaseService();
+                SgtApi.StoreService = SgtApi.StoreService();
+                SgtApi.ChargePointService = SgtApi.ChargePointService();
+                SgtApi.BossService = SgtApi.BossService();
+                SgtApi.FileStorageService = SgtApi.FileStorageService();
+                SgtApi.GiftCodeService = SgtApi.GiftCodeService();
+                SgtApi.PrivateChannelService = SgtApi.PrivateChannelService();
+                SgtApi.PublicChannelService = SgtApi.PublicChannelService();
+                SgtApi.DelegateDidService = SgtApi.DelegateDidService();
+                SgtApi.StructuredDataService = SgtApi.StructuredDataService();
+                SgtApi.TicketService = SgtApi.TicketService();
+                SgtApi.ErrorReportService = SgtApi.ErrorReportService();
+                SgtApi.InvitationCodeService = SgtApi.InvitationCodeService();
+                SgtApi.PaymentCallbackService = SgtApi.PaymentCallbackService();
+                SgtApi.TimestampService = SgtApi.TimestampService();
+                SgtApi.VersionDetailService = SgtApi.VersionDetailService();
+                SgtApi.RandomNameGroupService = SgtApi.RandomNameGroupService();
+                SgtApi.LobbyService = SgtApi.LobbyService();
+                _doneInit = true;
+            }
+        };
         /**
          * 获取服务器信息并解锁其他服务
          */
@@ -3631,7 +3747,7 @@
             }, function (result, data) {
                 if (result) {
                     SgtApi.context.server = data;
-                    SgtApi.CreateServices();
+                    _createServices();
                     callback(true, SgtApi.context.user);
                 } else {
                     callback(false, data);
@@ -3652,7 +3768,7 @@
                 SgtApi.doRPC(name, data, _url, callback);
             },
             /**
-             * 第三方登录（自动选服）
+             * 第三方登录
              * @param  {string} type 登陆类型
              * @param  {Function} callback 回调函数
              * @return {User}              登录后的user对象
@@ -3670,7 +3786,7 @@
                 });
             },
             /**
-             * 手动登录（自动选服）
+             * 手动登录
              * @param  {string}   username 用户名
              * @param  {string}   password 密码
              * @param  {Function} callback 回调函数
@@ -3690,7 +3806,7 @@
             },
 
             /**
-             * 客户端通过提交user对象完成注册（自动选服）
+             * 客户端通过提交user对象完成注册
              * @param  {User}       user     user对象
              * @param  {Function}   callback 回调函数
              * @return {User}       注册后的user对象
@@ -3702,62 +3818,6 @@
                     if (result) {
                         SgtApi.context.user = data;
                         _getPlayServer(callback);
-                    } else {
-                        callback(false, data);
-                    }
-                });
-            },
-            /**
-             * 第三方登录（手动选服）
-             * @param  {string} type 登陆类型
-             * @param  {Function} callback 回调函数
-             * @return {User}              登录后的user对象
-             */
-            login3rd_manual: function (type, callback) {
-                var name = 'login3rd';
-                var data = [SgtApi.context.openid, type];
-                SgtApi.doRPC(name, data, _url, function (result, data) {
-                    if (result) {
-                        SgtApi.context.user = data;
-                        callback(true, data);
-                    } else {
-                        callback(false, data);
-                    }
-                });
-            },
-            /**
-             * 手动登录（手动选服）
-             * @param  {string}   username 用户名
-             * @param  {string}   password 密码
-             * @param  {Function} callback 回调函数
-             * @return {User}              登录后的user对象
-             */
-            login_manual: function (userName, password, callback) {
-                var name = 'login';
-                var data = [userName, password];
-                SgtApi.doRPC(name, data, _url, function (result, data) {
-                    if (result) {
-                        SgtApi.context.user = data;
-                        callback(true, data);
-                    } else {
-                        callback(false, data);
-                    }
-                });
-            },
-
-            /**
-             * 客户端通过提交user对象完成注册（手动选服）
-             * @param  {User}       user     user对象
-             * @param  {Function}   callback 回调函数
-             * @return {User}       注册后的user对象
-             */
-            regist_manual: function (user, callback) {
-                var name = 'register';
-                var data = [user];
-                SgtApi.doRPC(name, data, _url, function (result, data) {
-                    if (result) {
-                        //SgtApi.context.user = data;
-                        callback(true, data);
                     } else {
                         callback(false, data);
                     }
@@ -3822,7 +3882,7 @@
                 var data = [user];
                 var that = this;
                 SgtApi.doRPC(name, data, _url, function (result, data) {
-                    if (result) {
+                    if (resilt) {
                         that.saveLocalStorage(user.userName, user.password);
                         callback(true, data);
                     } else {
@@ -3890,7 +3950,7 @@
             },
 
             /**
-             * 快速登录 （自动选服）
+             * 快速登录
              * @param  {Function} callback 回调函数
              * @return {User}            登录后的User对象
              */
@@ -3920,47 +3980,6 @@
                     user.userName = name;
                     user.password = 'yoedge2014';
                     this.regist(user, function (result, data) {
-                        if (result) {
-                            localStorage.setItem('sgt-' + _appId + '-username', user.userName);
-                            localStorage.setItem('sgt-' + _appId + '-password', user.password);
-                            callback(true, data);
-                        } else {
-                            callback(false, data);
-                        }
-                    });
-                }
-            },
-            /**
-             * 快速登录（手动选服）
-             * @param  {Function} callback 回调函数
-             * @return {User}            登录后的User对象
-             */
-            quickLogin_manual: function (callback) {
-                var username = localStorage.getItem("sgt-" + _appId + "-username");
-                var password = localStorage.getItem("sgt-" + _appId + "-password");
-                if (username && password) {
-                    this.login_manual(username, password, callback);
-                } else {
-                    var num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-                    var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-                        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-                    ];
-                    var name = '';
-                    for (var i = 0; i < 8; i++) {
-                        var id = 0;
-                        if (i > 5) {
-                            id = Math.ceil(Math.random() * 9);
-                            name += num[id];
-                        } else {
-                            id = Math.ceil(Math.random() * 61);
-                            name += chars[id];
-                        }
-                    }
-                    var user = new SgtApi.User();
-                    user.userName = name;
-                    user.password = 'yoedge2014';
-                    this.regist_manual(user, function (result, data) {
                         if (result) {
                             localStorage.setItem('sgt-' + _appId + '-username', user.userName);
                             localStorage.setItem('sgt-' + _appId + '-password', user.password);
@@ -4476,36 +4495,10 @@
      * @type {{}|*}
      */
     SgtApi.AnnouncementService = function () {
-        var _url;
+        var _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/announcement.do';
         return {
             /**
-             * 通过serverType 判断是获取全服公告还是当前服务器公告
-             * @param {int} serverType 1.全服2.当前服务器
-             * @returns {string}
-             */
-            getRequestUrlByServerType: function(serverType){
-
-                if(typeof(serverType) != 'undefined' && serverType === SgtApi.Announcement.ALLSERVER){
-                    _url = SgtApi.context.appGateway  + '/announcement';
-                }else{
-                    _url = SgtApi.context.server.address + '/' + SgtApi.context.appId + '/announcement.do';
-                }
-                return _url;
-            },
-            /**
-             * 通过公告类型获取最新全服公告 （获取版本号最大的）
-             * @param {int}type 公告类型
-             * @param {Function}callback 回调函数
-             * @return Announcement
-             */
-            getAllServerAnnounceByType: function (type, callback) {
-                var name = 'getAnnounceByType';
-                var data = [type , SgtApi.context.appId];
-                _url = this.getRequestUrlByServerType(SgtApi.Announcement.ALLSERVER);
-                SgtApi.doRPC(name, data, _url, callback);
-            },
-            /**
-             * 通过公告类型获取当前服务器最新公告 （获取版本号最大的）
+             * 通过公告类型获取最新公告 （获取版本号最大的）
              * @param {int}type 公告类型
              * @param {Function}callback 回调函数
              * @return Announcement
@@ -4513,7 +4506,6 @@
             getAnnounceByType: function (type, callback) {
                 var name = 'getAnnounceByType';
                 var data = [type];
-                _url = this.getRequestUrlByServerType(SgtApi.Announcement.SINGLESERVER);
                 SgtApi.doRPC(name, data, _url, callback);
             }
         };
@@ -6216,19 +6208,6 @@
             redeem: function (playerId,  code, callback) {
                 var name = 'redeem';
                 var data = [playerId,  code];
-                SgtApi.doRPC(name, data, _url, callback);
-            },
-            /**
-             * 兑换并返回奖品
-             * @param  {string}   playerId 角色ID
-             * @param  {String}   giftId   礼包ID
-             * @param  {string}   code     兑换码
-             * @param  {Function} callback 回调函数
-             * @return {string}            奖品
-             */
-            redeemByGiftId: function (playerId, giftId, code, callback) {
-                var name = 'redeem';
-                var data = [playerId, giftId,code];
                 SgtApi.doRPC(name, data, _url, callback);
             },
 
